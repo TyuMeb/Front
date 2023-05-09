@@ -1,20 +1,22 @@
-.header {
+.nav {
     display: flex;
-    align-items: center;
-    gap: 50px;
-    height: 100px;
-    border-bottom: 1px solid #ffffff;
+    justify-content: space-between;
+    width: 1440px;
+    max-width: 100%;
+    margin: auto;
+    padding: 0 110px;
 }
 
-.link {
-    font-size: 16px;
-    transition: font-size 0.2s ease-in;
+.header {
+    padding-top: 40px;
+    height: 110px;
+}
+
+.list {
+    display: flex;
+    gap: 30px;
 }
 
 .link:hover {
     text-decoration: underline;
-}
-
-.active {
-    font-size: 24px;
 }
