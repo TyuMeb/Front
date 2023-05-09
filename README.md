@@ -1,6 +1,6 @@
 Этот проект [Next.js](https://nextjs.org/) был установлен утилитой [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-Приложение можно посмотреть по ссылке ...
+Приложение можно посмотреть по ссылке [https://front-inky-nine.vercel.app/](https://front-inky-nine.vercel.app/)
 
 ## Несколько требований к проекту
 
