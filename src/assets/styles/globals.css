@@ -1,0 +1,29 @@
+:root {
+    --text-main-color: #1c1c1c;
+    --accent-color: #fccf55;
+    --latte-color: #eae5e1;
+    --light-latte-color: #f5f3f1;
+    --asphalt-color: #b5b3b2;
+    --bg-main-color: #ffffff;
+    --bg-secondary-color: #fffaee;
+    --bg-accent-color: #fff2cc;
+
+    --container-width: 1400px;
+
+    --container-padding: 110px;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
