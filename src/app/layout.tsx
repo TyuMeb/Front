@@ -1,10 +1,10 @@
-import "./globals.css";
-import { Inter } from "next/font/google";
+import "@/assets/styles/globals.css";
+import { Open_Sans } from "next/font/google";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
 import styles from "./layout.module.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Open_Sans({ subsets: ["latin"] });
 
 export const metadata = {
     title: "Marketplace Why We",
