@@ -6,6 +6,8 @@ import clsx from "clsx";
 import { Open_Sans, Raleway } from "next/font/google";
 import Image from "next/image";
 import aboutImg from "../assets/images/about.jpg";
+import stepImg from "../assets/images/image.jpg";
+import { Step } from "@/components/UI/step/step";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 const raleway = Raleway({ subsets: ["latin"] });
@@ -37,6 +39,24 @@ export default function Home() {
                         </p>
                     </div>
                     <Image className={styles.round} src={aboutImg} alt="" width={492} height={313} />
+                </div>
+                <div>
+                    <h2 className="h2">Как это работает?</h2>
+                    <div className={styles.steps}>
+                        <Step title="Заполните заявку онлайн" num={1} imgSrc={stepImg}>
+                            расскажите нам о пожеланиях: цвет, материал, особенности, чтобы мы удовлетворили ваши
+                            запросы
+                        </Step>
+                        <Step title="Сосредоточьтесь на своих делах" num={2} imgSrc={stepImg}>
+                            остальное предоставьте нам
+                        </Step>
+                        <Step title="Получите предложения через 24 часа" num={3} imgSrc={stepImg}>
+                            исполнители пришлют вам дизайн, смету и описание
+                        </Step>
+                        <Step title="Выберите исполнителя" num={4} imgSrc={stepImg}>
+                            и через время наслаждайтесь новой мебелью
+                        </Step>
+                    </div>
                 </div>
             </div>
         </main>

@@ -1,0 +1,24 @@
+.img {
+    height: 260px;
+    padding: var(--gap-s);
+    margin-bottom: var(--gap-s);
+    border-radius: var(--border-radius-m);
+}
+
+.text {
+    margin-left: var(--gap-default);
+
+    .p {
+        margin-top: var(--gap-xs);
+    }
+}
+
+.num {
+    width: 48px;
+    height: 48px;
+    background-color: var(--bg-accent-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
