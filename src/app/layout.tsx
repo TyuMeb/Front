@@ -1,6 +1,6 @@
-import "@/assets/styles/globals.css";
+import "@/assets/styles/global.css";
 import { Open_Sans } from "next/font/google";
-import Header from "@/components/header/header";
+import { Header } from "@/components/header/header";
 import Footer from "@/components/footer/footer";
 import styles from "./layout.module.css";
 

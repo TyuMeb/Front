@@ -12,7 +12,7 @@
     --success-accent-color: #7cc19e;
     --success-light-color: #f7fbf9;
 
-    --container-width: 1400px;
+    --container-width: 1440px;
     --gap-xs: 8px;
     --gap-s: 20px;
     --gap-default: 28px;
@@ -32,6 +32,10 @@
     margin: 0;
 }
 
+body {
+    color: var(--text-main-color);
+}
+
 ul {
     list-style-type: none;
 }
@@ -39,4 +43,11 @@ ul {
 a {
     color: inherit;
     text-decoration: none;
+}
+
+.h3 {
+    font-size: 20px;
+    line-height: 32px;
+    font-weight: 600;
+    text-align: center;
 }
