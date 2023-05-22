@@ -8,6 +8,7 @@ import Image from "next/image";
 import aboutImg from "../assets/images/about.jpg";
 import stepImg from "../assets/images/image.jpg";
 import { Step } from "@/components/UI/step/step";
+import { Input } from "@/components/UI/input/input";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 const raleway = Raleway({ subsets: ["latin"] });
@@ -57,6 +58,19 @@ export default function Home() {
                             и через время наслаждайтесь новой мебелью
                         </Step>
                     </div>
+                </div>
+                <div className={clsx(styles.partnership, styles.round)}>
+                    <p className={styles.p}>
+                        Хотите стать одним из исполнителей на ВайВи? — оставьте заявку и мы с вами свяжемся. Мы готовы
+                        предоставить постоянный поток клиентов и взаимовыгодное сотрудничество
+                    </p>
+                    <form action="">
+                        <div className={styles.inputs}>
+                            <Input placeholder="Имя" required />
+                            <Input placeholder="Номер телефона" type="tel" maxLength={11} required />
+                        </div>
+                        <Button onClick={() => {}}>Связаться</Button>
+                    </form>
                 </div>
             </div>
         </main>

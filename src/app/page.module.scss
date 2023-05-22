@@ -3,6 +3,11 @@
     padding-top: var(--gap-xxxl);
     background: url("../assets/images/home-banner.jpg") bottom no-repeat;
     background-size: cover;
+
+    .p {
+        margin: var(--gap-xs) 0 var(--gap-m);
+        font-size: 20px;
+    }
 }
 
 .box {
@@ -10,11 +15,6 @@
     max-width: 100%;
     margin: auto;
     padding: 0 var(--gap-xxl);
-}
-
-.p {
-    margin: var(--gap-xs) 0 var(--gap-m);
-    font-size: 20px;
 }
 
 .round {
@@ -46,5 +46,24 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: var(--gap-default);
+    }
+
+    .partnership {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: var(--gap-xl);
+        background-color: var(--bg-secondary-color);
+        text-align: center;
+
+        .p {
+            width: 680px;
+        }
+
+        .inputs {
+            margin: var(--gap-m) 0 var(--gap-s);
+            display: flex;
+            gap: var(--gap-xs);
+        }
     }
 }

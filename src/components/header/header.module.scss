@@ -23,11 +23,9 @@
             .link {
                 &:hover {
                     text-decoration: underline;
-                    text-underline-offset: var(--gap-xs);
                 }
                 &:active {
                     text-decoration: underline;
-                    text-underline-offset: var(--gap-xs);
                     text-decoration-color: var(--accent-color);
                 }
             }

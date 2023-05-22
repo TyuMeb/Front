@@ -1,0 +1,24 @@
+import styles from "./input.module.scss";
+
+type TInputProps = {
+    type?: string;
+    placeholder?: string;
+    maxLength?: number;
+    required?: boolean;
+    errorMessage?: string;
+};
+
+export const Input = ({ type = "text", placeholder, maxLength, required = false, errorMessage }: TInputProps) => {
+    return (
+        <div>
+            <input
+                className={styles.input}
+                type={type}
+                placeholder={placeholder}
+                maxLength={maxLength}
+                required={required}
+            />
+            {errorMessage && <p className={styles.message}>{errorMessage}</p>}
+        </div>
+    );
+};
