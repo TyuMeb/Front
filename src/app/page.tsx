@@ -1,3 +1,6 @@
+"use client";
+
+import { Button } from "@/components/UI/button/button";
 import styles from "./page.module.css";
 import clsx from "clsx";
 import { Open_Sans, Raleway } from "next/font/google";
@@ -13,9 +16,9 @@ export default function Home() {
                     <div>
                         <h1 className={clsx(raleway.className, "h1")}>Создайте свой идеальный дом</h1>
                         <p className={clsx(openSans.className, styles.p)}>
-                            Сделайте заказ прямо сейчас и мы подберём вам лучшие предложения за 24 часа
+                            Сделайте заказ прямо сейчас, и мы подберём вам лучшие предложения за 24 часа
                         </p>
-                        <button>Сделать заказ</button>
+                        <Button onClick={() => {}}>Сделать заказ</Button>
                     </div>
                 </div>
             </div>

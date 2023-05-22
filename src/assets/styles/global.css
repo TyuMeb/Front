@@ -3,7 +3,7 @@
     --accent-color: #fccf55;
     --latte-color: #eae5e1;
     --light-latte-color: #f5f3f1;
-    --asphalt-color: #b5b3b2;
+    --disabled-color: #b5b3b2;
     --bg-main-color: #ffffff;
     --bg-secondary-color: #fffaee;
     --bg-accent-color: #fff2cc;
@@ -11,6 +11,8 @@
     --error-light-color: #fef7f9;
     --success-accent-color: #7cc19e;
     --success-light-color: #f7fbf9;
+    --btn-hover-color: #fdb675;
+    --btn-active-color: #f5a13f;
 
     --container-width: 1440px;
     --gap-xs: 8px;
