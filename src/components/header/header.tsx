@@ -1,34 +1,29 @@
 "use client";
 
 import styles from "./header.module.css";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { MouseEvent } from "react";
 
 const Header = () => {
-    const currentRoute = usePathname();
-
-    const activeLink = (pathname: string): string => {
-        if (currentRoute === pathname) {
-            return `${styles.link} ${styles.active}`;
-        } else {
-            return styles.link;
+    const activeLink = (event: MouseEvent<HTMLUListElement>) => {
+        const target = event.target as Element;
+        if (target.tagName === "LI") {
+            console.log(target);
         }
     };
 
     return (
         <header className={styles.header}>
-            <Link href={"/"} className={activeLink("/")}>
-                Home
-            </Link>
-            <Link href={"page1"} className={activeLink("/page1")}>
-                Page 1
-            </Link>
-            <Link href={"page2"} className={activeLink("/page2")}>
-                Page 2
-            </Link>
-            <Link href={"page3"} className={activeLink("/page3")}>
-                Page 3
-            </Link>
+            <nav className={styles.nav}>
+                <ul className={styles.list} onClick={activeLink}>
+                    <li className={styles.logo}>ВайВи</li>
+                    <li className={styles.link}>О проекте</li>
+                    <li className={styles.link}>Как это работает</li>
+                    <li className={styles.link}>Исполнителям</li>
+                    <li className={styles.link}>Примеры работ</li>
+                    <li className={styles.link}>Преимущества</li>
+                    <li className={styles.link}>Войти</li>
+                </ul>
+            </nav>
         </header>
     );
 };
