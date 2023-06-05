@@ -1,14 +1,42 @@
 .header {
+    width: 1440px;
     display: flex;
     align-items: center;
-    gap: 50px;
-    height: 100px;
-    border-bottom: 1px solid #ffffff;
+    margin: 0 auto;
+
+    height: 80px;
+    background-color: #ffffff;
+}
+
+.nav {
+    width: 100%;
+}
+
+.list {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 40px;
+}
+
+.link:last-child {
+    margin-left: auto;
+}
+
+.logo {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 160%;
+    cursor: pointer;
 }
 
 .link {
+    font-weight: 400;
     font-size: 16px;
-    transition: font-size 0.2s ease-in;
+    line-height: 160%;
+    cursor: pointer;
 }
 
 .link:hover {
@@ -16,5 +44,5 @@
 }
 
 .active {
-    font-size: 24px;
+    font-weight: 600;
 }
