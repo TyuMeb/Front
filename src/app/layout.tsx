@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Header from "@src/components/header/header";
 import Footer from "@src/components/footer/footer";
 import styles from "./layout.module.css";
+import { Providers } from "@src/store/provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,11 +15,13 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
-            <body className={inter.className}>
-                <Header />
-                <main className={styles.main}>{children}</main>
-                <Footer />
-            </body>
+            <Providers>
+                <body className={inter.className}>
+                    <Header />
+                    <main className={styles.main}>{children}</main>
+                    <Footer />
+                </body>
+            </Providers>
         </html>
     );
 }
