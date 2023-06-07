@@ -2,24 +2,17 @@
 
 import styles from "./header.module.css";
 import { MouseEvent } from "react";
-import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
-import { closeModal, openModal } from "@src/redux/modal-slice";
+import { useAppDispatch } from "@src/redux/hooks";
+import { openModal } from "@src/redux/modal-slice";
 
 const Header = () => {
     const dispatch = useAppDispatch();
-    const { modal } = useAppSelector((store) => store.modal);
 
     const activeLink = (event: MouseEvent<HTMLUListElement>) => {
-        if (modal) {
-            dispatch(closeModal());
-        } else {
-            dispatch(openModal());
-        }
         const target = event.target as Element;
         if (target.tagName === "LI") {
             console.log(target);
         }
-        console.log(modal);
     };
 
     return (
@@ -32,7 +25,9 @@ const Header = () => {
                     <li className={styles.link}>Исполнителям</li>
                     <li className={styles.link}>Примеры работ</li>
                     <li className={styles.link}>Преимущества</li>
-                    <li className={styles.link}>Войти</li>
+                    <li className={styles.link} onClick={() => dispatch(openModal())}>
+                        Войти
+                    </li>
                 </ul>
             </nav>
         </header>
