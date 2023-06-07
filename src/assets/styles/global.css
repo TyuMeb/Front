@@ -72,3 +72,9 @@ a {
     line-height: 130%;
     font-weight: 600;
 }
+
+.container {
+    max-width: 1220px;
+    margin: 0 auto;
+}
+

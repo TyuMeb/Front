@@ -1,17 +1,16 @@
 import styles from "./step.module.scss";
-import clsx from "clsx";
 import { StaticImageData } from "next/image";
 
 type TStepProps = {
-    children: string;
     title: string;
     num: number;
     imgSrc: StaticImageData;
+    children: string;
 };
 
 export const Step = ({ children, title, num, imgSrc }: TStepProps) => {
     return (
-        <div>
+        <div className={styles.card}>
             <div
                 className={styles.img}
                 style={{
@@ -26,3 +25,4 @@ export const Step = ({ children, title, num, imgSrc }: TStepProps) => {
         </div>
     );
 };
+

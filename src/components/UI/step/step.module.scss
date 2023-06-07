@@ -1,8 +1,13 @@
+.card {
+    min-height: 360px;
+    width: 596px;
+}
+
 .img {
     height: 260px;
-    padding: var(--gap-s);
     margin-bottom: var(--gap-s);
     border-radius: var(--border-radius-m);
+    position: relative;
 }
 
 .text {
@@ -16,6 +21,9 @@
 .num {
     width: 48px;
     height: 48px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
     background-color: var(--bg-accent-color);
     border-radius: 50%;
     display: flex;
