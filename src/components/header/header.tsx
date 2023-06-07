@@ -2,13 +2,24 @@
 
 import styles from "./header.module.css";
 import { MouseEvent } from "react";
+import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
+import { closeModal, openModal } from "@src/redux/modal-slice";
 
 const Header = () => {
+    const dispatch = useAppDispatch();
+    const { modal } = useAppSelector((store) => store.modal);
+
     const activeLink = (event: MouseEvent<HTMLUListElement>) => {
+        if (modal) {
+            dispatch(closeModal());
+        } else {
+            dispatch(openModal());
+        }
         const target = event.target as Element;
         if (target.tagName === "LI") {
             console.log(target);
         }
+        console.log(modal);
     };
 
     return (
