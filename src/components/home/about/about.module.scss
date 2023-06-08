@@ -1,0 +1,32 @@
+.inner {
+   display: flex;
+   justify-content: space-between;
+   flex-wrap: wrap;
+   padding-bottom: 140px;
+}
+
+.left__card {
+   width: 700px;
+   height: 313px;
+   padding: 44px 28px;
+   background-color: #FFF2CC;
+   border-radius: 45px;
+
+   .title {
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 130%;
+      padding-bottom: 36px;
+   }
+
+   .description {
+      max-width: 570px;
+   }
+}
+
+.right__card {
+   width: 492px;
+   height: 313px;
+   background: url('../../../../public/home/about.jpg');
+   border-radius: 45px;
+}

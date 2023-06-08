@@ -1,0 +1,22 @@
+.input {
+    width: 296px;
+    height: 48px;
+    padding: 0 16px;
+    background: transparent;
+    border: 1px solid var(--disabled-color);
+    border-radius: var(--border-radius-s);
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.error {
+    border-color: var(--error-accent-color);
+}
+
+.message {
+    margin-top: var(--gap-xs);
+    color: var(--error-accent-color);
+    font-size: 12px;
+    line-height: 140%;
+    text-align: start;
+}
