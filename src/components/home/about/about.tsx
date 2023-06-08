@@ -14,7 +14,7 @@ export const About = () => {
                     лично. Мы верим, что наш сервис поможет сделать ваш дом уютнее, а вас счастливее.
                 </p>
             </div>
-            <div className={styles.right__card}></div>
+            <div className={styles.right__card} />
         </div>
     );
 };

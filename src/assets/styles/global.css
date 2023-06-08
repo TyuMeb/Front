@@ -48,26 +48,26 @@ a {
     text-decoration: none;
 }
 
-.h1 {
+.title-h1 {
     font-size: 3.25rem;
     line-height: 130%;
     font-weight: 400;
 }
 
-.h2 {
+.title-h2 {
     font-size: 1.875rem;
     line-height: 130%;
     font-weight: 400;
 }
 
-.h3 {
+.title-h3 {
     font-size: 1.25rem;
     line-height: 160%;
     font-weight: 600;
     text-align: center;
 }
 
-.h4 {
+.title-h4 {
     font-size: 1.125rem;
     line-height: 130%;
     font-weight: 600;
@@ -77,4 +77,3 @@ a {
     max-width: 1220px;
     margin: 0 auto;
 }
-

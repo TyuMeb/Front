@@ -1,8 +1,8 @@
 "use client";
 
-import { CardAdvantages } from "@/components/ui/card-advantages/card-advantages";
-
 import styles from "./advantages.module.scss";
+
+import { CardAdvantages } from "@/components/ui/card-advantages/card-advantages";
 
 export const Advantages = () => {
     return (
@@ -14,7 +14,7 @@ export const Advantages = () => {
                         title="Быстро"
                         bgColor="#FFFAEE"
                         paragraph="Предложения попадут к вам ровно через 24 часа после того, как вы нажмёте кнопку отправить"
-                        src="../../../assets/images/home/clock.svg"
+                        src="/home/clock.svg"
                         alt="clock-logo"
                         width={53}
                         height={56}
@@ -23,7 +23,7 @@ export const Advantages = () => {
                         title="Удобно"
                         bgColor="#FFF2CC"
                         paragraph="Вы оставляете заявку и всё. Больше не надо посещать салоны, чтобы сравнить цены и дизайн-концепты"
-                        src="../../../assets/images/home/settings.svg"
+                        src="/home/settings.svg"
                         alt="settings-logo"
                         width={51}
                         height={56}
@@ -32,7 +32,7 @@ export const Advantages = () => {
                         title="Бесплатно"
                         bgColor="#EAE5E1"
                         paragraph="Не платите за предложения исполнителей, для вас ВайВи бесплатен"
-                        src="../../../assets/images/home/dollar.svg"
+                        src="/home/dollar.svg"
                         alt="dollar-logo"
                         width={53}
                         height={53}
@@ -41,7 +41,7 @@ export const Advantages = () => {
                         title="Качественно"
                         bgColor="#F5F3F1"
                         paragraph="Наши исполнители дают гарантию, что вы получите тот продукт, который заказывали"
-                        src="../../../assets/images/home/person.svg"
+                        src="/home/person.svg"
                         alt="person-logo"
                         width={38}
                         height={51}

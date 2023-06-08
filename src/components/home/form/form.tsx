@@ -1,9 +1,9 @@
 "use client";
 
+import styles from "./form.module.scss";
+
 import { Input } from "@/components/ui/input/input";
 import { Button } from "@/components/ui/button/button";
-
-import styles from "./form.module.scss";
 
 export const Form = () => {
     return (

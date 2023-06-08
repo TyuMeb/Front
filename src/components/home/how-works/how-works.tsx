@@ -3,10 +3,10 @@
 import styles from "./how-works.module.scss";
 
 import { Step } from "@/components/ui/step/step";
-import step1 from "../../../assets/images/home/step1.jpg";
-import step2 from "../../../assets/images/home/step2.jpg";
-import step3 from "../../../assets/images/home/step3.jpg";
-import step4 from "../../../assets/images/home/step4.jpg";
+import step1 from "../../../../public/home/step1.jpg";
+import step2 from "../../../../public/home/step2.jpg";
+import step3 from "../../../../public/home/step3.jpg";
+import step4 from "../../../../public/home/step4.jpg";
 
 export const HowWorks = () => {
     return (

@@ -1,7 +1,8 @@
-import styles from "./card-advantages.module.scss";
 import Image from "next/image";
 
-type TCardAdvantagesProps = {
+import styles from "./card-advantages.module.scss";
+
+interface ICardAdvantagesProps {
     bgColor: string;
     title: string;
     paragraph: string;
@@ -9,9 +10,9 @@ type TCardAdvantagesProps = {
     alt: string;
     width: number;
     height: number;
-};
+}
 
-export const CardAdvantages = ({ bgColor, title, paragraph, src, alt, width, height }: TCardAdvantagesProps) => {
+export const CardAdvantages = ({ bgColor, title, paragraph, src, alt, width, height }: ICardAdvantagesProps) => {
     const backgroundColor: React.CSSProperties = {
         backgroundColor: bgColor,
     };
