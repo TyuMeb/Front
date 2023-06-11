@@ -12,7 +12,7 @@ export const Advantages = () => {
                 <div className={styles.cards}>
                     <CardAdvantages
                         title="Быстро"
-                        bgColor="#FFFAEE"
+                        bgColor="bgScramble"
                         paragraph="Предложения попадут к вам ровно через 24 часа после того, как вы нажмёте кнопку отправить"
                         src="/home/clock.svg"
                         alt="clock-logo"
@@ -21,7 +21,7 @@ export const Advantages = () => {
                     />
                     <CardAdvantages
                         title="Удобно"
-                        bgColor="#FFF2CC"
+                        bgColor="bgSand"
                         paragraph="Вы оставляете заявку и всё. Больше не надо посещать салоны, чтобы сравнить цены и дизайн-концепты"
                         src="/home/settings.svg"
                         alt="settings-logo"
@@ -30,7 +30,7 @@ export const Advantages = () => {
                     />
                     <CardAdvantages
                         title="Бесплатно"
-                        bgColor="#EAE5E1"
+                        bgColor="bgLatte"
                         paragraph="Не платите за предложения исполнителей, для вас ВайВи бесплатен"
                         src="/home/dollar.svg"
                         alt="dollar-logo"
@@ -39,7 +39,7 @@ export const Advantages = () => {
                     />
                     <CardAdvantages
                         title="Качественно"
-                        bgColor="#F5F3F1"
+                        bgColor="bgLightLatte"
                         paragraph="Наши исполнители дают гарантию, что вы получите тот продукт, который заказывали"
                         src="/home/person.svg"
                         alt="person-logo"

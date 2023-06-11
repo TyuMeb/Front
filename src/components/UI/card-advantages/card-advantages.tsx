@@ -13,12 +13,8 @@ interface ICardAdvantagesProps {
 }
 
 export const CardAdvantages = ({ bgColor, title, paragraph, src, alt, width, height }: ICardAdvantagesProps) => {
-    const backgroundColor: React.CSSProperties = {
-        backgroundColor: bgColor,
-    };
-
     return (
-        <div className={styles.card} style={backgroundColor}>
+        <div className={`${styles.card} ${styles[bgColor]}`}>
             <div className={styles.inner}>
                 <div className={styles.text}>
                     <h4 className={styles.title}>{title}</h4>
