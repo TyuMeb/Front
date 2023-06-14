@@ -1,3 +1,7 @@
+.inner {
+   margin-bottom: 140px;
+}
+
 .title {
    font-size: 30px;
    font-weight: 400;
@@ -7,7 +11,38 @@
 }
 
 .examples {
-   height: 562px;
+   display: flex;
+   gap: 28px;
+
+   .leftSide {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+   }
+
+   .rightSide {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+   }
+
+   .top {
+      display: flex;
+      gap: 28px;
+   }
+}
+
+.slider {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 388px;
+   height: 90px;
    background-color: #FCCF55;
-   margin-bottom: 140px;
+   border-radius: 40px;
+   padding: 0 27px;
+
+   a {
+      display: flex;
+   }
 }
