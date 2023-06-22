@@ -3,11 +3,8 @@
 }
 
 .title {
-   font-weight: 400;
-   font-size: 30px;
-   line-height: 130%;
-   text-indent: 28px;
-   margin-bottom: 40px;
+   padding-left: 28px;
+   padding-bottom: 40px;
 }
 
 .block {
@@ -19,12 +16,9 @@
    display: flex;
    flex-wrap: wrap;
    gap: 28px;
-   width: 796px;
+   max-width: 804px;
 }
 
 .image {
-   width: 388px;
-   height: 546px;
-   background: url('../../../../public/home/behefits-image.jpg');
-   border-radius: 44px;
+   height: auto;
 }

@@ -3,8 +3,8 @@
    flex-direction: column;
    justify-content: center;
    text-align: center;
-   background-color: #FFFAEE;
-   border-radius: 45px;
+   background-color: var(--bg-secondary-color);
+   border-radius: var(--border-radius-m);
    height: 360px;
    margin-bottom: 140px;
 }
@@ -22,5 +22,5 @@
    flex-wrap: wrap;
    margin-top: 36px;
    margin-bottom: 20px;
-   color: #B5B3B2;
+   color: var(--disabled-color);
 }

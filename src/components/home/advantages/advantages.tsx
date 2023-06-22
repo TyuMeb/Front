@@ -1,13 +1,15 @@
 "use client";
 
+import Image from "next/image";
 import styles from "./advantages.module.scss";
+import behefitsImage from "@public/home/behefits-image.jpg";
 
-import { CardAdvantages } from "@/components/ui/card-advantages/card-advantages";
+import { CardAdvantages } from "@src/components/ui/card-advantages/card-advantages";
 
 export const Advantages = () => {
     return (
         <div className={styles.inner}>
-            <h2 className={styles.title}>Наши преимущества</h2>
+            <h2 className={`title-h2 ${styles.title}`}>Наши преимущества</h2>
             <div className={styles.block}>
                 <div className={styles.cards}>
                     <CardAdvantages
@@ -47,7 +49,7 @@ export const Advantages = () => {
                         height={51}
                     />
                 </div>
-                <div className={styles.image}></div>
+                <Image src={behefitsImage} alt="behefits-image" className={styles.image} />
             </div>
         </div>
     );

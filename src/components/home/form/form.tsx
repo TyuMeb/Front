@@ -2,8 +2,8 @@
 
 import styles from "./form.module.scss";
 
-import { Input } from "@/components/ui/input/input";
-import { Button } from "@/components/ui/button/button";
+import { Input } from "@src/components/ui/input/input";
+import { Button } from "@src/components/ui/button/button";
 
 export const Form = () => {
     return (

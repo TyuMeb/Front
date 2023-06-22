@@ -1,14 +1,14 @@
 import styles from "./input.module.scss";
 
-type TInputProps = {
+interface IInputProps {
     type?: string;
     placeholder?: string;
     maxLength?: number;
     required?: boolean;
     errorMessage?: string;
-};
+}
 
-export const Input = ({ type = "text", placeholder, maxLength, required = false, errorMessage }: TInputProps) => {
+export const Input = ({ type = "text", placeholder, maxLength, required = false, errorMessage }: IInputProps) => {
     return (
         <div>
             <input
@@ -22,3 +22,4 @@ export const Input = ({ type = "text", placeholder, maxLength, required = false,
         </div>
     );
 };
+

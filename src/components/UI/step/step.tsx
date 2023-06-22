@@ -1,14 +1,14 @@
 import styles from "./step.module.scss";
 import { StaticImageData } from "next/image";
 
-type TStepProps = {
+interface IStepProps {
     title: string;
     num: number;
     imgSrc: StaticImageData;
     children: string;
-};
+}
 
-export const Step = ({ children, title, num, imgSrc }: TStepProps) => {
+export const Step = ({ children, title, num, imgSrc }: IStepProps) => {
     return (
         <div className={styles.card}>
             <div
@@ -19,7 +19,7 @@ export const Step = ({ children, title, num, imgSrc }: TStepProps) => {
                 <div className={styles.num}>{num}</div>
             </div>
             <div className={styles.text}>
-                <h4 className="h4">{title}</h4>
+                <h4 className="title-h4">{title}</h4>
                 <p className={styles.p}>{children}</p>
             </div>
         </div>

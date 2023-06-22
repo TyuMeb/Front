@@ -23,17 +23,17 @@
 }
 
 .bgScramble {
-   background-color: #FFFAEE;
+   background-color: var(--bg-secondary-color);
 }
 
 .bgSand {
-   background-color: #FFF2CC;
+   background-color: var(--bg-accent-color);
 }
 
 .bgLatte {
-   background-color: #EAE5E1;
+   background-color: var(--latte-color);
 }
 
 .bgLightLatte {
-   background-color: #F5F3F1;
+   background-color: var(--light-latte-color);
 }

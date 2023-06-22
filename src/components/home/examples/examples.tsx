@@ -1,14 +1,14 @@
 "use client";
 import Image from "next/image";
 
-import { CardExample } from "@/components/ui/card-example/card-example";
+import { CardExample } from "@src/components/ui/card-example/card-example";
 
 import styles from "./examples.module.scss";
 
 export const Examples = () => {
     return (
         <div className={styles.inner}>
-            <h2 className={styles.title}>Примеры работ</h2>
+            <h2 className={`title-h2 ${styles.title}`}>Примеры работ</h2>
             <div className={styles.examples}>
                 <div className={styles.leftSide}>
                     <div className={styles.top}>

@@ -1,21 +1,18 @@
 .inner {
    display: flex;
    justify-content: space-between;
-   flex-wrap: wrap;
    padding-bottom: 140px;
 }
 
 .left__card {
-   width: 700px;
-   height: 313px;
+   max-width: 700px;
+   min-height: 313px;
+   flex: 1;
    padding: 44px 28px;
-   background-color: #FFF2CC;
-   border-radius: 45px;
+   background-color: var(--bg-accent-color);
+   border-radius: 44px;
 
    .title {
-      font-size: 30px;
-      font-weight: 400;
-      line-height: 130%;
       padding-bottom: 36px;
    }
 
@@ -25,8 +22,7 @@
 }
 
 .right__card {
-   width: 492px;
-   height: 313px;
-   background: url('../../../../public/home/about.jpg');
+   max-width: 492px;
+   max-height: 313px;
    border-radius: 45px;
 }
