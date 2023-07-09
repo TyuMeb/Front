@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 
-import { CardExample } from "@src/components/ui/card-example/card-example";
+import { CardExample } from "@src/components/shared/ui/card-example/card-example";
 
 import styles from "./examples.module.scss";
 

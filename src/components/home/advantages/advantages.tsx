@@ -4,7 +4,7 @@ import Image from "next/image";
 import styles from "./advantages.module.scss";
 import behefitsImage from "@public/home/behefits-image.jpg";
 
-import { CardAdvantages } from "@src/components/ui/card-advantages/card-advantages";
+import { CardAdvantages } from "@src/components/shared/ui/card-advantages/card-advantages";
 
 export const Advantages = () => {
     return (

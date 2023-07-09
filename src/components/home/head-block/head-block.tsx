@@ -2,7 +2,7 @@
 
 import styles from "./head-block.module.scss";
 
-import { Button } from "@src/components/ui/button/button";
+import { Button } from "@src/components/shared/ui/button/button";
 
 export const HeadBlock = () => {
     return (

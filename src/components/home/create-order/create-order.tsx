@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@src/components/ui/button/button";
+import { Button } from "@src/components/shared/ui/button/button";
 
 import styles from "./create-order.module.scss";
 
