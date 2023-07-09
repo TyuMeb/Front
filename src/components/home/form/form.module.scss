@@ -1,0 +1,26 @@
+.inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background-color: var(--bg-secondary-color);
+    border-radius: var(--border-radius-m);
+    height: 360px;
+    margin-bottom: 140px;
+}
+
+.description {
+    margin-top: 68px;
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.inputs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 36px;
+    margin-bottom: 20px;
+    color: var(--disabled-color);
+}
