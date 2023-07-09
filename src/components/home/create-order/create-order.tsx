@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button/button";
+import { Button } from "@src/components/shared/ui/button/button";
 
 import styles from "./create-order.module.scss";
 
@@ -12,4 +12,3 @@ export const CreateOrder = () => {
         </div>
     );
 };
-

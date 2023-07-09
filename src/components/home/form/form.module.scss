@@ -1,26 +1,27 @@
+@import "../../../app/global";
+
 .inner {
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   text-align: center;
-   background-color: #FFFAEE;
-   border-radius: 45px;
-   height: 360px;
-   margin-bottom: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background-color: $bg-secondary-color;
+    border-radius: $border-radius-m;
+    height: 360px;
+    margin-bottom: 140px;
 }
 
 .description {
-   margin-top: 68px;
-   max-width: 680px;
-   margin: 0 auto;
+    max-width: 680px;
+    margin: 68px auto 0;
 }
 
 .inputs {
-   display: flex;
-   justify-content: center;
-   gap: 8px;
-   flex-wrap: wrap;
-   margin-top: 36px;
-   margin-bottom: 20px;
-   color: #B5B3B2;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 36px;
+    margin-bottom: 20px;
+    color: $disabled-color;
 }

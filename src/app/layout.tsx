@@ -1,10 +1,11 @@
-import "@/assets/styles/global.css";
+import "./global.css";
 import { Open_Sans } from "next/font/google";
-import { Header } from "@/components/header/header";
-import Footer from "@/components/footer/footer";
-import styles from "./layout.module.css";
+import Header from "@src/components/header/header";
+import Footer from "@src/components/footer/footer";
+import { Providers } from "@src/redux/provider";
+import Modals from "@src/components/modals/modals";
 
-const openSans = Open_Sans({ subsets: ["latin"] });
+const openSans = Open_Sans({ subsets: ["cyrillic"] });
 
 export const metadata = {
     title: "Marketplace Why We",
@@ -14,11 +15,14 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
-            <body className={openSans.className}>
-                <Header />
-                <main>{children}</main>
-            </body>
+            <Providers>
+                <body className={openSans.className}>
+                    <Header />
+                    <main>{children}</main>
+                    <Footer />
+                    <Modals />
+                </body>
+            </Providers>
         </html>
     );
 }
-

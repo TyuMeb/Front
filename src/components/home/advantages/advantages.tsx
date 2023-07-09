@@ -1,18 +1,20 @@
 "use client";
 
+import Image from "next/image";
 import styles from "./advantages.module.scss";
+import behefitsImage from "@public/home/behefits-image.jpg";
 
-import { CardAdvantages } from "@/components/ui/card-advantages/card-advantages";
+import { CardAdvantages } from "@src/components/shared/ui/card-advantages/card-advantages";
 
 export const Advantages = () => {
     return (
         <div className={styles.inner}>
-            <h2 className={styles.title}>Наши преимущества</h2>
+            <h2 className={`title-h2 ${styles.title}`}>Наши преимущества</h2>
             <div className={styles.block}>
                 <div className={styles.cards}>
                     <CardAdvantages
                         title="Быстро"
-                        bgColor="#FFFAEE"
+                        bgColor="bgScramble"
                         paragraph="Предложения попадут к вам ровно через 24 часа после того, как вы нажмёте кнопку отправить"
                         src="/home/clock.svg"
                         alt="clock-logo"
@@ -21,7 +23,7 @@ export const Advantages = () => {
                     />
                     <CardAdvantages
                         title="Удобно"
-                        bgColor="#FFF2CC"
+                        bgColor="bgSand"
                         paragraph="Вы оставляете заявку и всё. Больше не надо посещать салоны, чтобы сравнить цены и дизайн-концепты"
                         src="/home/settings.svg"
                         alt="settings-logo"
@@ -30,7 +32,7 @@ export const Advantages = () => {
                     />
                     <CardAdvantages
                         title="Бесплатно"
-                        bgColor="#EAE5E1"
+                        bgColor="bgLatte"
                         paragraph="Не платите за предложения исполнителей, для вас ВайВи бесплатен"
                         src="/home/dollar.svg"
                         alt="dollar-logo"
@@ -39,7 +41,7 @@ export const Advantages = () => {
                     />
                     <CardAdvantages
                         title="Качественно"
-                        bgColor="#F5F3F1"
+                        bgColor="bgLightLatte"
                         paragraph="Наши исполнители дают гарантию, что вы получите тот продукт, который заказывали"
                         src="/home/person.svg"
                         alt="person-logo"
@@ -47,9 +49,8 @@ export const Advantages = () => {
                         height={51}
                     />
                 </div>
-                <div className={styles.image}></div>
+                <Image src={behefitsImage} alt="behefits-image" className={styles.image} />
             </div>
         </div>
     );
 };
-

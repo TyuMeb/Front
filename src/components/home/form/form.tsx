@@ -2,8 +2,8 @@
 
 import styles from "./form.module.scss";
 
-import { Input } from "@/components/ui/input/input";
-import { Button } from "@/components/ui/button/button";
+import { Input } from "@src/components/shared/ui/input/input";
+import { Button } from "@src/components/shared/ui/button/button";
 
 export const Form = () => {
     return (
@@ -22,4 +22,3 @@ export const Form = () => {
         </div>
     );
 };
-
