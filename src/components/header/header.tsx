@@ -1,48 +1,37 @@
 "use client";
 
-import styles from "./header.module.scss";
-import Link from "next/link";
+import styles from "./header.module.css";
+import { MouseEvent } from "react";
+import { useAppDispatch } from "@src/redux/hooks";
+import { openModal } from "@src/redux/modal-slice";
 
-export const Header = () => {
+const Header = () => {
+    const dispatch = useAppDispatch();
+
+    const activeLink = (event: MouseEvent<HTMLUListElement>) => {
+        const target = event.target as Element;
+        if (target.tagName === "LI") {
+            console.log(target);
+        }
+    };
+
     return (
         <header className={styles.header}>
-            <div className={styles.header__content}>
-                <Link href={"/"} className="h3">
-                    ВайВи
-                </Link>
-                <nav className={styles.nav}>
-                    <ul className={styles.list}>
-                        <li>
-                            <Link href={"page1"} className={styles.link}>
-                                О проекте
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href={"page2"} className={styles.link}>
-                                Как это работает
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href={"page3"} className={styles.link}>
-                                Исполнителям
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href={"page3"} className={styles.link}>
-                                Примеры работ
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href={"page3"} className={styles.link}>
-                                Преимущества
-                            </Link>
-                        </li>
-                    </ul>
-                    <Link href={"page3"} className={styles.link}>
+            <nav className={styles.nav}>
+                <ul className={styles.list} onClick={activeLink}>
+                    <li className={styles.logo}>ВайВи</li>
+                    <li className={styles.link}>О проекте</li>
+                    <li className={styles.link}>Как это работает</li>
+                    <li className={styles.link}>Исполнителям</li>
+                    <li className={styles.link}>Примеры работ</li>
+                    <li className={styles.link}>Преимущества</li>
+                    <li className={styles.link} onClick={() => dispatch(openModal())}>
                         Войти
-                    </Link>
-                </nav>
-            </div>
+                    </li>
+                </ul>
+            </nav>
         </header>
     );
 };
+
+export default Header;
