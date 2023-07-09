@@ -1,0 +1,21 @@
+.inner {
+    position: relative;
+    display: flex;
+
+    .description {
+        display: flex;
+        gap: 20px;
+        position: absolute;
+        top: 28px;
+        left: 28px;
+
+        .object,
+        .price {
+            font-size: 12px;
+            line-height: 16px;
+            padding: 10px 20px;
+            background-color: var(--bg-accent-color);
+            border-radius: 30px;
+        }
+    }
+}

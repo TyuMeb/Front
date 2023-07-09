@@ -1,10 +1,10 @@
-import "./globals.css";
-import { Inter } from "next/font/google";
-import Header from "@src/components/header/header";
+import "./global.css";
+import { Open_Sans } from "next/font/google";
+import { Header } from "@src/components/header/header";
 import Footer from "@src/components/footer/footer";
 import styles from "./layout.module.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const openSans = Open_Sans({ subsets: ["latin"] });
 
 export const metadata = {
     title: "Marketplace Why We",
@@ -14,9 +14,9 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
-            <body className={inter.className}>
+            <body className={openSans.className}>
                 <Header />
-                <main className={styles.main}>{children}</main>
+                <main>{children}</main>
                 <Footer />
             </body>
         </html>

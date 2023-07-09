@@ -1,0 +1,28 @@
+.inner {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 140px;
+}
+
+.left__card {
+    max-width: 700px;
+    min-height: 313px;
+    flex: 1;
+    padding: 44px 28px;
+    background-color: var(--bg-accent-color);
+    border-radius: 44px;
+
+    .title {
+        padding-bottom: 36px;
+    }
+
+    .description {
+        max-width: 570px;
+    }
+}
+
+.right__card {
+    max-width: 492px;
+    max-height: 313px;
+    border-radius: 45px;
+}
