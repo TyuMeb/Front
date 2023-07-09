@@ -2,7 +2,6 @@ import "./global.css";
 import { Open_Sans } from "next/font/google";
 import Header from "@src/components/header/header";
 import Footer from "@src/components/footer/footer";
-import styles from "./layout.module.css";
 import { Providers } from "@src/redux/provider";
 import Modals from "@src/components/modals/modals";
 
@@ -19,7 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Providers>
                 <body className={openSans.className}>
                     <Header />
-                    <main className={styles.main}>{children}</main>
+                    <main>{children}</main>
                     <Footer />
                     <Modals />
                 </body>

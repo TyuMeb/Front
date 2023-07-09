@@ -1,18 +1,19 @@
+@import "../../../app/global";
+
 .inner {
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    background-color: var(--bg-secondary-color);
-    border-radius: var(--border-radius-m);
+    background-color: $bg-secondary-color;
+    border-radius: $border-radius-m;
     height: 360px;
     margin-bottom: 140px;
 }
 
 .description {
-    margin-top: 68px;
     max-width: 680px;
-    margin: 0 auto;
+    margin: 68px auto 0;
 }
 
 .inputs {
@@ -22,5 +23,5 @@
     flex-wrap: wrap;
     margin-top: 36px;
     margin-bottom: 20px;
-    color: var(--disabled-color);
+    color: $disabled-color;
 }

@@ -1,13 +1,15 @@
+@import "../../app/global";
+
 .header {
-    padding: var(--gap-default) 0;
+    padding: $gap-default 0;
 
     .header__content {
-        width: var(--container-width);
+        width: $container-width;
         max-width: 100%;
         margin: auto;
         display: flex;
-        gap: var(--gap-l);
-        padding: 0 var(--gap-xxl);
+        gap: $gap-l;
+        padding: 0 $gap-xxl;
 
         .nav {
             width: 100%;
@@ -17,7 +19,7 @@
 
             .list {
                 display: flex;
-                gap: var(--gap-l);
+                gap: $gap-l;
             }
 
             .link {
@@ -26,7 +28,7 @@
                 }
                 &:active {
                     text-decoration: underline;
-                    text-decoration-color: var(--accent-color);
+                    text-decoration-color: $accent-color;
                 }
             }
         }

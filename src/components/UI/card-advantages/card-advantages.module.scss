@@ -1,3 +1,5 @@
+@import "../../../app/global";
+
 .card {
     width: 384px;
     height: 260px;
@@ -23,17 +25,17 @@
 }
 
 .bgScramble {
-    background-color: var(--bg-secondary-color);
+    background-color: $bg-secondary-color;
 }
 
 .bgSand {
-    background-color: var(--bg-accent-color);
+    background-color: $bg-accent-color;
 }
 
 .bgLatte {
-    background-color: var(--latte-color);
+    background-color: $latte-color;
 }
 
 .bgLightLatte {
-    background-color: var(--light-latte-color);
+    background-color: $light-latte-color;
 }

@@ -1,8 +1,10 @@
+@import "../../../app/global";
+
 .banner {
-    max-width: var(--container-width);
+    max-width: $container-width;
     height: 554px;
     margin: 0 auto 140px;
-    background: url("/home/home-banner.jpg") no-repeat;
+    background: url("../../../../public/home/home-banner.jpg") no-repeat;
 }
 
 .title {
