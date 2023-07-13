@@ -1,0 +1,47 @@
+@import "../../../app/global";
+
+.inner {
+    margin-bottom: 140px;
+}
+
+.title {
+    padding-left: 28px;
+    padding-bottom: 40px;
+}
+
+.examples {
+    display: flex;
+    gap: 28px;
+
+    .leftSide {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .rightSide {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .top {
+        display: flex;
+        gap: 28px;
+    }
+}
+
+.slider {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 388px;
+    height: 90px;
+    background-color: $accent-color;
+    border-radius: 40px;
+    padding: 0 28px;
+
+    a {
+        display: flex;
+    }
+}

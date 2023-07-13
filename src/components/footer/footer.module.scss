@@ -1,5 +1,7 @@
+@import "../../app/global";
+
 .footer {
-    background-color: var(--bgc-footer);
+    background-color: $bg-secondary-color;
 }
 
 .container {
