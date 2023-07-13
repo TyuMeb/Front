@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useEffect, MouseEvent, ReactNode } from "react";
-import styles from "./modal.module.css";
+import styles from "./modal.module.scss";
 import { useAppDispatch } from "@src/redux/hooks";
 import { closeModal } from "@src/redux/modal-slice";
 
@@ -33,8 +33,11 @@ const Modal: FC<IModal> = ({ children, isOpen }) => {
     return (
         <>
             {isOpen && (
-                <div onClick={handleOverlay} className={styles.overlay}>
-                    <div className={styles.modal}>{children}</div>
+                <div onMouseUp={handleOverlay} className={styles.overlay}>
+                    <div className={styles.modal}>
+                        <button className={styles.closeModal} onMouseUp={() => dispatch(closeModal())} />
+                        {children}
+                    </div>
                 </div>
             )}
         </>

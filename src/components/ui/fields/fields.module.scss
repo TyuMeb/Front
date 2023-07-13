@@ -1,0 +1,70 @@
+@import "~/src/shared/styles/index.scss";
+
+.textField {
+    max-width: 296px;
+    min-height: 48px;
+    border-radius: 10px;
+    border: 1px solid $light-gray;
+    padding: 0 16px;
+
+    &::placeholder {
+        @include text;
+        @include textSmall;
+
+        color: $asphalt;
+    }
+}
+
+.warningBorder {
+    border-color: $pink-pig;
+}
+
+.button {
+    @include reset-button;
+
+    position: absolute;
+    right: 12px;
+    top: 40px;
+    background-color: $white;
+    width: 28px;
+    height: 28px;
+}
+
+.iconEye {
+    @include background;
+
+    background-image: url("~/public/eye.svg");
+}
+
+.iconOpenEye {
+    @include background;
+
+    background-image: url("~/public/open_eye.svg");
+}
+
+.warning {
+    position: absolute;
+    bottom: -78px;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    max-width: 296px;
+    width: 100%;
+    min-height: 60px;
+    padding: 0 24px;
+    box-sizing: border-box;
+
+    border: 1px solid $pink-pig;
+    box-sizing: border-box;
+    border-radius: 12px;
+    background: $pale-pink;
+    box-shadow: 2px 0px 10px 0px rgba(0, 0, 0, 0.09);
+}
+
+.textError {
+    @include text;
+    @include textTiny;
+
+    color: $black;
+}

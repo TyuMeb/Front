@@ -3,35 +3,28 @@ import classNames from "classnames/bind";
 
 import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/modal-slice";
-import useInpyt from "@src/shared/hooks/use-inpyt";
 import TextField from "@src/components/ui/fields/text-field";
-import PasswordField from "@src/components/ui/fields/password-field";
 import TextFieldModal from "@src/components/modals/text-field-modal";
+import useInpyt from "@src/shared/hooks/use-inpyt";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
 
 const cx = classNames.bind(styles);
 
-const SignIn = () => {
+const ResetPasword = () => {
     const dispatch = useAppDispatch();
 
     const emailField = useInpyt("");
-    const passwordField = useInpyt("");
 
     const emailError = useInpyt("");
-    const passwordError = useInpyt("");
 
     const submitForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         try {
-            console.log({
-                email: emailField.value,
-                password: passwordField.value,
-            });
+            console.log({ email: emailField.value });
             emailField.onChange("");
-            passwordField.onChange("");
         } catch {
-            console.log("Ошибка");
+            console.log("Ошибка востановления пароля");
         } finally {
             e.preventDefault();
         }
@@ -46,54 +39,52 @@ const SignIn = () => {
     // Проверка работы валидации
     const formValidation = () => {
         emailError.onChange("");
-        passwordError.onChange("");
-
         lengthCheck(emailField.value, emailError.onChange);
-        lengthCheck(passwordField.value, passwordError.onChange);
     };
 
     useEffect(() => {
         formValidation();
-    }, [emailField, passwordError]);
+    }, [emailField]);
 
     const renderError = (value: string) =>
         value && <li className={cx("textError", { warningText: value })}>{value}</li>;
 
     return (
         <ModalAuth>
-            <h2 className={cx("title")}>Добро пожаловать!</h2>
+            <h2 className={cx("title", "titleSubtext")}>Восстановление пароля</h2>
+
+            <p className={cx("text", "subtext")}>
+                Введите E-mail, который вы указывали при регистрации. Туда придет инструкция по сбросу пароля.
+            </p>
 
             <form className={cx("form")}>
-                <div className={cx("inputsSignin")}>
+                <div className={cx("inputsResetPasword")}>
                     <TextFieldModal isError={Boolean(emailError.value)} labelText="E-mail">
                         <TextField placeholder="Введите свою почту" {...emailField} />
                     </TextFieldModal>
-
-                    <TextFieldModal isError={Boolean(passwordError.value)} labelText="Пароль">
-                        <PasswordField placeholder="Введите свой пароль" {...passwordField} />
-                    </TextFieldModal>
                 </div>
 
-                {emailError.value && (
-                    <ul className={cx("errorsText")}>
-                        {renderError(emailError.value)}
-                        {renderError(passwordError.value)}
-                    </ul>
-                )}
+                {emailError.value && <ul className={cx("errorsText")}>{renderError(emailError.value)}</ul>}
 
-                <button
-                    className={cx("linkText")}
-                    type="button"
-                    onClick={() => dispatch(setTypeModal("resetPassword"))}>
-                    Забыли пароль?
-                </button>
+                <ul className={cx("listButtons")}>
+                    <li className={cx("itemButtons")}>
+                        <button className={cx("text", "button")} type="submit" onClick={submitForm}>
+                            Сбросить пароль
+                        </button>
+                    </li>
 
-                <button className={cx("text", "button")} type="submit" onClick={submitForm}>
-                    Войти
-                </button>
+                    <li className={cx("itemButtons")}>
+                        <button
+                            className={cx("text", "button", "buttonWhite")}
+                            type="button"
+                            onClick={() => dispatch(setTypeModal("signIn"))}>
+                            Отмена
+                        </button>
+                    </li>
+                </ul>
             </form>
         </ModalAuth>
     );
 };
 
-export default SignIn;
+export default ResetPasword;
