@@ -5,7 +5,7 @@ import Modal from "@src/components/modals/modal/modal";
 
 import SignIn from "@src/components/modals/signin";
 import Registration from "@src/components/modals/registration";
-import ResetPasword from "@src/components/modals/reset-pasword";
+import ResetPassword from "@src/components/modals/reset-password";
 import React, { useEffect } from "react";
 
 const Modals = () => {
@@ -30,7 +30,7 @@ const Modals = () => {
             case "registration":
                 return <Registration />;
             case "resetPassword":
-                return <ResetPasword />;
+                return <ResetPassword />;
             default:
                 return <></>;
         }

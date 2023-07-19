@@ -17,10 +17,10 @@
     background-position: 76px 96px;
 }
 
-.backgroundResetPasword {
+.backgroundResetPassword {
     @include background;
 
-    background-image: url("~/public/reset_pasword.svg");
+    background-image: url("~/public/reset_password.svg");
     background-position: 76px 135px;
 }
 
@@ -32,7 +32,7 @@
     margin-bottom: 12px;
 }
 
-.inputsResetPasword {
+.inputsResetPassword {
     display: grid;
     row-gap: 20px;
     margin-bottom: 28px;
@@ -130,7 +130,7 @@
     max-width: 296px;
 }
 
-.resetPaswordLabel {
+.resetPasswordLabel {
     grid-column: startline/endline;
 
     &:last-of-type {

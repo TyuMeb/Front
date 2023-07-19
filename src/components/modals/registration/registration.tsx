@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, MouseEvent } from "react";
 import classNames from "classnames/bind";
 
-import useInpyt from "@src/shared/hooks/use-inpyt";
-import TextField from "@src/components/ui/fields/text-field";
-import PasswordField from "@src/components/ui/fields/password-field";
+import useInput from "@src/shared/hooks/use-Input";
+import { TextField, PasswordField, PhoneField } from "@src/components/shared/ui/fields";
 import TextFieldModal from "@src/components/modals/text-field-modal";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
@@ -12,25 +11,25 @@ import ModalAuth from "@src/components/modals/modal-auth";
 const cx = classNames.bind(styles);
 
 const Registration = () => {
-    const firstNameField = useInpyt("");
-    const lastNameField = useInpyt("");
-    const emailField = useInpyt("");
-    const passwordField = useInpyt("");
-    const passwordRepeatField = useInpyt("");
-    const phoneField = useInpyt("");
+    const firstNameField = useInput("");
+    const lastNameField = useInput("");
+    const emailField = useInput("");
+    const passwordField = useInput("");
+    const passwordRepeatField = useInput("");
+    const phoneField = useInput("");
 
-    const firstNameError = useInpyt("");
-    const lastNameError = useInpyt("");
-    const emailError = useInpyt("");
-    const passwordError = useInpyt("");
-    const passwordRepeatError = useInpyt("");
-    const phoneError = useInpyt("");
+    const firstNameError = useInput("");
+    const lastNameError = useInput("");
+    const emailError = useInput("");
+    const passwordError = useInput("");
+    const passwordRepeatError = useInput("");
+    const phoneError = useInput("");
 
     const [checked, setChecked] = React.useState(false);
 
     const handleChange = () => setChecked((state) => !state);
 
-    const submitForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const submitForm = (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
         try {
             console.log({
                 firstName: firstNameField.value,
@@ -108,7 +107,7 @@ const Registration = () => {
                     </TextFieldModal>
 
                     <TextFieldModal isError={Boolean(phoneError.value)} labelText="Телефон">
-                        <TextField placeholder="Введите свой номер телефона" type="phone" {...phoneField} />
+                        <PhoneField placeholder="Введите свой номер телефона" {...phoneField} />
                     </TextFieldModal>
 
                     <TextFieldModal isError={Boolean(passwordError.value)} labelText="Пароль">

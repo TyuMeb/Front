@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import classNames from "classnames/bind";
 
+import { IFields } from "../fields.props";
 import styles from "../fields.module.scss";
 
 const cx = classNames.bind(styles);
 
-interface IPasswordField {
-    value: string;
-    errorText?: string;
-    placeholder?: string;
+interface IPasswordField extends IFields {
     icon_type?: "eye";
-    onChange: (value: string) => void;
 }
 
-const PasswordField = ({ value, placeholder, errorText, icon_type = "eye", onChange }: IPasswordField) => {
+export const PasswordField = (props: IPasswordField) => {
+    const { value, placeholder, errorText, icon_type = "eye", maxLength, minLength, required, onChange } = props;
+
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const handlerOnChange = (value: string) => onChange(value);
@@ -26,6 +25,9 @@ const PasswordField = ({ value, placeholder, errorText, icon_type = "eye", onCha
                 placeholder={placeholder}
                 value={value}
                 onChange={(e) => handlerOnChange(e.target.value)}
+                minLength={maxLength}
+                maxLength={minLength}
+                required={required}
             />
 
             <button

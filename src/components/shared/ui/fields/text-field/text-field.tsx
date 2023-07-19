@@ -1,29 +1,31 @@
 import React from "react";
 import classNames from "classnames/bind";
 
+import { IFields } from "../fields.props";
 import styles from "../fields.module.scss";
 
 const cx = classNames.bind(styles);
 
-interface ITextField {
-    value: string;
-    errorText?: string;
-    placeholder?: string;
-    type?: "text" | "phone";
-    onChange: (value: string) => void;
+interface ITextField extends IFields {
+    type?: "text";
 }
 
-const TextField = ({ value, placeholder, errorText, type, onChange }: ITextField) => {
+export const TextField = (props: ITextField) => {
+    const { value, placeholder, errorText, type = "text", maxLength, minLength, required, onChange } = props;
+
     const handlerOnChange = (value: string) => onChange(value);
 
     return (
         <>
             <input
                 className={cx("textField")}
-                type={type || "text"}
+                type={type}
                 placeholder={placeholder}
                 value={value}
                 onChange={(e) => handlerOnChange(e.target.value)}
+                minLength={maxLength}
+                maxLength={minLength}
+                required={required}
             />
 
             {errorText && (

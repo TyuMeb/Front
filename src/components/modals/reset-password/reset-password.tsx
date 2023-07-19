@@ -3,21 +3,21 @@ import classNames from "classnames/bind";
 
 import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/modal-slice";
-import TextField from "@src/components/ui/fields/text-field";
+import { TextField } from "@src/components/shared/ui/fields";
 import TextFieldModal from "@src/components/modals/text-field-modal";
-import useInpyt from "@src/shared/hooks/use-inpyt";
+import useInput from "@src/shared/hooks/use-Input";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
 
 const cx = classNames.bind(styles);
 
-const ResetPasword = () => {
+export const ResetPassword = () => {
     const dispatch = useAppDispatch();
 
-    const emailField = useInpyt("");
+    const emailField = useInput("");
 
-    const emailError = useInpyt("");
+    const emailError = useInput("");
 
     const submitForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         try {
@@ -58,7 +58,7 @@ const ResetPasword = () => {
             </p>
 
             <form className={cx("form")}>
-                <div className={cx("inputsResetPasword")}>
+                <div className={cx("inputsResetPassword")}>
                     <TextFieldModal isError={Boolean(emailError.value)} labelText="E-mail">
                         <TextField placeholder="Введите свою почту" {...emailField} />
                     </TextFieldModal>
@@ -87,4 +87,4 @@ const ResetPasword = () => {
     );
 };
 
-export default ResetPasword;
+export default ResetPassword;

@@ -3,9 +3,8 @@ import classNames from "classnames/bind";
 
 import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/modal-slice";
-import useInpyt from "@src/shared/hooks/use-inpyt";
-import TextField from "@src/components/ui/fields/text-field";
-import PasswordField from "@src/components/ui/fields/password-field";
+import useInput from "@src/shared/hooks/use-Input";
+import { TextField, PasswordField } from "@src/components/shared/ui/fields";
 import TextFieldModal from "@src/components/modals/text-field-modal";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
@@ -16,11 +15,11 @@ const cx = classNames.bind(styles);
 const SignIn = () => {
     const dispatch = useAppDispatch();
 
-    const emailField = useInpyt("");
-    const passwordField = useInpyt("");
+    const emailField = useInput("");
+    const passwordField = useInput("");
 
-    const emailError = useInpyt("");
-    const passwordError = useInpyt("");
+    const emailError = useInput("");
+    const passwordError = useInput("");
 
     const submitForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         try {
