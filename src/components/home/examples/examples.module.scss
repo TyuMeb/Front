@@ -1,4 +1,4 @@
-@import "../../../app/global";
+@import "@src/app/global";
 
 .inner {
     margin-bottom: 140px;
@@ -44,4 +44,16 @@
     a {
         display: flex;
     }
+}
+
+.button {
+    outline: none;
+    border: none;
+    background: none;
+}
+
+.button:hover {
+    opacity: 0.7;
+    transition: opacity ease-in-out 0.2s;
+    cursor: pointer;
 }
