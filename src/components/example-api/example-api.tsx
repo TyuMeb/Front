@@ -1,7 +1,14 @@
 "use client";
 import { useGetPostsIdQuery, useGetPostsQuery, useAddNewPostMutation } from "@src/redux/api-slice";
+import { useGetUsersQuery, useGetTokenMutation, useCreateUserMutation } from "@src/redux/marketplace-api";
+// import { useGetUserMeQuery } from "@src/redux/marketplace-api/users-api";
 import { SyntheticEvent, useEffect } from "react";
-import { useGetUsersQuery } from "@src/redux/another-api-slice";
+// import { useGetUsersQuery } from "@src/redux/another-api-slice";
+import { sigIn } from "@src/redux/tokens-slice";
+import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
+import { setCookie, deleteCookie, getCookie } from "@src/helpers/cookie";
+import jwt_decode from "jwt-decode";
+import { useUser } from "@src/hooks/use-user";
 
 interface IPost {
     userId: number;
@@ -14,7 +21,34 @@ const ExampleApi = () => {
     // const { data: posts, isLoading, isSuccess, isError, error } = useGetPostsQuery({});
     // const { data: post, isFetching, isSuccess: isSuccessId } = useGetPostsIdQuery(1);
     // const { data: users, isLoading, isSuccess, isError, error } = useGetUsersQuery({});
-    const [addNewPost, { isLoading }] = useAddNewPostMutation();
+    const { data: users, isLoading, isSuccess, isError, error } = useGetUsersQuery({});
+
+    const [
+        getToken,
+        {
+            data: loginData,
+            isLoading: isLoginLoading,
+            isSuccess: isLoginSuccess,
+            isError: isLoginError,
+            error: loginError,
+        },
+    ] = useGetTokenMutation();
+
+    const [createUser] = useCreateUserMutation();
+
+    const dispatch = useAppDispatch();
+
+    const { jwtToken } = useAppSelector((store) => store.tokens);
+
+    useEffect(() => {
+        console.log(jwtToken, 490);
+    }, [jwtToken]);
+
+    useEffect(() => {
+        console.log("posts", users);
+    }, [users]);
+
+    useUser();
 
     // useEffect(() => {
     //     console.log("isLoading", isLoading);
@@ -38,34 +72,105 @@ const ExampleApi = () => {
     //     console.log("users", users);
     // }, [isLoading, isSuccess, isError, error, users]);
 
-    const handleSubmit = (event: SyntheticEvent) => {
+    useEffect(() => {
+        if (isLoginSuccess) {
+            console.log("Успешный вход");
+            // Можно добавить еще email
+
+            var decoded = jwt_decode(loginData.access);
+
+            console.log(decoded);
+
+            dispatch(sigIn({ jwtToken: loginData.access, refreshToken: loginData.refresh }));
+            // Перебрасывать пользователя на главную страницу
+        }
+    }, [isLoginSuccess]);
+
+    const handleSubmitSignIn = async (event: SyntheticEvent) => {
         event.preventDefault();
+
         const target = event.target as typeof event.target & {
-            title: { value: string };
-            body: { value: string };
+            email: { value: string };
+            password: { value: string };
         };
 
-        addNewPost({ title: target.title.value, body: target.body.value, user: 1 })
+        const formState = { email: target.email.value, password: target.password.value };
+
+        try {
+            const result = await getToken(formState).unwrap();
+
+            if (result) {
+                console.log(result.access);
+                // dispatch(setCredentials(result.access));
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const handleSubmitReg = (event: SyntheticEvent) => {
+        event.preventDefault();
+        const target = event.target as typeof event.target & {
+            emailReg: { value: string };
+            nameReg: { value: string };
+            phoneReg: { value: string };
+            passwordReg: { value: string };
+        };
+
+        createUser({
+            email: target.emailReg.value,
+            password: target.passwordReg.value,
+            name: target.nameReg.value,
+            person_telephone: target.phoneReg.value,
+        })
             .unwrap()
             .then((data) => console.log(data))
             .catch((e) => console.log(e));
     };
 
     return (
-        <section>
-            <form onSubmit={handleSubmit}>
-                <label style={{ marginRight: 20 }}>
-                    Type title
-                    <input style={{ marginLeft: 10 }} name="title" />
-                </label>
-                <label style={{ marginRight: 20 }}>
-                    Type body
-                    <input style={{ marginLeft: 10 }} name="body" />
-                </label>
-                <button type="submit">Submit</button>
-                {isLoading && <h1>Uploading...</h1>}
-            </form>
-        </section>
+        <>
+            <section style={{ marginBottom: 50 }}>
+                <h2>Авторизация</h2>
+                <form onSubmit={handleSubmitSignIn}>
+                    <label style={{ marginRight: 20 }}>
+                        email
+                        <input style={{ marginLeft: 10 }} name="email" />
+                    </label>
+                    <label style={{ marginRight: 20 }}>
+                        пароль
+                        <input style={{ marginLeft: 10 }} name="password" />
+                    </label>
+                    <button type="submit">Submit</button>
+                    {isLoginLoading && <h1>Uploading...</h1>}
+                </form>
+            </section>
+
+            <h2>{jwtToken}</h2>
+
+            <section style={{ marginBottom: 50 }}>
+                <h2>Регистрация</h2>
+                <form onSubmit={handleSubmitReg}>
+                    <label style={{ marginRight: 20 }}>
+                        email
+                        <input style={{ marginLeft: 10 }} name="emailReg" />
+                    </label>
+                    <label style={{ marginRight: 20 }}>
+                        имя
+                        <input style={{ marginLeft: 10 }} name="nameReg" />
+                    </label>
+                    <label style={{ marginRight: 20 }}>
+                        телефон
+                        <input style={{ marginLeft: 10 }} name="phoneReg" />
+                    </label>
+                    <label style={{ marginRight: 20 }}>
+                        пароль
+                        <input style={{ marginLeft: 10 }} name="passwordReg" />
+                    </label>
+                    <button type="submit">Submit</button>
+                </form>
+            </section>
+        </>
     );
 };
 
