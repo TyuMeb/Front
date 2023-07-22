@@ -29,7 +29,7 @@ const Registration = () => {
 
     const handleChange = () => setChecked((state) => !state);
 
-    const submitForm = (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const submitForm = (e: MouseEvent<HTMLButtonElement>) => {
         try {
             console.log({
                 firstName: firstNameField.value,
