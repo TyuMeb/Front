@@ -6,4 +6,5 @@ export interface IFields {
     maxLength?: number;
     minLength?: number;
     onChange: (value: string) => void;
+    className?: string;
 }

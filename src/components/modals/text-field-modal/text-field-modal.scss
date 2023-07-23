@@ -1,0 +1,78 @@
+.label {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    cursor: text;
+    max-width: 296px;
+
+    &:last-of-type {
+        margin-bottom: 2px;
+    }
+}
+
+.text {
+    @include text;
+    @include textSmall;
+
+    position: relative;
+    color: $black;
+}
+
+.textLabel {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 25%;
+    left: 12px;
+    transition: 0.1s ease-out;
+}
+
+.warningText {
+    color: $pink-pig;
+    left: 36px;
+}
+
+.warningIcon {
+    @include background;
+
+    width: 24px;
+    height: 24px;
+    background-image: url("~/public/warning.svg");
+    position: absolute;
+    top: -2px;
+    left: -24px;
+    z-index: 1;
+    background-color: white;
+}
+
+.inputAuth::placeholder {
+    opacity: 0;
+    transition: opacity 0.1s ease;
+}
+
+.inputAuth:focus ~ .textLabel {
+    @include text;
+    @include textTiny;
+
+    top: -23%;
+    z-index: 1;
+    background-color: white;
+    padding: 0 4px;
+    transition: 0.3s;
+}
+
+.inputAuth:not(:placeholder-shown) ~ .textLabel {
+    @include text;
+    @include textTiny;
+
+    top: -23%;
+    padding: 0 4px;
+    z-index: 1;
+    background-color: white;
+    transition: 0.3s;
+}
+
+.inputAuth:focus::placeholder {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}

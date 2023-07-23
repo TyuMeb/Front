@@ -11,7 +11,17 @@ interface IPasswordField extends IFields {
 }
 
 export const PasswordField = (props: IPasswordField) => {
-    const { value, placeholder, errorText, icon_type = "eye", maxLength, minLength, required, onChange } = props;
+    const {
+        value,
+        placeholder,
+        errorText,
+        icon_type = "eye",
+        maxLength,
+        className,
+        minLength,
+        required,
+        onChange,
+    } = props;
 
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -20,7 +30,7 @@ export const PasswordField = (props: IPasswordField) => {
     return (
         <>
             <input
-                className={cx("textField")}
+                className={cx("textField", className)}
                 type={showPassword ? "text" : "password"}
                 placeholder={placeholder}
                 value={value}
@@ -31,7 +41,7 @@ export const PasswordField = (props: IPasswordField) => {
             />
 
             <button
-                className={cx("button", {
+                className={cx("buttonShowPassword", {
                     iconEye: icon_type === "eye" && !showPassword,
                     iconOpenEye: icon_type === "eye" && showPassword,
                 })}

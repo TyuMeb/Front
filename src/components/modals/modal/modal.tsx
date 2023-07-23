@@ -33,7 +33,7 @@ const Modal: FC<IModal> = ({ children, isOpen }) => {
     return (
         <>
             {isOpen && (
-                <div onMouseUp={handleOverlay} className={styles.overlay}>
+                <div onMouseDown={handleOverlay} className={styles.overlay}>
                     <div className={styles.modal}>
                         <button className={styles.closeModal} onMouseUp={() => dispatch(closeModal())} />
                         {children}

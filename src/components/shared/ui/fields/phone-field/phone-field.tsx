@@ -11,7 +11,7 @@ interface IPhoneField extends IFields {}
 const getInputNumbersValue = (value: string) => value.replace(/\D/g, "");
 
 export const PhoneField = (props: IPhoneField) => {
-    const { value, placeholder, errorText, maxLength, minLength, required, onChange } = props;
+    const { value, placeholder, errorText, maxLength, className, minLength, required, onChange } = props;
 
     const handlerOnChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -58,7 +58,7 @@ export const PhoneField = (props: IPhoneField) => {
     return (
         <>
             <input
-                className={cx("textField")}
+                className={cx("textField", className)}
                 type="tel"
                 placeholder={placeholder}
                 value={value}

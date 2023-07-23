@@ -1,4 +1,5 @@
 @import "~/src/shared/styles/index.scss";
+@import "~/src/components/modals/text-field-modal/text-field-modal.scss";
 
 .textField {
     max-width: 296px;
@@ -19,12 +20,12 @@
     border-color: $pink-pig;
 }
 
-.button {
+.buttonShowPassword {
     @include reset-button;
 
     position: absolute;
     right: 12px;
-    top: 40px;
+    bottom: 10px;
     background-color: $white;
     width: 28px;
     height: 28px;

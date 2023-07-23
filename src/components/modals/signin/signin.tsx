@@ -38,7 +38,7 @@ const SignIn = () => {
 
     const lengthCheck = (field: string, onChange: any, length: number = 12) => {
         if (field.length >= length) {
-            onChange(`Длинна ${field} не может быть больше ${length} символов!`);
+            onChange(`Длина ${field} не может быть больше ${length} символов!`);
         }
     };
 
@@ -65,15 +65,15 @@ const SignIn = () => {
             <form className={cx("form")}>
                 <div className={cx("inputsSignin")}>
                     <TextFieldModal isError={Boolean(emailError.value)} labelText="E-mail">
-                        <TextField placeholder="Введите свою почту" {...emailField} />
+                        <TextField className="inputAuth" placeholder="Введите почту" {...emailField} />
                     </TextFieldModal>
 
                     <TextFieldModal isError={Boolean(passwordError.value)} labelText="Пароль">
-                        <PasswordField placeholder="Введите свой пароль" {...passwordField} />
+                        <PasswordField className="inputAuth" placeholder="Введите пароль" {...passwordField} />
                     </TextFieldModal>
                 </div>
 
-                {emailError.value && (
+                {(emailError.value || passwordError.value) && (
                     <ul className={cx("errorsText")}>
                         {renderError(emailError.value)}
                         {renderError(passwordError.value)}

@@ -95,27 +95,28 @@ const Registration = () => {
             <form className={cx("form")}>
                 <div className={cx("inputsRegistration")}>
                     <TextFieldModal isError={Boolean(firstNameError.value)} labelText="Имя">
-                        <TextField placeholder="Введите свое имя" {...firstNameField} />
+                        <TextField className="inputAuth" placeholder="Введите свое имя" {...firstNameField} />
                     </TextFieldModal>
 
                     <TextFieldModal isError={Boolean(lastNameError.value)} labelText="Фамилия">
-                        <TextField placeholder="Введите свою фамилию" {...lastNameField} />
+                        <TextField className="inputAuth" placeholder="Введите свою фамилию" {...lastNameField} />
                     </TextFieldModal>
 
                     <TextFieldModal isError={Boolean(emailError.value)} labelText="E-mail">
-                        <TextField placeholder="Введите свою почту" {...emailField} />
+                        <TextField className="inputAuth" placeholder="Введите свою почту" {...emailField} />
                     </TextFieldModal>
 
                     <TextFieldModal isError={Boolean(phoneError.value)} labelText="Телефон">
-                        <PhoneField placeholder="Введите свой номер телефона" {...phoneField} />
+                        <PhoneField className="inputAuth" placeholder="Введите свой номер телефона" {...phoneField} />
                     </TextFieldModal>
 
                     <TextFieldModal isError={Boolean(passwordError.value)} labelText="Пароль">
-                        <PasswordField placeholder="Введите свой пароль" {...passwordField} />
+                        <PasswordField className="inputAuth" placeholder="Введите свой пароль" {...passwordField} />
                     </TextFieldModal>
 
                     <TextFieldModal isError={Boolean(passwordRepeatError.value)} labelText="Повторить пароль">
                         <PasswordField
+                            className="inputAuth"
                             placeholder="Повторите свой пароль"
                             errorText="Текст ошибки"
                             {...passwordRepeatField}

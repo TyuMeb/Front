@@ -11,14 +11,14 @@ interface ITextField extends IFields {
 }
 
 export const TextField = (props: ITextField) => {
-    const { value, placeholder, errorText, type = "text", maxLength, minLength, required, onChange } = props;
+    const { value, placeholder, errorText, type = "text", maxLength, minLength, className, required, onChange } = props;
 
     const handlerOnChange = (value: string) => onChange(value);
 
     return (
         <>
             <input
-                className={cx("textField")}
+                className={cx("textField", className)}
                 type={type}
                 placeholder={placeholder}
                 value={value}

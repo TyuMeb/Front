@@ -60,7 +60,7 @@ export const ResetPassword = () => {
             <form className={cx("form")}>
                 <div className={cx("inputsResetPassword")}>
                     <TextFieldModal isError={Boolean(emailError.value)} labelText="E-mail">
-                        <TextField placeholder="Введите свою почту" {...emailField} />
+                        <TextField className="inputAuth" placeholder="Введите свою почту" {...emailField} />
                     </TextFieldModal>
                 </div>
 
