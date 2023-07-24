@@ -1,13 +1,15 @@
 @import "~/src/shared/styles/index.scss";
 
 .window {
-    min-height: 758px;
     width: 804px;
     border-radius: 20px;
     background-color: $white;
     position: relative;
     box-shadow: 1px 1px 15px #00000020;
     box-sizing: border-box;
+    overflow-y: auto;
+    min-height: 758px;
+    max-height: 100vh;
 }
 
 .backgroundSignIn {

@@ -32,7 +32,7 @@ export const ResetPassword = () => {
 
     const lengthCheck = (field: string, onChange: any, length: number = 12) => {
         if (field.length >= length) {
-            onChange(`Длинна ${field} не может быть больше ${length} символов!`);
+            onChange(`Длина ${field} не может быть больше ${length} символов!`);
         }
     };
 
