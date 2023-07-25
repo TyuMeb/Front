@@ -1,12 +1,15 @@
 import { marketplaceApi } from "./marketplace-api";
+import { IUser } from "./types";
 
-export const usersApi = marketplaceApi.injectEndpoints({
+const usersApi = marketplaceApi.injectEndpoints({
     endpoints: (build) => ({
         getUsers: build.query({
             query: () => "auth/users/",
+            // transformResponse: (result: { data: { user: IUser } }) =>
+            //     result.data,
         }),
-        getUserMe: build.query({
-            query: (id) => "auth/users/me/",
+        getMe: build.query({
+            query: () => "auth/users/me/",
         }),
         getUserById: build.query({
             query: (postId) => `posts/${postId}`,
@@ -14,4 +17,4 @@ export const usersApi = marketplaceApi.injectEndpoints({
     }),
 });
 
-export const { useGetUsersQuery, useGetUserMeQuery, useGetUserByIdQuery } = usersApi;
+export const { useGetUsersQuery, useGetMeQuery, useGetUserByIdQuery } = usersApi;

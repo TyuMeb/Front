@@ -1,6 +1,7 @@
 "use client";
-import { useGetPostsIdQuery, useGetPostsQuery, useAddNewPostMutation } from "@src/redux/api-slice";
-import { useGetUsersQuery, useGetTokenMutation, useCreateUserMutation } from "@src/redux/marketplace-api";
+// import { useGetPostsIdQuery, useGetPostsQuery, useAddNewPostMutation } from "@src/redux/api-slice";
+import { useRegisterUserMutation, useLoginUserMutation } from "@src/redux/marketplace-api/authorization-api";
+import { useGetUsersQuery, useGetMeQuery, useGetUserByIdQuery } from "@src/redux/marketplace-api/users-api";
 // import { useGetUserMeQuery } from "@src/redux/marketplace-api/users-api";
 import { SyntheticEvent, useEffect } from "react";
 // import { useGetUsersQuery } from "@src/redux/another-api-slice";
@@ -24,7 +25,7 @@ const ExampleApi = () => {
     const { data: users, isLoading, isSuccess, isError, error } = useGetUsersQuery({});
 
     const [
-        getToken,
+        loginUser,
         {
             data: loginData,
             isLoading: isLoginLoading,
@@ -32,9 +33,9 @@ const ExampleApi = () => {
             isError: isLoginError,
             error: loginError,
         },
-    ] = useGetTokenMutation();
+    ] = useLoginUserMutation();
 
-    const [createUser] = useCreateUserMutation();
+    const [registerUser] = useRegisterUserMutation();
 
     const dispatch = useAppDispatch();
 
@@ -97,7 +98,7 @@ const ExampleApi = () => {
         const formState = { email: target.email.value, password: target.password.value };
 
         try {
-            const result = await getToken(formState).unwrap();
+            const result = await loginUser(formState).unwrap();
 
             if (result) {
                 console.log(result.access);
@@ -117,7 +118,7 @@ const ExampleApi = () => {
             passwordReg: { value: string };
         };
 
-        createUser({
+        registerUser({
             email: target.emailReg.value,
             password: target.passwordReg.value,
             name: target.nameReg.value,

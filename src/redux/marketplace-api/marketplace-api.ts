@@ -3,7 +3,7 @@ import { RootState } from "../store";
 
 export const marketplaceApi = createApi({
     reducerPath: "MarketplaceApi",
-    tagTypes: ["authorization"],
+    tagTypes: ["objects"],
     baseQuery: fetchBaseQuery({
         baseUrl: "http://185.244.173.82/",
         prepareHeaders: (headers, { getState }) => {

@@ -2,18 +2,25 @@ import { marketplaceApi } from "./marketplace-api";
 
 export const authorizationApi = marketplaceApi.injectEndpoints({
     endpoints: (build) => ({
-        createUser: build.mutation({
-            query: (body) => ({
+        registerUser: build.mutation({
+            query: (data) => ({
                 url: "auth/users/",
                 method: "POST",
-                body,
+                body: data,
             }),
         }),
-        getToken: build.mutation({
+        loginUser: build.mutation({
             query: (body: { email: string; password: string }) => ({
                 url: "auth/jwt/create/",
                 method: "POST",
                 body,
+            }),
+            invalidatesTags: ["objects"],
+        }),
+        verifyEmail: build.mutation({
+            query: ({ uid, token }) => ({
+                url: `activate${uid}/${token}/`,
+                method: "GET",
             }),
         }),
         verifyToken: build.mutation({
@@ -29,9 +36,10 @@ export const authorizationApi = marketplaceApi.injectEndpoints({
                 method: "POST",
                 body,
             }),
+            invalidatesTags: ["objects"],
         }),
     }),
 });
 
-export const { useCreateUserMutation, useGetTokenMutation, useVerifyTokenMutation, useRefreshTokenMutation } =
+export const { useRegisterUserMutation, useLoginUserMutation, useVerifyTokenMutation, useRefreshTokenMutation } =
     authorizationApi;

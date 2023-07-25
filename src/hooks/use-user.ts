@@ -1,4 +1,4 @@
-import { useRefreshTokenMutation, useVerifyTokenMutation } from "@src/redux/marketplace-api";
+import { useRefreshTokenMutation, useVerifyTokenMutation } from "@src/redux/marketplace-api/authorization-api";
 import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "@src/redux/hooks";
 import { setCookie } from "@src/helpers/cookie";
@@ -6,7 +6,7 @@ import { logout } from "@src/redux/tokens-slice";
 
 export const useUser = () => {
     const [verifyToken] = useVerifyTokenMutation();
-    const [refreshToken, { data: refreshData, isSuccess: isRefreshSuccess }] = useRefreshTokenMutation();
+    const [refreshToken, { data, isError }] = useRefreshTokenMutation();
     const dispatch = useAppDispatch();
 
     const { jwtToken, resetToken } = useAppSelector((store) => store.tokens);
@@ -15,9 +15,9 @@ export const useUser = () => {
         try {
             if (!jwtToken && resetToken) {
                 // await
-                const result = refreshToken({ refresh: resetToken }).unwrap();
-                console.log(refreshData, "это");
-                setCookie("jwtToken", refreshData.access);
+                refreshToken({ refresh: resetToken }).unwrap();
+                console.log(data, "Не приходит");
+                // setCookie("jwtToken", refreshToken.access);
             }
         } catch (e) {
             console.log(e);
@@ -44,5 +44,5 @@ export const useUser = () => {
         //     console.log(e);
         //     // Удалить в куки токен и refresh в локалке
         // }
-    }, [isRefreshSuccess]);
+    }, []);
 };
