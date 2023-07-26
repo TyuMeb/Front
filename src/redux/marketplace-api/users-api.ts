@@ -1,10 +1,13 @@
 import { marketplaceApi } from "./marketplace-api";
-import { IUser } from "./types";
 
 const usersApi = marketplaceApi.injectEndpoints({
     endpoints: (build) => ({
         getUsers: build.query({
             query: () => "auth/users/",
+            providesTags: (result) => {
+                console.log("auth/users/", result);
+                return ["users"];
+            },
             // transformResponse: (result: { data: { user: IUser } }) =>
             //     result.data,
         }),

@@ -1,15 +1,16 @@
 "use client";
+
+import { SyntheticEvent, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 // import { useGetPostsIdQuery, useGetPostsQuery, useAddNewPostMutation } from "@src/redux/api-slice";
+// import { useGetUsersQuery } from "@src/redux/another-api-slice";
 import { useRegisterUserMutation, useLoginUserMutation } from "@src/redux/marketplace-api/authorization-api";
 import { useGetUsersQuery, useGetMeQuery, useGetUserByIdQuery } from "@src/redux/marketplace-api/users-api";
-// import { useGetUserMeQuery } from "@src/redux/marketplace-api/users-api";
-import { SyntheticEvent, useEffect } from "react";
-// import { useGetUsersQuery } from "@src/redux/another-api-slice";
+
 import { sigIn } from "@src/redux/tokens-slice";
-import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
-import { setCookie, deleteCookie, getCookie } from "@src/helpers/cookie";
-import jwt_decode from "jwt-decode";
 import { useUser } from "@src/hooks/use-user";
+
+import { getCookie } from "@src/helpers/cookie";
 
 interface IPost {
     userId: number;
@@ -23,6 +24,8 @@ const ExampleApi = () => {
     // const { data: post, isFetching, isSuccess: isSuccessId } = useGetPostsIdQuery(1);
     // const { data: users, isLoading, isSuccess, isError, error } = useGetUsersQuery({});
     const { data: users, isLoading, isSuccess, isError, error } = useGetUsersQuery({});
+
+    useUser();
 
     const [
         loginUser,
@@ -39,17 +42,9 @@ const ExampleApi = () => {
 
     const dispatch = useAppDispatch();
 
-    const { jwtToken } = useAppSelector((store) => store.tokens);
-
-    useEffect(() => {
-        console.log(jwtToken, 490);
-    }, [jwtToken]);
-
     useEffect(() => {
         console.log("posts", users);
     }, [users]);
-
-    useUser();
 
     // useEffect(() => {
     //     console.log("isLoading", isLoading);
@@ -76,11 +71,6 @@ const ExampleApi = () => {
     useEffect(() => {
         if (isLoginSuccess) {
             console.log("Успешный вход");
-            // Можно добавить еще email
-
-            var decoded = jwt_decode(loginData.access);
-
-            console.log(decoded);
 
             dispatch(sigIn({ jwtToken: loginData.access, refreshToken: loginData.refresh }));
             // Перебрасывать пользователя на главную страницу
@@ -146,8 +136,6 @@ const ExampleApi = () => {
                     {isLoginLoading && <h1>Uploading...</h1>}
                 </form>
             </section>
-
-            <h2>{jwtToken}</h2>
 
             <section style={{ marginBottom: 50 }}>
                 <h2>Регистрация</h2>

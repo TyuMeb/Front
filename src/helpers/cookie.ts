@@ -13,7 +13,7 @@ export const getCookie = (name: string) => {
     let matches = document.cookie.match(
         new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") + "=([^;]*)")
     );
-    return matches ? decodeURIComponent(matches[1]) : null;
+    return matches ? decodeURIComponent(matches[1]) : undefined;
 };
 
 export const setCookie = (name: string, value: string, expires = 10, options: IOptions = {}) => {

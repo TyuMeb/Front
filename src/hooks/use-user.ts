@@ -1,48 +1,38 @@
 import { useRefreshTokenMutation, useVerifyTokenMutation } from "@src/redux/marketplace-api/authorization-api";
 import { useEffect } from "react";
-import { useAppSelector, useAppDispatch } from "@src/redux/hooks";
-import { setCookie } from "@src/helpers/cookie";
-import { logout } from "@src/redux/tokens-slice";
+import { useAppDispatch } from "@src/redux/hooks";
+import { setCookie, getCookie } from "@src/helpers/cookie";
+import { sigIn } from "@src/redux/tokens-slice";
 
 export const useUser = () => {
     const [verifyToken] = useVerifyTokenMutation();
     const [refreshToken, { data, isError }] = useRefreshTokenMutation();
     const dispatch = useAppDispatch();
 
-    const { jwtToken, resetToken } = useAppSelector((store) => store.tokens);
-
     useEffect(() => {
+        const jwtToken = getCookie("jwtToken");
+        const resetToken = localStorage.getItem("refreshToken");
+
         try {
+            if (jwtToken) {
+                verifyToken({ token: jwtToken });
+                return;
+            }
+
             if (!jwtToken && resetToken) {
-                // await
-                refreshToken({ refresh: resetToken }).unwrap();
-                console.log(data, "Не приходит");
-                // setCookie("jwtToken", refreshToken.access);
+                refreshToken({ refresh: resetToken })
+                    .unwrap()
+                    .then((data) => {
+                        setCookie("jwtToken", data.access);
+                        dispatch(sigIn({ jwtToken: data.access }));
+                        console.log(data.access);
+                    })
+                    .catch((e) => {
+                        throw new Error(e);
+                    });
             }
         } catch (e) {
             console.log(e);
-            dispatch(logout());
         }
-
-        // try {
-        //     if (jwtToken) {
-        //         verifyToken({token: jwtToken})
-        //         return
-        //     }
-        // } catch (e) {
-        //     console.log(e);
-        //     // Тут должен быть код
-        // }
-
-        // try {
-        //     if (refreshToken) {
-        //         resetToken({refresh: refreshToken})
-        //         // Добавить новый токен в куки
-        //         return
-        //     }
-        // } catch (e) {
-        //     console.log(e);
-        //     // Удалить в куки токен и refresh в локалке
-        // }
     }, []);
 };

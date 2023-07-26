@@ -1,5 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IUser } from "../api/types";
+
+interface IUser {
+    id: number;
+    name: string;
+    email: string;
+    person_telephone: string;
+}
 
 interface IUserState {
     user: IUser | null;
