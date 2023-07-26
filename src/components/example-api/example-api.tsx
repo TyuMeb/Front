@@ -10,8 +10,6 @@ import { useGetUsersQuery, useGetMeQuery, useGetUserByIdQuery } from "@src/redux
 import { sigIn } from "@src/redux/tokens-slice";
 import { useUser } from "@src/hooks/use-user";
 
-import { getCookie } from "@src/helpers/cookie";
-
 interface IPost {
     userId: number;
     id: number;
