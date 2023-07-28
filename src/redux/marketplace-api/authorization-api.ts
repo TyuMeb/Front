@@ -15,10 +15,6 @@ export const authorizationApi = marketplaceApi.injectEndpoints({
                 method: "POST",
                 body,
             }),
-            invalidatesTags: (result) => {
-                console.log("auth/jwt/create/", result);
-                return ["authorization"];
-            },
         }),
         verifyEmail: build.mutation({
             query: ({ uid, token }) => ({
@@ -39,10 +35,6 @@ export const authorizationApi = marketplaceApi.injectEndpoints({
                 method: "POST",
                 body,
             }),
-            invalidatesTags: (result) => {
-                console.log("auth/jwt/refresh/", result);
-                return ["authorization"];
-            },
         }),
     }),
 });

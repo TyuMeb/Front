@@ -3,7 +3,7 @@
 import styles from "./header.module.css";
 import { MouseEvent } from "react";
 import { useAppDispatch } from "@src/redux/hooks";
-import { openModal } from "@src/redux/modal-slice";
+import { openModal } from "@src/redux/slices/modal-slice";
 
 const Header = () => {
     const dispatch = useAppDispatch();

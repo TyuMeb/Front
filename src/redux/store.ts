@@ -1,18 +1,16 @@
 "use client";
 
 import { configureStore } from "@reduxjs/toolkit";
-import modalReducer from "./modal-slice";
-import tokensReducer from "./tokens-slice";
-import { marketplaceApi } from "./marketplace-api/marketplace-api";
+import modalReducer from "./slices/modal-slice";
 import { setupListeners } from "@reduxjs/toolkit/query/react";
+import { apiSlice } from "@src/redux/api/api-slice";
 
 export const store = configureStore({
     reducer: {
         modal: modalReducer,
-        tokens: tokensReducer,
-        [marketplaceApi.reducerPath]: marketplaceApi.reducer,
+        [apiSlice.reducerPath]: apiSlice.reducer,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(marketplaceApi.middleware),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
