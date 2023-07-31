@@ -10,7 +10,7 @@ import step4 from "@public/home/step4.jpg";
 
 export const HowWorks = () => {
     return (
-        <div className={styles.inner}>
+        <section className={styles.inner} id="how-woks">
             <h2 className={`title-h2 ${styles.title}`}>Как это работает?</h2>
             <div className={styles.steps}>
                 <Step title="Заполните заявку онлайн" num={1} imgSrc={step1}>
@@ -26,6 +26,6 @@ export const HowWorks = () => {
                     и через время наслаждайтесь новой мебелью
                 </Step>
             </div>
-        </div>
+        </section>
     );
 };

@@ -8,7 +8,7 @@ import { CardAdvantages } from "@src/components/shared/ui/card-advantages/card-a
 
 export const Advantages = () => {
     return (
-        <div className={styles.inner}>
+        <section className={styles.inner} id="advantages">
             <h2 className={`title-h2 ${styles.title}`}>Наши преимущества</h2>
             <div className={styles.block}>
                 <div className={styles.cards}>
@@ -51,6 +51,6 @@ export const Advantages = () => {
                 </div>
                 <Image src={behefitsImage} alt="behefits-image" className={styles.image} />
             </div>
-        </div>
+        </section>
     );
 };

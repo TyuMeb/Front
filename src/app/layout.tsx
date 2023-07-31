@@ -1,4 +1,5 @@
 import "./global.css";
+import { useEffect, useRef, useState } from "react";
 import { Open_Sans } from "next/font/google";
 import Header from "@src/components/header/header";
 import Footer from "@src/components/footer/footer";
@@ -18,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Providers>
                 <body className={openSans.className}>
                     <Header />
-                    <main>{children}</main>
+                    <main /* ref={ref} */>{children}</main>
                     <Footer />
                     <Modals />
                 </body>
