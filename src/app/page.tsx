@@ -9,7 +9,7 @@ import { CreateOrder } from "@src/components/home/create-order/create-order";
 
 export default function HomePage() {
     return (
-        <>
+        <div className="homePage">
             <HeadBlock />
             <div className="container">
                 <About />
@@ -19,6 +19,6 @@ export default function HomePage() {
                 <Advantages />
                 <CreateOrder />
             </div>
-        </>
+        </div>
     );
 }

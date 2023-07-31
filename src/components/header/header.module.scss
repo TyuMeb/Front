@@ -2,35 +2,41 @@
 
 .header {
     padding: $gap-default 0;
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0 auto;
+    background: $bg-main-color;
+}
 
-    .header__content {
-        width: $container-width;
-        max-width: 100%;
-        margin: auto;
-        display: flex;
-        gap: $gap-l;
-        padding: 0 $gap-xxl;
+.nav {
+}
 
-        .nav {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            margin: auto 0;
+.list {
+    display: flex;
+    max-width: 1220px;
+    margin: 0 auto;
+    justify-content: space-between;
 
-            .list {
-                display: flex;
-                gap: $gap-l;
-            }
+    gap: $gap-l;
+}
 
-            .link {
-                &:hover {
-                    text-decoration: underline;
-                }
-                &:active {
-                    text-decoration: underline;
-                    text-decoration-color: $accent-color;
-                }
-            }
-        }
+.link {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    cursor: pointer;
+
+    &:last-child {
+        margin-left: auto;
+    }
+    &:hover {
+        text-decoration: underline;
+    }
+    &:active {
+        text-decoration: underline;
+        text-decoration-color: $accent-color;
     }
 }

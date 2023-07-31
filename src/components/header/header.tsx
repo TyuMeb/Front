@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./header.module.css";
+import styles from "./header.module.scss";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 import { useAppDispatch } from "@src/redux/hooks";
 import { openModal } from "@src/redux/modal-slice";
