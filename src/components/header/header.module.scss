@@ -11,16 +11,16 @@
     background: $bg-main-color;
 }
 
-.nav {
-}
-
 .list {
     display: flex;
     max-width: 1220px;
     margin: 0 auto;
     justify-content: space-between;
-
     gap: $gap-l;
+}
+
+.logo {
+    cursor: pointer;
 }
 
 .link {
@@ -28,6 +28,7 @@
     font-size: 16px;
     line-height: 160%;
     cursor: pointer;
+    user-select: none;
 
     &:last-child {
         margin-left: auto;
@@ -39,4 +40,8 @@
         text-decoration: underline;
         text-decoration-color: $accent-color;
     }
+}
+
+.active {
+    text-decoration: underline;
 }
