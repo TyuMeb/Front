@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect } from "react";
 import HomePage from "@src/pages/index";
 import { useRouter } from "next/router";
