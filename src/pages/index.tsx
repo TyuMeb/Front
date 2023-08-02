@@ -1,4 +1,3 @@
-import "./global.css";
 import { HeadBlock } from "@src/components/home/head-block/head-block";
 import { About } from "@src/components/home/about/about";
 import { HowWorks } from "@src/components/home/how-works/how-works";
