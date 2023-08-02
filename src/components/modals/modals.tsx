@@ -7,6 +7,7 @@ import SignIn from "@src/components/modals/signin";
 import Registration from "@src/components/modals/registration";
 import ResetPassword from "@src/components/modals/reset-password";
 import React, { useEffect } from "react";
+import ResetPasswordConfirm from "./reset-password-confirm/reset-password-confirm";
 
 const Modals = () => {
     const { modal, typeModal } = useAppSelector((store) => store.modal);
@@ -31,6 +32,8 @@ const Modals = () => {
                 return <Registration />;
             case "resetPassword":
                 return <ResetPassword />;
+            case "resetPasswordConfirm":
+                return <ResetPasswordConfirm />;
             default:
                 return <></>;
         }

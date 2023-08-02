@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type typeModal = "signIn" | "registration" | "resetPassword";
+type typeModal = "signIn" | "registration" | "resetPassword" | "resetPasswordConfirm";
 
 interface IModalState {
     modal: boolean;

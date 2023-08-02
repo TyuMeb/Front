@@ -26,7 +26,10 @@ const ModalAuth = ({ children }: IModalAuth) => {
                         <button
                             type="button"
                             className={cx("buttonLink", {
-                                activeNav: typeModal === "signIn" || typeModal === "resetPassword",
+                                activeNav:
+                                    typeModal === "signIn" ||
+                                    typeModal === "resetPassword" ||
+                                    typeModal === "resetPasswordConfirm",
                             })}
                             onClick={() => dispatch(setTypeModal("signIn"))}>
                             <p
