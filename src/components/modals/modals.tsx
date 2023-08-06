@@ -1,3 +1,5 @@
+"use client";
+
 import { useAppSelector } from "@src/redux/hooks";
 import Modal from "@src/components/modals/modal/modal";
 

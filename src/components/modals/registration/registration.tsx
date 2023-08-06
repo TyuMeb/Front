@@ -1,7 +1,7 @@
 import React, { useEffect, MouseEvent } from "react";
 import classNames from "classnames/bind";
 
-import useInput from "@src/shared/hooks/use-Input";
+import useInput from "@src/hooks/use-Input";
 import { TextField, PasswordField, PhoneField } from "@src/components/shared/ui/fields";
 import TextFieldModal from "@src/components/modals/text-field-modal";
 

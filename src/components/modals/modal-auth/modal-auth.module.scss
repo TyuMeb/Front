@@ -1,4 +1,4 @@
-@import "~/src/shared/styles/index.scss";
+@import "~/src/styles/index";
 
 .window {
     width: 804px;
@@ -73,15 +73,13 @@
     margin-right: 28px;
 
     &:last-of-type {
-        argin-right: 0;
+        margin-right: 0;
     }
 }
 
 .buttonLink {
     @include reset-button;
-
     height: 72px;
-    background-color: $white;
     width: 100%;
     background-color: $almond;
     border-radius: 18px 18px 0 0;

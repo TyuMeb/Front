@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 
 import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/modal-slice";
-import useInput from "@src/shared/hooks/use-Input";
+import useInput from "@src/hooks/use-Input";
 import { TextField, PasswordField } from "@src/components/shared/ui/fields";
 import TextFieldModal from "@src/components/modals/text-field-modal";
 
