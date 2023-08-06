@@ -1,13 +1,10 @@
-"use client";
-
 import React, { useEffect } from "react";
 import classNames from "classnames/bind";
-
 import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/modal-slice";
 import { PasswordField } from "@src/components/shared/ui/fields";
 import TextFieldModal from "@src/components/modals/text-field-modal";
-import useInput from "@src/shared/hooks/use-Input";
+import useInput from "@src/hooks/use-Input";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
