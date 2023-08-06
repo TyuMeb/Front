@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import HomePage from "@src/pages/index";
+import HomePage from "@src/app/page";
 import { useRouter } from "next/router";
 import { useAppDispatch } from "@src/redux/hooks";
 import { openModal, setTypeModal } from "@src/redux/modal-slice";

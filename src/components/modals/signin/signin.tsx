@@ -9,6 +9,8 @@ import TextFieldModal from "@src/components/modals/text-field-modal";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
+import Image from "next/image";
+import signin from "@public/signin.svg";
 
 const cx = classNames.bind(styles);
 
@@ -61,6 +63,17 @@ const SignIn = () => {
     return (
         <ModalAuth>
             <h2 className={cx("title")}>Добро пожаловать!</h2>
+
+            <Image
+                alt="Mountains"
+                src={signin}
+                quality={100}
+                fill
+                sizes="100vw"
+                style={{
+                    objectFit: "cover",
+                }}
+            />
 
             <form className={cx("form")}>
                 <div className={cx("inputsSignin")}>
