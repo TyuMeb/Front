@@ -1,9 +1,9 @@
-@import "../../../app/global";
+@import "../../../styles/variables";
 
 .banner {
     height: 554px;
     margin: 0 auto 140px;
-    background: url("../../../../public/home/home-banner.jpg") 80% 100% /cover no-repeat;
+    background: url("../../../../public/home/home-banner.jpg") 80% 100% / cover no-repeat;
 }
 
 .title {

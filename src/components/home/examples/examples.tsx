@@ -48,7 +48,7 @@ export const Examples = () => {
                         price="1000 р"
                     />
                     <div className={styles.slider}>
-                        <a href="#">
+                        <a>
                             <Image src="/home/arrow-left.svg" alt="arrow-left" width={14} height={32} />
                         </a>
                         <a href="#">
