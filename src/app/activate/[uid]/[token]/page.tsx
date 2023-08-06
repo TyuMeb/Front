@@ -3,7 +3,7 @@
 import { Home } from "@src/components/home";
 import { useParams } from "next/navigation";
 import { useAppDispatch } from "@src/redux/hooks";
-import { openModal } from "@src/redux/modal-slice";
+import { openModal } from "@src/redux/slices/modal-slice";
 
 export default function Page() {
     const dispatch = useAppDispatch();
