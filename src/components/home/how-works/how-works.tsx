@@ -7,10 +7,11 @@ import step1 from "@public/home/step1.jpg";
 import step2 from "@public/home/step2.jpg";
 import step3 from "@public/home/step3.jpg";
 import step4 from "@public/home/step4.jpg";
+import React, { forwardRef } from "react";
 
-export const HowWorks = () => {
+const HowWorks = forwardRef((howWorksRef) => {
     return (
-        <section className={styles.inner} id="how-woks">
+        <section className={styles.inner} id="howWorks" ref={(ref) => (howWorksRef ? howWorksRef : null)}>
             <h2 className={`title-h2 ${styles.title}`}>Как это работает?</h2>
             <div className={styles.steps}>
                 <Step title="Заполните заявку онлайн" num={1} imgSrc={step1}>
@@ -28,4 +29,7 @@ export const HowWorks = () => {
             </div>
         </section>
     );
-};
+});
+
+HowWorks.displayName = "HowWorks";
+export default HowWorks;

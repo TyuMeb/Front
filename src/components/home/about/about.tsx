@@ -3,10 +3,11 @@
 import Image from "next/image";
 import styles from "./about.module.scss";
 import about from "@public/home/about.jpg";
+import React, { forwardRef } from "react";
 
-export const About = () => {
+export const About = forwardRef<HTMLDivElement>((aboutRef) => {
     return (
-        <section className={styles.inner} id="about">
+        <section className={styles.inner} id="about" ref={aboutRef}>
             <div className={styles.left__card}>
                 <h2 className={`title-h2 ${styles.title}`}>О проекте</h2>
                 <p className={styles.description}>
@@ -19,4 +20,6 @@ export const About = () => {
             <Image src={about} alt={"about-image"} className={styles.right__card} />
         </section>
     );
-};
+});
+
+About.displayName = "About";

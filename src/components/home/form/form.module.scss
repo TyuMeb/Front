@@ -1,5 +1,7 @@
 @import "../../../app/global";
-
+.section {
+    padding-top: 140px;
+}
 .inner {
     display: flex;
     flex-direction: column;
@@ -8,7 +10,6 @@
     background-color: $bg-secondary-color;
     border-radius: $border-radius-m;
     height: 360px;
-    margin-bottom: 140px;
 }
 
 .description {
