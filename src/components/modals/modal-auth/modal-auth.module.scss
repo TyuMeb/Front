@@ -209,34 +209,6 @@
     cursor: pointer;
 }
 
-.checkboxFieldHide {
-    display: none;
-}
-
-.checkboxFieldIcon {
-    position: absolute;
-    top: 24%;
-    left: 18%;
-}
-
-.checkboxField {
-    position: relative;
-    border-radius: 4px;
-    width: 24px;
-    height: 24px;
-    background-color: $mustard;
-    margin-right: 20px;
-}
-
-.checkboxFieldIcon path {
-    fill: none;
-}
-
-.checkboxFieldHide:checked ~ .checkboxField > .checkboxFieldIcon path {
-    background-color: red;
-    fill: black;
-}
-
 .textCheckbox {
     user-select: none;
 }

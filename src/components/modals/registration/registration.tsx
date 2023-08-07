@@ -2,9 +2,8 @@ import React, { useEffect, MouseEvent } from "react";
 import classNames from "classnames/bind";
 
 import useInput from "@src/hooks/use-Input";
-import { TextField, PasswordField, PhoneField } from "@src/components/shared/ui/fields";
+import { TextField, PasswordField, PhoneField, СheckboxField } from "@src/components/shared/ui/fields";
 import TextFieldModal from "@src/components/modals/text-field-modal";
-import Icon from "@src/components/icon";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
@@ -119,7 +118,6 @@ const Registration = () => {
                         <PasswordField
                             className="inputAuth"
                             placeholder="Повторите свой пароль"
-                            errorText="Текст ошибки"
                             {...passwordRepeatField}
                         />
                     </TextFieldModal>
@@ -144,15 +142,7 @@ const Registration = () => {
                 )}
 
                 <label className={cx("checkboxLabel")}>
-                    <input
-                        className={cx("checkboxFieldHide")}
-                        type="checkbox"
-                        checked={checked}
-                        onChange={handleChange}
-                    />
-                    <div className={cx("checkboxField")}>
-                        <Icon className={cx("checkboxFieldIcon")} glyph="checked" />
-                    </div>
+                    <СheckboxField checked={checked} handleChange={() => handleChange()} />
                     <p className={cx("textCheckbox", "text")}>Вы соглашаетесь с обработкой персональных данных</p>
                 </label>
 

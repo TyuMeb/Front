@@ -1,0 +1,29 @@
+@import "~/src/styles/index";
+
+.checkboxFieldHide {
+    display: none;
+}
+
+.checkboxField {
+    position: relative;
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    background-color: $mustard;
+    margin-right: 20px;
+}
+
+.checkboxFieldIcon {
+    position: absolute;
+    top: 24%;
+    left: 18%;
+}
+
+.checkboxFieldIcon path {
+    fill: none;
+}
+
+.checkboxFieldHide:checked ~ .checkboxField > .checkboxFieldIcon path {
+    background-color: red;
+    fill: black;
+}
