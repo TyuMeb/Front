@@ -2,7 +2,7 @@ import React, { HTMLAttributes } from "react";
 import classNames from "classnames/bind";
 
 import { useAppSelector, useAppDispatch } from "@src/redux/hooks";
-import { setTypeModal } from "@src/redux/modal-slice";
+import { setTypeModal } from "@src/redux/slices/modal-slice";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 

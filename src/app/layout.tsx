@@ -1,4 +1,4 @@
-import "./global.css";
+import "../styles/global.css";
 import { Open_Sans } from "next/font/google";
 import Header from "@src/components/header/header";
 import Footer from "@src/components/footer/footer";

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import classNames from "classnames/bind";
 
 import { useAppDispatch } from "@src/redux/hooks";
-import { setTypeModal } from "@src/redux/modal-slice";
+import { setTypeModal } from "@src/redux/slices/modal-slice";
 import useInput from "@src/hooks/use-Input";
 import { TextField, PasswordField } from "@src/components/shared/ui/fields";
 import TextFieldModal from "@src/components/modals/text-field-modal";
@@ -11,9 +11,34 @@ import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
 import Icon from "@src/components/icon";
 
+import { useCreateTokenMutation } from "@src/redux/api/jwt-api-slice";
+import { setCookie, removeCookie } from "typescript-cookie";
+
 const cx = classNames.bind(styles);
 
 const SignIn = () => {
+    const [createToken] = useCreateTokenMutation();
+    const data = {
+        email: "rustamaaa@bk.ru",
+        password: "rustamaaa1",
+    };
+
+    useEffect(() => {
+        createToken(data)
+            .unwrap()
+            .then((res) => {
+                setCookie("accessToken", res.access);
+                localStorage.setItem("refreshToken", res.refresh);
+                console.log("Авторизация прошла успешно");
+            })
+            .catch((error) => {
+                console.log("Неверный логин или пароль");
+                removeCookie("accessToken");
+                localStorage.removeItem("refreshToken");
+                console.log(error);
+            });
+    }, []);
+
     const dispatch = useAppDispatch();
 
     const emailField = useInput("");
