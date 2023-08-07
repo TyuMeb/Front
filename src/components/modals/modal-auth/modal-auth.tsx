@@ -16,11 +16,7 @@ const ModalAuth = ({ children }: IModalAuth) => {
 
     return (
         <>
-            <div
-                className={cx("window", {
-                    backgroundSignIn: typeModal === "signIn",
-                    backgroundResetPassword: typeModal === "resetPassword",
-                })}>
+            <div className={cx("window")}>
                 <ul className={cx("listButtons", "containerButtons")}>
                     <li className={cx("itemLink")}>
                         <button

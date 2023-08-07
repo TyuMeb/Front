@@ -33,11 +33,6 @@
 }
 
 .warningIcon {
-    @include background;
-
-    width: 24px;
-    height: 24px;
-    background-image: url("~/public/warning.svg");
     position: absolute;
     top: -2px;
     left: -24px;

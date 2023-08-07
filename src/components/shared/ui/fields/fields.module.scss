@@ -31,18 +31,6 @@
     height: 28px;
 }
 
-.iconEye {
-    @include background;
-
-    background-image: url("~/public/eye.svg");
-}
-
-.iconOpenEye {
-    @include background;
-
-    background-image: url("~/public/open_eye.svg");
-}
-
 .warning {
     position: absolute;
     bottom: -78px;

@@ -14,16 +14,19 @@
 
 .backgroundSignIn {
     @include background;
-
-    background-image: url("~/public/signin.svg");
-    background-position: 76px 96px;
+    position: absolute;
+    top: 34px;
+    left: 76px;
 }
 
 .backgroundResetPassword {
-    @include background;
+    position: absolute;
+    top: 73px;
+    left: 76px;
+}
 
-    background-image: url("~/public/reset_password.svg");
-    background-position: 76px 135px;
+.form {
+    position: relative;
 }
 
 .inputsRegistration {
@@ -115,6 +118,7 @@
     @include headline;
     @include headline2;
 
+    position: relative;
     margin-bottom: 36px;
     max-width: 458px;
 }
@@ -209,19 +213,28 @@
     display: none;
 }
 
-.checkboxFieldHide:checked + .checkboxField {
-    @include background;
-
-    background-image: url("~/public/checked.svg");
-    background-position: center;
+.checkboxFieldIcon {
+    position: absolute;
+    top: 24%;
+    left: 18%;
 }
 
 .checkboxField {
+    position: relative;
     border-radius: 4px;
     width: 24px;
     height: 24px;
     background-color: $mustard;
     margin-right: 20px;
+}
+
+.checkboxFieldIcon path {
+    fill: none;
+}
+
+.checkboxFieldHide:checked ~ .checkboxField > .checkboxFieldIcon path {
+    background-color: red;
+    fill: black;
 }
 
 .textCheckbox {

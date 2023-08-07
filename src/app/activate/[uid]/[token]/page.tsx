@@ -1,14 +1,21 @@
 "use client";
 
+import React, { useEffect } from "react";
 import { Home } from "@src/components/home";
 import { useParams } from "next/navigation";
 import { useAppDispatch } from "@src/redux/hooks";
-import { openModal } from "@src/redux/modal-slice";
+import { openModal, setTypeModal } from "@src/redux/modal-slice";
 
 export default function Page() {
-    const dispatch = useAppDispatch();
     const params = useParams();
-    dispatch(openModal());
-    console.log(params);
+
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(openModal());
+        dispatch(setTypeModal("resetPasswordConfirm"));
+        console.log(params);
+    }, []);
+
     return <Home />;
 }

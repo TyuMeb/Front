@@ -4,6 +4,7 @@ import classNames from "classnames/bind";
 import useInput from "@src/hooks/use-Input";
 import { TextField, PasswordField, PhoneField } from "@src/components/shared/ui/fields";
 import TextFieldModal from "@src/components/modals/text-field-modal";
+import Icon from "@src/components/icon";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
@@ -149,7 +150,9 @@ const Registration = () => {
                         checked={checked}
                         onChange={handleChange}
                     />
-                    <span className={cx("checkboxField")} />
+                    <div className={cx("checkboxField")}>
+                        <Icon className={cx("checkboxFieldIcon")} glyph="checked" />
+                    </div>
                     <p className={cx("textCheckbox", "text")}>Вы соглашаетесь с обработкой персональных данных</p>
                 </label>
 

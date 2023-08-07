@@ -1,6 +1,6 @@
 import styles from "./footer.module.scss";
 import Image from "next/image";
-import vk from "@public/vk.svg";
+// import vk from "@public/vk.svg";
 
 const Footer = () => {
     return (
@@ -12,9 +12,9 @@ const Footer = () => {
                         Сервис по заказу корпусной мебели онлайн, который помогает создать уникальный продукт специально
                         для вас
                     </p>
-                    <div className={styles.icon}>
+                    {/* <div className={styles.icon}>
                         <Image src={vk} alt="vk icon" />
-                    </div>
+                    </div> */}
                     <div className={styles.copy}>© {new Date().getFullYear()}</div>
                 </div>
                 <div className={styles.right}>

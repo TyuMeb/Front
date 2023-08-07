@@ -1,27 +1,16 @@
 import React, { useState } from "react";
 import classNames from "classnames/bind";
+import Icon from "@src/components/icon";
 
 import { IFields } from "../fields.props";
 import styles from "../fields.module.scss";
 
 const cx = classNames.bind(styles);
 
-interface IPasswordField extends IFields {
-    icon_type?: "eye";
-}
+interface IPasswordField extends IFields {}
 
 export const PasswordField = (props: IPasswordField) => {
-    const {
-        value,
-        placeholder,
-        errorText,
-        icon_type = "eye",
-        maxLength,
-        className,
-        minLength,
-        required,
-        onChange,
-    } = props;
+    const { value, placeholder, errorText, maxLength, className, minLength, required, onChange } = props;
 
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -41,14 +30,12 @@ export const PasswordField = (props: IPasswordField) => {
             />
 
             <button
-                className={cx("buttonShowPassword", {
-                    iconEye: icon_type === "eye" && !showPassword,
-                    iconOpenEye: icon_type === "eye" && showPassword,
-                })}
+                className={cx("buttonShowPassword")}
                 type="button"
                 onMouseDown={() => setShowPassword(true)}
-                onMouseUp={() => setShowPassword(false)}
-            />
+                onMouseUp={() => setShowPassword(false)}>
+                {showPassword ? <Icon glyph="open_eye" /> : <Icon glyph="eye" />}
+            </button>
 
             {errorText && (
                 <div className={cx("warning")}>
