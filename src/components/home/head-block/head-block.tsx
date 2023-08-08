@@ -6,7 +6,7 @@ import { Button } from "@src/components/shared/ui/button/button";
 
 export const HeadBlock = () => {
     return (
-        <div>
+        <section id="banner">
             <div className={styles.banner}>
                 <div className="container">
                     <h1 className={styles.title}>Создайте свой идеальный дом</h1>
@@ -16,6 +16,6 @@ export const HeadBlock = () => {
                     <Button onClick={() => {}}>Сделать заказ</Button>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
