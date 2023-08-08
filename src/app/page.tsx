@@ -1,6 +1,6 @@
 "use client";
 import "./global.css";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { HeadBlock } from "@src/components/home/head-block/head-block";
 import { About } from "@src/components/home/about/about";
 import { HowWorks } from "@src/components/home/how-works/how-works";
@@ -21,9 +21,18 @@ export default function HomePage() {
     const [examplesRef, inViewExamples] = useInView({ threshold: 0.5, triggerOnce: false });
     const [advantagesRef, inViewAdvantages] = useInView({ threshold: 0.5, triggerOnce: false });
     const [createOrderRef, inViewCreateOrder] = useInView({ threshold: 0.5, triggerOnce: false });
+    //чтобы класс active срабатывал только после скролла
+    const [scroll, setScroll] = useState(0);
+    const onScroll = useCallback(() => setScroll(Math.round(window.scrollY)), []);
 
     useEffect(() => {
-        if (inViewAbout) {
+        onScroll();
+        window.addEventListener("scroll", onScroll);
+        return () => window.removeEventListener("scroll", onScroll);
+    }, [onScroll]);
+
+    useEffect(() => {
+        if (inViewAbout && scroll !== 0) {
             setCurrent("about");
             dispatch(setContentBlock("about"));
         } else if (inViewHowWorks) {
@@ -42,7 +51,16 @@ export default function HomePage() {
             setCurrent("createOrder");
             dispatch(setContentBlock("createOrder"));
         }
-    }, [inViewAbout, inViewHowWorks, inViewForm, inViewExamples, inViewAdvantages, inViewCreateOrder, dispatch]);
+    }, [
+        inViewAbout,
+        inViewHowWorks,
+        inViewForm,
+        inViewExamples,
+        inViewAdvantages,
+        inViewCreateOrder,
+        dispatch,
+        scroll,
+    ]);
 
     return (
         <div className="homePage">
