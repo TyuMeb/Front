@@ -3,7 +3,7 @@
 import { FC, useEffect, MouseEvent, ReactNode } from "react";
 import styles from "./modal.module.css";
 import { useAppDispatch } from "@src/redux/hooks";
-import { closeModal } from "@src/redux/modal-slice";
+import { closeModal } from "@src/redux/slices/modal-slice";
 
 interface IModal {
     children: ReactNode;
