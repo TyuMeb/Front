@@ -6,7 +6,7 @@ import about from "@public/home/about.jpg";
 
 export const About = () => {
     return (
-        <div className={styles.inner}>
+        <section className={styles.inner} id="about">
             <div className={styles.left__card}>
                 <h2 className={`title-h2 ${styles.title}`}>О проекте</h2>
                 <p className={styles.description}>
@@ -17,6 +17,6 @@ export const About = () => {
                 </p>
             </div>
             <Image src={about} alt={"about-image"} className={styles.right__card} />
-        </div>
+        </section>
     );
 };

@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <Providers>
                 <body className={openSans.className}>
                     <Header />
-                    <main>{children}</main>
+                    <main /* ref={ref} */>{children}</main>
                     <Footer />
                     <Modals />
                 </body>

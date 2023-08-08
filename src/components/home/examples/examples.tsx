@@ -2,12 +2,11 @@
 import Image from "next/image";
 
 import { CardExample } from "@src/components/shared/ui/card-example/card-example";
-
 import styles from "./examples.module.scss";
 
 export const Examples = () => {
     return (
-        <div className={styles.inner}>
+        <section className={styles.inner} id="examples">
             <h2 className={`title-h2 ${styles.title}`}>Примеры работ</h2>
             <div className={styles.examples}>
                 <div className={styles.leftSide}>
@@ -57,6 +56,6 @@ export const Examples = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };

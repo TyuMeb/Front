@@ -4,6 +4,7 @@ import warning from './warning.svg';
 import checked from './checked.svg';
 import eye from './eye.svg';
 import open_eye from './open_eye.svg';
+import vk from './vk.svg';
 
 export default {
 	resetPassword,
@@ -11,5 +12,6 @@ export default {
 	warning,
 	checked,
 	eye,
-	open_eye
+	open_eye,
+	vk
 };
