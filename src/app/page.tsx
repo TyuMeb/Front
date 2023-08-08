@@ -1,5 +1,5 @@
 "use client";
-import "./global.css";
+
 import React, { useCallback, useEffect, useState } from "react";
 import { HeadBlock } from "@src/components/home/head-block/head-block";
 import { About } from "@src/components/home/about/about";
@@ -10,7 +10,7 @@ import { Advantages } from "@src/components/home/advantages/advantages";
 import { CreateOrder } from "@src/components/home/create-order/create-order";
 import { useInView } from "react-intersection-observer";
 import { useAppDispatch } from "@src/redux/hooks";
-import { setContentBlock } from "@src/redux/header-slice";
+import { setContentBlock } from "@src/redux/slices/header-slice";
 
 export default function HomePage() {
     const [current, setCurrent] = useState<string | null>(null);

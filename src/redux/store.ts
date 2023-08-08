@@ -1,8 +1,8 @@
 "use client";
 
 import { configureStore } from "@reduxjs/toolkit";
-import modalReducer from "./modal-slice";
-import headerReducer from "./header-slice";
+import modalReducer from "./slices/modal-slice";
+import headerReducer from "./slices/header-slice";
 import { setupListeners } from "@reduxjs/toolkit/query/react";
 import { apiSlice } from "@src/redux/api/api-slice";
 
