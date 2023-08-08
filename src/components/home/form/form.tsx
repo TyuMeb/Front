@@ -1,12 +1,10 @@
-import React, { forwardRef } from "react";
 import styles from "./form.module.scss";
-
 import { Input } from "@src/components/shared/ui/input/input";
 import { Button } from "@src/components/shared/ui/button/button";
 
-const Form = forwardRef((formRef) => {
+export const Form = () => {
     return (
-        <section className={styles.section} id="form" ref={(ref) => (formRef ? formRef : null)}>
+        <section className={styles.section} id="form">
             <div className={styles.inner}>
                 <p className={styles.description}>
                     Хотите стать одним из исполнителей на ВайВи? — оставьте заявку и мы с вами свяжемся. Мы готовы
@@ -22,6 +20,4 @@ const Form = forwardRef((formRef) => {
             </div>
         </section>
     );
-});
-Form.displayName = "Form";
-export default Form;
+};

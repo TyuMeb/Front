@@ -1,60 +1,18 @@
 "use client";
 
 import styles from "./header.module.scss";
-import { useAppDispatch } from "@src/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 import { openModal } from "@src/redux/modal-slice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Header = () => {
     const dispatch = useAppDispatch();
-    const [current, setCurrent] = useState<string | null>(null);
-    /*     const scrollToBlock = (y: number) => {
-            window.scrollTo({
-                top: y,
-                behavior: "smooth",
-            });
-        }; */
+    const [current, setCurrent] = useState<string | undefined>(undefined);
+    const { contentBlock } = useAppSelector((store) => store.header);
 
-    /*     const activeLink = (event: MouseEvent<HTMLUListElement>) => {
-            const list = event.currentTarget.childNodes as NodeListOf<Element>;
-            list.forEach((element) => element.classList.remove(styles.active));
-    
-            const target = event.target as Element;
-            if (target.tagName === "LI") {
-                switch (target.textContent) {
-                    case "ВайВи": {
-                        scrollToBlock(0);
-                        target.classList.add(styles.active);
-                        break;
-                    }
-                    case "О проекте": {
-                        scrollToBlock(635);
-                        target.classList.add(styles.active);
-                        break;
-                    }
-                    case "Как это работает": {
-                        scrollToBlock(1125);
-                        target.classList.add(styles.active);
-                        break;
-                    }
-                    case "Исполнителям": {
-                        scrollToBlock(2095);
-                        target.classList.add(styles.active);
-                        break;
-                    }
-                    case "Примеры работ": {
-                        scrollToBlock(2545);
-                        target.classList.add(styles.active);
-                        break;
-                    }
-                    case "Преимущества": {
-                        scrollToBlock(3355);
-                        target.classList.add(styles.active);
-                        break;
-                    }
-                }
-            }
-        }; */
+    useEffect(() => {
+        setCurrent(contentBlock);
+    }, [contentBlock]);
 
     const switchTab = (tab: string) => {
         setCurrent(tab);
@@ -65,10 +23,10 @@ const Header = () => {
     return (
         <header className={styles.header}>
             <nav className={styles.nav}>
-                <ul className={styles.list} /* onClick={activeLink} */>
+                <ul className={styles.list}>
                     <li className={styles.logo}>ВайВи</li>
                     <li
-                        /* className={styles.link}  */ className={current !== "about" ? styles.link : styles.active}
+                        className={current !== "about" ? styles.link : styles.active}
                         onClick={() => switchTab("about")}>
                         О проекте
                     </li>

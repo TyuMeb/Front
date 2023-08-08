@@ -3,54 +3,63 @@ import "./global.css";
 import React, { useEffect, useState } from "react";
 import { HeadBlock } from "@src/components/home/head-block/head-block";
 import { About } from "@src/components/home/about/about";
-import HowWorks from "@src/components/home/how-works/how-works";
-import Form from "@src/components/home/form/form";
-import Examples from "@src/components/home/examples/examples";
-import Advantages from "@src/components/home/advantages/advantages";
-import CreateOrder from "@src/components/home/create-order/create-order";
+import { HowWorks } from "@src/components/home/how-works/how-works";
+import { Form } from "@src/components/home/form/form";
+import { Examples } from "@src/components/home/examples/examples";
+import { Advantages } from "@src/components/home/advantages/advantages";
+import { CreateOrder } from "@src/components/home/create-order/create-order";
 import { useInView } from "react-intersection-observer";
+import { useAppDispatch } from "@src/redux/hooks";
+import { setContentBlock } from "@src/redux/header-slice";
 
 export default function HomePage() {
-    const [current, setCurrent] = useState<string>("about");
-    const [aboutRef, inViewAbout] = useInView({ threshold: 0.5, triggerOnce: true });
-    const [howWorksRef, inViewHowWorks] = useInView({ threshold: 0.5, triggerOnce: true });
-    const [formRef, inViewForm] = useInView({ threshold: 0.5, triggerOnce: true });
-    const [examplesRef, inViewExamples] = useInView({ threshold: 0.5, triggerOnce: true });
-    const [advantagesRef, inViewAdvantages] = useInView({ threshold: 0.5, triggerOnce: true });
-    const [createOrderRef, inViewCreateOrder] = useInView({ threshold: 0.5, triggerOnce: true });
+    const [current, setCurrent] = useState<string | null>(null);
+    const dispatch = useAppDispatch();
+    const [aboutRef, inViewAbout] = useInView({ threshold: 0.5, triggerOnce: false });
+    const [howWorksRef, inViewHowWorks] = useInView({ threshold: 0.5, triggerOnce: false });
+    const [formRef, inViewForm] = useInView({ threshold: 0.5, triggerOnce: false });
+    const [examplesRef, inViewExamples] = useInView({ threshold: 0.5, triggerOnce: false });
+    const [advantagesRef, inViewAdvantages] = useInView({ threshold: 0.5, triggerOnce: false });
+    const [createOrderRef, inViewCreateOrder] = useInView({ threshold: 0.5, triggerOnce: false });
 
     useEffect(() => {
         if (inViewAbout) {
-            console.log("about");
-            /*    setCurrent("about"); */
+            setCurrent("about");
+            dispatch(setContentBlock("about"));
         } else if (inViewHowWorks) {
-            console.log("howWorks");
-            /*   setCurrent("howWorks"); */
+            setCurrent("howWorks");
+            dispatch(setContentBlock("howWorks"));
         } else if (inViewForm) {
-            console.log("form");
-            /*     setCurrent("form"); */
+            setCurrent("form");
+            dispatch(setContentBlock("form"));
         } else if (inViewExamples) {
-            console.log("examples");
-            /*      setCurrent("examples"); */
+            setCurrent("examples");
+            dispatch(setContentBlock("examples"));
         } else if (inViewAdvantages) {
-            console.log("advantages");
-            /*  setCurrent("advantages"); */
+            setCurrent("advantages");
+            dispatch(setContentBlock("advantages"));
         } else if (inViewCreateOrder) {
-            console.log("createOrder");
-            /*        setCurrent("createOrder"); */
+            setCurrent("createOrder");
+            dispatch(setContentBlock("createOrder"));
         }
-    }, [inViewAbout, inViewHowWorks, inViewForm, inViewExamples, inViewAdvantages, inViewCreateOrder]);
+    }, [inViewAbout, inViewHowWorks, inViewForm, inViewExamples, inViewAdvantages, inViewCreateOrder, dispatch]);
 
     return (
         <div className="homePage">
             <HeadBlock />
             <div className="container">
-                <About ref={aboutRef} />
-                <HowWorks ref={howWorksRef} />
-                <Form ref={formRef} />
-                <Examples ref={examplesRef} />
-                <Advantages ref={advantagesRef} />
-                <CreateOrder ref={createOrderRef} />
+                <div ref={aboutRef} />
+                <About />
+                <div ref={howWorksRef} />
+                <HowWorks />
+                <div ref={formRef} />
+                <Form />
+                <div ref={examplesRef} />
+                <Examples />
+                <div ref={advantagesRef} />
+                <Advantages />
+                <div ref={createOrderRef} />
+                <CreateOrder />
             </div>
         </div>
     );

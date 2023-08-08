@@ -2,10 +2,12 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import modalReducer from "./modal-slice";
+import headerReducer from "./header-slice";
 
 export const store = configureStore({
     reducer: {
         modal: modalReducer,
+        header: headerReducer,
     },
 });
 
