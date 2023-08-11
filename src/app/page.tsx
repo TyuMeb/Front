@@ -11,13 +11,16 @@ import { CreateOrder } from "@src/components/home/create-order/create-order";
 import { useInView } from "react-intersection-observer";
 import { useAppDispatch } from "@src/redux/hooks";
 import { setContentBlock } from "@src/redux/slices/header-slice";
+import { relative } from "path";
 
 export default function HomePage() {
     const [current, setCurrent] = useState<string | null>(null);
     const dispatch = useAppDispatch();
     const [aboutRef, inViewAbout] = useInView({ threshold: 0.5, triggerOnce: false });
-    const [howWorksRef, inViewHowWorks] = useInView({ threshold: 0.5, triggerOnce: false });
-    const [formRef, inViewForm] = useInView({ threshold: 0.5, triggerOnce: false });
+    const [howWorksStartRef, inViewStartHowWorks] = useInView({ threshold: 0.5, triggerOnce: false });
+    const [howWorksEndRef, inViewEndHowWorks] = useInView({ threshold: 0.5, triggerOnce: false });
+    const [formStartRef, inViewStartForm] = useInView({ threshold: 1, triggerOnce: false });
+    const [formEndRef, inViewEndForm] = useInView({ threshold: 1, triggerOnce: false });
     const [examplesRef, inViewExamples] = useInView({ threshold: 0.5, triggerOnce: false });
     const [advantagesRef, inViewAdvantages] = useInView({ threshold: 0.5, triggerOnce: false });
     const [createOrderRef, inViewCreateOrder] = useInView({ threshold: 0.5, triggerOnce: false });
@@ -35,10 +38,10 @@ export default function HomePage() {
         if (inViewAbout && scroll !== 0) {
             setCurrent("about");
             dispatch(setContentBlock("about"));
-        } else if (inViewHowWorks) {
+        } else if (inViewStartHowWorks || (inViewEndHowWorks && !inViewEndForm)) {
             setCurrent("howWorks");
             dispatch(setContentBlock("howWorks"));
-        } else if (inViewForm) {
+        } else if (inViewStartForm) {
             setCurrent("form");
             dispatch(setContentBlock("form"));
         } else if (inViewExamples) {
@@ -53,8 +56,10 @@ export default function HomePage() {
         }
     }, [
         inViewAbout,
-        inViewHowWorks,
-        inViewForm,
+        inViewStartHowWorks,
+        inViewEndHowWorks,
+        inViewStartForm,
+        inViewEndForm,
         inViewExamples,
         inViewAdvantages,
         inViewCreateOrder,
@@ -68,10 +73,12 @@ export default function HomePage() {
             <div className="container">
                 <div ref={aboutRef} />
                 <About />
-                <div ref={howWorksRef} />
+                <div ref={howWorksStartRef} />
                 <HowWorks />
-                <div ref={formRef} />
+                <div ref={howWorksEndRef} />
+                <div ref={formStartRef} />
                 <Form />
+                <div ref={formEndRef} />
                 <div ref={examplesRef} />
                 <Examples />
                 <div ref={advantagesRef} />
