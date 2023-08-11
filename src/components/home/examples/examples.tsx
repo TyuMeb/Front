@@ -32,7 +32,7 @@ export const Examples = () => {
                         <CardExample
                             width={388}
                             height={208}
-                            src={`/home/slide${currentSlide}0.jpg`}
+                            src={`/home/s_slide${currentSlide}0.jpg`}
                             alt="logo-nightstand"
                             object="Полка"
                             price="1000 р"
@@ -40,7 +40,7 @@ export const Examples = () => {
                         <CardExample
                             width={388}
                             height={208}
-                            src={`/home/slide${currentSlide}1.jpg`}
+                            src={`/home/s_slide${currentSlide}1.jpg`}
                             alt="logo-closet-sm"
                             object="Полка"
                             price="1000 р"
@@ -49,7 +49,7 @@ export const Examples = () => {
                     <CardExample
                         width={804}
                         height={326}
-                        src={`/home/slide${currentSlide}2.jpg`}
+                        src={`/home/s_slide${currentSlide}2.jpg`}
                         alt="logo-kitchen"
                         object="Полка"
                         price="1000 р"
@@ -59,7 +59,7 @@ export const Examples = () => {
                     <CardExample
                         width={388}
                         height={444}
-                        src={`/home/slide${currentSlide}3.jpg`}
+                        src={`/home/s_slide${currentSlide}3.jpg`}
                         alt="logo-closet-lg"
                         object="Полка"
                         price="1000 р"
