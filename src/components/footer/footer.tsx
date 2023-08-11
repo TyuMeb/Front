@@ -1,10 +1,9 @@
 "use client";
 
-import styles from "./footer.module.scss";
-import Image from "next/image";
-import vk from "@public/vk.svg";
 import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 import { useEffect, useState } from "react";
+import Icon from "@src/components/icon";
+import styles from "./footer.module.scss";
 
 const Footer = () => {
     const dispatch = useAppDispatch();
@@ -29,9 +28,9 @@ const Footer = () => {
                         Сервис по заказу корпусной мебели онлайн, который помогает создать уникальный продукт специально
                         для вас
                     </p>
-                    <div className={styles.icon}>
-                        <Image src={vk} alt="vk icon" />
-                    </div>
+                    <a href="#">
+                        <Icon className={styles.icon} glyph="vk" />
+                    </a>
                     <div className={styles.copy}>© {new Date().getFullYear()}</div>
                 </div>
                 <div className={styles.right}>
