@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./header.module.scss";
-import { MouseEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 import { openModal } from "@src/redux/slices/modal-slice";
 import { useRefreshTokenMutation, useVerifyTokenMutation } from "@src/redux/api/jwt-api-slice";
@@ -54,7 +54,11 @@ const Header = () => {
     const switchTab = (tab: string) => {
         setCurrent(tab);
         const element: HTMLElement | null = document.getElementById(tab);
-        if (element) element.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (element) {
+            element.id === "form"
+                ? element.scrollIntoView({ behavior: "smooth", block: "center" })
+                : element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
     };
 
     return (
