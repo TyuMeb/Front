@@ -12,6 +12,7 @@ import { useInView } from "react-intersection-observer";
 import { useAppDispatch } from "@src/redux/hooks";
 import { setContentBlock } from "@src/redux/slices/header-slice";
 import { relative } from "path";
+import { useGetUsersQuery } from "@src/redux/api/users-api";
 
 export default function HomePage() {
     const [current, setCurrent] = useState<string | null>(null);
@@ -66,6 +67,12 @@ export default function HomePage() {
         dispatch,
         scroll,
     ]);
+
+    const { data: users, isLoading, isSuccess, isError, error } = useGetUsersQuery({});
+
+    useEffect(() => {
+        console.log(users);
+    }, []);
 
     return (
         <div className="homePage">

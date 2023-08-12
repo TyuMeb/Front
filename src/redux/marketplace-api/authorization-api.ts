@@ -21,6 +21,7 @@ export const authorizationApi = marketplaceApi.injectEndpoints({
                 url: `activate${uid}/${token}/`,
                 method: "GET",
             }),
+            invalidatesTags: ["users"],
         }),
         verifyToken: build.mutation({
             query: (body: { token: string }) => ({
@@ -41,3 +42,15 @@ export const authorizationApi = marketplaceApi.injectEndpoints({
 
 export const { useRegisterUserMutation, useLoginUserMutation, useVerifyTokenMutation, useRefreshTokenMutation } =
     authorizationApi;
+
+// providesTags: (result) => {
+//     console.log("auth/users/", result);
+//     return ["Users"];
+// },
+
+// В некоторых случаях вы можете захотеть манипулировать данными, возвращенными из запроса, прежде чем поместить их в кэш.
+// transformResponse: (result: { data: { user: IUser } }) =>
+//     result.data,
+
+// В некоторых случаях вы можете захотеть манипулировать ошибкой, возвращенной из запроса, прежде чем поместить ее в кеш.
+// transformErrorResponse
