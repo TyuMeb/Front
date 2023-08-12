@@ -1,11 +1,4 @@
-@import "../../../app/global";
-
-.banner {
-    max-width: $container-width;
-    height: 554px;
-    margin: 0 auto 140px;
-    background: url("../../../../public/home/home-banner.jpg") no-repeat;
-}
+@import "../../../styles/variables";
 
 .title {
     font-size: 52px;

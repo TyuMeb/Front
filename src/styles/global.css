@@ -1,0 +1,81 @@
+:root {
+    --text-main-color: #1c1c1c;
+    --accent-color: #fccf55;
+    --latte-color: #eae5e1;
+    --light-latte-color: #f5f3f1;
+    --disabled-color: #b5b3b2;
+    --bg-main-color: #ffffff;
+    --bg-secondary-color: #fffaee;
+    --bg-accent-color: #fff2cc;
+    --error-accent-color: #ff6894;
+    --error-light-color: #fef7f9;
+    --success-accent-color: #7cc19e;
+    --success-light-color: #f7fbf9;
+    --btn-hover-color: #fdb675;
+    --btn-active-color: #f5a13f;
+    --container-width: 1440px;
+    --gap-xs: 8px;
+    --gap-s: 20px;
+    --gap-default: 28px;
+    --gap-m: 36px;
+    --gap-l: 44px;
+    --gap-xl: 64px;
+    --gap-xxl: 110px;
+    --gap-xxxl: 140px;
+    --border-radius-s: 10px;
+    --border-radius-m: 45px;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    color: var(--text-main-color);
+    line-height: 150%;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 3.25rem;
+    line-height: 130%;
+    font-weight: 400;
+}
+
+h2 {
+    font-size: 1.875rem;
+    line-height: 130%;
+    font-weight: 400;
+}
+
+h3 {
+    font-size: 1.25rem;
+    line-height: 160%;
+    font-weight: 600;
+    text-align: center;
+}
+
+h4 {
+    font-size: 1.125rem;
+    line-height: 130%;
+    font-weight: 600;
+}
+
+.container {
+    max-width: 1220px;
+    margin: 0 auto;
+}
+
+.homePage {
+    margin-top: 80px;
+}

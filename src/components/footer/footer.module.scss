@@ -1,4 +1,4 @@
-@import "../../app/global";
+@import "../../styles/variables";
 
 .footer {
     background-color: $bg-secondary-color;
@@ -10,7 +10,7 @@
     margin: 0 auto;
     width: 1440px;
     height: 336px;
-    padding: 44px 0;
+    padding: 44px 110px;
 }
 
 .left {

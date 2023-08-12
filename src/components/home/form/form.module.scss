@@ -1,19 +1,18 @@
-@import "../../../app/global";
+@import "../../../styles/variables";
 
 .inner {
     display: flex;
+    padding: 72px 0;
     flex-direction: column;
     justify-content: center;
     text-align: center;
     background-color: $bg-secondary-color;
     border-radius: $border-radius-m;
-    height: 360px;
-    margin-bottom: 140px;
 }
 
 .description {
     max-width: 680px;
-    margin: 68px auto 0;
+    margin: 0 auto;
 }
 
 .inputs {

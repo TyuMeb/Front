@@ -1,4 +1,4 @@
-@import "../../../../app/global";
+@import "../../../../styles/variables";
 
 .card {
     min-height: 360px;
@@ -8,7 +8,7 @@
 .img {
     height: 260px;
     margin-bottom: $gap-s;
-    border-radius: $border-radius-s;
+    border-radius: $border-radius-m;
     position: relative;
 }
 
