@@ -8,24 +8,33 @@ interface IUser {
 }
 
 interface IUserState {
-    user: IUser | null;
+    users: IUser[] | null;
+    usersMe: IUser | null;
+    usersId: IUser | null;
 }
 
 const initialState: IUserState = {
-    user: null,
+    users: null,
+    usersMe: null,
+    usersId: null,
 };
 
 export const userSlice = createSlice({
     initialState,
     name: "user-slice",
     reducers: {
-        logout: () => initialState,
-        setUser: (state, action: PayloadAction<IUser>) => {
-            state.user = action.payload;
+        saveUsers: (state, action: PayloadAction<IUser[]>) => {
+            state.users = action.payload;
+        },
+        saveUsersMe: (state, action: PayloadAction<IUser>) => {
+            state.usersMe = action.payload;
+        },
+        saveUsersId: (state, action: PayloadAction<IUser>) => {
+            state.usersId = action.payload;
         },
     },
 });
 
 export default userSlice.reducer;
 
-export const { logout, setUser } = userSlice.actions;
+export const {} = userSlice.actions;

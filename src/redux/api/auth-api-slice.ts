@@ -9,19 +9,10 @@ const authApi = apiSlice.injectEndpoints({
                 body: data,
             }),
         }),
-        getUser: build.mutation({
-            query: (token) => ({
-                url: "/auth/users/me/",
-                method: "GET",
-                headers: {
-                    Authorization: `JWT ${token}`,
-                },
-            }),
-        }),
         verifyEmail: build.query({
             query: ({ uid, token }) => `/activate${uid}/${token}/`,
         }),
     }),
 });
 
-export const { useRegisterUserMutation, useGetUserMutation } = authApi;
+export const { useRegisterUserMutation, useLazyVerifyEmailQuery } = authApi;
