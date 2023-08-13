@@ -7,10 +7,39 @@ import TextFieldModal from "@src/components/modals/text-field-modal";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
+import { useRegisterUserMutation } from "@src/redux/api/auth-api-slice";
+import { removeCookie, setCookie } from "typescript-cookie";
 
 const cx = classNames.bind(styles);
 
 const Registration = () => {
+    const [registerUser] = useRegisterUserMutation();
+
+    const data = {
+        email: "krek2@ya.ru",
+        name: "Екатерина",
+        password: "Qwerty123!",
+        person_telephone: "+79197263102",
+        surname: "Крючкова",
+    };
+
+    useEffect(() => {
+        registerUser(data)
+            .unwrap()
+            .then((res) => {
+                setCookie("accessToken", res.access);
+                localStorage.setItem("refreshToken", res.refresh);
+                console.log(res);
+                console.log("Регистрация прошла успешно");
+            })
+            .catch((error) => {
+                /*  console.log("Пользователь с такими логином или паролем уже существует"); */
+                removeCookie("accessToken");
+                localStorage.removeItem("refreshToken");
+                console.log(error);
+            });
+    }, []);
+
     const firstNameField = useInput("");
     const lastNameField = useInput("");
     const emailField = useInput("");
@@ -53,7 +82,7 @@ const Registration = () => {
         }
     };
 
-    const lengthCheck = (field: string, onChange: any, length: number = 12) => {
+    const lengthCheck = (field: string, onChange: any, length: number = 50) => {
         if (field.length >= length) {
             onChange(`Длина ${field} не может быть больше ${length} символов!`);
         }

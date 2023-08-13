@@ -9,7 +9,7 @@ interface IModalState {
 
 const initialState: IModalState = {
     modal: false,
-    typeModal: "signIn",
+    typeModal: "registration",
 };
 
 const modalSlice = createSlice({
