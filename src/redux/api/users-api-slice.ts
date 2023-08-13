@@ -18,13 +18,13 @@ type emailType = { email: string };
 type resetEmailConfirmType = {
     uid: string;
     token: string;
-    new_password: string;
+    new_email: string;
 };
 
 type resetPasswordConfirmType = {
     uid: string;
     token: string;
-    new_email: string;
+    new_password: string;
 };
 
 const accessToken = getCookie("accessToken");
