@@ -3,16 +3,10 @@ import { marketplaceApi } from "./marketplace-api";
 export const authorizationApi = marketplaceApi.injectEndpoints({
     endpoints: (build) => ({
         registerUser: build.mutation({
-            query: (body: {
-                email: string;
-                name: string;
-                password: string;
-                person_telephone: string;
-                surname: string;
-            }) => ({
+            query: (data) => ({
                 url: "auth/users/",
                 method: "POST",
-                body,
+                body: data,
             }),
         }),
         loginUser: build.mutation({

@@ -16,7 +16,7 @@ const Registration = () => {
     const [registerUser] = useRegisterUserMutation();
 
     const data = {
-        email: "krek2@ya.ru",
+        email: "kryuchkovae@inbox.ru",
         name: "Екатерина",
         password: "Qwerty123!",
         person_telephone: "+79197263102",
@@ -33,10 +33,11 @@ const Registration = () => {
                 console.log("Регистрация прошла успешно");
             })
             .catch((error) => {
-                /*  console.log("Пользователь с такими логином или паролем уже существует"); */
                 removeCookie("accessToken");
                 localStorage.removeItem("refreshToken");
-                console.log(error);
+                if (error.status === 400) {
+                    console.log("Пользователь с такими email уже существует");
+                } else console.log(error);
             });
     }, []);
 
