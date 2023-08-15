@@ -27,8 +27,6 @@ type resetPasswordConfirmType = {
     new_password: string;
 };
 
-const accessToken = getCookie("accessToken");
-
 const usersApi = apiSlice.injectEndpoints({
     endpoints: (build) => ({
         getUsers: build.query<UserWithPasswordI[], {}>({
@@ -36,7 +34,7 @@ const usersApi = apiSlice.injectEndpoints({
                 url: "auth/users/",
                 method: "GET",
                 headers: {
-                    Authorization: `JWT ${accessToken}`,
+                    Authorization: `JWT ${getCookie("accessToken")}`,
                 },
                 timeout: 6000,
                 refetchOnFocus: true,
@@ -47,6 +45,9 @@ const usersApi = apiSlice.injectEndpoints({
             query: () => ({
                 url: "auth/users/me/",
                 method: "GET",
+                headers: {
+                    Authorization: `JWT ${getCookie("accessToken")}`,
+                },
                 timeout: 6000,
             }),
         }),
@@ -54,6 +55,9 @@ const usersApi = apiSlice.injectEndpoints({
             query: (body) => ({
                 url: "auth/users/me/",
                 method: "PUT",
+                headers: {
+                    Authorization: `JWT ${getCookie("accessToken")}`,
+                },
                 body,
                 timeout: 6000,
             }),
@@ -62,6 +66,9 @@ const usersApi = apiSlice.injectEndpoints({
             query: (body) => ({
                 url: "auth/users/me/",
                 method: "PATCH",
+                headers: {
+                    Authorization: `JWT ${getCookie("accessToken")}`,
+                },
                 body,
                 timeout: 6000,
             }),
@@ -70,6 +77,9 @@ const usersApi = apiSlice.injectEndpoints({
             query: () => ({
                 url: "auth/users/me/",
                 method: "DELETE",
+                headers: {
+                    Authorization: `JWT ${getCookie("accessToken")}`,
+                },
                 timeout: 6000,
             }),
         }),
@@ -77,6 +87,9 @@ const usersApi = apiSlice.injectEndpoints({
             query: (id) => ({
                 url: `/auth/users/${id}/`,
                 method: "GET",
+                headers: {
+                    Authorization: `JWT ${getCookie("accessToken")}`,
+                },
                 timeout: 6000,
                 refetchOnFocus: true,
             }),
@@ -85,6 +98,9 @@ const usersApi = apiSlice.injectEndpoints({
             query: ({ id, body }: any) => ({
                 url: `/auth/users/${id}/`,
                 method: "PUT",
+                headers: {
+                    Authorization: `JWT ${getCookie("accessToken")}`,
+                },
                 body,
                 timeout: 6000,
             }),
@@ -93,6 +109,9 @@ const usersApi = apiSlice.injectEndpoints({
             query: ({ id, body }: any) => ({
                 url: `/auth/users/${id}/`,
                 method: "PATCH",
+                headers: {
+                    Authorization: `JWT ${getCookie("accessToken")}`,
+                },
                 body,
                 timeout: 6000,
             }),
@@ -101,6 +120,9 @@ const usersApi = apiSlice.injectEndpoints({
             query: ({ id, body }: any) => ({
                 url: `/auth/users/${id}/`,
                 method: "DELETE",
+                headers: {
+                    Authorization: `JWT ${getCookie("accessToken")}`,
+                },
                 body,
                 timeout: 6000,
             }),

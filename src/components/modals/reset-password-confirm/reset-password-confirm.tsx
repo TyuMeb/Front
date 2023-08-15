@@ -6,6 +6,7 @@ import { PasswordField } from "@src/components/shared/ui/fields";
 import TextFieldModal from "@src/components/modals/text-field-modal";
 import useInput from "@src/hooks/use-Input";
 import { usePostUsersResetPasswordConfirmMutation } from "@src/redux/api/users-api-slice";
+import { useRouter } from "next/navigation";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
@@ -23,6 +24,8 @@ export const ResetPasswordConfirm = () => {
 
     const { passwordResetConfirm } = useAppSelector((store) => store.query);
 
+    const router = useRouter();
+
     const submitForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
 
@@ -31,6 +34,7 @@ export const ResetPasswordConfirm = () => {
                 .unwrap()
                 .then((data) => {
                     console.log(data);
+                    router.push("/");
                     dispatch(setTypeModal("signIn"));
                 })
                 .catch((e) => console.log("Ошибка востановления пароля", e));
