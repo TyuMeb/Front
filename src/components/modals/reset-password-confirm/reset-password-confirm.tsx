@@ -33,7 +33,7 @@ export const ResetPasswordConfirm = () => {
                     console.log(data);
                     dispatch(setTypeModal("signIn"));
                 })
-                .catch((e) => console.log("Ошибка востановления пароля", e));
+                .catch((e) => console.log("Ошибка востановления пароля1", e));
 
             passwordField.onChange("");
         }
