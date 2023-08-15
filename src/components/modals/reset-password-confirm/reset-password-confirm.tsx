@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import classNames from "classnames/bind";
-import { useAppDispatch } from "@src/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/slices/modal-slice";
 import { PasswordField } from "@src/components/shared/ui/fields";
 import TextFieldModal from "@src/components/modals/text-field-modal";
 import useInput from "@src/hooks/use-Input";
+import { usePostUsersResetPasswordConfirmMutation } from "@src/redux/api/users-api-slice";
+import { useRouter } from "next/navigation";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
@@ -18,14 +20,26 @@ export const ResetPasswordConfirm = () => {
 
     const passwordError = useInput("");
 
+    const [ResetPasswordConfirm] = usePostUsersResetPasswordConfirmMutation();
+
+    const { passwordResetConfirm } = useAppSelector((store) => store.query);
+
+    const router = useRouter();
+
     const submitForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        try {
-            console.log({ email: passwordField.value });
+        e.preventDefault();
+
+        if (passwordResetConfirm) {
+            ResetPasswordConfirm({ new_password: passwordField.value, ...passwordResetConfirm })
+                .unwrap()
+                .then((data) => {
+                    console.log(data);
+                    router.push("/");
+                    dispatch(setTypeModal("signIn"));
+                })
+                .catch((e) => console.log("Ошибка востановления пароля", e));
+
             passwordField.onChange("");
-        } catch {
-            console.log("Ошибка востановления пароля");
-        } finally {
-            e.preventDefault();
         }
     };
 

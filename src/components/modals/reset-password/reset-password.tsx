@@ -6,6 +6,7 @@ import { setTypeModal } from "@src/redux/slices/modal-slice";
 import { TextField } from "@src/components/shared/ui/fields";
 import TextFieldModal from "@src/components/modals/text-field-modal";
 import useInput from "@src/hooks/use-Input";
+import { usePostUsersResetPasswordMutation } from "@src/redux/api/users-api-slice";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
@@ -20,15 +21,19 @@ export const ResetPassword = () => {
 
     const emailError = useInput("");
 
+    const [ResetEmail] = usePostUsersResetPasswordMutation();
+
     const submitForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        try {
-            console.log({ email: emailField.value });
-            emailField.onChange("");
-        } catch {
-            console.log("Ошибка востановления пароля");
-        } finally {
-            e.preventDefault();
-        }
+        e.preventDefault();
+
+        ResetEmail({ email: emailField.value })
+            .unwrap()
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((e) => console.log("Ошибка сброса пароля", e));
+
+        emailField.onChange("");
     };
 
     const lengthCheck = (field: string, onChange: any, length: number = 12) => {
