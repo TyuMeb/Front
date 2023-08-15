@@ -15,32 +15,6 @@ const cx = classNames.bind(styles);
 const Registration = () => {
     const [registerUser] = useRegisterUserMutation();
 
-    const data = {
-        email: "kryuchkovae@inbox.ru",
-        name: "Екатерина",
-        password: "Qwerty123!",
-        person_telephone: "+79197263102",
-        surname: "Крючкова",
-    };
-
-    useEffect(() => {
-        registerUser(data)
-            .unwrap()
-            .then((res) => {
-                setCookie("accessToken", res.access);
-                localStorage.setItem("refreshToken", res.refresh);
-                console.log(res);
-                console.log("Регистрация прошла успешно");
-            })
-            .catch((error) => {
-                removeCookie("accessToken");
-                localStorage.removeItem("refreshToken");
-                if (error.status === 400) {
-                    console.log("Пользователь с такими email уже существует");
-                } else console.log(error);
-            });
-    }, []);
-
     const firstNameField = useInput("");
     const lastNameField = useInput("");
     const emailField = useInput("");
@@ -59,28 +33,39 @@ const Registration = () => {
 
     const handleChange = () => setChecked((state) => !state);
 
+    const resetForm = () => {
+        firstNameField.onChange("");
+        lastNameField.onChange("");
+        emailField.onChange("");
+        passwordField.onChange("");
+        passwordRepeatField.onChange("");
+        phoneField.onChange("");
+    };
+
     const submitForm = (e: MouseEvent<HTMLButtonElement>) => {
-        try {
-            console.log({
-                firstName: firstNameField.value,
-                lastName: lastNameField.value,
-                email: emailField.value,
-                password: passwordField.value,
-                password_repeat: passwordRepeatField.value,
-                phone: phoneField.value,
-                checked,
+        e.preventDefault();
+        registerUser({
+            name: firstNameField.value,
+            surname: lastNameField.value,
+            email: emailField.value,
+            password: passwordField.value,
+            person_telephone: `${"+" + phoneField.value.replace(/\D/g, "")}`,
+        })
+            .unwrap()
+            .then((res) => {
+                setCookie("accessToken", res.access);
+                localStorage.setItem("refreshToken", res.refresh);
+                console.log(res);
+                console.log("Регистрация прошла успешно");
+            })
+            .catch((error) => {
+                removeCookie("accessToken");
+                localStorage.removeItem("refreshToken");
+                if (error.status === 400) {
+                    console.log("Пользователь с такими email уже существует");
+                } else console.log(error);
             });
-            firstNameField.onChange("");
-            lastNameField.onChange("");
-            emailField.onChange("");
-            passwordField.onChange("");
-            passwordRepeatField.onChange("");
-            phoneField.onChange("");
-        } catch {
-            console.log("Ошибка регистрации");
-        } finally {
-            e.preventDefault();
-        }
+        resetForm();
     };
 
     const lengthCheck = (field: string, onChange: any, length: number = 50) => {
