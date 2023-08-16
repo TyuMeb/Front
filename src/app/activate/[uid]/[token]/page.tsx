@@ -6,21 +6,32 @@ import { useParams } from "next/navigation";
 import { useAppDispatch } from "@src/redux/hooks";
 import { openModal, setTypeModal } from "@src/redux/slices/modal-slice";
 import { useVerifyUserQuery } from "@src/redux/api/auth-api-slice";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
     const params = useParams();
+    const router = useRouter();
     const dispatch = useAppDispatch();
-    const { error } = useVerifyUserQuery(params, { refetchOnReconnect: true });
+    const { data, isSuccess, error } = useVerifyUserQuery(params, { refetchOnReconnect: true });
 
     useEffect(() => {
-        dispatch(openModal());
-        dispatch(setTypeModal("resetPasswordConfirm"));
-        console.log(params);
-    }, []);
+        /*         isSuccess && router.push('/')
+                error && console.log("error", error); */
 
-    if (error) {
-        console.log("error", error);
-    }
+        if (isSuccess) {
+            router.push("/");
+            return;
+        }
+        if (error) {
+            console.log("error", error);
+        }
+
+        /*       if (isSuccess) {
+            router.push('/');
+        } else if (error) {
+            console.log("error", error);
+        } */
+    }, []);
 
     return <Home />;
 }
