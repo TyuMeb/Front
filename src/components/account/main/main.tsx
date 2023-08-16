@@ -6,7 +6,7 @@ import styles from "./main.module.scss";
 
 import { Button } from "@src/components/shared/ui/button/button";
 
-export const HeadBlock = () => {
+const HeadBlock = () => {
     return (
         <>
             <div>
@@ -20,3 +20,5 @@ export const HeadBlock = () => {
         </>
     );
 };
+
+export default HeadBlock;

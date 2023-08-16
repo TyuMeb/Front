@@ -11,41 +11,6 @@ const Nav = () => {
     const dispatch = useAppDispatch();
     const [current, setCurrent] = useState<string | undefined>(undefined);
     const { contentBlock } = useAppSelector((store) => store.nav);
-    const [veryfyToken] = useVerifyTokenMutation();
-    const [refreshToken] = useRefreshTokenMutation();
-
-    useEffect(() => {
-        veryfyToken({ token: getCookie("accessToken") })
-            .unwrap()
-            .then(() => {
-                console.log("Верификация прошла успешно");
-            })
-            .catch((error) => {
-                if (error.status === 401 || error.status === 400) {
-                    refreshToken({ refresh: localStorage.getItem("refreshToken") })
-                        .unwrap()
-                        .then((res: { access: string }) => {
-                            setCookie("accessToken", res.access);
-                            console.log("Токен успешно обновлён");
-                            veryfyToken({ token: getCookie("accessToken") })
-                                .unwrap()
-                                .then(() => {
-                                    console.log("Верификация прошла успешно");
-                                });
-                        })
-                        .catch((error) => {
-                            console.log("Рефреш токен не действителен");
-                            localStorage.removeItem("refreshToken");
-                            console.log(error);
-                        });
-                }
-
-                if (error.status === 429) {
-                    console.log("Превышено количество попыток авторизации");
-                    console.log(error);
-                }
-            });
-    }, []);
 
     useEffect(() => {
         setCurrent(contentBlock);

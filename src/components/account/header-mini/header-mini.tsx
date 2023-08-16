@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./nav.module.scss";
+import styles from "./header-mini.module.scss";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 // import { openModal } from "@src/redux/slices/modal-slice";

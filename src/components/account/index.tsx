@@ -1,15 +1,19 @@
-import { Main } from "@src/components/account/main/main";
-import { HeaderMini } from "@src/components/account/header-mini/header-mini";
-import { Nav } from "@src/components/account/nav/nav";
+"use client";
 
-export const Account = () => {
+import Main from "@src/components/account/main/main";
+import HeaderMini from "@src/components/account/header-mini/header-mini";
+import Nav from "@src/components/account/nav/nav";
+
+const Account = () => {
     return (
         <>
-            <Main />
+            <HeaderMini />
             <div className="container">
-                <HeaderMini />
                 <Nav />
+                <Main />
             </div>
         </>
     );
 };
+
+export default Account;

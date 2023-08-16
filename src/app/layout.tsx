@@ -5,6 +5,7 @@ import Footer from "@src/components/footer/footer";
 import { Providers } from "@src/redux/provider";
 import Modals from "@src/components/modals/modals";
 import { ReactNode } from "react";
+import Account from "@src/components/account";
 
 const openSans = Open_Sans({ subsets: ["cyrillic"] });
 
@@ -18,10 +19,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <html lang="en">
             <Providers>
                 <body className={openSans.className}>
-                    <Header />
-                    <main /* ref={ref} */>{children}</main>
-                    <Footer />
-                    <Modals />
+                    <Account />
+                    {/* <Header /> */}
+                    {/* <main >{children}</main> */}
+                    {/* <Footer /> */}
+                    {/* <Modals /> */}
                 </body>
             </Providers>
         </html>
