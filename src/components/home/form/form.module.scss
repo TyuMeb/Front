@@ -1,20 +1,18 @@
 @import "../../../styles/variables";
-.section {
-    padding-top: 140px;
-}
+
 .inner {
     display: flex;
+    padding: 72px 0;
     flex-direction: column;
     justify-content: center;
     text-align: center;
     background-color: $bg-secondary-color;
     border-radius: $border-radius-m;
-    height: 360px;
 }
 
 .description {
     max-width: 680px;
-    margin: 68px auto 0;
+    margin: 0 auto;
 }
 
 .inputs {
