@@ -7,10 +7,10 @@ import { openModal } from "@src/redux/slices/modal-slice";
 import { useRefreshTokenMutation, useVerifyTokenMutation } from "@src/redux/api/jwt-api-slice";
 import { getCookie, setCookie } from "typescript-cookie";
 
-const Header = () => {
+const Nav = () => {
     const dispatch = useAppDispatch();
     const [current, setCurrent] = useState<string | undefined>(undefined);
-    const { contentBlock } = useAppSelector((store) => store.header);
+    const { contentBlock } = useAppSelector((store) => store.nav);
     const [veryfyToken] = useVerifyTokenMutation();
     const [refreshToken] = useRefreshTokenMutation();
 
@@ -62,40 +62,36 @@ const Header = () => {
     };
 
     return (
-        <header className={styles.header}>
-            <nav className={styles.nav}>
-                <ul className={styles.list}>
-                    <li className={styles.logo}>ВайВи</li>
-                    <li
-                        className={current !== "about" ? styles.link : styles.active}
-                        onClick={() => switchTab("about")}>
-                        О проекте
-                    </li>
-                    <li
-                        className={current !== "howWorks" ? styles.link : styles.active}
-                        onClick={() => switchTab("howWorks")}>
-                        Как это работает
-                    </li>
-                    <li className={current !== "form" ? styles.link : styles.active} onClick={() => switchTab("form")}>
-                        Исполнителям
-                    </li>
-                    <li
-                        className={current !== "examples" ? styles.link : styles.active}
-                        onClick={() => switchTab("examples")}>
-                        Примеры работ
-                    </li>
-                    <li
-                        className={current !== "advantages" ? styles.link : styles.active}
-                        onClick={() => switchTab("advantages")}>
-                        Преимущества
-                    </li>
-                    <li className={styles.link} onClick={() => dispatch(openModal())}>
-                        Войти
-                    </li>
-                </ul>
-            </nav>
-        </header>
+        <nav className={styles.nav}>
+            <ul className={styles.list}>
+                <li className={styles.logo}>ВайВи</li>
+                <li
+                    className={current !== "myorders" ? styles.link : styles.active}
+                    onClick={() => switchTab("myorders")}>
+                    Мои заказы
+                </li>
+                <li className={current !== "chats" ? styles.link : styles.active} onClick={() => switchTab("chats")}>
+                    Чаты
+                </li>
+                <li
+                    className={current !== "archives" ? styles.link : styles.active}
+                    onClick={() => switchTab("archives")}>
+                    Архивы
+                </li>
+                <li
+                    className={current !== "settings" ? styles.link : styles.active}
+                    onClick={() => switchTab("settings")}>
+                    Настройки
+                </li>
+                <li className={current !== "help" ? styles.link : styles.active} onClick={() => switchTab("help")}>
+                    Помощь
+                </li>
+                <li className={styles.link} onClick={() => dispatch(openModal())}>
+                    Сделать заказ
+                </li>
+            </ul>
+        </nav>
     );
 };
 
-export default Header;
+export default Nav;

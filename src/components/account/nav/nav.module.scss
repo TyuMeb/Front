@@ -25,8 +25,8 @@
 }
 
 .link {
-    font-weight: 400;
-    font-size: 16px;
+    font-weight: 600;
+    font-size: 20px;
     line-height: 160%;
     cursor: pointer;
     user-select: none;
@@ -35,15 +35,15 @@
         margin-left: auto;
     }
     &:hover {
-        text-decoration: underline;
+        text-decoration: solid;
     }
     &:active {
-        text-decoration: underline;
+        text-decoration: overline;
         text-decoration-color: $accent-color;
     }
 }
 
 .active {
-    text-decoration: underline;
+    text-decoration: overline;
     text-decoration-color: $accent-color;
 }
