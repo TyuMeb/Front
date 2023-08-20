@@ -1,22 +1,30 @@
 "use client";
 
 import styles from "./main.module.scss";
-// import Image from "next/image";
-// import banner from "../../../../public/home/home-banner.jpg";
 
 import { Button } from "@src/components/shared/ui/button/button";
 
-export const HeadBlock = () => {
+const Main = () => {
     return (
         <>
-            <div>
-                <div className="container">
-                    <p className={styles.description}>
-                        У вас пока нет заказов. Но вы всегда можете исправить это, создав его
-                    </p>
-                    <Button onClick={() => {}}>Сделать заказ</Button>
-                </div>
+            {/* условие "если есть заказы" orderList.lenght > 0 ? (
+            <ul className={styles.orderHistory}>
+                {orderList.map((item, index) => {
+                    return (
+                        <OrderHistoryItem key={index} item={item} index={index} />
+                    );
+                }))
+            </ul>
+        ) : ( */}
+            {/* условие "если нет заказов" */}
+            <div className={styles.main}>
+                <p className={styles.description}>
+                    У вас пока нет заказов. Но вы всегда можете исправить это, создав его
+                </p>
+                <Button onClick={() => {}}>Сделать заказ</Button>
             </div>
         </>
     );
 };
+
+export default Main;

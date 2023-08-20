@@ -1,49 +1,202 @@
-@import "../../styles/variables";
+@import "../../../styles/variables";
 
 .nav {
-    padding: $gap-default 0;
+    display: flex;
+    width: 256px;
+    height: 470px;
+    padding: $gap-s 0;
+    // justify-content: space-between;
+    // align-items: flex-start;
     position: fixed;
-    z-index: 5;
-    top: 0;
-    left: 0;
-    width: 100%;
-    margin: 0 auto;
-    background: $bg-main-color;
+    top: 96px;
+    left: 110px;
+    border-right: 2px solid #eae5e1;
+    border-radius: 0px 10px 10px 0px;
+    background: #fff;
+    flex-wrap: wrap;
 }
 
 .list {
     display: flex;
-    max-width: 1220px;
-    margin: 0 auto;
-    justify-content: space-between;
-    gap: $gap-l;
+    flex-direction: column;
+    // align-items: flex-start;
+    // margin: 0 auto;
+    gap: 24px;
 }
 
-.logo {
-    cursor: pointer;
-    font-weight: 600;
+.exitbutton {
+    height: 48px;
+    padding-top: 12px;
 }
 
-.link {
+.myorders {
+    margin-left: 58px;
     font-weight: 600;
-    font-size: 20px;
-    line-height: 160%;
+    font-size: 14px;
+    line-height: 150%;
     cursor: pointer;
-    user-select: none;
 
-    &:last-child {
-        margin-left: auto;
-    }
-    &:hover {
-        text-decoration: solid;
-    }
-    &:active {
-        text-decoration: overline;
-        text-decoration-color: $accent-color;
-    }
+    // &:active {
+    //     border-left: 4px solid #FCCF55;
+    //     // text-decoration-color: $accent-color;
+    // }
 }
 
 .active {
-    text-decoration: overline;
-    text-decoration-color: $accent-color;
+    border-left: 4px solid #fccf55;
 }
+
+.myorders::before {
+    content: "";
+    position: absolute;
+    transform: translateX(-38px) translateY(-5px);
+    background: url("../../../../public/icons/couch.svg") no-repeat;
+    width: 30px;
+    height: 30px;
+
+    &:active {
+        border-left: 4px solid #fccf55;
+        // text-decoration-color: $accent-color;
+    }
+}
+
+.chats {
+    margin-left: 58px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 150%;
+    cursor: pointer;
+}
+
+.chats::before {
+    content: "";
+    position: absolute;
+    transform: translateX(-38px) translateY(-5px);
+    background: url("../../../../public/icons/chats.svg") no-repeat;
+    width: 30px;
+    height: 30px;
+
+    &:active {
+        border-left: 4px solid #fccf55;
+    }
+}
+
+.archives {
+    margin-left: 58px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 150%;
+    cursor: pointer;
+}
+
+.archives::before {
+    content: "";
+    position: absolute;
+    transform: translateX(-38px) translateY(-5px);
+    background: url("../../../../public/icons/clock.svg") no-repeat;
+    width: 30px;
+    height: 30px;
+
+    &:active {
+        border-left: 4px solid #fccf55;
+    }
+}
+
+.settings {
+    margin-left: 58px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 150%;
+    cursor: pointer;
+}
+
+.settings::before {
+    content: "";
+    position: absolute;
+    transform: translateX(-38px) translateY(-5px);
+    background: url("../../../../public/icons/gear.svg") no-repeat;
+    width: 30px;
+    height: 30px;
+
+    &:active {
+        border-left: 4px solid #fccf55;
+    }
+}
+
+.help {
+    margin-left: 58px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 150%;
+    cursor: pointer;
+}
+
+.help::before {
+    content: "";
+    position: absolute;
+    transform: translateX(-38px) translateY(-5px);
+    background: url("../../../../public/icons/ask.svg") no-repeat;
+    width: 30px;
+    height: 30px;
+
+    &:active {
+        border-left: 4px solid #fccf55;
+    }
+}
+
+.makeorder {
+    margin-left: 58px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 150%;
+    cursor: pointer;
+}
+
+.makeorder::before {
+    content: "";
+    position: absolute;
+    transform: translateX(-38px) translateY(-5px);
+    background: url("../../../../public/icons/plus.svg") no-repeat;
+    width: 30px;
+    height: 30px;
+
+    &:active {
+        border-left: 4px solid #fccf55;
+    }
+}
+
+// .link {
+//     font-weight: 600;
+//     font-size: 14px;
+//     line-height: 150%;
+//     cursor: pointer;
+//     // user-select: none;
+
+//     // &:last-child {
+//     //     margin-left: auto;
+//     // }
+//     // &:hover {
+//     //     text-decoration: solid;
+//     // }
+//     // &:active {
+//     //     text-decoration: overline;
+//     //     text-decoration-color: $accent-color;
+//     // }
+// }
+
+// .link::before {
+// content: "";
+// position: absolute;
+// top: 10%;
+// left: 0;
+// transform: translateX(20px) translateY(-50%);
+// display: block;
+// background: url("../../../../public/icons/couch.svg") no-repeat;
+// width: 30px;
+// height: 30px;
+// }
+
+// .active {
+//     text-decoration: overline;
+//     text-decoration-color: $accent-color;
+// }

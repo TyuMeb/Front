@@ -1,15 +1,30 @@
 @import "../../../styles/variables";
 
-// .title {
-//     font-size: 52px;
-//     line-height: 130%;
-//     font-weight: 400;
-//     padding-top: 140px;
-//     padding-bottom: 8px;
-// }
+.main {
+    display: flex;
+    width: 908px;
+    height: 184px;
+    margin: 109px 422px;
+    padding: 36px 0;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    // position: fixed;
+    // z-index: 1;
+    // top: 0;
+    // left: 0;
+    gap: $gap-s;
+    // margin: 0 auto;
+    // background: $bg-main-color;
+    border-radius: 18px;
+    background: var(--white, #fff);
+    /* тенюшка_пример */
+    box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.09);
+}
 
 .description {
     font-size: 16px;
     line-height: 150%;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #fccf55;
 }

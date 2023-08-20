@@ -2,50 +2,12 @@
 
 import styles from "./nav.module.scss";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
-import { openModal } from "@src/redux/slices/modal-slice";
-import { useRefreshTokenMutation, useVerifyTokenMutation } from "@src/redux/api/jwt-api-slice";
-import { getCookie, setCookie } from "typescript-cookie";
+import { useAppSelector } from "@src/redux/hooks";
+import { ExitButton } from "@src/components/shared/ui/button/exit-button";
 
 const Nav = () => {
-    const dispatch = useAppDispatch();
     const [current, setCurrent] = useState<string | undefined>(undefined);
     const { contentBlock } = useAppSelector((store) => store.nav);
-    const [veryfyToken] = useVerifyTokenMutation();
-    const [refreshToken] = useRefreshTokenMutation();
-
-    useEffect(() => {
-        veryfyToken({ token: getCookie("accessToken") })
-            .unwrap()
-            .then(() => {
-                console.log("Верификация прошла успешно");
-            })
-            .catch((error) => {
-                if (error.status === 401 || error.status === 400) {
-                    refreshToken({ refresh: localStorage.getItem("refreshToken") })
-                        .unwrap()
-                        .then((res: { access: string }) => {
-                            setCookie("accessToken", res.access);
-                            console.log("Токен успешно обновлён");
-                            veryfyToken({ token: getCookie("accessToken") })
-                                .unwrap()
-                                .then(() => {
-                                    console.log("Верификация прошла успешно");
-                                });
-                        })
-                        .catch((error) => {
-                            console.log("Рефреш токен не действителен");
-                            localStorage.removeItem("refreshToken");
-                            console.log(error);
-                        });
-                }
-
-                if (error.status === 429) {
-                    console.log("Превышено количество попыток авторизации");
-                    console.log(error);
-                }
-            });
-    }, []);
 
     useEffect(() => {
         setCurrent(contentBlock);
@@ -64,32 +26,36 @@ const Nav = () => {
     return (
         <nav className={styles.nav}>
             <ul className={styles.list}>
-                <li className={styles.logo}>ВайВи</li>
                 <li
-                    className={current !== "myorders" ? styles.link : styles.active}
+                    className={current !== "myorders" ? styles.myorders : styles.active}
                     onClick={() => switchTab("myorders")}>
                     Мои заказы
                 </li>
-                <li className={current !== "chats" ? styles.link : styles.active} onClick={() => switchTab("chats")}>
+                <li className={current !== "chats" ? styles.chats : styles.active} onClick={() => switchTab("chats")}>
                     Чаты
                 </li>
                 <li
-                    className={current !== "archives" ? styles.link : styles.active}
+                    className={current !== "archives" ? styles.archives : styles.active}
                     onClick={() => switchTab("archives")}>
                     Архивы
                 </li>
                 <li
-                    className={current !== "settings" ? styles.link : styles.active}
+                    className={current !== "settings" ? styles.settings : styles.active}
                     onClick={() => switchTab("settings")}>
                     Настройки
                 </li>
-                <li className={current !== "help" ? styles.link : styles.active} onClick={() => switchTab("help")}>
+                <li className={current !== "help" ? styles.help : styles.active} onClick={() => switchTab("help")}>
                     Помощь
                 </li>
-                <li className={styles.link} onClick={() => dispatch(openModal())}>
+                <li
+                    className={current !== "makeorder" ? styles.makeorder : styles.active}
+                    onClick={() => switchTab("makeorder")}>
                     Сделать заказ
                 </li>
             </ul>
+            <div className={styles.exitbutton}>
+                <ExitButton onClick={() => {}}>Выйти</ExitButton>
+            </div>
         </nav>
     );
 };
