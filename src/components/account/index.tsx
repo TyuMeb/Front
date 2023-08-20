@@ -2,7 +2,7 @@ import Main from "@src/components/account/main/main";
 import HeaderMini from "@src/components/account/header-mini/header-mini";
 import Nav from "@src/components/account/nav/nav";
 
-export const Account = () => {
+const Account = () => {
     return (
         <>
             <HeaderMini />
@@ -13,3 +13,5 @@ export const Account = () => {
         </>
     );
 };
+
+export default Account;

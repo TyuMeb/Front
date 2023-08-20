@@ -25,7 +25,7 @@ export const PhoneField = (props: IPhoneField) => {
         }
 
         if (newValue[0]) {
-            const firstSymbols = newValue[0] === "8" ? "8" : "+7";
+            const firstSymbols = newValue[0] === "8" ? "+7" : "";
 
             formattedInputValue = firstSymbols + " ";
 
