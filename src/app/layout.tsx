@@ -6,6 +6,7 @@ import { Providers } from "@src/redux/provider";
 // import Modals from "@src/components/modals/modals";
 import { Account } from "@src/components/account";
 import { ReactNode } from "react";
+import Account from "@src/components/account";
 
 const openSans = Open_Sans({ subsets: ["cyrillic"] });
 

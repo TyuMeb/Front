@@ -18,10 +18,15 @@ const authApi = apiSlice.injectEndpoints({
                 },
             }),
         }),
-        verifyEmail: build.query({
-            query: ({ uid, token }) => `/activate${uid}/${token}/`,
+        verifyUser: build.query({
+            query: (data) => ({
+                url: "auth/users/activation/",
+                // url: `/auth/users/activation/?uid=${uid}&token=${token}`,
+                method: "POST",
+                body: data,
+            }),
         }),
     }),
 });
 
-export const { useRegisterUserMutation, useGetUserMutation } = authApi;
+export const { useRegisterUserMutation, useGetUserMutation, useVerifyUserQuery } = authApi;

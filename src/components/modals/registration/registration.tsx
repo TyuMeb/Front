@@ -7,10 +7,14 @@ import TextFieldModal from "@src/components/modals/text-field-modal";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
+import { useRegisterUserMutation } from "@src/redux/api/auth-api-slice";
+import { removeCookie, setCookie } from "typescript-cookie";
 
 const cx = classNames.bind(styles);
 
 const Registration = () => {
+    const [registerUser] = useRegisterUserMutation();
+
     const firstNameField = useInput("");
     const lastNameField = useInput("");
     const emailField = useInput("");
@@ -29,31 +33,42 @@ const Registration = () => {
 
     const handleChange = () => setChecked((state) => !state);
 
-    const submitForm = (e: MouseEvent<HTMLButtonElement>) => {
-        try {
-            console.log({
-                firstName: firstNameField.value,
-                lastName: lastNameField.value,
-                email: emailField.value,
-                password: passwordField.value,
-                password_repeat: passwordRepeatField.value,
-                phone: phoneField.value,
-                checked,
-            });
-            firstNameField.onChange("");
-            lastNameField.onChange("");
-            emailField.onChange("");
-            passwordField.onChange("");
-            passwordRepeatField.onChange("");
-            phoneField.onChange("");
-        } catch {
-            console.log("Ошибка регистрации");
-        } finally {
-            e.preventDefault();
-        }
+    const resetForm = () => {
+        firstNameField.onChange("");
+        lastNameField.onChange("");
+        emailField.onChange("");
+        passwordField.onChange("");
+        passwordRepeatField.onChange("");
+        phoneField.onChange("");
     };
 
-    const lengthCheck = (field: string, onChange: any, length: number = 12) => {
+    const submitForm = (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        registerUser({
+            name: firstNameField.value,
+            surname: lastNameField.value,
+            email: emailField.value,
+            password: passwordField.value,
+            person_telephone: `${"+" + phoneField.value.replace(/\D/g, "")}`,
+        })
+            .unwrap()
+            .then((res) => {
+                setCookie("accessToken", res.access);
+                localStorage.setItem("refreshToken", res.refresh);
+                console.log(res);
+                console.log("Регистрация прошла успешно");
+            })
+            .catch((error) => {
+                removeCookie("accessToken");
+                localStorage.removeItem("refreshToken");
+                if (error.status === 400) {
+                    console.log("Пользователь с такими email уже существует");
+                } else console.log(error);
+            });
+        resetForm();
+    };
+
+    const lengthCheck = (field: string, onChange: any, length: number = 50) => {
         if (field.length >= length) {
             onChange(`Длина ${field} не может быть больше ${length} символов!`);
         }
