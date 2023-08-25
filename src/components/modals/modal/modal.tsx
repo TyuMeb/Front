@@ -8,6 +8,8 @@ interface IModal {
     isOpen: boolean;
 }
 
+console.log("test");
+
 const Modal: FC<IModal> = ({ children, isOpen }) => {
     const dispatch = useAppDispatch();
 
