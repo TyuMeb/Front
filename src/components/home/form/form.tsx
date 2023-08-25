@@ -15,7 +15,7 @@ export const Form = () => {
                         <Input placeholder="Имя" required />
                         <Input placeholder="Номер телефона" type="tel" maxLength={11} required />
                     </div>
-                    <Button onClick={() => {}}>Связаться</Button>
+                    <Button label="Связаться" onClick={() => {}} />
                 </form>
             </div>
         </section>

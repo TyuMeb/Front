@@ -1,4 +1,7 @@
-import styles from "./button.module.scss";
+import styles from "./exit-button.module.scss";
+import icon from "../../../../../public/icons/logout.svg";
+import iconDisabled from "../../../../../public/icons/logout_disabled.svg";
+import Image from "next/dist/client/image";
 
 interface IButtonProps {
     label: string;
@@ -11,8 +14,7 @@ interface IButtonProps {
     /**
      * What background color to use
      */
-    backgroundColor?: string;
-    borderColor?: string;
+    backgroundColor: string;
     /**
      * How large should the button be?
      */
@@ -27,16 +29,18 @@ interface IButtonProps {
     onClick?: () => void;
 }
 
-export const Button = ({ label, backgroundColor, borderColor, onClick, disabled = false }: IButtonProps) => {
+export const ExitButton = ({ label, backgroundColor, onClick, disabled = false }: IButtonProps) => {
     const buttonStyle = {
         backgroundColor,
-        border: "2px solid",
-        borderColor,
+        color: disabled ? "#B5B3B2" : "inherit",
     };
 
     return (
         <button style={buttonStyle} className={styles.btn} onClick={onClick} disabled={disabled}>
-            {label}
+            <div className={styles.container}>
+                <Image src={disabled ? iconDisabled : icon} alt="logout" />
+                {label}
+            </div>
         </button>
     );
 };
