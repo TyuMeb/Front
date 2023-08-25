@@ -1,0 +1,12 @@
+@import "~/src/styles/index.scss";
+
+.text {
+    color: $black;
+    cursor: text;
+    display: flex;
+    align-items: center;
+}
+
+.warningText {
+    color: $pink-pig;
+}

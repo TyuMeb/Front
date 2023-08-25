@@ -1,0 +1,35 @@
+@import "~/src/styles/index";
+
+.container {
+    display: flex;
+}
+
+.checkboxFieldHide {
+    display: none;
+}
+
+.checkboxField {
+    position: relative;
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    background-color: $mustard;
+}
+
+.checkboxFieldIcon {
+    position: absolute;
+    top: 24%;
+    left: 18%;
+}
+
+.checkboxFieldIconHide {
+    display: none;
+}
+
+.labelText {
+    margin-left: 20px;
+}
+
+.helperText {
+    margin: 8px 0 0 44px;
+}

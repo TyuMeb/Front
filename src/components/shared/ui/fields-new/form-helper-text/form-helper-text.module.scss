@@ -1,0 +1,17 @@
+@import "~/src/styles/index.scss";
+
+.text {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 21px;
+    color: $black;
+}
+
+.textError {
+    color: $pink-pig;
+}
+
+.resetMargin {
+    margin: 0;
+}
