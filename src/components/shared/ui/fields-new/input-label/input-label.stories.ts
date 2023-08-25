@@ -14,6 +14,5 @@ export const Default: Story = {
         children: "Имя",
         disabled: false,
         error: false,
-        variant: "standard",
     },
 };
