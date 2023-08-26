@@ -1,0 +1,61 @@
+@import "~/src/styles/index.scss";
+
+.container {
+    position: relative;
+    max-width: 296px;
+}
+
+.textField {
+    min-height: 48px;
+    border-radius: 10px;
+    border: 1px solid $light-gray;
+    padding: 0 16px;
+    width: 100%;
+    box-sizing: border-box;
+
+    &::placeholder {
+        @include text;
+        @include textSmall;
+
+        color: $asphalt;
+    }
+}
+
+.labelInside {
+    @include text;
+    @include textSmall;
+
+    margin: 0;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    transition: 0.1s ease-out;
+    z-index: 1;
+}
+
+.labelInsideFocus {
+    @include text;
+    @include textTiny;
+
+    top: -23%;
+    z-index: 1;
+    background-color: white;
+    padding: 0 4px;
+    transition: 0.3s;
+}
+
+.labelStandard {
+    @include text;
+    @include textSmall;
+
+    margin-bottom: 8px;
+    padding: 0 16px;
+}
+
+.warningIcon {
+    margin-right: 8px;
+}
+
+.helperText {
+    margin: 4px 0 0;
+}
