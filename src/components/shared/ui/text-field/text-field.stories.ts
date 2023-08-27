@@ -15,7 +15,6 @@ type Story = StoryObj<typeof meta>;
 
 const defaultPasswordArgs: Story = {
     args: {
-        id: "password",
         type: "password",
         label: "Пароль",
         placeholder: "Введите пароль",
@@ -25,7 +24,6 @@ const defaultPasswordArgs: Story = {
 
 const defaultEmailArgs: Story = {
     args: {
-        id: "email",
         type: "email",
         label: "E-mail",
         placeholder: "Введите e-mail",
@@ -35,7 +33,6 @@ const defaultEmailArgs: Story = {
 
 const defaultPhoneArgs: Story = {
     args: {
-        id: "phone",
         type: "tel",
         label: "Телефон",
         placeholder: "Введите свой номер телефона",
@@ -49,14 +46,13 @@ const defaultArgs: Story = {
         disabled: false,
         error: true,
         autoFocus: true,
-        maxLength: 100,
-        minLength: 6,
         value: "",
     },
 };
 
 export const PasswordStandard: Story = {
     args: {
+        id: "passwordStandard",
         variant: "standard",
         ...defaultArgs.args,
         ...defaultPasswordArgs.args,
@@ -65,6 +61,7 @@ export const PasswordStandard: Story = {
 
 export const PasswordInside: Story = {
     args: {
+        id: "passwordInside",
         variant: "inside",
         ...defaultArgs.args,
         ...defaultPasswordArgs.args,
@@ -73,6 +70,7 @@ export const PasswordInside: Story = {
 
 export const EmailStandard: Story = {
     args: {
+        id: "emailStandard",
         variant: "standard",
         ...defaultArgs.args,
         ...defaultEmailArgs.args,
@@ -81,6 +79,7 @@ export const EmailStandard: Story = {
 
 export const EmailInside: Story = {
     args: {
+        id: "emailInside",
         variant: "inside",
         ...defaultArgs.args,
         ...defaultEmailArgs.args,
@@ -89,6 +88,7 @@ export const EmailInside: Story = {
 
 export const PhoneStandard: Story = {
     args: {
+        id: "phoneStandard",
         variant: "standard",
         ...defaultArgs.args,
         ...defaultPhoneArgs.args,
@@ -97,6 +97,7 @@ export const PhoneStandard: Story = {
 
 export const PhoneInside: Story = {
     args: {
+        id: "phoneInside",
         variant: "inside",
         ...defaultArgs.args,
         ...defaultPhoneArgs.args,

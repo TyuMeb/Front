@@ -44,7 +44,7 @@ export const TextField = (props: ITextField) => {
             case "password":
                 return (
                     <InputPassword
-                        className={cx("textField")}
+                        className={cx("textField", { sizeMediumField: size === "m" })}
                         onFocus={variant === "inside" ? onFocus : undefined}
                         onBlur={variant === "inside" ? onBlur : undefined}
                         placeholder={activeInput ? placeholder : ""}
@@ -54,7 +54,7 @@ export const TextField = (props: ITextField) => {
             case "tel":
                 return (
                     <InputPhone
-                        className={cx("textField")}
+                        className={cx("textField", { sizeMediumField: size === "m" })}
                         onFocus={variant === "inside" ? onFocus : undefined}
                         onBlur={variant === "inside" ? onBlur : undefined}
                         placeholder={activeInput ? placeholder : ""}
@@ -64,7 +64,7 @@ export const TextField = (props: ITextField) => {
             default:
                 return (
                     <Input
-                        className={cx("textField")}
+                        className={cx("textField", { sizeMediumField: size === "m" })}
                         onFocus={variant === "inside" ? onFocus : undefined}
                         onBlur={variant === "inside" ? onBlur : undefined}
                         placeholder={activeInput ? placeholder : ""}
@@ -75,7 +75,7 @@ export const TextField = (props: ITextField) => {
     };
 
     return (
-        <div className={cx("container", className)}>
+        <div className={cx("container", { sizeMedium: size === "m" }, className)}>
             <InputLabel
                 disabled={label ? false : true}
                 error={restProps.error}

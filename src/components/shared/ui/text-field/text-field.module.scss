@@ -2,11 +2,14 @@
 
 .container {
     position: relative;
+}
+
+.sizeMedium {
     max-width: 296px;
+    width: 100%;
 }
 
 .textField {
-    min-height: 48px;
     border-radius: 10px;
     border: 1px solid $light-gray;
     padding: 0 16px;
@@ -19,6 +22,10 @@
 
         color: $asphalt;
     }
+}
+
+.sizeMediumField {
+    min-height: 48px;
 }
 
 .labelInside {
