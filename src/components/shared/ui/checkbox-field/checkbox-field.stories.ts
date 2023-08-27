@@ -4,6 +4,10 @@ import { CheckboxField } from "./checkbox-field";
 const meta = {
     title: "UI/CheckboxField",
     component: CheckboxField,
+    parameters: {
+        layout: "centered",
+    },
+    tags: ["autodocs"],
 } satisfies Meta<typeof CheckboxField>;
 
 export default meta;

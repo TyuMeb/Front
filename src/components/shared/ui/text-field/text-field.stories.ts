@@ -4,6 +4,10 @@ import { TextField } from "./text-field";
 const meta = {
     title: "UI/TextField",
     component: TextField,
+    parameters: {
+        layout: "centered",
+    },
+    tags: ["autodocs"],
 } satisfies Meta<typeof TextField>;
 
 export default meta;
