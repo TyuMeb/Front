@@ -9,8 +9,6 @@ export interface IInput extends HTMLAttributes<HTMLInputElement> {
     disabled?: boolean;
     error?: boolean;
     type?: string;
-    maxLength?: number;
-    minLength?: number;
     value?: string;
 }
 
@@ -23,8 +21,6 @@ export const Input = (props: IInput) => {
         error = false,
         autoFocus = false,
         placeholder,
-        maxLength,
-        minLength,
         value,
         onChange,
         onFocus,
@@ -46,8 +42,6 @@ export const Input = (props: IInput) => {
                 type={type}
                 disabled={disabled}
                 id={id}
-                maxLength={maxLength}
-                minLength={minLength}
                 value={value}
                 onChange={(e) => handlerOnChange(e)}
                 onFocus={onFocus}

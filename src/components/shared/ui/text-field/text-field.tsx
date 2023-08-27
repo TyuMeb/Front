@@ -21,8 +21,6 @@ export interface ITextField {
     label?: string;
     placeholder?: string;
     helperText?: string;
-    maxLength?: number;
-    minLength?: number;
     value?: string;
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -78,7 +76,7 @@ export const TextField = (props: ITextField) => {
     };
 
     return (
-        <div className={cx("container")}>
+        <div className={cx("container", className)}>
             <InputLabel
                 disabled={label ? false : true}
                 error={restProps.error}
