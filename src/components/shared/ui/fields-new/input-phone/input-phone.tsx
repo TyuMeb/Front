@@ -13,11 +13,11 @@ export const InputPhone = (props: IInputPassword) => {
     const getInput = () => (
         <InputMask
             mask="+7 (999) 999-99-99"
-            value={props.value}
-            onFocus={props.onFocus}
-            disabled={props.disabled}
-            onBlur={props.onBlur}
-            onChange={props.onChange}>
+            value={value}
+            onFocus={onFocus}
+            disabled={disabled}
+            onBlur={onBlur}
+            onChange={onChange}>
             <Input {...restProps} />
         </InputMask>
     );

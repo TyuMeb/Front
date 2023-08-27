@@ -14,17 +14,12 @@ export interface IInput extends HTMLAttributes<HTMLInputElement> {
 
 export const Input = (props: IInput) => {
     const {
-        id,
         className,
         type = "text",
         disabled = false,
         error = false,
         autoFocus = false,
-        placeholder,
-        value,
         onChange,
-        onFocus,
-        onBlur,
         ...restProps
     } = props;
 
@@ -38,14 +33,9 @@ export const Input = (props: IInput) => {
                     error: error,
                 })}
                 autoFocus={autoFocus}
-                placeholder={placeholder}
                 type={type}
                 disabled={disabled}
-                id={id}
-                value={value}
                 onChange={(e) => handlerOnChange(e)}
-                onFocus={onFocus}
-                onBlur={onBlur}
                 {...restProps}
             />
             <span></span>

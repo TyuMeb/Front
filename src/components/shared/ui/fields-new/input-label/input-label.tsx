@@ -12,10 +12,10 @@ interface IInputLabel extends HTMLAttributes<HTMLLabelElement> {
 }
 
 export const InputLabel = (props: IInputLabel) => {
-    const { children, className, disabled = false, error = false, htmlFor, ...restProps } = props;
+    const { children, className, disabled = false, error = false, ...restProps } = props;
 
     return disabled === false ? (
-        <label className={cx(className, "text", { warningText: error })} htmlFor={htmlFor} {...restProps}>
+        <label className={cx(className, "text", { warningText: error })} {...restProps}>
             {children}
         </label>
     ) : (

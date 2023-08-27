@@ -17,7 +17,6 @@ export interface ITextField {
     disabled?: boolean;
     error?: boolean;
     autoFocus?: boolean;
-    required?: boolean;
     label?: string;
     placeholder?: string;
     helperText?: string;
@@ -26,7 +25,7 @@ export interface ITextField {
 }
 
 export const TextField = (props: ITextField) => {
-    const { className, placeholder, size, variant, label, helperText, required, ...restProps } = props;
+    const { className, placeholder, size, variant, label, helperText, ...restProps } = props;
 
     const [activeInput, setActiveInput] = useState(false);
 
