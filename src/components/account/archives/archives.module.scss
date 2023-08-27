@@ -1,24 +1,24 @@
 @import "../../../styles/variables";
 
-.noorders {
-    display: flex;
-    width: 908px;
-    height: 184px;
-    margin: 109px 422px 16px;
-    padding: 36px 0;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    gap: $gap-s;
-    border-radius: 18px;
-    background: var(--white, #fff);
-    box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.09);
-}
+// .noorders {
+//     display: flex;
+//     width: 908px;
+//     height: 184px;
+//     margin: 109px 422px 16px;
+//     padding: 36px 0;
+//     flex-direction: column;
+//     justify-content: flex-end;
+//     align-items: center;
+//     gap: $gap-s;
+//     border-radius: 18px;
+//     background: var(--white, #fff);
+//     box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.09);
+// }
 
 .order {
     display: flex;
     width: 908px;
-    height: 282px;
+    height: auto;
     margin: 0 422px 16px;
     padding: 24px 0px 36px 44px;
     flex-direction: row;
@@ -27,13 +27,13 @@
     align-items: center;
     gap: 28px;
     border-radius: 18px;
-    background: var(--white, #fff);
+    background: var(--light-latte, #f5f3f1);
     box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.09);
 }
 
-.order:last-child {
-    height: auto;
-}
+// .order:last-child {
+//     height: auto;
+// }
 
 .ordersmain {
     display: flex;
@@ -41,14 +41,15 @@
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: stretch;
+    padding-top: 96px;
 }
 
-.description {
-    font-size: 16px;
-    line-height: 150%;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #fccf55;
-}
+// .description {
+//     font-size: 16px;
+//     line-height: 150%;
+//     padding-bottom: 20px;
+//     border-bottom: 2px solid #fccf55;
+// }
 
 .head {
     display: flex;
@@ -94,9 +95,9 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 28px 0;
+    // margin: 28px 0;
 }
 
-.decline {
-    color: #ff6894;
-}
+// .decline {
+//     color: #ff6894;
+// }

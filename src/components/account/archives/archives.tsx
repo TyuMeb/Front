@@ -1,17 +1,17 @@
 "use client";
 
-import styles from "./myorders.module.scss";
-import { Button } from "@src/components/shared/ui/button/button";
+import styles from "./archives.module.scss";
+// import { Button } from "@src/components/shared/ui/button/button";
 
-const MyOrders = () => {
+const Archives = () => {
     return (
         <div className={styles.ordersmain}>
-            <article className={styles.noorders}>
+            {/* <article className={styles.noorders}>
                 <p className={styles.description}>
                     У вас пока нет заказов. Но вы всегда можете исправить это, создав его
                 </p>
                 <Button onClick={() => {}}>Сделать заказ</Button>
-            </article>
+            </article> */}
             <article className={styles.order}>
                 <section className={styles.head}>
                     <p>Полка настенная</p>
@@ -19,7 +19,7 @@ const MyOrders = () => {
                 <div className={styles.orderinfo}>
                     <ul className={styles.list}>
                         <li className={styles.params}>Дата заказа: 24.04.2024</li>
-                        <li className={styles.params}>Статус заказа: сбор предложений окончен </li>
+                        <li className={styles.params}>Статус заказа: закрыт </li>
                         <li className={styles.params}>Предложения: 4 предложения</li>
                     </ul>
                     <section className={styles.gallery}></section>
@@ -27,17 +27,13 @@ const MyOrders = () => {
             </article>
             <article className={styles.order}>
                 <section className={styles.head}>
-                    <p>Комод</p>
-                    <p className={styles.decline}>
-                        К сожалению, никто не выбрал ваш заказ. Попробуйте его изменить и создать заново.
-                    </p>
+                    <p>Шкаф</p>
                 </section>
                 <div className={styles.orderinfo}>
                     <ul className={styles.list}>
                         <li className={styles.params}>Дата заказа: 24.04.2024</li>
-                        <li className={styles.params}>Статус заказа: сбор предложений окончен </li>
-                        <li className={styles.params}>Предложения: 0</li>
-                        <Button onClick={() => {}}>Повторить заказ</Button>
+                        <li className={styles.params}>Статус заказа: закрыт </li>
+                        <li className={styles.params}>Предложения: 4 предложения</li>
                     </ul>
                     <section className={styles.gallery}></section>
                 </div>
@@ -46,4 +42,4 @@ const MyOrders = () => {
     );
 };
 
-export default MyOrders;
+export default Archives;

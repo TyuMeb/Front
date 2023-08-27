@@ -1,6 +1,8 @@
 import MyOrders from "@src/components/account/my-orders/myorders";
 import HeaderMini from "@src/components/account/header-mini/header-mini";
 import Nav from "@src/components/account/nav/nav";
+import Archives from "@src/components/account/archives/archives";
+import Chats from "@src/components/account/chats/chats";
 
 const Account = () => {
     return (
@@ -8,7 +10,9 @@ const Account = () => {
             <HeaderMini />
             {/* <div className="container"> */}
             <Nav />
-            <MyOrders />
+            {/* <MyOrders /> */}
+            {/* <Archives /> */}
+            <Chats />
             {/* </div> */}
         </>
     );
