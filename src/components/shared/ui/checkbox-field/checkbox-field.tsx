@@ -24,6 +24,7 @@ export const CheckboxField = (props: ICheckboxField) => {
         <>
             <div className={cx("container")}>
                 <Input className={cx("checkboxFieldHide")} type="checkbox" onChange={onChange} />
+
                 <div className={cx("checkboxField")}>
                     <Image
                         className={cx("checkboxFieldIcon", { checkboxFieldIconHide: checked === false })}

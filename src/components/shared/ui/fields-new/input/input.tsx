@@ -38,7 +38,6 @@ export const Input = (props: IInput) => {
                 onChange={(e) => handlerOnChange(e)}
                 {...restProps}
             />
-            <span></span>
         </>
     );
 };

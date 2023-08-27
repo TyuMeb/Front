@@ -15,7 +15,7 @@ export const InputLabel = (props: IInputLabel) => {
     const { children, className, disabled = false, error = false, ...restProps } = props;
 
     return disabled === false ? (
-        <label className={cx(className, "text", { warningText: error })} {...restProps}>
+        <label className={cx("text", { warningText: error }, className)} {...restProps}>
             {children}
         </label>
     ) : (

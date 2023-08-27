@@ -36,7 +36,7 @@ export const TextField = (props: ITextField) => {
     };
 
     useMemo(() => {
-        variant === "inside" && restProps.value?.length === 0 ? setActiveInput(false) : setActiveInput(true);
+        (variant === "inside" && restProps.value?.length) === 0 ? setActiveInput(false) : setActiveInput(true);
     }, [restProps.value, variant]);
 
     const constructInput = () => {
