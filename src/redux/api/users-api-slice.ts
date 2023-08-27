@@ -36,17 +36,13 @@ const usersApi = apiSlice.injectEndpoints({
                 url: "auth/users/",
                 method: "GET",
                 headers: getHeader(),
-                timeout: 6000,
-                refetchOnFocus: true,
             }),
-            providesTags: ["Users"],
         }),
         getUsersMe: build.query<UserI, void>({
             query: () => ({
                 url: "auth/users/me/",
                 method: "GET",
                 headers: getHeader(),
-                timeout: 6000,
             }),
         }),
         putUsersMe: build.mutation<UserI, void>({
@@ -55,7 +51,6 @@ const usersApi = apiSlice.injectEndpoints({
                 method: "PUT",
                 headers: getHeader(),
                 body,
-                timeout: 6000,
             }),
         }),
         patchUsersMe: build.mutation<UserI, void>({
@@ -64,7 +59,6 @@ const usersApi = apiSlice.injectEndpoints({
                 method: "PATCH",
                 headers: getHeader(),
                 body,
-                timeout: 6000,
             }),
         }),
         deleteUsersMe: build.mutation({
@@ -72,7 +66,6 @@ const usersApi = apiSlice.injectEndpoints({
                 url: "auth/users/me/",
                 method: "DELETE",
                 headers: getHeader(),
-                timeout: 6000,
             }),
         }),
         getUsersId: build.query<UserWithPasswordI, void>({
@@ -80,8 +73,6 @@ const usersApi = apiSlice.injectEndpoints({
                 url: `/auth/users/${id}/`,
                 method: "GET",
                 headers: getHeader(),
-                timeout: 6000,
-                refetchOnFocus: true,
             }),
         }),
         putUsersId: build.mutation<UserWithPasswordI, void>({
@@ -90,7 +81,6 @@ const usersApi = apiSlice.injectEndpoints({
                 method: "PUT",
                 headers: getHeader(),
                 body,
-                timeout: 6000,
             }),
         }),
         patchUsersId: build.mutation<UserWithPasswordI, void>({
@@ -99,7 +89,6 @@ const usersApi = apiSlice.injectEndpoints({
                 method: "PATCH",
                 headers: getHeader(),
                 body,
-                timeout: 6000,
             }),
         }),
         deleteUsersId: build.mutation({
@@ -108,7 +97,6 @@ const usersApi = apiSlice.injectEndpoints({
                 method: "DELETE",
                 headers: getHeader(),
                 body,
-                timeout: 6000,
             }),
         }),
         postUsersResetEmail: build.mutation({
@@ -116,7 +104,6 @@ const usersApi = apiSlice.injectEndpoints({
                 url: "/auth/users/reset_email/",
                 method: "POST",
                 body,
-                timeout: 6000,
             }),
         }),
         postUsersResetEmailConfirm: build.mutation({
@@ -124,7 +111,6 @@ const usersApi = apiSlice.injectEndpoints({
                 url: "/auth/users/reset_email_confirm/",
                 method: "POST",
                 body,
-                timeout: 6000,
             }),
         }),
         postUsersResetPassword: build.mutation({
@@ -132,7 +118,6 @@ const usersApi = apiSlice.injectEndpoints({
                 url: "/auth/users/reset_password/",
                 method: "POST",
                 body,
-                timeout: 6000,
             }),
         }),
         postUsersResetPasswordConfirm: build.mutation({
@@ -140,7 +125,6 @@ const usersApi = apiSlice.injectEndpoints({
                 url: `/auth/users/reset_password_confirm/`,
                 method: "POST",
                 body,
-                timeout: 6000,
             }),
         }),
     }),
