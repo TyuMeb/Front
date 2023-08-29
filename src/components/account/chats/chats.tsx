@@ -8,41 +8,66 @@ const Chats = () => {
         <div className={styles.ordersmain}>
             <article className={styles.order}>
                 <section className={styles.head}>
-                    <p>Исполнитель 1</p>
-                    <p>Срок исполнения: 45-50 дней</p>
-                    <p>Стоимость: от 120 000 руб</p>
+                    <div className={styles.worker}>
+                        <p>Исполнитель 1</p>
+                    </div>
+                    <div className={styles.workerlimit}>
+                        <p>Срок исполнения: 45-50 дней</p>
+                        <p>Стоимость: от 120 000 руб</p>
+                    </div>
                 </section>
-                <div className={styles.orderinfo}>
+                <div className={styles.message}>
                     <p>
-                        Добрый день! Присылаю варианты и фотографии. Добрый день! Присылаю варианты и фотографии.Добрый
-                        день! Присылаю варианты и фотографии.Добрый день! Присылаю варианты и фотографии.
+                        Добрый день! Присылаю варианты и фотографии. Если есть...Добрый день! Присылаю варианты и
+                        hjgfkdgndgfnk...
                     </p>
-                    <p>посмотреть весь текст сообщения</p>
+                    <p className={styles.text}>посмотреть весь текст сообщения</p>
+                </div>
+                <div className={styles.orderinfo}>
                     <ul className={styles.list}>
-                        <li className={styles.gallery}> </li>
                         <li className={styles.gallery}></li>
                         <li className={styles.gallery}></li>
-                        <Button onClick={() => {}}>Перейти в чат</Button>
-                        {/* <li className={styles.params}>Предложения: 4 предложения</li> */}
+                        <li className={styles.gallery}></li>
                     </ul>
-                    <section className={styles.gallery}></section>
+                    <Button onClick={() => {}}>Перейти в чат</Button>
                 </div>
             </article>
             <article className={styles.order}>
                 <section className={styles.head}>
-                    <p>Комод</p>
-                    <p className={styles.decline}>
-                        К сожалению, никто не выбрал ваш заказ. Попробуйте его изменить и создать заново.
-                    </p>
+                    <div className={styles.worker}>
+                        <p>Исполнитель 2</p>
+                    </div>
+                    <div className={styles.workerlimit}>
+                        <p>Полка настенная</p>
+                        <p>Срок исполнения: 45-50 дней</p>
+                        <p>Стоимость: от 100 000 руб</p>
+                    </div>
                 </section>
                 <div className={styles.orderinfo}>
-                    <ul className={styles.list}>
-                        <li className={styles.params}>Дата заказа: 24.04.2024</li>
-                        <li className={styles.params}>Статус заказа: сбор предложений окончен </li>
-                        <li className={styles.params}>Предложения: 0</li>
-                        <Button onClick={() => {}}>Повторить заказ</Button>
-                    </ul>
-                    <section className={styles.gallery}></section>
+                    <div className={styles.message}>
+                        <p>Хорошо, посчитаю и вечером пришлю</p>
+                        <p className={styles.text}>посмотреть весь текст</p>
+                    </div>
+                    <Button onClick={() => {}}>Перейти в чат</Button>
+                </div>
+            </article>
+            <article className={styles.order}>
+                <section className={styles.head}>
+                    <div className={styles.worker}>
+                        <p>Исполнитель 3</p>
+                    </div>
+                    <div className={styles.workerlimit}>
+                        <p>Полка настенная</p>
+                        <p>Срок исполнения: 45-50 дней</p>
+                        <p>Стоимость: от 100 000 руб</p>
+                    </div>
+                </section>
+                <div className={styles.orderinfo}>
+                    <div className={styles.message}>
+                        <p>Хорошо, посчитаю и вечером пришлю</p>
+                        <p className={styles.text}>посмотреть весь текст</p>
+                    </div>
+                    <Button onClick={() => {}}>Перейти в чат</Button>
                 </div>
             </article>
         </div>

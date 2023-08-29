@@ -16,10 +16,10 @@
     box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.09);
 }
 
-.order:last-child {
-    height: auto;
-    padding: 24px 0px 109px 44px;
-}
+// .order:last-child {
+//     height: auto;
+//     padding: 24px 0px 109px 44px;
+// }
 
 .ordersmain {
     display: flex;
@@ -41,6 +41,14 @@
     padding-bottom: 20px;
 }
 
+.message {
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    font-size: 14px;
+    line-height: 150%;
+}
+
 // .head::before {
 //     content: "";
 //     position: absolute;
@@ -51,11 +59,27 @@
 //     background: url("../../../../public/icons/dots.svg") no-repeat;
 // }
 
+.workerlimit {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 20px;
+    font-size: 16px;
+}
+
+.workerlimit:last-child {
+    font-size: 14px;
+}
+
+// .workerlimit:nth-child(2) {
+//     font-size: 14px;
+// }
+
 .list {
     display: flex;
     font-size: 14px;
     line-height: 150%;
-    width: 800px;
+    max-width: 332px;
     flex-direction: row;
     align-items: flex-end;
     gap: 20px;
@@ -79,16 +103,21 @@
     // margin: 0 40px;
 }
 
-.gallery:last-child {
-    // height: auto;
-    // margin-right: 338px;
+// .gallery:last-child {
+//     height: auto;
+//     // margin-right: 338px;
+// }
+
+.worker {
+    display: flex;
+    justify-content: flex-start;
 }
 
 .orderinfo {
     width: 800px;
-    height: 148px;
+    // height: 148px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     font-size: 14px;
     font-weight: 400;
@@ -96,8 +125,18 @@
     // margin: 0 0 30px 0;
     // padding-bottom: 30px;
     overflow: hidden;
+    align-items: flex-end;
 }
 
+.orderinfo:nth-child(2) {
+    align-items: center;
+}
+
+.text {
+    font-weight: 600;
+    cursor: pointer;
+    max-width: 245px;
+}
 // .decline {
 //     color: #ff6894;
 // }
