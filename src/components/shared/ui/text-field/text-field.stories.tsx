@@ -1,5 +1,7 @@
+import { ChangeEvent } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { TextField } from "./text-field";
+import { TextField, ITextField } from "./text-field";
+import { useArgs } from "@storybook/client-api";
 
 const meta = {
     title: "UI/TextField",
@@ -8,10 +10,29 @@ const meta = {
         layout: "centered",
     },
     tags: ["autodocs"],
+    args: {
+        size: "m",
+        disabled: false,
+        error: true,
+        autoFocus: true,
+        value: "",
+        onChange: (e: ChangeEvent<HTMLInputElement>) => {},
+    },
 } satisfies Meta<typeof TextField>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+const TemplateInput = (args: ITextField): JSX.Element => {
+    const { onChange, ...restArgs } = args;
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [{ value }, updateArgs] = useArgs();
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => updateArgs({ value: e.target.value });
+
+    return <TextField value={value} onChange={(e) => handleChange(e)} {...restArgs} />;
+};
 
 const defaultPasswordArgs: Story = {
     args: {
@@ -40,66 +61,56 @@ const defaultPhoneArgs: Story = {
     },
 };
 
-const defaultArgs: Story = {
-    args: {
-        size: "m",
-        disabled: false,
-        error: true,
-        autoFocus: true,
-        value: "",
-    },
-};
-
 export const PasswordStandard: Story = {
     args: {
         id: "passwordStandard",
         variant: "standard",
-        ...defaultArgs.args,
         ...defaultPasswordArgs.args,
     },
+    render: (args) => TemplateInput(args),
 };
 
 export const PasswordInside: Story = {
     args: {
         id: "passwordInside",
         variant: "inside",
-        ...defaultArgs.args,
         ...defaultPasswordArgs.args,
     },
+    render: (args) => TemplateInput(args),
 };
 
 export const EmailStandard: Story = {
     args: {
         id: "emailStandard",
         variant: "standard",
-        ...defaultArgs.args,
         ...defaultEmailArgs.args,
     },
+    render: (args) => TemplateInput(args),
 };
 
 export const EmailInside: Story = {
     args: {
         id: "emailInside",
         variant: "inside",
-        ...defaultArgs.args,
         ...defaultEmailArgs.args,
     },
+    render: (args) => TemplateInput(args),
 };
 
 export const PhoneStandard: Story = {
     args: {
         id: "phoneStandard",
         variant: "standard",
-        ...defaultArgs.args,
         ...defaultPhoneArgs.args,
     },
+    render: (args) => TemplateInput(args),
 };
 
 export const PhoneInside: Story = {
     args: {
         id: "phoneInside",
         variant: "inside",
-        ...defaultArgs.args,
         ...defaultPhoneArgs.args,
     },
+    render: (args) => TemplateInput(args),
 };
