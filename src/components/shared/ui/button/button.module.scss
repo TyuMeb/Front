@@ -9,6 +9,7 @@
     font-size: inherit;
     line-height: inherit;
     cursor: pointer;
+    box-sizing: border-box;
 
     &:focus {
         background-color: $bg-accent-color;
@@ -28,5 +29,58 @@
 
     &:disabled {
         background-color: $disabled-color;
+    }
+
+    &_cancel {
+        background-color: $bg-main-color;
+        border-radius: $border-radius-s;
+        border: 1px solid $accent-color;
+
+        &:focus {
+            border: 1px solid $accent-color;
+            background-color: $bg-accent-color;
+            outline: none;
+        }
+
+        &:hover {
+            background-color: rgba(253, 182, 116, 0.18);
+            border: 2px solid $btn-hover-color;
+            outline: none;
+        }
+
+        &:active {
+            border: 2px solid $btn-active-color;
+            background-color: rgba(245, 161, 63, 0.4);
+            outline: none;
+        }
+
+        &:disabled {
+            border: 1px solid $bg-disabled-color;
+            color: $disabled-color;
+            background-color: $bg-main-color;
+        }
+    }
+
+    &_exit {
+        padding: 12px 20px;
+        border-radius: 0px 4px 4px 0px;
+        background-color: $light-latte-color;
+
+        &:focus {
+            background-color: $accent-color;
+        }
+
+        &:hover {
+            background-color: $latte-color;
+        }
+
+        &:active {
+            background-color: $accent-color;
+        }
+
+        &:disabled {
+            color: $disabled-color;
+            background-color: $light-latte-color;
+        }
     }
 }
