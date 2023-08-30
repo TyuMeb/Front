@@ -1,11 +1,11 @@
 "use client";
 
-import styles from "./nav.module.scss";
+import styles from "./nav-account.module.scss";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "@src/redux/hooks";
 import { ExitButton } from "@src/components/shared/ui/button/exit-button";
 
-const Nav = () => {
+const NavAccount = () => {
     const [current, setCurrent] = useState<string | undefined>(undefined);
     const { contentBlock } = useAppSelector((store) => store.nav);
 
@@ -60,4 +60,4 @@ const Nav = () => {
     );
 };
 
-export default Nav;
+export default NavAccount;
