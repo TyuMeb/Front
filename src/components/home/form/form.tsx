@@ -1,6 +1,6 @@
 import styles from "./form.module.scss";
 import { Input } from "@src/components/shared/ui/input/input";
-import { Button } from "@src/components/shared/ui/button/button";
+import Button from "@src/components/shared/ui/button/button";
 
 export const Form = () => {
     return (
@@ -14,7 +14,12 @@ export const Form = () => {
                     <Input placeholder="Имя" required />
                     <Input placeholder="Номер телефона" type="tel" maxLength={11} required />
                 </div>
-                <Button onClick={() => {}}>Связаться</Button>
+                <Button
+                    onClick={function (): void {
+                        throw new Error("Function not implemented.");
+                    }}>
+                    Связаться
+                </Button>
             </form>
         </section>
     );

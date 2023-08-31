@@ -3,8 +3,9 @@
 import styles from "./head-block.module.scss";
 import Image from "next/image";
 import banner from "../../../../public/home/home-banner.jpg";
+import Button from "@src/components/shared/ui/button/button";
 
-import { Button } from "@src/components/shared/ui/button/button";
+/* import  Button from "@src/components/shared/ui/button"; */
 
 export const HeadBlock = () => {
     return (
@@ -31,7 +32,12 @@ export const HeadBlock = () => {
                         <p className={styles.description}>
                             Сделайте заказ прямо сейчас, и мы подберём вам лучшие предложения за 24 часа
                         </p>
-                        <Button onClick={() => {}}>Сделать заказ</Button>
+                        <Button
+                            onClick={function (): void {
+                                throw new Error("Function not implemented.");
+                            }}>
+                            Сделать заказ
+                        </Button>
                     </div>
                 </div>
             </div>
