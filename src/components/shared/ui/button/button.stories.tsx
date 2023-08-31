@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Button from "./button";
+import { ExitIcon } from "@src/components/shared/ui/icons/exit-icon";
+import Icon from "@src/components/icon/Icon";
 
 const meta = {
     title: "UI/Button",
@@ -48,20 +50,20 @@ const meta = {
             },
             options: ["submit", "reset", "button"],
         },
-        /*     size: {
-      name: 'size',
-      type: { name: 'string', required: false },
-      defaultValue: 'medium',
-      description: 'Вариант size',
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'large' },
-      },
-      control: {
-        type: 'radio',
-      },
-      options: ['small', 'medium', 'large'],
-    }, */
+        icon: {
+            name: "icon",
+            type: { name: "function", required: false },
+            defaultValue: "primary",
+            description: "Вариант icon",
+            table: {
+                type: { summary: "React.ReactNode" },
+                defaultValue: { summary: "ExitIcon" },
+            },
+            control: {
+                type: [<ExitIcon key="1" />, <ExitIcon key="2" />],
+            },
+            options: [<ExitIcon key="1" />, <ExitIcon key="2" />],
+        },
         children: {
             name: "children",
             type: { name: "function", required: false },
@@ -86,6 +88,7 @@ export const Default: Story = {
     args: {
         children: "Сделать заказ",
         isDisabled: false,
+        icon: undefined,
     },
 };
 
@@ -93,6 +96,7 @@ export const Disabled: Story = {
     args: {
         children: "Сделать заказ",
         isDisabled: true,
+        icon: undefined,
     },
 };
 
@@ -101,6 +105,7 @@ export const Cancel: Story = {
         children: "Отмена",
         isDisabled: false,
         viewType: "cancel",
+        icon: undefined,
     },
 };
 
@@ -109,5 +114,6 @@ export const Exit: Story = {
         children: "Выйти",
         isDisabled: false,
         viewType: "exit",
+        icon: <ExitIcon />,
     },
 };

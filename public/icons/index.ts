@@ -6,6 +6,7 @@ import eye from './eye.svg';
 import open_eye from './open_eye.svg';
 import vk from './vk.svg';
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
 	resetPassword,
 	signin,
