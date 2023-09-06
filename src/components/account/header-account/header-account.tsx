@@ -32,7 +32,7 @@ const HeaderAccount = () => {
                                 </li>
                             </ul>
                         </nav>
-                        <div className={styles.avatar}>avatar</div>
+                        <div className={styles.avatar}></div>
                     </div>
                 </div>
             </header>
