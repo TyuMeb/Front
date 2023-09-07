@@ -20,11 +20,13 @@ const HeaderAccount = () => {
                                         Мои заказы
                                     </a>
                                 </li>
+                                <span></span>
                                 <li className={styles.menuitem}>
                                     <a className={styles.menulink} href="">
                                         Полка настенная
                                     </a>
                                 </li>
+                                <span></span>
                                 <li className={styles.menuitem}>
                                     <a className={styles.menulink} href="">
                                         чат с исполнителем 1
