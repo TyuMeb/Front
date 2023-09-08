@@ -8,14 +8,7 @@ const nextConfig = {
                 {
                     loader: "@svgr/webpack",
                     options: {
-                        svgoConfig: {
-                            plugins: [
-                                {
-                                    name: "removeViewBox",
-                                    active: false,
-                                },
-                            ],
-                        },
+                        icon: true,
                     },
                 },
             ],

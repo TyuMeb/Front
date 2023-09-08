@@ -1,21 +1,22 @@
 import { type DetailedHTMLProps } from "react";
 import styles from "./button.module.scss";
-import Icon from "@src/components/icon";
 
 interface IButtonProps extends DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
-    children: React.ReactNode;
+    children?: React.ReactNode;
     onClick: () => void;
     isDisabled?: boolean;
     icon?: React.ReactNode;
-    viewType?: "cancel" | "exit" | undefined;
+    viewType?: "cancel" | "exit" | "slider" | undefined;
     type?: "submit" | "reset" | "button";
+    extraClass?: string;
 }
 
-const Button = ({ children, onClick, isDisabled, icon, viewType, type, ...props }: IButtonProps) => {
+const Button = ({ children, onClick, isDisabled, icon, viewType, type, extraClass = "", ...props }: IButtonProps) => {
+    const className = `${styles.btn}  ${styles[`btn_${viewType}`]} ${extraClass} `;
+
     return (
-        <button className={`${styles.btn} ${styles[`btn_${viewType}`]} `} disabled={isDisabled} {...props}>
+        <button className={className} disabled={isDisabled} {...props}>
             {icon}
-            {/*     <Icon className={styles.icon} glyph="exit" /> */}
             {children}
         </button>
     );

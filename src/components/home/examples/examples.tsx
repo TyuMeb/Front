@@ -5,6 +5,7 @@ import { CardExample } from "@src/components/shared/ui/card-example/card-example
 import styles from "./examples.module.scss";
 import cn from "classnames";
 import { useState } from "react";
+import Slider from "@src/components/shared/ui/slider/slider";
 
 export const Examples = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -64,14 +65,19 @@ export const Examples = () => {
                         object="Полка"
                         price="1000 р"
                     />
-                    <div className={styles.slider}>
+                    <Slider
+                        onClick={function (): void {
+                            throw new Error("Function not implemented.");
+                        }}
+                    />
+                    {/* <div className={styles.slider}>
                         <button className={styles.button} onClick={backwardSlide}>
                             <Image src="/home/arrow-left.svg" alt="arrow-left" width={14} height={32} />
                         </button>
                         <button className={styles.button} onClick={forwardSlide}>
                             <Image src="/home/arrow-right.svg" alt="arrow-right" width={14} height={32} />
                         </button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

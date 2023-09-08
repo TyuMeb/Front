@@ -2,8 +2,11 @@ import React, { FC, SVGProps } from "react";
 
 import icons from "@public/icons";
 
+export type IconGlyph = keyof typeof icons;
+export const iconTypes: IconGlyph[] = Object.keys(icons) as any[];
+
 export interface IIconProps extends SVGProps<SVGSVGElement> {
-    glyph: keyof typeof icons;
+    glyph: IconGlyph;
 }
 
 const Icon: FC<IIconProps> = (props) => {

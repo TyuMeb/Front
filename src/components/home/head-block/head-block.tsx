@@ -5,8 +5,6 @@ import Image from "next/image";
 import banner from "../../../../public/home/home-banner.jpg";
 import Button from "@src/components/shared/ui/button/button";
 
-/* import  Button from "@src/components/shared/ui/button"; */
-
 export const HeadBlock = () => {
     return (
         <>
