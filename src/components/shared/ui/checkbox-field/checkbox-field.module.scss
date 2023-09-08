@@ -2,6 +2,7 @@
 
 .container {
     display: flex;
+    cursor: pointer;
 }
 
 .checkboxFieldHide {
@@ -13,7 +14,29 @@
     border-radius: 4px;
     width: 24px;
     height: 24px;
+    border: 1px solid #b5b3b2;
+    box-sizing: border-box;
+    user-select: none;
+    transition: 0.2s ease-out;
+}
+
+.checkboxField:hover {
+    border: 1px solid#1C1C1C;
+    transition: 0.2s ease-in;
+}
+
+.checked {
     background-color: $mustard;
+    border: 1px solid $mustard;
+}
+
+.disabled {
+    border: 1px solid#B5B3B2;
+    background-color: #f5f3f1;
+}
+.error {
+    border: 1px solid #ff6894;
+    background-color: #fef7f9;
 }
 
 .checkboxFieldIcon {
