@@ -12,6 +12,7 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    gap: 8px;
 
     &:focus {
         background-color: $bg-accent-color;
@@ -31,6 +32,9 @@
 
     &:disabled {
         background-color: $disabled-color;
+        & svg > path {
+            fill: $disabled-color;
+        }
     }
 
     &_cancel {
@@ -68,7 +72,6 @@
         border-radius: 0px 4px 4px 0px;
         background-color: $light-latte-color;
         min-width: 224px;
-        gap: 8px;
 
         &:focus {
             background-color: $accent-color;
@@ -85,9 +88,6 @@
         &:disabled {
             color: $disabled-color;
             background-color: $light-latte-color;
-            & svg > path {
-                fill: $disabled-color;
-            }
         }
     }
 }
