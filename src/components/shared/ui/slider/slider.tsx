@@ -7,12 +7,11 @@ import { ArrowRightIcon } from "../icons/arrow-right-icon";
 
 interface ISliderProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
     onClick: () => void;
-    disabled?: boolean;
     extraClass?: string;
 }
 
 const Slider = ({ onClick, extraClass, ...props }: ISliderProps) => {
-    const [disabled, setDisabled] = useState(true);
+    const [disabled, setDisabled] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0);
 
     function backwardSlide() {
@@ -33,8 +32,8 @@ const Slider = ({ onClick, extraClass, ...props }: ISliderProps) => {
 
     return (
         <div className={className} {...props}>
-            <Button type="button" icon={<ArrowLeftIcon />} extraClass={styles.selectIcon} onClick={backwardSlide} />
-            <Button type="button" icon={<ArrowRightIcon />} extraClass={styles.selectIcon} onClick={forwardSlide} />
+            <Button type="button" icon={<ArrowLeftIcon />} viewType={"slider"} onClick={backwardSlide} />
+            <Button type="button" icon={<ArrowRightIcon />} viewType={"slider"} onClick={forwardSlide} />
 
             {/*       <button className={styles.button} >
         <Image src="/home/arrow-left.svg" alt="arrow-left" width={14} height={32} />
