@@ -4,14 +4,16 @@ import Image from "next/image";
 import Button from "../button/button";
 import { ArrowLeftIcon } from "../icons/arrow-left-icon";
 import { ArrowRightIcon } from "../icons/arrow-right-icon";
+import classNames from "classnames/bind";
+
+const cx = classNames.bind(styles);
 
 interface ISliderProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-    onClick: () => void;
-    extraClass?: string;
+    onClick?: () => void;
+    disabled?: boolean;
 }
 
-const Slider = ({ onClick, extraClass, ...props }: ISliderProps) => {
-    const [disabled, setDisabled] = useState(false);
+const Slider = ({ onClick, disabled, ...props }: ISliderProps) => {
     const [currentSlide, setCurrentSlide] = useState(0);
 
     function backwardSlide() {
@@ -28,20 +30,25 @@ const Slider = ({ onClick, extraClass, ...props }: ISliderProps) => {
         });
     }
 
-    const className = `${styles.slider}  ${styles[`slider_${disabled}`]} ${extraClass} `;
-
     return (
-        <div className={className} {...props}>
-            <Button type="button" icon={<ArrowLeftIcon />} viewType={"slider"} onClick={backwardSlide} />
-            <Button type="button" icon={<ArrowRightIcon />} viewType={"slider"} onClick={forwardSlide} />
+        <>
+            <input className={cx("sliderHide")} />
+            <div
+                className={cx("slider", {
+                    disabled: disabled,
+                })}
+                {...props}>
+                <Button type="button" icon={<ArrowLeftIcon />} viewType={"slider"} onClick={backwardSlide} />
+                <Button type="button" icon={<ArrowRightIcon />} viewType={"slider"} onClick={forwardSlide} />
 
-            {/*       <button className={styles.button} >
+                {/*       <button className={styles.button} >
         <Image src="/home/arrow-left.svg" alt="arrow-left" width={14} height={32} />
       </button>
       <button className={styles.button} >
         <Image src="/home/arrow-right.svg" alt="arrow-right" width={14} height={32} />
       </button> */}
-        </div>
+            </div>
+        </>
     );
 };
 

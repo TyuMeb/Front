@@ -27,6 +27,10 @@
     }
 }
 
+.sliderHide {
+    display: none;
+}
+
 .disabled {
     background-color: $disabled-color;
     pointer-events: none;

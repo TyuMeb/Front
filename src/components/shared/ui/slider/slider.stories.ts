@@ -8,6 +8,19 @@ const meta = {
         layout: "padded",
     },
     tags: ["autodocs"],
+    argTypes: {
+        disabled: {
+            name: "disabled",
+            type: { name: "boolean", required: false },
+            defaultValue: "false",
+            description: "Вариант disabled",
+            table: {
+                type: { summary: "string" },
+                defaultValue: { summary: "false" },
+            },
+            options: ["false", "true"],
+        },
+    },
 } satisfies Meta<typeof Slider>;
 
 export default meta;
@@ -19,6 +32,6 @@ export const Default: Story = {
 
 export const Disabled: Story = {
     args: {
-        extraClass: "slider_true",
+        disabled: true,
     },
 };
