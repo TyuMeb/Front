@@ -40,28 +40,25 @@
     &_cancel {
         background-color: $bg-main-color;
         border-radius: $border-radius-s;
-        border: 1px solid $accent-color;
+        outline: 1px solid $accent-color;
 
         &:focus {
-            border: 1px solid $accent-color;
             background-color: $bg-accent-color;
-            outline: none;
+            outline: 1px solid $accent-color;
         }
 
         &:hover {
             background-color: rgba(253, 182, 116, 0.18);
-            border: 2px solid $btn-hover-color;
-            outline: none;
+            outline: 2px solid $btn-hover-color;
         }
 
         &:active {
-            border: 2px solid $btn-active-color;
             background-color: rgba(245, 161, 63, 0.4);
-            outline: none;
+            outline: 2px solid $btn-active-color;
         }
 
         &:disabled {
-            border: 1px solid $bg-disabled-color;
+            outline: 1px solid $bg-disabled-color;
             color: $disabled-color;
             background-color: $bg-main-color;
         }
