@@ -1,20 +1,20 @@
 import { HTMLAttributes } from "react";
 import classNames from "classnames/bind";
 
-import styles from "./form-helper-text.module.scss";
+import styles from "./form-error-text.module.scss";
 
 const cx = classNames.bind(styles);
 
 export interface IFormHelperText extends HTMLAttributes<HTMLParagraphElement> {
     disabled?: boolean;
-    error?: boolean;
+    variant: "standard";
 }
 
 export const FormHelperText = (props: IFormHelperText) => {
-    const { children, className, disabled = false, error = false, ...restProps } = props;
+    const { children, className, disabled, ...restProps } = props;
 
     return disabled === false ? (
-        <p className={cx("text", { textError: error }, { resetMargin: !className }, className)} {...restProps}>
+        <p className={cx("textError", { resetMargin: !className }, className)} {...restProps}>
             {children}
         </p>
     ) : (

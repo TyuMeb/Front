@@ -1,6 +1,8 @@
 @import "~/src/styles/index.scss";
 
 .text {
+    @include textSmall;
+    @include text;
     color: $black;
     cursor: text;
     display: flex;

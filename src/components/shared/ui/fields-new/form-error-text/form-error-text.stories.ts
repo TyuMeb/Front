@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { FormHelperText } from "./form-helper-text";
+import { FormHelperText } from "./form-error-text";
 
 const meta = {
     title: "UI/FormHelperText",
@@ -17,7 +17,6 @@ export const Default: Story = {
     args: {
         children: "Введен неверный формат",
         disabled: false,
-        error: false,
-        variant: "string",
+        variant: "standard",
     },
 };

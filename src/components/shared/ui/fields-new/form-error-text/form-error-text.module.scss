@@ -1,16 +1,15 @@
 @import "~/src/styles/index.scss";
 
-.text {
+.textError {
+    @include textTiny;
+    @include text;
+    color: $pink-pig;
+
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: 21px;
-    color: $black;
     display: inline-block;
-}
-
-.textError {
-    color: $pink-pig;
 }
 
 .resetMargin {
