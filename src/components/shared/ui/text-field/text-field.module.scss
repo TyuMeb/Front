@@ -28,6 +28,10 @@
     min-height: 48px;
 }
 
+.errorInput {
+    border: 1px solid $pink-pig;
+}
+
 .labelInside {
     @include text;
     @include textSmall;
@@ -63,6 +67,6 @@
     margin-right: 8px;
 }
 
-.helperText {
+.errorTextMargins {
     margin: 4px 0 0;
 }

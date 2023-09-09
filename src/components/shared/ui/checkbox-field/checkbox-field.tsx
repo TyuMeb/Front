@@ -4,7 +4,7 @@ import checkedImage from "@public/icons/checked.svg";
 import classNames from "classnames/bind";
 
 import styles from "./checkbox-field.module.scss";
-import { InputLabel, FormHelperText } from "@src/components/shared/ui/fields-new";
+import { InputLabel, FormErrorText } from "@src/components/shared/ui/fields-new";
 
 const cx = classNames.bind(styles);
 
@@ -47,12 +47,12 @@ export const CheckboxField = (props: ICheckboxField) => {
                 </InputLabel>
             </div>
 
-            <FormHelperText
+            <FormErrorText
                 disabled={errorText && !checked && !disabled ? false : true}
-                className={cx("helperText")}
+                className={cx("errorTextMargins")}
                 variant={"standard"}>
                 {errorText}
-            </FormHelperText>
+            </FormErrorText>
         </>
     );
 };

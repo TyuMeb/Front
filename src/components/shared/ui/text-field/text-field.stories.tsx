@@ -13,10 +13,9 @@ const meta = {
     args: {
         size: "m",
         disabled: false,
-        error: true,
         autoFocus: true,
         value: "",
-        onChange: (e: ChangeEvent<HTMLInputElement>) => {},
+        onChange: () => {},
     },
 } satisfies Meta<typeof TextField>;
 
@@ -31,7 +30,11 @@ const TemplateInput = (args: ITextField): JSX.Element => {
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => updateArgs({ value: e.target.value });
 
-    return <TextField value={value} onChange={(e) => handleChange(e)} {...restArgs} />;
+    return (
+        <div style={{ width: "296px" }}>
+            <TextField value={value} onChange={(e) => handleChange(e)} {...restArgs} />
+        </div>
+    );
 };
 
 const defaultPasswordArgs: Story = {
@@ -39,7 +42,7 @@ const defaultPasswordArgs: Story = {
         type: "password",
         label: "Пароль",
         placeholder: "Введите пароль",
-        helperText: "Неверный пароль",
+        errorText: "Неверный пароль",
     },
 };
 
@@ -48,7 +51,7 @@ const defaultEmailArgs: Story = {
         type: "email",
         label: "E-mail",
         placeholder: "Введите e-mail",
-        helperText: "Неверный e-mail",
+        errorText: "Неверный e-mail",
     },
 };
 
@@ -57,7 +60,7 @@ const defaultPhoneArgs: Story = {
         type: "tel",
         label: "Телефон",
         placeholder: "Введите свой номер телефона",
-        helperText: "Неверный номер телефона",
+        errorText: "Неверный номер телефона",
     },
 };
 

@@ -10,7 +10,7 @@ export interface IFormHelperText extends HTMLAttributes<HTMLParagraphElement> {
     variant: "standard";
 }
 
-export const FormHelperText = (props: IFormHelperText) => {
+export const FormErrorText = (props: IFormHelperText) => {
     const { children, className, disabled, ...restProps } = props;
 
     return disabled === false ? (
