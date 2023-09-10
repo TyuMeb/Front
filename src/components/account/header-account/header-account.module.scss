@@ -7,7 +7,7 @@
 }
 
 .container {
-    min-width: 1470px;
+    min-width: 1440px;
     padding: 0 15px;
     margin: 0 auto;
 }
@@ -79,7 +79,7 @@
     margin-right: 0;
 }
 
-.menulink {
+.menulink:not(:last-child) {
     display: flex;
     font-size: 16px;
     font-style: normal;
@@ -87,6 +87,11 @@
     line-height: 150%;
     white-space: nowrap;
 }
+
+// .menulink:last-child {
+//     // content: "";
+//     font-weight: 600;
+// }
 
 .avatar {
     display: block;

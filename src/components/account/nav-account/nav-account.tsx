@@ -7,33 +7,74 @@ import { ExitButton } from "@src/components/shared/ui/button/exit-button";
 
 const NavAccount = () => {
     return (
-        <div className={styles.container}>
+        <aside className={styles.container}>
             <div className={styles.headeraccount}>
                 <nav className={styles.nav}>
                     <ul className={styles.menu}>
                         <li className={styles.menuitem}>
+                            <a className={styles.myorders} href=""></a>
                             <a className={styles.menulink} href="">
-                                Мои заказы
+                                Мои заказы (1)
                             </a>
                         </li>
-                        <span></span>
-                        <li className={styles.menuitem}>
-                            <a className={styles.menulink} href="">
-                                Полка настенная
+                        <li className={styles.order}>
+                            <span></span>
+                            <a className={styles.orderlink} href="">
+                                Полка настенная (1)
                             </a>
                         </li>
-                        <span></span>
+                        <li className={styles.order}>
+                            <a className={styles.master} href="">
+                                Исполнитель 1
+                            </a>
+                        </li>
+                        <li className={styles.order}>
+                            <a className={styles.master} href="">
+                                Исполнитель 2
+                            </a>
+                            <span></span>
+                        </li>
+                        <li className={styles.order}>
+                            <span></span>
+                            <a className={styles.orderlink} href="">
+                                Комод
+                            </a>
+                        </li>
                         <li className={styles.menuitem}>
+                            <a className={styles.chats} href=""></a>
                             <a className={styles.menulink} href="">
-                                чат с исполнителем 1
+                                Чаты
+                            </a>
+                        </li>
+                        <li className={styles.menuitem}>
+                            <a className={styles.archives} href=""></a>
+                            <a className={styles.menulink} href="">
+                                Архивы
+                            </a>
+                        </li>
+                        <li className={styles.menuitem}>
+                            <a className={styles.settings} href=""></a>
+                            <a className={styles.menulink} href="">
+                                Настройки
+                            </a>
+                        </li>
+                        <li className={styles.menuitem}>
+                            <a className={styles.help} href=""></a>
+                            <a className={styles.menulink} href="">
+                                Помощь
+                            </a>
+                        </li>
+                        <li className={styles.menuitem}>
+                            <a className={styles.makeorder} href=""></a>
+                            <a className={styles.menulink} href="">
+                                Сделать заказ
                             </a>
                         </li>
                     </ul>
                 </nav>
-                <div className={styles.avatar}></div>
                 <ExitButton onClick={() => {}}>Выйти</ExitButton>
             </div>
-        </div>
+        </aside>
     );
 };
 
