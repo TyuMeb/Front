@@ -17,12 +17,14 @@ const NavAccount = () => {
                                 Мои заказы (1)
                             </a>
                         </li>
-                        <li className={styles.order}>
-                            <span></span>
-                            <a className={styles.orderlink} href="">
-                                Полка настенная (1)
-                            </a>
-                        </li>
+                    </ul>
+                    <li className={styles.order}>
+                        <span></span>
+                        <a className={styles.orderlink} href="">
+                            Полка настенная (1)
+                        </a>
+                    </li>
+                    <ul>
                         <li className={styles.order}>
                             <a className={styles.master} href="">
                                 Исполнитель 1
@@ -34,12 +36,14 @@ const NavAccount = () => {
                             </a>
                             <span></span>
                         </li>
-                        <li className={styles.order}>
-                            <span></span>
-                            <a className={styles.orderlink} href="">
-                                Комод
-                            </a>
-                        </li>
+                    </ul>
+                    <li className={styles.order}>
+                        <span></span>
+                        <a className={styles.orderlink} href="">
+                            Комод
+                        </a>
+                    </li>
+                    <ul className={styles.menu}>
                         <li className={styles.menuitem}>
                             <a className={styles.chats} href=""></a>
                             <a className={styles.menulink} href="">
