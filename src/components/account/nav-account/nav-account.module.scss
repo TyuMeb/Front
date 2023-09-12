@@ -1,11 +1,5 @@
 @import "../../../styles/variables";
 
-// .wrapper {
-//     min-height: 468px;
-//     width: 256px;
-//     // overflow: hidden;
-// }
-
 .container {
     min-height: 626px;
     width: 256px;
@@ -18,27 +12,10 @@
     flex-wrap: wrap;
     padding-right: 32px;
 }
-// .nav1 {
-//     display: flex;
-//     width: 256px;
-//     // height: 470px;
-//     // padding: $gap-s 0;
-//     margin-top: 20px;
-//     // justify-content: space-between;
-//     // align-items: flex-start;
-//     position: fixed;
-//     top: 96px;
-//     left: 110px;
-//     border-right: 2px solid #eae5e1;
-//     // border-radius: 0px 10px 10px 0px;
-//     background: #fff;
-//     flex-wrap: wrap;
-//     margin: 0 auto 0 auto;
-// }
 
 /*----------------------------------------------------------*/
 
-.headeraccount {
+.navaccount {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -49,7 +26,6 @@
 .nav {
     display: flex;
     margin-right: auto;
-    // z-index: -1;
     flex-direction: column;
 }
 
@@ -57,16 +33,20 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    // margin: 0 110px;
     justify-content: space-between;
+    border-left: 4px solid #fccf55;
     gap: 24px;
+    width: 210px;
+    height: 30px;
+    margin-bottom: 16px;
 }
+
+/*----------------------------------------------------------*/
 
 .menuitem {
     margin: 0 12px;
     margin-left: 58px;
     display: flex;
-    // border-left: 4px solid #FCCF55;
 }
 
 .menuitem:last-child {
@@ -81,19 +61,28 @@
     height: 30px;
 }
 
+.myorders {
+    position: absolute;
+    transform: translateX(-38px) translateY(-5px);
+    background: url("../../../../public/icons/couch.svg") no-repeat;
+    width: 30px;
+    height: 30px;
+    margin-left: auto;
+    border-left: 4px solid #fccf55;
+}
+
 .menulink {
     display: flex;
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
     line-height: 150%;
-    // margin-left: 58px;
-    // white-space: nowrap;
 }
+
+/*----------------------------------------------------------*/
 
 .order {
     display: flex;
-    // border-left: 4px solid #FCCF55;
 }
 
 .order > span {
@@ -123,188 +112,44 @@
     margin-left: 76px;
 }
 
-// .list {
-//     display: flex;
-//     flex-direction: column;
-//     // align-items: flex-start;
-//     // margin: 0 auto;
-//     gap: 24px;
-// }
-
-// .exitbutton {
-//     height: 48px;
-//     // padding-top: 12px;
-//     margin-top: 80px;
-// }
-
-// .myorders {
-//     margin-left: 58px;
-//     font-weight: 600;
-//     font-size: 14px;
-//     line-height: 150%;
-//     cursor: pointer;
-
-//     // &:active {
-//     //     border-left: 4px solid #FCCF55;
-//     //     // text-decoration-color: $accent-color;
-//     // }
-// }
-
-// .active {
-//     border-left: 4px solid #fccf55;
-// }
-
-.myorders {
-    position: absolute;
-    // margin-left: 58px;
-    transform: translateX(-38px) translateY(-5px);
-    background: url("../../../../public/icons/couch.svg") no-repeat;
-    width: 30px;
-    height: 30px;
-    border-left: 4px solid #fccf55;
-
-    // &:active {
-    //     border-left: 4px solid #fccf55;
-    //     // text-decoration-color: $accent-color;
-    // }
-}
-
-// .chats {
-//     margin-left: 58px;
-//     font-weight: 600;
-//     font-size: 14px;
-//     line-height: 150%;
-//     cursor: pointer;
-// }
+/*----------------------------------------------------------*/
 
 .chats {
     position: absolute;
-    // margin-left: 58px;
     transform: translateX(-38px) translateY(-5px);
     background: url("../../../../public/icons/chats.svg") no-repeat;
     width: 30px;
     height: 30px;
-    // &:active {
-    //     border-left: 4px solid #fccf55;
-    // }
 }
-
-// .archives {
-//     margin-left: 58px;
-//     font-weight: 600;
-//     font-size: 14px;
-//     line-height: 150%;
-//     cursor: pointer;
-// }
 
 .archives {
     position: absolute;
-    // margin-left: 58px;
     transform: translateX(-38px) translateY(-5px);
     background: url("../../../../public/icons/clock.svg") no-repeat;
     width: 30px;
     height: 30px;
-
-    // &:active {
-    //     border-left: 4px solid #fccf55;
-    // }
 }
-
-// .settings {
-//     margin-left: 58px;
-//     font-weight: 600;
-//     font-size: 14px;
-//     line-height: 150%;
-//     cursor: pointer;
-// }
 
 .settings {
     position: absolute;
-    // margin-left: 58px;
     transform: translateX(-38px) translateY(-5px);
     background: url("../../../../public/icons/gear.svg") no-repeat;
     width: 30px;
     height: 30px;
-
-    // &:active {
-    //     border-left: 4px solid #fccf55;
-    // }
 }
 
-// .help {
-//     margin-left: 58px;
-//     font-weight: 600;
-//     font-size: 14px;
-//     line-height: 150%;
-//     cursor: pointer;
-// }
-
 .help {
-    // margin-left: 58px;
     position: absolute;
     transform: translateX(-38px) translateY(-5px);
     background: url("../../../../public/icons/ask.svg") no-repeat;
     width: 30px;
     height: 30px;
-
-    // &:active {
-    //     border-left: 4px solid #fccf55;
-    // }
 }
 
-// .makeorder {
-//     margin-left: 58px;
-//     font-weight: 600;
-//     font-size: 14px;
-//     line-height: 150%;
-//     cursor: pointer;
-// }
-
 .makeorder {
-    // margin-left: 58px;
     position: absolute;
     transform: translateX(-38px) translateY(-5px);
     background: url("../../../../public/icons/plus.svg") no-repeat;
     width: 30px;
     height: 30px;
-
-    // &:active {
-    //     border-left: 4px solid #fccf55;
-    // }
 }
-
-// .link {
-//     font-weight: 600;
-//     font-size: 14px;
-//     line-height: 150%;
-//     cursor: pointer;
-//     // user-select: none;
-
-//     // &:last-child {
-//     //     margin-left: auto;
-//     // }
-//     // &:hover {
-//     //     text-decoration: solid;
-//     // }
-//     // &:active {
-//     //     text-decoration: overline;
-//     //     text-decoration-color: $accent-color;
-//     // }
-// }
-
-// .link::before {
-// content: "";
-// position: absolute;
-// top: 10%;
-// left: 0;
-// transform: translateX(20px) translateY(-50%);
-// display: block;
-// background: url("../../../../public/icons/couch.svg") no-repeat;
-// width: 30px;
-// height: 30px;
-// }
-
-// .active {
-//     text-decoration: overline;
-//     text-decoration-color: $accent-color;
-// }

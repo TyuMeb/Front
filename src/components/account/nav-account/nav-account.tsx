@@ -8,7 +8,7 @@ import { ExitButton } from "@src/components/shared/ui/button/exit-button";
 const NavAccount = () => {
     return (
         <aside className={styles.container}>
-            <div className={styles.headeraccount}>
+            <div className={styles.navaccount}>
                 <nav className={styles.nav}>
                     <ul className={styles.menu}>
                         <li className={styles.menuitem}>
