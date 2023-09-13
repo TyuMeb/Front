@@ -36,6 +36,42 @@ export const Default: Story = {
         id: "checkbox",
         label: "Вы соглашаетесь с обработкой персональных данных",
         errorText: "Пожалуйста, согласитесь с обработкой персональных данных, чтобы продолжить пользование сайтом",
+        error: false,
+        checked: false,
+        disabled: false,
+        onClick: () => {},
+    },
+    render: (args) => TemplateCheckboxField(args),
+};
+
+export const Checked: Story = {
+    args: {
+        id: "checkbox",
+        label: "Вы соглашаетесь с обработкой персональных данных",
+        checked: true,
+        disabled: false,
+        onClick: () => {},
+    },
+    render: (args) => TemplateCheckboxField(args),
+};
+
+export const Disabled: Story = {
+    args: {
+        id: "checkbox",
+        label: "Вы соглашаетесь с обработкой персональных данных",
+        checked: false,
+        disabled: true,
+        onClick: () => {},
+    },
+    render: (args) => TemplateCheckboxField(args),
+};
+
+export const Error: Story = {
+    args: {
+        id: "checkbox",
+        label: "Вы соглашаетесь с обработкой персональных данных",
+        error: true,
+        errorText: "Пожалуйста, согласитесь с обработкой персональных данных, чтобы продолжить пользование сайтом",
         checked: false,
         disabled: false,
         onClick: () => {},

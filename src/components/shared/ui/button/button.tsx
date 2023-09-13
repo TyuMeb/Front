@@ -7,7 +7,7 @@ interface IButtonProps extends DetailedHTMLProps<React.ButtonHTMLAttributes<HTML
     isDisabled?: boolean;
     icon?: React.ReactNode;
     viewType?: "cancel" | "exit" | "slider" | undefined;
-    type?: "submit" | "reset" | "button";
+    type?: "submit";
     extraClass?: string;
 }
 

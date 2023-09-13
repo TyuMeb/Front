@@ -18,26 +18,26 @@ const cx = classNames.bind(styles);
 
 const SignIn = () => {
     const [createToken] = useCreateTokenMutation();
-    const data = {
-        email: "rustamaaa@bk.ru",
-        password: "rustamaaa1",
-    };
+    // const data = {
+    //     email: "rustamaaa@bk.ru",
+    //     password: "rustamaaa1",
+    // };
 
-    useEffect(() => {
-        createToken(data)
-            .unwrap()
-            .then((res) => {
-                setCookie("accessToken", res.access);
-                localStorage.setItem("refreshToken", res.refresh);
-                console.log("Авторизация прошла успешно");
-            })
-            .catch((error) => {
-                console.log("Неверный логин или пароль");
-                removeCookie("accessToken");
-                localStorage.removeItem("refreshToken");
-                console.log(error);
-            });
-    }, []);
+    // useEffect(() => {
+    //     createToken(data)
+    //         .unwrap()
+    //         .then((res) => {
+    //             setCookie("accessToken", res.access);
+    //             localStorage.setItem("refreshToken", res.refresh);
+    //             console.log("Авторизация прошла успешно");
+    //         })
+    //         .catch((error) => {
+    //             console.log("Неверный логин или пароль");
+    //             removeCookie("accessToken");
+    //             localStorage.removeItem("refreshToken");
+    //             console.log(error);
+    //         });
+    // }, []);
 
     const dispatch = useAppDispatch();
 
@@ -92,6 +92,7 @@ const SignIn = () => {
 
             <form className={cx("form")}>
                 <div className={cx("inputsSignin")}>
+                    {/* <TextField type={'email'} placeholder={'sdfghj'}/> */}
                     <TextFieldModal isError={Boolean(emailError.value)} labelText="E-mail">
                         <TextField className="inputAuth" placeholder="Введите почту" {...emailField} />
                     </TextFieldModal>

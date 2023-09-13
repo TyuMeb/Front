@@ -3,7 +3,14 @@ import Image from "next/image";
 import classNames from "classnames/bind";
 
 import styles from "./text-field.module.scss";
-import { Input, InputPassword, InputLabel, FormErrorText, InputPhone } from "@src/components/shared/ui/fields-new";
+import {
+    Input,
+    InputPassword,
+    InputLabel,
+    FormErrorText,
+    InputPhone,
+    InputEmail,
+} from "@src/components/shared/ui/fields-new";
 import warning from "@public/icons/warning.svg";
 
 const cx = classNames.bind(styles);
@@ -65,6 +72,18 @@ export const TextField = (props: ITextField) => {
                         onBlur={variant === "inside" ? onBlur : undefined}
                         placeholder={activeInput ? placeholder : ""}
                         error={errorText && !restProps.disabled ? true : false}
+                        {...restProps}
+                    />
+                );
+            case "email":
+                return (
+                    <InputEmail
+                        className={cx("textField", { sizeMediumField: size === "m" })}
+                        onFocus={variant === "inside" ? onFocus : undefined}
+                        onBlur={variant === "inside" ? onBlur : undefined}
+                        placeholder={activeInput ? placeholder : ""}
+                        error={errorText && !restProps.disabled ? true : false}
+                        // refEmail={refEmail}
                         {...restProps}
                     />
                 );

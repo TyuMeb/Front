@@ -1,4 +1,4 @@
-import { ChangeEvent, HTMLAttributes } from "react";
+import { ChangeEvent, HTMLAttributes, useState } from "react";
 import classNames from "classnames/bind";
 
 import styles from "./input.module.scss";
@@ -10,6 +10,7 @@ export interface IInput extends HTMLAttributes<HTMLInputElement> {
     error?: boolean;
     type?: string;
     value?: string;
+    // onChange: () => void;
 }
 
 export const Input = (props: IInput) => {
@@ -20,10 +21,9 @@ export const Input = (props: IInput) => {
         error = false,
         autoFocus = false,
         onChange,
+        value,
         ...restProps
     } = props;
-
-    const handlerOnChange = (e: ChangeEvent<HTMLInputElement>) => onChange && onChange(e);
 
     return (
         <>
@@ -32,10 +32,11 @@ export const Input = (props: IInput) => {
                     disabled: disabled,
                     error: error,
                 })}
+                value={value}
                 autoFocus={autoFocus}
                 type={type}
+                onChange={onChange}
                 disabled={disabled}
-                onChange={(e) => handlerOnChange(e)}
                 {...restProps}
             />
         </>

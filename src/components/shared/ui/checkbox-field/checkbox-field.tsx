@@ -11,6 +11,7 @@ const cx = classNames.bind(styles);
 export interface ICheckboxField {
     id?: string;
     label?: string;
+    error?: boolean;
     errorText?: string;
     checked?: boolean;
     onClick?: () => void;
@@ -18,7 +19,7 @@ export interface ICheckboxField {
 }
 
 export const CheckboxField = (props: ICheckboxField) => {
-    const { id, label, errorText, checked = false, disabled, onClick } = props;
+    const { id, label, error, errorText, checked = false, disabled, onClick } = props;
 
     return (
         <>
@@ -30,7 +31,7 @@ export const CheckboxField = (props: ICheckboxField) => {
                     className={cx("checkboxField", {
                         checked: checked,
                         disabled: disabled,
-                        error: errorText && !disabled && !checked,
+                        error: error && !disabled && !checked,
                     })}>
                     {!disabled && (
                         <Image
@@ -47,12 +48,14 @@ export const CheckboxField = (props: ICheckboxField) => {
                 </InputLabel>
             </div>
 
-            <FormErrorText
-                disabled={errorText && !checked && !disabled ? false : true}
-                className={cx("errorTextMargins")}
-                variant={"standard"}>
-                {errorText}
-            </FormErrorText>
+            {error && (
+                <FormErrorText
+                    disabled={!checked && !disabled ? false : true}
+                    className={cx("errorTextMargins")}
+                    variant={"standard"}>
+                    {errorText}
+                </FormErrorText>
+            )}
         </>
     );
 };
