@@ -29,15 +29,6 @@
 
 .header {
     display: flex;
-
-    // padding: 24px 0;
-    // position: fixed;
-    // z-index: 1;
-    // top: 0;
-    // left: 0;
-    // width: 100%;
-    // margin: 0 auto;
-    // background: $bg-main-color;
 }
 
 .headeraccount {
@@ -48,27 +39,20 @@
 }
 
 .nav {
-    // display: flex;
     margin-right: auto;
     z-index: -1;
 }
 
 .menu {
     display: flex;
-    // align-items: center;
-    // max-width: 1220px;
-    // margin: 0 110px;
     justify-content: space-between;
-    // gap: $gap-l;
     align-items: center;
 }
 
 .menu > span {
-    // background: url("//public/icons/triangle.svg") no-repeat;
-    background: #9ca2bd;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
+    background: url("../../../../public/icons/triangle.svg") no-repeat;
+    width: 24px;
+    height: 24px;
 }
 
 .menuitem {
@@ -88,53 +72,9 @@
     white-space: nowrap;
 }
 
-// .menulink:last-child {
-//     // content: "";
-//     font-weight: 600;
-// }
-
 .avatar {
     display: block;
-    background: url("/public/icons/avatar.svg") no-repeat;
+    background: url("../../../../public/icons/avatar.svg") no-repeat;
     width: 32px;
     height: 32px;
-    background: #9ca2bd;
-    border-radius: 50%;
-    // position: absolute;
-    // z-index: 1;
 }
-
-// .list {
-//     display: flex;
-//     font-size: 14px;
-//     font-weight: 400;
-//     line-height: 150%;
-//     // width: 440px;
-//     flex-direction: row;
-//     align-items: flex-start;
-//     gap: 16px;
-// }
-
-// .link {
-//     font-weight: 400;
-//     font-size: 16px;
-//     line-height: 160%;
-//     cursor: pointer;
-//     user-select: none;
-
-//     &:last-child {
-//         margin-left: auto;
-//     }
-//     &:hover {
-//         text-decoration: underline;
-//     }
-//     &:active {
-//         text-decoration: underline;
-//         text-decoration-color: $accent-color;
-//     }
-// }
-
-// .active {
-//     text-decoration: underline;
-//     text-decoration-color: $accent-color;
-// }

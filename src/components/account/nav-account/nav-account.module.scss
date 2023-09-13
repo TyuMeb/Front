@@ -11,6 +11,7 @@
     border-right: 2px solid #eae5e1;
     flex-wrap: wrap;
     padding-right: 32px;
+    background: #fff;
 }
 
 /*----------------------------------------------------------*/
@@ -81,17 +82,28 @@
 
 /*----------------------------------------------------------*/
 
+.shelforder {
+    display: flex;
+}
+
+.shelforder > span {
+    position: absolute;
+    background: url("../../../../public/icons/triangle_down.svg") no-repeat;
+    width: 24px;
+    height: 24px;
+    transform: translateX(36px) translateY(-2px);
+}
+
 .order {
     display: flex;
 }
 
 .order > span {
     position: absolute;
-    background: #9ca2bd;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    transform: translateX(50px) translateY(5px);
+    background: url("../../../../public/icons/triangle.svg") no-repeat;
+    width: 24px;
+    height: 24px;
+    transform: translateX(36px);
 }
 
 .orderlink {
@@ -109,7 +121,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: 150%;
-    margin-left: 76px;
+    margin-left: 66px;
 }
 
 /*----------------------------------------------------------*/

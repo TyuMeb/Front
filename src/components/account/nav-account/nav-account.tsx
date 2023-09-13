@@ -18,13 +18,13 @@ const NavAccount = () => {
                             </a>
                         </li>
                     </ul>
-                    <li className={styles.order}>
+                    <li className={styles.shelforder}>
                         <span></span>
                         <a className={styles.orderlink} href="">
                             Полка настенная (1)
                         </a>
                     </li>
-                    <ul>
+                    <ul className={styles.producer}>
                         <li className={styles.order}>
                             <a className={styles.master} href="">
                                 Исполнитель 1
