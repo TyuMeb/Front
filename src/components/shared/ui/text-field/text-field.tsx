@@ -25,13 +25,14 @@ export interface ITextField {
     autoFocus?: boolean;
     label?: string;
     placeholder?: string;
+    error?: boolean;
     errorText?: string;
     value?: string;
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const TextField = (props: ITextField) => {
-    const { className, placeholder, size, variant, label, errorText, ...restProps } = props;
+    const { className, placeholder, size, variant, label, error, errorText, ...restProps } = props;
 
     const [activeInput, setActiveInput] = useState(false);
 
@@ -52,12 +53,12 @@ export const TextField = (props: ITextField) => {
                     <InputPassword
                         className={cx("textField", {
                             sizeMediumField: size === "m",
-                            errorInput: errorText && !restProps.disabled,
+                            errorInput: error && !restProps.disabled,
                         })}
                         onFocus={variant === "inside" ? onFocus : undefined}
                         onBlur={variant === "inside" ? onBlur : undefined}
-                        placeholder={activeInput ? placeholder : ""}
-                        error={errorText && !restProps.disabled ? true : false}
+                        placeholder={activeInput ? "Введите пароль" : ""}
+                        error={error && !restProps.disabled ? true : false}
                         {...restProps}
                     />
                 );
@@ -66,12 +67,12 @@ export const TextField = (props: ITextField) => {
                     <InputPhone
                         className={cx("textField", {
                             sizeMediumField: size === "m",
-                            errorInput: errorText && !restProps.disabled,
+                            errorInput: error && !restProps.disabled,
                         })}
                         onFocus={variant === "inside" ? onFocus : undefined}
                         onBlur={variant === "inside" ? onBlur : undefined}
-                        placeholder={activeInput ? placeholder : ""}
-                        error={errorText && !restProps.disabled ? true : false}
+                        placeholder={activeInput ? "Введите свой номер телефона" : ""}
+                        error={error && !restProps.disabled ? true : false}
                         {...restProps}
                     />
                 );
@@ -81,8 +82,8 @@ export const TextField = (props: ITextField) => {
                         className={cx("textField", { sizeMediumField: size === "m" })}
                         onFocus={variant === "inside" ? onFocus : undefined}
                         onBlur={variant === "inside" ? onBlur : undefined}
-                        placeholder={activeInput ? placeholder : ""}
-                        error={errorText && !restProps.disabled ? true : false}
+                        placeholder={activeInput ? "Введите e-mail" : ""}
+                        error={error && !restProps.disabled ? true : false}
                         // refEmail={refEmail}
                         {...restProps}
                     />
@@ -92,15 +93,41 @@ export const TextField = (props: ITextField) => {
                     <Input
                         className={cx("textField", {
                             sizeMediumField: size === "m",
-                            errorInput: errorText && !restProps.disabled,
+                            errorInput: error && !restProps.disabled,
                         })}
                         onFocus={variant === "inside" ? onFocus : undefined}
                         onBlur={variant === "inside" ? onBlur : undefined}
                         placeholder={activeInput ? placeholder : ""}
-                        error={errorText && !restProps.disabled ? true : false}
+                        error={error && !restProps.disabled ? true : false}
                         {...restProps}
                     />
                 );
+        }
+    };
+
+    const labelText = () => {
+        switch (restProps.type) {
+            case "password":
+                return "Пароль";
+            case "email":
+                return "E-mail";
+            case "tel":
+                return "Телефон";
+            default:
+                return label;
+        }
+    };
+
+    const errorTextData = () => {
+        switch (restProps.type) {
+            case "password":
+                return "Неверный пароль";
+            case "email":
+                return "Неверный e-mail";
+            case "tel":
+                return "Неверный номер телефона";
+            default:
+                return errorText;
         }
     };
 
@@ -108,28 +135,30 @@ export const TextField = (props: ITextField) => {
         <div className={cx("container", { sizeMedium: size === "m" }, className)}>
             <InputLabel
                 disabled={label ? false : true}
-                error={errorText && !restProps.disabled ? true : false}
+                error={error && !restProps.disabled ? true : false}
                 htmlFor={restProps.id}
                 className={cx({
                     labelInside: variant === "inside",
                     labelStandard: variant === "standard",
                     labelInsideFocus: activeInput,
                 })}>
-                {errorText && !restProps.disabled && (
+                {error && !restProps.disabled && (
                     <Image priority src={warning} alt={""} className={cx("warningIcon")} />
                 )}
 
-                {label}
+                {labelText()}
             </InputLabel>
 
             {constructInput()}
 
-            <FormErrorText
-                disabled={errorText && !restProps.disabled ? false : true}
-                className={cx("errorTextMargins")}
-                variant={"standard"}>
-                {errorText}
-            </FormErrorText>
+            {error && (
+                <FormErrorText
+                    disabled={error && !restProps.disabled ? false : true}
+                    className={cx("errorTextMargins")}
+                    variant={"standard"}>
+                    {errorTextData()}
+                </FormErrorText>
+            )}
         </div>
     );
 };

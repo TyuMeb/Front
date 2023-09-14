@@ -7,7 +7,7 @@ const meta = {
     title: "UI/TextField",
     component: TextField,
     parameters: {
-        layout: "centered",
+        layout: "padded",
     },
     tags: ["autodocs"],
     args: {
@@ -15,6 +15,7 @@ const meta = {
         disabled: false,
         autoFocus: true,
         value: "",
+        error: false,
         onChange: () => {},
     },
 } satisfies Meta<typeof TextField>;
