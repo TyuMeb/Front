@@ -9,6 +9,14 @@ const meta = {
         layout: "centered",
     },
     tags: ["autodocs"],
+    argTypes: {
+        // label: { control: 'text' }, // Always shows the control
+        error: { control: "boolean", if: { arg: "checked", eq: false } },
+        // // Only enabled if advanced is true
+        checked: { control: "boolean" },
+        // padding: { control: 'number', if: { arg: 'advanced' } },
+        // cornerRadius: { control: 'number', if: { arg: 'advanced' } },
+    },
 } satisfies Meta<typeof CheckboxField>;
 
 export default meta;
