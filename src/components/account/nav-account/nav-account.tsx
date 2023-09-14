@@ -1,49 +1,69 @@
 "use client";
 
+import { useState } from "react";
 import styles from "./nav-account.module.scss";
 // import { useEffect, useState } from "react";
 // import { useAppSelector } from "@src/redux/hooks";
 import { ExitButton } from "@src/components/shared/ui/button/exit-button";
+import { CouchIcon } from "@src/components/shared/ui/icons/couch-icon/couch-icon";
 
 const NavAccount = () => {
+    const [isMessage, setIsMessage] = useState(true);
+    const [current, setCurrent] = useState<string | undefined>(undefined);
+
+    const switchTab = (tab: string) => {
+        setCurrent(tab);
+    };
+
     return (
-        <aside className={styles.container}>
+        <div className={styles.container}>
             <div className={styles.navaccount}>
                 <nav className={styles.nav}>
                     <ul className={styles.menu}>
-                        <li className={styles.menuitem}>
-                            <a className={styles.myorders} href=""></a>
-                            <a className={styles.menulink} href="">
-                                Мои заказы (1)
-                            </a>
+                        <li
+                            className={current === "couch" ? styles.active : styles.menuitem}
+                            onClick={() => switchTab("couch")}>
+                            <div className={styles.menuicon}>
+                                <CouchIcon />
+                            </div>
+                            Мои заказы (1)
                         </li>
-                    </ul>
-                    <li className={styles.shelforder}>
-                        <span></span>
-                        <a className={styles.orderlink} href="">
-                            Полка настенная (1)
-                        </a>
-                    </li>
-                    <ul className={styles.producer}>
-                        <li className={styles.order}>
-                            <a className={styles.master} href="">
-                                Исполнитель 1
-                            </a>
-                        </li>
-                        <li className={styles.order}>
-                            <a className={styles.master} href="">
-                                Исполнитель 2
-                            </a>
-                            <span></span>
-                        </li>
-                    </ul>
-                    <li className={styles.order}>
-                        <span></span>
-                        <a className={styles.orderlink} href="">
-                            Комод
-                        </a>
-                    </li>
-                    <ul className={styles.menu}>
+                        <ul className={styles.menuOrders}>
+                            <li className={styles.shelforder}>
+                                <span></span>
+                                <a className={styles.orderlink} href="">
+                                    Полка настенная (1)
+                                </a>
+                            </li>
+                            <ul className={styles.producer}>
+                                <li className={styles.order}>
+                                    <a className={styles.master} href="">
+                                        Исполнитель 1
+                                    </a>
+                                </li>
+                                <li className={styles.order}>
+                                    <a className={styles.master} href="">
+                                        Исполнитель 2
+                                    </a>
+                                    {isMessage && (
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="8"
+                                            height="9"
+                                            viewBox="0 0 8 9"
+                                            fill="none">
+                                            <circle cx="4" cy="4.5" r="4" fill="#719D88" />
+                                        </svg>
+                                    )}
+                                </li>
+                            </ul>
+                            <li className={styles.order}>
+                                <span></span>
+                                <a className={styles.orderlink} href="">
+                                    Комод
+                                </a>
+                            </li>
+                        </ul>
                         <li className={styles.menuitem}>
                             <a className={styles.chats} href=""></a>
                             <a className={styles.menulink} href="">
@@ -75,10 +95,70 @@ const NavAccount = () => {
                             </a>
                         </li>
                     </ul>
+                    {/* <li className={styles.shelforder}>
+                        <span></span>
+                        <a className={styles.orderlink} href="">
+                            Полка настенная (1)
+                        </a>
+                    </li> */}
+                    {/* <ul className={styles.producer}>
+                        <li className={styles.order}>
+                            <a className={styles.master} href="">
+                                Исполнитель 1
+                            </a>
+                        </li>
+
+                        <li className={styles.order}>
+                            <a className={styles.master} href="">
+                                Исполнитель 2
+                            </a>
+                            {isMessage && <svg xmlns="http://www.w3.org/2000/svg" width="8" height="9" viewBox="0 0 8 9" fill="none">
+                                <circle cx="4" cy="4.5" r="4" fill="#719D88" />
+                            </svg>}
+                        </li>
+                    </ul> */}
+                    {/* <li className={styles.order}>
+                        <span></span>
+                        <a className={styles.orderlink} href="">
+                            Комод
+                        </a>
+                    </li> */}
+                    {/* <ul className={styles.menu}>
+                        <li className={styles.menuitem}>
+                            <a className={styles.chats} href=""></a>
+                            <a className={styles.menulink} href="">
+                                Чаты
+                            </a>
+                        </li>
+                        <li className={styles.menuitem}>
+                            <a className={styles.archives} href=""></a>
+                            <a className={styles.menulink} href="">
+                                Архивы
+                            </a>
+                        </li>
+                        <li className={styles.menuitem}>
+                            <a className={styles.settings} href=""></a>
+                            <a className={styles.menulink} href="">
+                                Настройки
+                            </a>
+                        </li>
+                        <li className={styles.menuitem}>
+                            <a className={styles.help} href=""></a>
+                            <a className={styles.menulink} href="">
+                                Помощь
+                            </a>
+                        </li>
+                        <li className={styles.menuitem}>
+                            <a className={styles.makeorder} href=""></a>
+                            <a className={styles.menulink} href="">
+                                Сделать заказ
+                            </a>
+                        </li>
+                    </ul> */}
                 </nav>
                 <ExitButton onClick={() => {}}>Выйти</ExitButton>
             </div>
-        </aside>
+        </div>
     );
 };
 

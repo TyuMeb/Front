@@ -20,34 +20,48 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 0;
+    // padding: 24px 0;
     flex-direction: column;
 }
 
 .nav {
     display: flex;
-    margin-right: auto;
+    // margin-right: auto;
     flex-direction: column;
 }
 
 .menu {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    border-left: 4px solid #fccf55;
+    // align-items: flex-start;
+    // justify-content: space-between;
+    // border-left: 4px solid #fccf55;
     gap: 24px;
-    width: 210px;
-    height: 30px;
-    margin-bottom: 16px;
+    // width: 210px;
+    // height: 30px;
+    // margin-bottom: 16px;
 }
 
 /*----------------------------------------------------------*/
 
 .menuitem {
-    margin: 0 12px;
-    margin-left: 58px;
+    // margin: 0 12px;
+    // margin-left: 58px;
     display: flex;
+    min-width: 210px;
+    align-items: center;
+    cursor: pointer;
+}
+.active {
+    display: flex;
+    min-width: 210px;
+    align-items: center;
+    cursor: pointer;
+    border-left: 4px solid #fccf55;
+}
+
+.menuicon {
+    margin: 0 8px 0 20px;
 }
 
 .menuitem:last-child {
@@ -62,6 +76,17 @@
     height: 30px;
 }
 
+.menuOrders {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.producer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 .myorders {
     position: absolute;
     transform: translateX(-38px) translateY(-5px);
@@ -69,7 +94,6 @@
     width: 30px;
     height: 30px;
     margin-left: auto;
-    border-left: 4px solid #fccf55;
 }
 
 .menulink {
@@ -96,6 +120,9 @@
 
 .order {
     display: flex;
+    gap: 8px;
+    align-items: center;
+    background-color: #fffaee;
 }
 
 .order > span {

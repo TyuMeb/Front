@@ -8,8 +8,13 @@ export default function SettingsPage() {
     return (
         <div className="help">
             <HeaderAccount />
-            <NavAccount />
-            <MyOrders />
+            <div className="container">
+                <NavAccount />
+                <MyOrders />
+            </div>
         </div>
     );
 }
+
+// min - width: 1440px;
+// margin: 0 auto;
