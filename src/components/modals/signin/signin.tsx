@@ -13,6 +13,7 @@ import Icon from "@src/components/icon";
 
 import { useCreateTokenMutation } from "@src/redux/api/jwt-api-slice";
 import { setCookie, removeCookie } from "typescript-cookie";
+import InputEmail from "@src/components/shared/ui/inputs/email/email";
 
 const cx = classNames.bind(styles);
 
@@ -93,6 +94,7 @@ const SignIn = () => {
             <form className={cx("form")}>
                 <div className={cx("inputsSignin")}>
                     {/* <TextField type={'email'} placeholder={'sdfghj'}/> */}
+                    <InputEmail />
                     <TextFieldModal isError={Boolean(emailError.value)} labelText="E-mail">
                         <TextField className="inputAuth" placeholder="Введите почту" {...emailField} />
                     </TextFieldModal>

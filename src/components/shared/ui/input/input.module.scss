@@ -1,5 +1,10 @@
-@import "../../../../styles/variables";
+@import "../../../../styles/variables.scss";
+@import "~/src/styles/index.scss";
 
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+}
 .input {
     width: 296px;
     height: 48px;
@@ -11,8 +16,29 @@
     line-height: inherit;
 }
 
+.label {
+    @include textSmall;
+    @include text;
+    margin-bottom: 8px;
+    margin-left: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: inherit;
+    &_error {
+        margin-left: 0px;
+        color: $error-accent-color;
+    }
+
+    // color: $text-main-color;
+}
+
 .error {
-    border-color: $error-accent-color;
+    @include textSmall;
+    @include text;
+    color: $error-accent-color;
+    margin-top: 18px;
+    // border-color: $error-accent-color;
 }
 
 .message {
