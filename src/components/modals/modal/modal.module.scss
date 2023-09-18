@@ -2,7 +2,7 @@
 
 .overlay {
     position: fixed;
-    z-index: 2;
+    z-index: 6;
     top: 0;
     right: 0;
     bottom: 0;
@@ -54,3 +54,4 @@
         transform: rotateZ(-45deg);
     }
 }
+
