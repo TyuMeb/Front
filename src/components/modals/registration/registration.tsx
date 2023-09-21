@@ -25,6 +25,7 @@ const Registration = () => {
     const passwordRepeatError = useInput("");
     const phoneError = useInput("");
 
+
     const [checked, setChecked] = React.useState(false);
 
     const handleChange = () => setChecked((state) => !state);
@@ -53,9 +54,9 @@ const Registration = () => {
         }
     };
 
-    const lengthCheck = (field: string, onChange: any, length: number = 12) => {
+    const lengthCheck = (field: string, onChange: any, length: number, labelText: string) => {
         if (field.length >= length) {
-            onChange(`Длина ${field} не может быть больше ${length} символов!`);
+            onChange(`Длина поля ${labelText} не может быть больше ${length} символов!`);
         }
     };
 
@@ -68,14 +69,15 @@ const Registration = () => {
         passwordError.onChange("");
         passwordRepeatError.onChange("");
 
-        lengthCheck(firstNameField.value, firstNameError.onChange);
-        lengthCheck(lastNameField.value, lastNameError.onChange);
+        // TODO кажется, что мистические значения на длину допустимых символов надо вынести в константы 
+        lengthCheck(firstNameField.value, firstNameError.onChange, 12, "Имя");
+        lengthCheck(lastNameField.value, lastNameError.onChange, 12, "Фамилия");
 
-        lengthCheck(emailField.value, emailError.onChange);
-        lengthCheck(phoneField.value, phoneError.onChange);
+        lengthCheck(emailField.value, emailError.onChange, 12, "E-mail");
+        lengthCheck(phoneField.value, phoneError.onChange, 12, "Телефон");
 
-        lengthCheck(passwordField.value, passwordError.onChange);
-        lengthCheck(passwordRepeatField.value, passwordRepeatError.onChange);
+        lengthCheck(passwordField.value, passwordError.onChange, 12, "Пароль");
+        lengthCheck(passwordRepeatField.value, passwordRepeatError.onChange, 12, "Повторить пароль");
     };
 
     useEffect(() => {
@@ -129,17 +131,20 @@ const Registration = () => {
                     phoneError.value ||
                     passwordError.value ||
                     passwordRepeatError.value) && (
-                    <ul className={cx("errorsText")}>
-                        {renderError(firstNameError.value)}
-                        {renderError(lastNameError.value)}
+                        // TODO вынести errorsContainer в отдельный компонент (shared)
+                        <div className={cx("errorsContainer")}>
+                            <ul className={cx("errorsText")}>
+                                {renderError(firstNameError.value)}
+                                {renderError(lastNameError.value)}
 
-                        {renderError(emailError.value)}
-                        {renderError(phoneError.value)}
+                                {renderError(emailError.value)}
+                                {renderError(phoneError.value)}
 
-                        {renderError(passwordError.value)}
-                        {renderError(passwordRepeatError.value)}
-                    </ul>
-                )}
+                                {renderError(passwordError.value)}
+                                {renderError(passwordRepeatError.value)}
+                            </ul>
+                        </div>
+                    )}
 
                 <label className={cx("checkboxLabel")}>
                     <СheckboxField checked={checked} handleChange={() => handleChange()} />

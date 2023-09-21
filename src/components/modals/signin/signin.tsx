@@ -62,9 +62,9 @@ const SignIn = () => {
         }
     };
 
-    const lengthCheck = (field: string, onChange: any, length: number = 12) => {
+    const lengthCheck = (field: string, onChange: any, length: number, labelText: string) => {
         if (field.length >= length) {
-            onChange(`Длина ${field} не может быть больше ${length} символов!`);
+            onChange(`Длина поля ${labelText} не может быть больше ${length} символов!`);
         }
     };
 
@@ -73,12 +73,13 @@ const SignIn = () => {
         emailError.onChange("");
         passwordError.onChange("");
 
-        lengthCheck(emailField.value, emailError.onChange);
-        lengthCheck(passwordField.value, passwordError.onChange);
+        lengthCheck(emailField.value, emailError.onChange, 12, "E-mail");
+        lengthCheck(passwordField.value, passwordError.onChange, 12, "Пароль");
     };
 
     useEffect(() => {
         formValidation();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [emailField, passwordError]);
 
     const renderError = (value: string) =>
@@ -102,10 +103,13 @@ const SignIn = () => {
                 </div>
 
                 {(emailError.value || passwordError.value) && (
-                    <ul className={cx("errorsText")}>
-                        {renderError(emailError.value)}
-                        {renderError(passwordError.value)}
-                    </ul>
+                    // TODO вынести errorsContainer в отдельный компонент (shared)
+                    <div className={cx("errorsContainer")}>
+                        <ul className={cx("errorsText")}>
+                            {renderError(emailError.value)}
+                            {renderError(passwordError.value)}
+                        </ul>
+                    </div>
                 )}
 
                 <button

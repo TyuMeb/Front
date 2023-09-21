@@ -185,7 +185,7 @@
     grid-column: startline/endline;
     padding: 0 20px;
     list-style: none;
-    margin-bottom: 36px;
+    // margin-bottom: 36px;
     display: grid;
     row-gap: 16px;
 }
@@ -229,3 +229,26 @@
     top: 96px;
     right: 32px;
 }
+
+.errorsContainer {
+    width: 100%;
+    max-height: 80px;
+    overflow-y: scroll;
+    margin-bottom: 12px;
+}
+
+.errorsContainer::-webkit-scrollbar {
+    width: 10px;
+}
+
+.errorsContainer::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.errorsContainer::-webkit-scrollbar-thumb {
+    background-color: $mustard;
+    border-radius: 20px;
+    // border: 3px solid orange;
+    /* отступ вокруг бегунка */
+}
+
