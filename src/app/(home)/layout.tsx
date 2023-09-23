@@ -1,16 +1,6 @@
-import "@src/styles/global.css";
-import Header from "@src/components/header/header";
-import Footer from "@src/components/footer/footer";
-import Modals from "@src/components/modals/modals";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
+import HomeLayouts from "@src/components/layouts";
 
-export default function RootLayout({ children }: { children: ReactNode }) {
-    return (
-        <>
-            <Header />
-            <main>{children}</main>
-            <Footer />
-            <Modals />
-        </>
-    );
-}
+const Layout = ({ children }: { children: ReactNode }) => <HomeLayouts>{children}</HomeLayouts>;
+
+export default Layout;
