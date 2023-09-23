@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
-import HomeLayouts from "@src/components/layouts";
+import HomeLayout from "@src/components/layouts/home-layout";
 
-const Layout = ({ children }: { children: ReactNode }) => <HomeLayouts>{children}</HomeLayouts>;
+const Layout = ({ children }: { children: ReactNode }) => <HomeLayout>{children}</HomeLayout>;
 
 export default Layout;

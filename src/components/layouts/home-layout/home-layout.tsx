@@ -1,10 +1,10 @@
 import "@src/styles/global.css";
-import Header from "@src/components/layouts/home-layouts/header";
-import Footer from "@src/components/layouts/home-layouts/footer";
+import Header from "@src/components/layouts/home-layout/header";
+import Footer from "@src/components/layouts/home-layout/footer";
 import Modals from "@src/components/modals/modals";
 import { ReactNode } from "react";
 
-const HomeLayouts = ({ children }: { children: ReactNode }) => {
+const HomeLayout = ({ children }: { children: ReactNode }) => {
     return (
         <>
             <Header />
@@ -15,4 +15,4 @@ const HomeLayouts = ({ children }: { children: ReactNode }) => {
     );
 };
 
-export default HomeLayouts;
+export default HomeLayout;
