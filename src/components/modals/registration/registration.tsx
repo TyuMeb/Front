@@ -97,19 +97,19 @@ const Registration = () => {
             <form className={cx("form")}>
                 <div className={cx("inputsRegistration")}>
                     <TextFieldModal isError={Boolean(firstNameError.value)} labelText="Имя">
-                        <TextField className="inputAuth" placeholder="Введите свое имя" {...firstNameField} />
+                        <TextField className="inputAuth" placeholder="Иван" {...firstNameField} />
                     </TextFieldModal>
 
                     <TextFieldModal isError={Boolean(lastNameError.value)} labelText="Фамилия">
-                        <TextField className="inputAuth" placeholder="Введите свою фамилию" {...lastNameField} />
+                        <TextField className="inputAuth" placeholder="Иванов" {...lastNameField} />
                     </TextFieldModal>
 
                     <TextFieldModal isError={Boolean(emailError.value)} labelText="E-mail">
-                        <TextField className="inputAuth" placeholder="Введите свою почту" {...emailField} />
+                        <TextField className="inputAuth" placeholder="ivanov@ivanov.ru" {...emailField} />
                     </TextFieldModal>
 
                     <TextFieldModal isError={Boolean(phoneError.value)} labelText="Телефон">
-                        <PhoneField className="inputAuth" placeholder="Введите свой номер телефона" {...phoneField} />
+                        <PhoneField className="inputAuth" placeholder="+7(000)000-00-00" {...phoneField} />
                     </TextFieldModal>
 
                     <TextFieldModal isError={Boolean(passwordError.value)} labelText="Пароль">
@@ -132,20 +132,20 @@ const Registration = () => {
                     passwordError.value ||
                     passwordRepeatError.value) && (
                         // TODO вынести errorsContainer в отдельный компонент (shared)
-                        <div className={cx("errorsContainer")}>
-                            <ul className={cx("errorsText")}>
-                                {renderError(firstNameError.value)}
-                                {renderError(lastNameError.value)}
+                        // <div className={cx("errorsContainer")}>
+                        <ul className={cx("errorsText")}>
+                            {renderError(firstNameError.value)}
+                            {renderError(lastNameError.value)}
 
-                                {renderError(emailError.value)}
-                                {renderError(phoneError.value)}
+                            {renderError(emailError.value)}
+                            {renderError(phoneError.value)}
 
-                                {renderError(passwordError.value)}
-                                {renderError(passwordRepeatError.value)}
-                            </ul>
-                        </div>
+                            {renderError(passwordError.value)}
+                            {renderError(passwordRepeatError.value)}
+                        </ul>
+                        // </div>
                     )}
-
+                {/* <div> */}
                 <label className={cx("checkboxLabel")}>
                     <СheckboxField checked={checked} handleChange={() => handleChange()} />
                     <p className={cx("textCheckbox", "text")}>Вы соглашаетесь с обработкой персональных данных</p>
@@ -154,6 +154,8 @@ const Registration = () => {
                 <button className={cx("text", "button", "positionCenter")} type="submit" onClick={submitForm}>
                     Зарегистрироваться
                 </button>
+
+                {/* </div> */}
             </form>
         </ModalAuth>
     );

@@ -14,12 +14,14 @@ interface ITextFieldModal extends HTMLAttributes<HTMLLabelElement> {
 const TextFieldModal = ({ isError, labelText, children }: ITextFieldModal) => {
     return (
         <label className={cx("label")}>
-            {children}
 
             <p className={cx("textLabel", "text", { warningText: isError })}>
-                {isError && <Icon className={cx("warningIcon")} glyph="warning" />}
+                {/* {isError && <Icon className={cx("warningIcon")} glyph="warning" />} */}
+
                 {labelText}
             </p>
+            {children}
+
         </label>
     );
 };
