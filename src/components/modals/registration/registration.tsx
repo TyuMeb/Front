@@ -151,7 +151,7 @@ const Registration = () => {
                     <p className={cx("textCheckbox", "text")}>Вы соглашаетесь с обработкой персональных данных</p>
                 </label>
 
-                <button className={cx("text", "button", "positionCenter")} type="submit" onClick={submitForm}>
+                <button className={cx("text", "button", "btn_registration")} type="submit" onClick={submitForm}>
                     Зарегистрироваться
                 </button>
 

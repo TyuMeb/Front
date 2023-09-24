@@ -36,6 +36,7 @@
     column-gap: 44px;
     row-gap: 29px;
     margin-bottom: 28px;
+    // margin: 0 75px 28px 75px;
 }
 
 .inputsResetPassword {
@@ -111,7 +112,7 @@
 }
 
 .content {
-    padding: 50px 75px;
+    padding: 50px 0 50px 75px;
     position: relative;
     z-index: 1;
 }
@@ -127,6 +128,7 @@
 
 .titleSubtext {
     margin-bottom: 10px;
+    // margin: 0 75px 10px 75px;
 }
 
 .label {
@@ -167,6 +169,7 @@
 .subtext {
     max-width: 458px;
     margin-bottom: 28px;
+    // margin: 0 75px 28px 75px;
 }
 
 .textField {
@@ -190,6 +193,7 @@
     display: grid;
     row-gap: 28px;
     margin-bottom: 28px;
+    // margin: 0 75px 28px 75px;
 }
 
 .textError {
@@ -209,6 +213,7 @@
     grid-column: startline/endline;
     margin: 28px 0 36px 0;
     cursor: pointer;
+    // margin: 0 75px 28px 75px;
 }
 
 .textCheckbox {
@@ -238,6 +243,11 @@
 //     overflow-y: scroll;
 //     margin-bottom: 12px;
 // }
+
+.btn_registration {
+    display: block;
+    margin: 0 0 0 207px;
+}
 
 .form::-webkit-scrollbar {
     width: 10px;
