@@ -54,7 +54,6 @@
 .text {
     @include text;
     @include textSmall;
-
     position: relative;
     color: $black;
 }
@@ -117,9 +116,6 @@
 }
 
 .title {
-    @include headline;
-    @include headline2;
-
     position: relative;
     margin-bottom: 36px;
     max-width: 458px;
@@ -127,6 +123,10 @@
 
 .titleSubtext {
     margin-bottom: 10px;
+}
+
+.signinTitleSubtext {
+    margin-bottom: 36px;
 }
 
 .label {

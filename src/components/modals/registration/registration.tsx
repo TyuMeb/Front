@@ -90,7 +90,7 @@ const Registration = () => {
 
     return (
         <ModalAuth>
-            <h2 className={cx("title", "titleSubtext")}>Создание аккаунта</h2>
+            <h2 className={`headline ${styles.titleSubtext}`}>Создание аккаунта</h2>
 
             <p className={cx("text", "subtext")}>Заполните все поля, чтобы создать свой заказ</p>
 

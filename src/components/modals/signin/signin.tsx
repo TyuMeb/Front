@@ -89,7 +89,7 @@ const SignIn = () => {
         <ModalAuth>
             <Icon className={cx("backgroundSignIn")} glyph="signin" />
 
-            <h2 className={cx("title")}>Добро пожаловать!</h2>
+            <h2 className={`headline ${styles.signinTitleSubtext}`}>Добро пожаловать!</h2>
 
             <form className={cx("form")}>
                 <div className={cx("inputsSignin")}>
