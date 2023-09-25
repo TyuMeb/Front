@@ -1,5 +1,5 @@
 import styles from "./form.module.scss";
-import { Input } from "@src/components/shared/ui/input/input";
+import { Input } from "@src/components/shared/ui/text-input/text-input";
 import Button from "@src/components/shared/ui/button/button";
 
 export const Form = () => {

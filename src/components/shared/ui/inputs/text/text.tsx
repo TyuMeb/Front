@@ -1,4 +1,4 @@
-import { Input } from "../../input/input";
+import { Input } from "../../text-input/text-input";
 
 export const InputText = () => {
     return <Input />;

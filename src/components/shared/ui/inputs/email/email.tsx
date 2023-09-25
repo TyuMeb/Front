@@ -1,8 +1,9 @@
-import { useState } from "react";
-import { IInputProps, Input } from "../../input/input";
-import styles from "./email.module.css";
+import React, { useState } from "react";
+import { IInputProps, Input } from "../../text-input/text-input";
 
 const InputEmail = (props: IInputProps) => {
+    const { onChange, ...restProps } = props;
+
     const [email, setEmail] = useState("");
 
     const emailMask = (value: string) => {
@@ -30,10 +31,10 @@ const InputEmail = (props: IInputProps) => {
             value={email}
             onChange={(e) => handleEmailChange(e)}
             errorMessage="Неверный e-mail"
-            label="E-mail"
+            textLabel="E-mail"
             placeholder={"Введите e-mail"}
             inputMode={"email"}
-            {...props}
+            {...restProps}
         />
     );
 };
