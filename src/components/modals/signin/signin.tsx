@@ -103,13 +103,10 @@ const SignIn = () => {
                 </div>
 
                 {(emailError.value || passwordError.value) && (
-                    // TODO вынести errorsContainer в отдельный компонент (shared)
-                    // <div className={cx("errorsContainer")}>
                     <ul className={cx("errorsText")}>
                         {renderError(emailError.value)}
                         {renderError(passwordError.value)}
                     </ul>
-                    // </div>
                 )}
 
                 <button

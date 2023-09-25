@@ -1,4 +1,5 @@
-@import "~/src/styles/index";
+@import "../../../styles/mixins.scss";
+@import "../../../styles/colors.scss";
 
 .window {
     width: 804px;
@@ -36,7 +37,6 @@
     column-gap: 44px;
     row-gap: 29px;
     margin-bottom: 28px;
-    // margin: 0 75px 28px 75px;
 }
 
 .inputsResetPassword {
@@ -62,7 +62,6 @@
 .listButtons {
     list-style: none;
     display: flex;
-    // margin-top: 28px;
 }
 
 .containerButtons {
@@ -128,7 +127,6 @@
 
 .titleSubtext {
     margin-bottom: 10px;
-    // margin: 0 75px 10px 75px;
 }
 
 .label {
@@ -169,7 +167,6 @@
 .subtext {
     max-width: 458px;
     margin-bottom: 28px;
-    // margin: 0 75px 28px 75px;
 }
 
 .textField {
@@ -193,7 +190,6 @@
     display: grid;
     row-gap: 28px;
     margin-bottom: 28px;
-    // margin: 0 75px 28px 75px;
 }
 
 .textError {
@@ -213,7 +209,6 @@
     grid-column: startline/endline;
     margin: 28px 0 36px 0;
     cursor: pointer;
-    // margin: 0 75px 28px 75px;
 }
 
 .textCheckbox {
@@ -237,13 +232,6 @@
     right: 32px;
 }
 
-// .errorsContainer {
-//     width: 100%;
-//     max-height: 80px;
-//     overflow-y: scroll;
-//     margin-bottom: 12px;
-// }
-
 .btn_registration {
     display: block;
     margin: 0 0 0 207px;
@@ -260,12 +248,5 @@
 .form::-webkit-scrollbar-thumb {
     background-color: $gray;
     border-radius: 20px;
-    // border: 3px solid orange;
-    /* отступ вокруг бегунка */
-}
-
-// не работает
-.form::-webkit-scrollbar-thumb:horizontal {
-    transform: translateX(-200px);
 }
 

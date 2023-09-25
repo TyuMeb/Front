@@ -26,7 +26,7 @@ const Registration = () => {
     const phoneError = useInput("");
 
 
-    const [checked, setChecked] = React.useState(false);
+    const [checked, setChecked] = React.useState(true);
 
     const handleChange = () => setChecked((state) => !state);
 
@@ -131,8 +131,6 @@ const Registration = () => {
                     phoneError.value ||
                     passwordError.value ||
                     passwordRepeatError.value) && (
-                        // TODO вынести errorsContainer в отдельный компонент (shared)
-                        // <div className={cx("errorsContainer")}>
                         <ul className={cx("errorsText")}>
                             {renderError(firstNameError.value)}
                             {renderError(lastNameError.value)}
@@ -143,9 +141,7 @@ const Registration = () => {
                             {renderError(passwordError.value)}
                             {renderError(passwordRepeatError.value)}
                         </ul>
-                        // </div>
                     )}
-                {/* <div> */}
                 <label className={cx("checkboxLabel")}>
                     <СheckboxField checked={checked} handleChange={() => handleChange()} />
                     <p className={cx("textCheckbox", "text")}>Вы соглашаетесь с обработкой персональных данных</p>
@@ -154,8 +150,6 @@ const Registration = () => {
                 <button className={cx("text", "button", "btn_registration")} type="submit" onClick={submitForm}>
                     Зарегистрироваться
                 </button>
-
-                {/* </div> */}
             </form>
         </ModalAuth>
     );
