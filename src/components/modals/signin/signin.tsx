@@ -93,8 +93,6 @@ const SignIn = () => {
 
             <form className={cx("form")}>
                 <div className={cx("inputsSignin")}>
-                    {/* <TextField type={'email'} placeholder={'sdfghj'}/> */}
-                    <InputEmail />
                     <TextFieldModal isError={Boolean(emailError.value)} labelText="E-mail">
                         <TextField className="inputAuth" placeholder="Введите почту" {...emailField} />
                     </TextFieldModal>

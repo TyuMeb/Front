@@ -1,11 +1,12 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { Input, IInputProps } from "./text-input";
+import InputEmail from "./email";
+import { IInputProps } from "@src/components/shared/ui/text-input";
 import { ChangeEvent } from "react";
 import { useArgs } from "@storybook/client-api";
 
 const meta = {
-    title: "UI/Inputs",
-    component: Input,
+    title: "UI/Inputs/InputEmail",
+    component: InputEmail,
     parameters: {
         layout: "padded",
     },
@@ -16,7 +17,7 @@ const meta = {
         value: "",
         onChange: () => {},
     },
-} satisfies Meta<typeof Input>;
+} satisfies Meta<typeof InputEmail>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -30,20 +31,20 @@ const TemplateInput = (args: IInputProps): JSX.Element => {
 
     return (
         <div style={{ width: "296px" }}>
-            <Input value={value} onChange={(e) => handleChange(e)} {...restArgs} />
+            <InputEmail value={value} onChange={(e) => handleChange(e)} {...restArgs} />
         </div>
     );
 };
 
 export const Default: Story = {
     args: {
-        id: "name",
+        id: "email",
         className: "",
         disabled: false,
-        placeholder: "Введите свое имя",
-        textLabel: "Имя",
+        placeholder: "Введите почту",
+        textLabel: "Email",
         error: false,
-        errorMessage: "Пример ошибки",
+        errorMessage: "Неправильный email",
     },
     render: (args) => TemplateInput(args),
 };
