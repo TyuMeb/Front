@@ -7,6 +7,7 @@ import TextFieldModal from "@src/components/modals/text-field-modal";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
+import { raleway } from '@src/styles/fonts';
 
 const cx = classNames.bind(styles);
 
@@ -90,7 +91,7 @@ const Registration = () => {
 
     return (
         <ModalAuth>
-            <h2 className={`headline ${styles.titleSubtext}`}>Создание аккаунта</h2>
+            <h2 className={`${raleway.className} ${styles.titleSubtext}`}>Создание аккаунта</h2>
 
             <p className={cx("text", "subtext")}>Заполните все поля, чтобы создать свой заказ</p>
 

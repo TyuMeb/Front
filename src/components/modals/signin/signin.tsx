@@ -14,6 +14,8 @@ import Icon from "@src/components/icon";
 import { useCreateTokenMutation } from "@src/redux/api/jwt-api-slice";
 import { setCookie, removeCookie } from "typescript-cookie";
 
+import { raleway } from '@src/styles/fonts';
+
 const cx = classNames.bind(styles);
 
 const SignIn = () => {
@@ -89,7 +91,7 @@ const SignIn = () => {
         <ModalAuth>
             <Icon className={cx("backgroundSignIn")} glyph="signin" />
 
-            <h2 className={`headline ${styles.signinTitleSubtext}`}>Добро пожаловать!</h2>
+            <h2 className={`${raleway.className} ${styles.signinTitleSubtext}`}>Добро пожаловать!</h2>
 
             <form className={cx("form")}>
                 <div className={cx("inputsSignin")}>
