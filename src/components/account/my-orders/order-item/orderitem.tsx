@@ -3,6 +3,8 @@
 import { DotsIcon } from "@src/components/shared/ui/icons/dots-icon/dots-icon";
 import styles from "./order-chat/orderchat.module.scss";
 import { Button } from "@src/components/shared/ui/button/button";
+import { GreenMarkIcon } from "@src/components/shared/ui/icons/green-mark-icon/green-mark-icon";
+import { RedMarkIcon } from "@src/components/shared/ui/icons/red-mark-icon copy/red-mark-icon";
 
 const OrderItem = () => {
     return (
@@ -10,7 +12,9 @@ const OrderItem = () => {
             <article className={styles.order}>
                 <section className={styles.head}>
                     <div className={styles.worker}>
+                        <RedMarkIcon />
                         <p>Исполнитель 2</p>
+                        <DotsIcon />
                     </div>
                     <div className={styles.workerlimit}>
                         <p>Срок исполнения: 45-50 дней</p>
@@ -38,11 +42,9 @@ const OrderItem = () => {
             <article className={styles.order}>
                 <section className={styles.head}>
                     <div className={styles.worker}>
-                        <span></span>
-                        <p>Исполнитель 1</p>
-                        <div className={styles.dotsicon}>
-                            <DotsIcon />
-                        </div>
+                        <GreenMarkIcon />
+                        <div>Исполнитель 1</div>
+                        <DotsIcon />
                     </div>
                     <div className={styles.workerlimit}>
                         <p>Срок исполнения: 45-50 дней</p>
