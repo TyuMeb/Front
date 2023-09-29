@@ -1,10 +1,10 @@
 "use client";
 
-import styles from "./orderchat.module.scss";
+import styles from "./dialog.module.scss";
 import { Button } from "@src/components/shared/ui/button/button";
 import { GreenMarkIcon } from "@src/components/shared/ui/icons/green-mark-icon/green-mark-icon";
 
-const OrderChat = () => {
+const Dialog = () => {
     return (
         <div className={styles.ordersmain}>
             <article className={styles.order}>
@@ -40,4 +40,4 @@ const OrderChat = () => {
     );
 };
 
-export default OrderChat;
+export default Dialog;

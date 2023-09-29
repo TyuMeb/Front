@@ -1,7 +1,7 @@
 "use client";
 
 import HeaderAccount from "@src/components/account/header-account/header-account";
-import OrderChat from "@src/components/account/chats/order-chat/orderchat";
+import Dialog from "@src/components/account/chats/order-chat/dialog/dialog";
 import NavAccount from "@src/components/account/nav-account/nav-account";
 
 export default function OrderItemPage() {
@@ -10,7 +10,7 @@ export default function OrderItemPage() {
             <HeaderAccount />
             <div className="container">
                 <NavAccount />
-                <OrderChat />
+                <Dialog />
             </div>
         </div>
     );
