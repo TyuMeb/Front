@@ -34,7 +34,15 @@ const Dialog = () => {
                         день! Присылаю варианты и hjgfkdgndgfnk...
                     </p>
                 </div>
-                инпут текста
+                <div>
+                    Исполнитель 1 <br />
+                    Lorem ipsum dolor sit amet, consectetur...
+                </div>
+                <div>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Ut enim ad minim
+                </div>
+                Написать сообщение
             </article>
         </div>
     );
