@@ -21,7 +21,7 @@ export const ResetPasswordConfirm = () => {
     const submitForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         try {
             console.log({ email: passwordField.value });
-            passwordField.onChange("");
+            passwordField.value = "";
         } catch {
             console.log("Ошибка востановления пароля");
         } finally {
@@ -37,7 +37,7 @@ export const ResetPasswordConfirm = () => {
 
     // Проверка работы валидации
     const formValidation = () => {
-        passwordError.onChange("");
+        passwordError.value = "";
         lengthCheck(passwordError.value, passwordError.onChange);
     };
 

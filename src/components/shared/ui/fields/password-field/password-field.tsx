@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import classNames from "classnames/bind";
 import Icon from "@src/components/icon";
 
@@ -14,7 +14,7 @@ export const PasswordField = (props: IPasswordField) => {
 
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
-    const handlerOnChange = (value: string) => onChange(value);
+    const handlerOnChange = (e: ChangeEvent<HTMLInputElement>) => onChange(e);
 
     return (
         <>
@@ -23,7 +23,7 @@ export const PasswordField = (props: IPasswordField) => {
                 type={showPassword ? "text" : "password"}
                 placeholder={placeholder}
                 value={value}
-                onChange={(e) => handlerOnChange(e.target.value)}
+                onChange={(e) => handlerOnChange(e)}
                 minLength={maxLength}
                 maxLength={minLength}
                 required={required}

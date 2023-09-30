@@ -2,11 +2,12 @@ import React, { useEffect, MouseEvent } from "react";
 import classNames from "classnames/bind";
 
 import useInput from "@src/hooks/use-Input";
-import { TextField, PasswordField, PhoneField, СheckboxField } from "@src/components/shared/ui/fields";
+import { TextField, PasswordField, СheckboxField } from "@src/components/shared/ui/fields";
 import TextFieldModal from "@src/components/modals/text-field-modal";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
+import InputPhone from "@src/components/shared/ui/inputs/phone";
 
 const cx = classNames.bind(styles);
 
@@ -40,12 +41,12 @@ const Registration = () => {
                 phone: phoneField.value,
                 checked,
             });
-            firstNameField.onChange("");
-            lastNameField.onChange("");
-            emailField.onChange("");
-            passwordField.onChange("");
-            passwordRepeatField.onChange("");
-            phoneField.onChange("");
+            firstNameField.value = "";
+            lastNameField.value = "";
+            emailField.value = "";
+            phoneField.value = "";
+            passwordField.value = "";
+            passwordRepeatField.value = "";
         } catch {
             console.log("Ошибка регистрации");
         } finally {
@@ -61,12 +62,12 @@ const Registration = () => {
 
     // Проверка работы валидации
     const formValidation = () => {
-        firstNameError.onChange("");
-        lastNameError.onChange("");
-        emailError.onChange("");
-        phoneError.onChange("");
-        passwordError.onChange("");
-        passwordRepeatError.onChange("");
+        firstNameError.value = "";
+        lastNameError.value = "";
+        emailError.value = "";
+        phoneError.value = "";
+        passwordError.value = "";
+        passwordRepeatError.value = "";
 
         lengthCheck(firstNameField.value, firstNameError.onChange);
         lengthCheck(lastNameField.value, lastNameError.onChange);
@@ -106,9 +107,9 @@ const Registration = () => {
                         <TextField className="inputAuth" placeholder="Введите свою почту" {...emailField} />
                     </TextFieldModal>
 
-                    <TextFieldModal isError={Boolean(phoneError.value)} labelText="Телефон">
-                        <PhoneField className="inputAuth" placeholder="Введите свой номер телефона" {...phoneField} />
-                    </TextFieldModal>
+                    <div style={{ width: "296px" }}>
+                        <InputPhone textLabel="Телефон" placeholder="Введите номер телефона" {...phoneField} />
+                    </div>
 
                     <TextFieldModal isError={Boolean(passwordError.value)} labelText="Пароль">
                         <PasswordField className="inputAuth" placeholder="Введите свой пароль" {...passwordField} />

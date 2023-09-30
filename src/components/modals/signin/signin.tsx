@@ -13,12 +13,11 @@ import Icon from "@src/components/icon";
 
 import { useCreateTokenMutation } from "@src/redux/api/jwt-api-slice";
 import { setCookie, removeCookie } from "typescript-cookie";
-import InputEmail from "@src/components/shared/ui/inputs/email/email";
 
 const cx = classNames.bind(styles);
 
 const SignIn = () => {
-    const [createToken] = useCreateTokenMutation();
+    // const [createToken] = useCreateTokenMutation();
     // const data = {
     //     email: "rustamaaa@bk.ru",
     //     password: "rustamaaa1",
@@ -54,8 +53,8 @@ const SignIn = () => {
                 email: emailField.value,
                 password: passwordField.value,
             });
-            emailField.onChange("");
-            passwordField.onChange("");
+            emailField.value = "";
+            passwordField.value = "";
         } catch {
             console.log("Ошибка");
         } finally {
@@ -71,8 +70,8 @@ const SignIn = () => {
 
     // Проверка работы валидации
     const formValidation = () => {
-        emailError.onChange("");
-        passwordError.onChange("");
+        emailError.value = "";
+        passwordError.value = "";
 
         lengthCheck(emailField.value, emailError.onChange);
         lengthCheck(passwordField.value, passwordError.onChange);

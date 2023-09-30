@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import classNames from "classnames/bind";
 
 import { IFields } from "../fields.props";
@@ -13,7 +13,7 @@ interface ITextField extends IFields {
 export const TextField = (props: ITextField) => {
     const { value, placeholder, errorText, type = "text", maxLength, minLength, className, required, onChange } = props;
 
-    const handlerOnChange = (value: string) => onChange(value);
+    const handlerOnChange = (e: ChangeEvent<HTMLInputElement>) => onChange(e);
 
     return (
         <>
@@ -22,7 +22,7 @@ export const TextField = (props: ITextField) => {
                 type={type}
                 placeholder={placeholder}
                 value={value}
-                onChange={(e) => handlerOnChange(e.target.value)}
+                onChange={(e) => handlerOnChange(e)}
                 minLength={maxLength}
                 maxLength={minLength}
                 required={required}

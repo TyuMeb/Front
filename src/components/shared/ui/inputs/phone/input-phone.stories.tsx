@@ -1,12 +1,12 @@
 import { Meta, StoryObj } from "@storybook/react";
-import InputEmail from "./email";
+import InputPhone from "./input-phone";
 import { IInputProps } from "@src/components/shared/ui/text-input";
 import { ChangeEvent } from "react";
 import { useArgs } from "@storybook/client-api";
 
 const meta = {
-    title: "UI/Inputs/InputEmail",
-    component: InputEmail,
+    title: "UI/Inputs/InputPhone",
+    component: InputPhone,
     parameters: {
         layout: "padded",
     },
@@ -17,7 +17,7 @@ const meta = {
         value: "",
         onChange: () => {},
     },
-} satisfies Meta<typeof InputEmail>;
+} satisfies Meta<typeof InputPhone>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -27,24 +27,23 @@ const TemplateInput = (args: IInputProps): JSX.Element => {
 
     const [{ value }, updateArgs] = useArgs();
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => updateArgs({ value: e.target.value });
-
+    const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => updateArgs({ value: e.target.value });
     return (
         <div style={{ width: "296px" }}>
-            <InputEmail value={value} onChange={(e) => handleChange(e)} {...restArgs} />
+            <InputPhone value={value} onChange={handlePhoneChange} {...restArgs} />
         </div>
     );
 };
 
 export const Default: Story = {
     args: {
-        id: "email",
+        id: "phone",
         className: "",
         disabled: false,
-        placeholder: "Введите почту",
-        textLabel: "Email",
+        placeholder: "Введите ваш телефон",
+        textLabel: "Телефон",
         error: false,
-        errorMessage: "Неправильный email",
+        errorMessage: "Неверный формат телефона",
     },
     render: (args) => TemplateInput(args),
 };

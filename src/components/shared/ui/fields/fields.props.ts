@@ -5,6 +5,6 @@ export interface IFields {
     required?: boolean;
     maxLength?: number;
     minLength?: number;
-    onChange: (value: string) => void;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     className?: string;
 }
