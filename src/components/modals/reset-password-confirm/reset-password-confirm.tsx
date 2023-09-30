@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/slices/modal-slice";
-import { PasswordField } from "@src/components/shared/ui/fields";
-import TextFieldModal from "@src/components/modals/text-field-modal";
 import useInput from "@src/hooks/use-Input";
+import { submitForm, lengthCheck } from "../validation";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
+import { InputPassword } from "@src/components/shared/ui/inputs";
 
 const cx = classNames.bind(styles);
 
@@ -16,37 +16,24 @@ export const ResetPasswordConfirm = () => {
 
     const passwordField = useInput("");
 
-    const passwordError = useInput("");
-
-    const submitForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        try {
-            console.log({ email: passwordField.value });
-            passwordField.value = "";
-        } catch {
-            console.log("Ошибка востановления пароля");
-        } finally {
-            e.preventDefault();
-        }
-    };
-
-    const lengthCheck = (field: string, onChange: any, length: number = 12) => {
-        if (field.length >= length) {
-            onChange(`Длина ${field} не может быть больше ${length} символов!`);
-        }
-    };
+    const [passwordError, setPasswordError] = useState("");
 
     // Проверка работы валидации
     const formValidation = () => {
-        passwordError.value = "";
-        lengthCheck(passwordError.value, passwordError.onChange);
+        setPasswordError("");
+        lengthCheck(passwordError, setPasswordError);
     };
 
     useEffect(() => {
         formValidation();
     }, [passwordField]);
 
-    const renderError = (value: string) =>
-        value && <li className={cx("textError", { warningText: value })}>{value}</li>;
+    const renderError = () =>
+        passwordError && (
+            <ul className={cx("errorsText")}>
+                <li className={cx("textError", { warningText: passwordError })}>{passwordError}</li>
+            </ul>
+        );
 
     return (
         <ModalAuth>
@@ -56,16 +43,32 @@ export const ResetPasswordConfirm = () => {
 
             <form className={cx("form")}>
                 <div className={cx("inputsResetPassword")}>
-                    <TextFieldModal isError={Boolean(passwordError.value)} labelText="Новый пароль">
-                        <PasswordField className="inputAuth" placeholder="Введите новый пароль" {...passwordField} />
-                    </TextFieldModal>
+                    <div style={{ width: "296px" }}>
+                        <InputPassword
+                            textLabel="Пароль"
+                            placeholder="Введите свой пароль"
+                            error={Boolean(passwordError)}
+                            id="password"
+                            {...passwordField}
+                        />
+                    </div>
                 </div>
 
-                {passwordError.value && <ul className={cx("errorsText")}>{renderError(passwordField.value)}</ul>}
+                {renderError()}
 
                 <ul className={cx("listButtons")}>
                     <li className={cx("itemButtons")}>
-                        <button className={cx("text", "button")} type="submit" onClick={submitForm}>
+                        <button
+                            className={cx("text", "button")}
+                            type="submit"
+                            onClick={(e) =>
+                                submitForm({
+                                    e,
+                                    fields: {
+                                        passwordField: passwordField.value,
+                                    },
+                                })
+                            }>
                             Сбросить пароль
                         </button>
                     </li>

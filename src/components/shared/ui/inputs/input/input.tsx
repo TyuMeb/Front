@@ -37,13 +37,13 @@ export const Input = (props: IInputProps) => {
 
             <input
                 id={id}
-                className={cx("input", "text", { disabled }, className)}
+                className={cx("input", "text", { disabled }, { error }, className)}
                 type={type}
                 disabled={disabled}
                 {...restProps}
             />
 
-            {error && !disabled && <span className={cx("message")}>{errorMessage}</span>}
+            {errorMessage && error && !disabled && <span className={cx("message")}>{errorMessage}</span>}
         </>
     );
 };

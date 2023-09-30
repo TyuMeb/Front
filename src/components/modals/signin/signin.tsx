@@ -1,12 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 
 import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/slices/modal-slice";
 import useInput from "@src/hooks/use-Input";
-import { TextField } from "@src/components/shared/ui/fields";
-import TextFieldModal from "@src/components/modals/text-field-modal";
-import { InputPassword } from "@src/components/shared/ui/inputs";
+import { InputEmail, InputPassword } from "@src/components/shared/ui/inputs";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
@@ -14,6 +12,7 @@ import Icon from "@src/components/icon";
 
 import { useCreateTokenMutation } from "@src/redux/api/jwt-api-slice";
 import { setCookie, removeCookie } from "typescript-cookie";
+import { lengthCheck, submitForm } from "../validation";
 
 const cx = classNames.bind(styles);
 
@@ -45,45 +44,30 @@ const SignIn = () => {
     const emailField = useInput("");
     const passwordField = useInput("");
 
-    const emailError = useInput("");
-    const passwordError = useInput("");
-
-    const submitForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        try {
-            console.log({
-                email: emailField.value,
-                password: passwordField.value,
-            });
-            emailField.value = "";
-            passwordField.value = "";
-        } catch {
-            console.log("Ошибка");
-        } finally {
-            e.preventDefault();
-        }
-    };
-
-    const lengthCheck = (field: string, onChange: any, length: number = 12) => {
-        if (field.length >= length) {
-            onChange(`Длина ${field} не может быть больше ${length} символов!`);
-        }
-    };
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
 
     // Проверка работы валидации
     const formValidation = () => {
-        emailError.value = "";
-        passwordError.value = "";
+        setEmailError("");
+        setPasswordError("");
 
-        lengthCheck(emailField.value, emailError.onChange);
-        lengthCheck(passwordField.value, passwordError.onChange);
+        lengthCheck(emailField.value, setEmailError);
+        lengthCheck(passwordField.value, setPasswordError);
     };
 
     useEffect(() => {
         formValidation();
     }, [emailField, passwordError]);
 
-    const renderError = (value: string) =>
-        value && <li className={cx("textError", { warningText: value })}>{value}</li>;
+    const renderError = () =>
+        emailError ||
+        (passwordError && (
+            <ul className={cx("errorsText")}>
+                <li className={cx("textError", { warningText: emailError })}>{emailError}</li>
+                <li className={cx("textError", { warningText: passwordError })}>{passwordError}</li>
+            </ul>
+        ));
 
     return (
         <ModalAuth>
@@ -93,21 +77,28 @@ const SignIn = () => {
 
             <form className={cx("form")}>
                 <div className={cx("inputsSignin")}>
-                    <TextFieldModal isError={Boolean(emailError.value)} labelText="E-mail">
-                        <TextField className="inputAuth" placeholder="Введите почту" {...emailField} />
-                    </TextFieldModal>
+                    <div style={{ width: "296px" }}>
+                        <InputEmail
+                            textLabel="E-mail"
+                            placeholder="Введите свою почту"
+                            error={Boolean(emailError)}
+                            id="email"
+                            {...emailField}
+                        />
+                    </div>
 
                     <div style={{ width: "296px" }}>
-                        <InputPassword textLabel="Пароль" placeholder="Введите пароль" {...passwordField} />
+                        <InputPassword
+                            textLabel="Пароль"
+                            placeholder="Введите пароль"
+                            error={Boolean(passwordError)}
+                            id="password"
+                            {...passwordField}
+                        />
                     </div>
                 </div>
 
-                {(emailError.value || passwordError.value) && (
-                    <ul className={cx("errorsText")}>
-                        {renderError(emailError.value)}
-                        {renderError(passwordError.value)}
-                    </ul>
-                )}
+                {renderError()}
 
                 <button
                     className={cx("linkText")}
@@ -116,7 +107,18 @@ const SignIn = () => {
                     Забыли пароль?
                 </button>
 
-                <button className={cx("text", "button")} type="submit" onClick={submitForm}>
+                <button
+                    className={cx("text", "button")}
+                    type="submit"
+                    onClick={(e) =>
+                        submitForm({
+                            e,
+                            fields: {
+                                emailField: emailField.value,
+                                passwordField: passwordField.value,
+                            },
+                        })
+                    }>
                     Войти
                 </button>
             </form>

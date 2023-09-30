@@ -22,6 +22,8 @@
 
 .warningIcon {
     margin-right: 8px;
+    width: 24px;
+    height: 24px;
 }
 
 .input {
@@ -37,6 +39,10 @@
     &::placeholder {
         color: $asphalt;
     }
+}
+
+.error {
+    border: 1px solid $pink-pig;
 }
 
 .disabled {

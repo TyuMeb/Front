@@ -19,12 +19,12 @@ const Password = (props: IInputProps) => {
             <button
                 className={cx("buttonShowPassword")}
                 type="button"
-                onMouseDown={() => setShowPassword(true)}
+                onMouseDown={!restProps.disabled ? () => setShowPassword(true) : undefined}
                 onMouseUp={() => setShowPassword(false)}>
                 {showPassword ? (
-                    <Icon className={cx("icon")} glyph="eye" />
-                ) : (
                     <Icon className={cx("icon")} glyph="open_eye" />
+                ) : (
+                    <Icon className={cx("icon")} glyph="eye" />
                 )}
             </button>
         </div>

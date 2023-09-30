@@ -76,6 +76,10 @@ const phoneNumberMask = (e: ChangeEvent<HTMLInputElement>) => {
         }
 
         input.value = formattedInputValue;
+    } else if (input.value[0] === "+") {
+        input.value = "+7";
+    } else {
+        input.value = "";
     }
 
     return e;
