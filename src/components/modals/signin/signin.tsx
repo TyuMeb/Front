@@ -4,8 +4,9 @@ import classNames from "classnames/bind";
 import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/slices/modal-slice";
 import useInput from "@src/hooks/use-Input";
-import { TextField, PasswordField } from "@src/components/shared/ui/fields";
+import { TextField } from "@src/components/shared/ui/fields";
 import TextFieldModal from "@src/components/modals/text-field-modal";
+import { InputPassword } from "@src/components/shared/ui/inputs";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
@@ -96,9 +97,9 @@ const SignIn = () => {
                         <TextField className="inputAuth" placeholder="Введите почту" {...emailField} />
                     </TextFieldModal>
 
-                    <TextFieldModal isError={Boolean(passwordError.value)} labelText="Пароль">
-                        <PasswordField className="inputAuth" placeholder="Введите пароль" {...passwordField} />
-                    </TextFieldModal>
+                    <div style={{ width: "296px" }}>
+                        <InputPassword textLabel="Пароль" placeholder="Введите пароль" {...passwordField} />
+                    </div>
                 </div>
 
                 {(emailError.value || passwordError.value) && (

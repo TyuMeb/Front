@@ -2,7 +2,7 @@ import { ChangeEvent, InputHTMLAttributes } from "react";
 import classNames from "classnames/bind";
 import Icon from "@src/components/icon";
 
-import styles from "./text-input.module.scss";
+import styles from "./input.module.scss";
 import { inputMode, inputType } from "./types";
 
 const cx = classNames.bind(styles);

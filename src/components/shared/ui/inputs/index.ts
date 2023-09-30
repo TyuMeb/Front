@@ -1,4 +1,7 @@
-import { Text } from "./text/text";
-import { Password } from "./password/password";
+import Email from "./email";
+import Password from "./password";
+import Phone from "./phone";
 
-export { Text as InputText, Password as InputPassword };
+export { Email as InputEmail, Password as InputPassword, Phone as InputPhone };
+export { Input } from "./input";
+export type { IInputProps } from "./input";

@@ -1,8 +1,8 @@
 import React, { ChangeEvent } from "react";
-import { IInputProps, Input } from "@src/components/shared/ui/text-input";
+import { IInputProps, Input } from "@src/components/shared/ui/inputs";
 import { phoneMask } from "@src/helpers/phoneMask";
 
-const InputPhone = (props: IInputProps) => {
+const Phone = (props: IInputProps) => {
     const { onChange, ...restProps } = props;
 
     const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>): ChangeEvent<HTMLInputElement> =>
@@ -11,4 +11,4 @@ const InputPhone = (props: IInputProps) => {
     return <Input onChange={(e) => onChange(handlePhoneChange(e))} {...restProps} />;
 };
 
-export default InputPhone;
+export default Phone;

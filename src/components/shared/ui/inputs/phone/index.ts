@@ -1,1 +1,1 @@
-export { default } from "./input-phone";
+export { default } from "./phone";

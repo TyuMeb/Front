@@ -32,6 +32,7 @@
     background: transparent;
     border: 1px solid $disabled-color;
     border-radius: $border-radius-s;
+    box-sizing: border-box;
 
     &::placeholder {
         color: $asphalt;

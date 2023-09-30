@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { Input, IInputProps } from "./text-input";
+import { Input, IInputProps } from "./input";
 import { ChangeEvent } from "react";
 import { useArgs } from "@storybook/client-api";
 
