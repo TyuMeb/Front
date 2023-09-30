@@ -5,10 +5,12 @@ import styles from "./advantages.module.scss";
 import behefitsImage from "@public/home/behefits-image.jpg";
 import { CardAdvantages } from "@src/components/shared/ui/card-advantages/card-advantages";
 
+import { raleway } from '@src/styles/fonts';
+
 export const Advantages = () => {
     return (
         <section className={styles.inner} id="advantages">
-            <h2 className={`title-h2 ${styles.title}`}>Наши преимущества</h2>
+            <h2 className={`${raleway.className} ${styles.title}`}>Наши преимущества</h2>
             <div className={styles.block}>
                 <div className={styles.cards}>
                     <CardAdvantages

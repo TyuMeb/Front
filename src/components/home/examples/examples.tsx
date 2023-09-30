@@ -6,6 +6,8 @@ import styles from "./examples.module.scss";
 import cn from "classnames";
 import { useState } from "react";
 
+import { raleway } from '@src/styles/fonts';
+
 export const Examples = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -25,7 +27,7 @@ export const Examples = () => {
 
     return (
         <div className={styles.inner}>
-            <h2 className={cn("title-h2", styles.title)}>Примеры работ</h2>
+            <h2 className={cn(`${raleway.className} ${styles.title}`)}>Примеры работ</h2>
             <div className={styles.examples}>
                 <div className={styles.leftSide}>
                     <div className={styles.top}>
