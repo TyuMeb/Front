@@ -34,7 +34,12 @@ const OrderChat = () => {
                         день! Присылаю варианты и hjgfkdgndgfnk...
                     </p>
                 </div>
-                инпут текста
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                <br />
+                labore et dolore magna aliqua. Ut enim ad minim <br />
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut <br />
+                labore et dolore magna aliqua. Ut enim ad minim Lorem ipsum dolor sit amet, consectetur <br />
+                adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
             </article>
         </div>
     );
