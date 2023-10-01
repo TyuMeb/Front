@@ -43,10 +43,10 @@ export const Default: Story = {
         id: "password",
         className: "",
         disabled: false,
-        placeholder: "Введите телефон",
-        textLabel: "Телефон",
+        placeholder: "Введите пароль",
+        textLabel: "Пароль",
         error: false,
-        errorMessage: "Неправильный телефон",
+        errorMessage: "Пример ошибки",
     },
     render: (args) => TemplateInput(args),
 };
