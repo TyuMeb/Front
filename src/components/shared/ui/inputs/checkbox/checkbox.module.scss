@@ -1,4 +1,4 @@
-@import "~/src/styles/index";
+@import "~/src/styles/index.scss";
 
 .container {
     display: flex;
@@ -48,16 +48,35 @@
     position: absolute;
     top: 24%;
     left: 18%;
+    width: 16px;
+    height: 13px;
 }
 
 .checkboxFieldIconHide {
     display: none;
 }
 
-.labelText {
+.label {
+    @include textSmall;
+    @include text;
+
     margin-left: 20px;
+    color: $black;
+}
+
+.warning {
+    color: $pink-pig;
 }
 
 .errorTextMargins {
     margin: 8px 0 0 44px;
+}
+
+.message {
+    @include textTiny;
+    @include text;
+
+    display: inline-block;
+    margin-top: 4px;
+    color: $error-accent-color;
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 
 import useInput from "@src/hooks/use-Input";
-import { СheckboxField } from "@src/components/shared/ui/fields";
+import { CheckboxField } from "@src/components/shared/ui/inputs/checkbox";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
@@ -57,21 +57,22 @@ const Registration = () => {
 
     const renderError = () => {
         return (
-            firstNameError ||
-            lastNameError ||
-            emailError ||
-            phoneError ||
-            passwordError ||
-            (passwordRepeatError && (
+            (firstNameError || lastNameError || emailError || phoneError || passwordError || passwordRepeatError) && (
                 <ul className={cx("errorsText")}>
-                    <li className={cx("textError", { warningText: firstNameError })}>{firstNameError}</li>
-                    <li className={cx("textError", { warningText: lastNameError })}>{lastNameError}</li>
-                    <li className={cx("textError", { warningText: emailError })}>{emailError}</li>
-                    <li className={cx("textError", { warningText: emailError })}>{phoneError}</li>
-                    <li className={cx("textError", { warningText: emailError })}>{passwordError}</li>
-                    <li className={cx("textError", { warningText: emailError })}>{passwordRepeatError}</li>
+                    {firstNameError && (
+                        <li className={cx("textError", { warningText: firstNameError })}>{firstNameError}</li>
+                    )}
+                    {lastNameError && (
+                        <li className={cx("textError", { warningText: lastNameError })}>{lastNameError}</li>
+                    )}
+                    {emailError && <li className={cx("textError", { warningText: emailError })}>{emailError}</li>}
+                    {phoneError && <li className={cx("textError", { warningText: phoneError })}>{phoneError}</li>}
+                    {passwordError && <li className={cx("textError", { warningText: emailError })}>{passwordError}</li>}
+                    {passwordRepeatError && (
+                        <li className={cx("textError", { warningText: emailError })}>{passwordRepeatError}</li>
+                    )}
                 </ul>
-            ))
+            )
         );
     };
 
@@ -83,7 +84,7 @@ const Registration = () => {
 
             <form className={cx("form")}>
                 <div className={cx("inputsRegistration")}>
-                    <div style={{ width: "296px" }}>
+                    <div className={cx("wrapperField")}>
                         <Input
                             textLabel="Имя"
                             placeholder="Введите свое имя"
@@ -93,7 +94,7 @@ const Registration = () => {
                         />
                     </div>
 
-                    <div style={{ width: "296px" }}>
+                    <div className={cx("wrapperField")}>
                         <Input
                             textLabel="Фамилия"
                             placeholder="Введите свою фамилию"
@@ -103,7 +104,7 @@ const Registration = () => {
                         />
                     </div>
 
-                    <div style={{ width: "296px" }}>
+                    <div className={cx("wrapperField")}>
                         <InputEmail
                             textLabel="E-mail"
                             placeholder="Введите свою почту"
@@ -113,7 +114,7 @@ const Registration = () => {
                         />
                     </div>
 
-                    <div style={{ width: "296px" }}>
+                    <div className={cx("wrapperField")}>
                         <InputPhone
                             textLabel="Телефон"
                             placeholder="Введите номер телефона"
@@ -123,7 +124,7 @@ const Registration = () => {
                         />
                     </div>
 
-                    <div style={{ width: "296px" }}>
+                    <div className={cx("wrapperField")}>
                         <InputPassword
                             textLabel="Пароль"
                             placeholder="Введите свой пароль"
@@ -133,7 +134,7 @@ const Registration = () => {
                         />
                     </div>
 
-                    <div style={{ width: "296px" }}>
+                    <div className={cx("wrapperField")}>
                         <InputPassword
                             textLabel="Повторить пароль"
                             placeholder="Повторите свой пароль"
@@ -146,10 +147,13 @@ const Registration = () => {
 
                 {renderError()}
 
-                <label className={cx("checkboxLabel")}>
-                    <СheckboxField checked={checked} handleChange={() => handleChange()} />
-                    <p className={cx("textCheckbox", "text")}>Вы соглашаетесь с обработкой персональных данных</p>
-                </label>
+                <CheckboxField
+                    error={true}
+                    errorMessage="234"
+                    textLabel="Вы соглашаетесь с обработкой персональных данных"
+                    checked={checked}
+                    onClick={() => handleChange()}
+                />
 
                 <button
                     className={cx("text", "button", "positionCenter")}

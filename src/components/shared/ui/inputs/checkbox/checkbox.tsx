@@ -1,25 +1,22 @@
 import React from "react";
-import Image from "next/image";
-import checkedImage from "@public/icons/checked.svg";
 import classNames from "classnames/bind";
 
-import styles from "./checkbox-field.module.scss";
-import { InputLabel, FormErrorText } from "@src/components/shared/ui/fields-new";
+import styles from "./checkbox.module.scss";
+import Icon from "@src/components/icon";
 
 const cx = classNames.bind(styles);
 
 export interface ICheckboxField {
-    id?: string;
-    label?: string;
+    textLabel?: string;
     error?: boolean;
-    errorText?: string;
+    errorMessage?: string;
     checked?: boolean;
     onClick?: () => void;
     disabled?: boolean;
 }
 
 export const CheckboxField = (props: ICheckboxField) => {
-    const { id, label, error, errorText, checked = false, disabled, onClick } = props;
+    const { textLabel, error, errorMessage, checked = false, disabled, onClick } = props;
 
     return (
         <>
@@ -34,27 +31,23 @@ export const CheckboxField = (props: ICheckboxField) => {
                         error: error && !disabled && !checked,
                     })}>
                     {!disabled && (
-                        <Image
+                        <Icon
                             className={cx("checkboxFieldIcon", { checkboxFieldIconHide: checked === false })}
-                            priority
-                            src={checkedImage}
-                            alt={""}
+                            glyph="checked"
                         />
                     )}
                 </div>
 
-                <InputLabel disabled={label ? false : true} htmlFor={id} className={cx("labelText")}>
-                    {label}
-                </InputLabel>
+                <label
+                    className={cx("label", {
+                        warning: error && !disabled && !checked,
+                    })}>
+                    {textLabel}
+                </label>
             </div>
 
-            {error && (
-                <FormErrorText
-                    disabled={!checked && !disabled ? false : true}
-                    className={cx("errorTextMargins")}
-                    variant={"standard"}>
-                    {errorText}
-                </FormErrorText>
+            {errorMessage && error && !disabled && !checked && (
+                <span className={cx("message", "errorTextMargins")}>{errorMessage}</span>
             )}
         </>
     );

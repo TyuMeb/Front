@@ -61,13 +61,12 @@ const SignIn = () => {
     }, [emailField, passwordError]);
 
     const renderError = () =>
-        emailError ||
-        (passwordError && (
+        (emailError || passwordError) && (
             <ul className={cx("errorsText")}>
-                <li className={cx("textError", { warningText: emailError })}>{emailError}</li>
-                <li className={cx("textError", { warningText: passwordError })}>{passwordError}</li>
+                {emailError && <li className={cx("textError", { warningText: emailError })}>{emailError}</li>}
+                {passwordError && <li className={cx("textError", { warningText: passwordError })}>{passwordError}</li>}
             </ul>
-        ));
+        );
 
     return (
         <ModalAuth>

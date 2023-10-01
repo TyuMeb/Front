@@ -49,6 +49,11 @@
     margin-bottom: 8px;
 }
 
+.wrapperField {
+    max-width: "296px";
+    width: 100%;
+}
+
 .text {
     @include text;
     @include textSmall;
