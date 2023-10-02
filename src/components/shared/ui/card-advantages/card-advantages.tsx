@@ -1,18 +1,14 @@
-import Image from "next/image";
-
 import styles from "./card-advantages.module.scss";
+import Icon from "@src/components/icon";
 
 interface ICardAdvantagesProps {
     bgColor: string;
     title: string;
     paragraph: string;
-    src: string;
-    alt: string;
-    width: number;
-    height: number;
+    glyphIcon: "clock" | "settings" | "dollar" | "person";
 }
 
-export const CardAdvantages = ({ bgColor, title, paragraph, src, alt, width, height }: ICardAdvantagesProps) => {
+export const CardAdvantages = ({ bgColor, title, paragraph, glyphIcon }: ICardAdvantagesProps) => {
     return (
         <div className={`${styles.card} ${styles[bgColor]}`}>
             <div className={styles.inner}>
@@ -20,7 +16,7 @@ export const CardAdvantages = ({ bgColor, title, paragraph, src, alt, width, hei
                     <h4 className={styles.title}>{title}</h4>
                     <p>{paragraph}</p>
                 </div>
-                <Image className={styles.img} src={src} alt={alt} width={width} height={height} />
+                <Icon className={styles.img} glyph={glyphIcon} />
             </div>
         </div>
     );
