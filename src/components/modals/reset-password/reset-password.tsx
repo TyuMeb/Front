@@ -10,13 +10,16 @@ import useInput from "@src/hooks/use-Input";
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
 import Icon from "@src/components/icon";
-import { raleway } from '@src/styles/fonts';
+import { raleway } from "@src/styles/fonts";
 
 const cx = classNames.bind(styles);
 
 export const ResetPassword = () => {
     const dispatch = useAppDispatch();
 
+    /**
+    // TODO Удалить код, при добавлении React Hook Form (валидации).
+    */
     const emailField = useInput("");
 
     const emailError = useInput("");
@@ -50,6 +53,9 @@ export const ResetPassword = () => {
 
     const renderError = (value: string) =>
         value && <li className={cx("textError", { warningText: value })}>{value}</li>;
+    /**
+    // TODO Удалить код, при добавлении React Hook Form (валидации).
+    */
 
     return (
         <ModalAuth>

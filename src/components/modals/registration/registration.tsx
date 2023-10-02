@@ -7,11 +7,14 @@ import TextFieldModal from "@src/components/modals/text-field-modal";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
-import { raleway } from '@src/styles/fonts';
+import { raleway } from "@src/styles/fonts";
 
 const cx = classNames.bind(styles);
 
 const Registration = () => {
+    /**
+    // TODO Удалить код, при добавлении React Hook Form (валидации).
+    */
     const firstNameField = useInput("");
     const lastNameField = useInput("");
     const emailField = useInput("");
@@ -25,7 +28,6 @@ const Registration = () => {
     const passwordError = useInput("");
     const passwordRepeatError = useInput("");
     const phoneError = useInput("");
-
 
     const [checked, setChecked] = React.useState(true);
 
@@ -70,7 +72,6 @@ const Registration = () => {
         passwordError.onChange("");
         passwordRepeatError.onChange("");
 
-        // TODO кажется, что мистические значения на длину допустимых символов надо вынести в константы 
         lengthCheck(firstNameField.value, firstNameError.onChange, 12, "Имя");
         lengthCheck(lastNameField.value, lastNameError.onChange, 12, "Фамилия");
 
@@ -88,6 +89,9 @@ const Registration = () => {
 
     const renderError = (value: string) =>
         value && <li className={cx("textError", { warningText: value })}>{value}</li>;
+    /**
+    // TODO Удалить код, при добавлении React Hook Form (валидации).
+    */
 
     return (
         <ModalAuth>
@@ -132,17 +136,17 @@ const Registration = () => {
                     phoneError.value ||
                     passwordError.value ||
                     passwordRepeatError.value) && (
-                        <ul className={cx("errorsText")}>
-                            {renderError(firstNameError.value)}
-                            {renderError(lastNameError.value)}
+                    <ul className={cx("errorsText")}>
+                        {renderError(firstNameError.value)}
+                        {renderError(lastNameError.value)}
 
-                            {renderError(emailError.value)}
-                            {renderError(phoneError.value)}
+                        {renderError(emailError.value)}
+                        {renderError(phoneError.value)}
 
-                            {renderError(passwordError.value)}
-                            {renderError(passwordRepeatError.value)}
-                        </ul>
-                    )}
+                        {renderError(passwordError.value)}
+                        {renderError(passwordRepeatError.value)}
+                    </ul>
+                )}
                 <label className={cx("checkboxLabel")}>
                     <СheckboxField checked={checked} handleChange={() => handleChange()} />
                     <p className={cx("textCheckbox", "text")}>Вы соглашаетесь с обработкой персональных данных</p>

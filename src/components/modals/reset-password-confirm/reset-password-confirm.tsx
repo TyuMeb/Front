@@ -14,6 +14,9 @@ const cx = classNames.bind(styles);
 export const ResetPasswordConfirm = () => {
     const dispatch = useAppDispatch();
 
+    /**
+    // TODO Удалить код, при добавлении React Hook Form (валидации).
+    */
     const passwordField = useInput("");
 
     const passwordError = useInput("");
@@ -47,6 +50,9 @@ export const ResetPasswordConfirm = () => {
 
     const renderError = (value: string) =>
         value && <li className={cx("textError", { warningText: value })}>{value}</li>;
+    /**
+    // TODO Удалить код, при добавлении React Hook Form (валидации).
+    */
 
     return (
         <ModalAuth>

@@ -14,7 +14,7 @@ import Icon from "@src/components/icon";
 import { useCreateTokenMutation } from "@src/redux/api/jwt-api-slice";
 import { setCookie, removeCookie } from "typescript-cookie";
 
-import { raleway } from '@src/styles/fonts';
+import { raleway } from "@src/styles/fonts";
 
 const cx = classNames.bind(styles);
 
@@ -43,6 +43,9 @@ const SignIn = () => {
 
     const dispatch = useAppDispatch();
 
+    /**
+    // TODO Удалить код, при добавлении React Hook Form (валидации).
+    */
     const emailField = useInput("");
     const passwordField = useInput("");
 
@@ -86,6 +89,9 @@ const SignIn = () => {
 
     const renderError = (value: string) =>
         value && <li className={cx("textError", { warningText: value })}>{value}</li>;
+    /**
+    // TODO Удалить код, при добавлении React Hook Form (валидации).
+    */
 
     return (
         <ModalAuth>
