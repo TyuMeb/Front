@@ -1,5 +1,4 @@
-@import "../../../styles/mixins.scss";
-@import "../../../styles/colors.scss";
+@import "~/src/styles/index";
 
 .window {
     width: 804px;
@@ -33,7 +32,7 @@
 
 .inputsRegistration {
     display: grid;
-    grid-template-columns: [startline] repeat(2, minmax(296px, max-content)) [endline];
+    grid-template-columns: [startline] repeat(2, minmax(min-content, 296px)) [endline];
     column-gap: 44px;
     row-gap: 29px;
     margin-bottom: 28px;
@@ -147,7 +146,6 @@
 .button {
     @include reset-button;
 
-    grid-column: startline/endline;
     border-radius: 10px;
     background-color: $mustard;
     padding: 12px 40px;
@@ -232,9 +230,9 @@
     right: 32px;
 }
 
-.btn_registration {
+.buttonCenter {
     display: block;
-    margin: 0 0 0 207px;
+    margin-left: 207px;
 }
 
 .form::-webkit-scrollbar {

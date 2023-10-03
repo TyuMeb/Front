@@ -136,23 +136,23 @@ const Registration = () => {
                     phoneError.value ||
                     passwordError.value ||
                     passwordRepeatError.value) && (
-                    <ul className={cx("errorsText")}>
-                        {renderError(firstNameError.value)}
-                        {renderError(lastNameError.value)}
+                        <ul className={cx("errorsText")}>
+                            {renderError(firstNameError.value)}
+                            {renderError(lastNameError.value)}
 
-                        {renderError(emailError.value)}
-                        {renderError(phoneError.value)}
+                            {renderError(emailError.value)}
+                            {renderError(phoneError.value)}
 
-                        {renderError(passwordError.value)}
-                        {renderError(passwordRepeatError.value)}
-                    </ul>
-                )}
+                            {renderError(passwordError.value)}
+                            {renderError(passwordRepeatError.value)}
+                        </ul>
+                    )}
                 <label className={cx("checkboxLabel")}>
                     <СheckboxField checked={checked} handleChange={() => handleChange()} />
                     <p className={cx("textCheckbox", "text")}>Вы соглашаетесь с обработкой персональных данных</p>
                 </label>
 
-                <button className={cx("text", "button", "btn_registration")} type="submit" onClick={submitForm}>
+                <button className={cx("text", "button", "buttonCenter")} type="submit" onClick={submitForm}>
                     Зарегистрироваться
                 </button>
             </form>
