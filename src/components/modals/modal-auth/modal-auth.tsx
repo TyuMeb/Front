@@ -5,11 +5,11 @@ import { useAppSelector, useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/slices/modal-slice";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
-
+import { raleway } from "@src/styles/fonts";
 
 const cx = classNames.bind(styles);
 
-interface IModalAuth extends HTMLAttributes<HTMLDivElement> { }
+interface IModalAuth extends HTMLAttributes<HTMLDivElement> {}
 
 const ModalAuth = ({ children }: IModalAuth) => {
     const { typeModal } = useAppSelector((store) => store.modal);
