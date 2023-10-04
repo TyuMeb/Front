@@ -6,7 +6,6 @@ import eye from './eye.svg';
 import open_eye from './open_eye.svg';
 import vk from './vk.svg';
 
-import arrowLeft from './home/arrow-left.svg';
 import arrowRight from './home/arrow-right.svg';
 import clock from './home/clock.svg';
 import dollar from './home/dollar.svg';
@@ -22,7 +21,6 @@ export default {
 	eye,
 	open_eye,
 	vk,
-	arrowLeft,
 	arrowRight,
 	clock,
 	dollar,

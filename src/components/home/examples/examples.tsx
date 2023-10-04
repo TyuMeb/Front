@@ -66,7 +66,7 @@ export const Examples = () => {
                     />
                     <div className={styles.slider}>
                         <button className={styles.button} onClick={backwardSlide}>
-                            <Icon glyph="arrowLeft" />
+                            <Icon glyph="arrowRight" transform="rotate(180)" />
                         </button>
                         <button className={styles.button} onClick={forwardSlide}>
                             <Icon glyph="arrowRight" />
