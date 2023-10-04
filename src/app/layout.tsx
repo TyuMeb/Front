@@ -6,14 +6,18 @@ import { Providers } from "@src/redux/provider";
 import Modals from "@src/components/modals/modals";
 import { ReactNode } from "react";
 
-export const openSans = Open_Sans({
+const openSans = Open_Sans({
     subsets: ["cyrillic"],
     variable: "--font-open-sans",
+    weight: ['400', '600'],
+    style: ['normal'],
 });
 
-export const raleway = Raleway({
+const raleway = Raleway({
     subsets: ["cyrillic"],
     variable: "--font-raleway",
+    weight: ['400'],
+    style: ['normal'],
 });
 
 export const metadata = {
