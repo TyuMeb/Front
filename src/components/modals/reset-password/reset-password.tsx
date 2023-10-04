@@ -10,7 +10,6 @@ import useInput from "@src/hooks/use-Input";
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
 import Icon from "@src/components/icon";
-import { raleway } from "@src/styles/fonts";
 
 const cx = classNames.bind(styles);
 
@@ -61,7 +60,7 @@ export const ResetPassword = () => {
         <ModalAuth>
             <Icon className={cx("backgroundResetPassword")} glyph="resetPassword" />
 
-            <h2 className={`${raleway.className} ${styles.titleSubtext}`}>Восстановление пароля</h2>
+            <h2 className={styles.titleSubtext}>Восстановление пароля</h2>
 
             <p className={cx("text", "subtext")}>
                 Введите E-mail, который вы указывали при регистрации. Туда придет инструкция по сбросу пароля.

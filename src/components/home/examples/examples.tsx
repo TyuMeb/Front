@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { CardExample } from "@src/components/shared/ui/card-example/card-example";
 import styles from "./examples.module.scss";
-import cn from "classnames";
 import { useState } from "react";
 
 export const Examples = () => {
@@ -25,7 +24,7 @@ export const Examples = () => {
 
     return (
         <div className={styles.inner}>
-            <h2 className={cn("title-h2", styles.title)}>Примеры работ</h2>
+            <h2 className={styles.title}>Примеры работ</h2>
             <div className={styles.examples}>
                 <div className={styles.leftSide}>
                     <div className={styles.top}>

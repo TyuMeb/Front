@@ -1,4 +1,5 @@
 @import "../../../../styles/variables";
+@import "~/src/styles/index";
 
 .input {
     width: 296px;
@@ -17,8 +18,7 @@
 
 .message {
     margin-top: $gap-xs;
-    color: $error-accent-color;
-    font-size: 12px;
-    line-height: 140%;
     text-align: start;
+    @include font-source-sans(16px, $error-accent-color, 400, 24px, var(--font-open-sans));
 }
+

@@ -1,15 +1,14 @@
 @import "../../../styles/variables";
+@import "~/src/styles/index";
 
 .title {
-    font-size: 52px;
-    line-height: 130%;
-    font-weight: 400;
     padding-top: 140px;
     padding-bottom: 8px;
+    @include font-source-sans(52px, $black, 400, 130%, var(--font-raleway));
 }
 
 .description {
-    font-size: 20px;
-    line-height: 150%;
     padding-bottom: 36px;
+    @include font-source-sans(20px, $black, 400, 30px, var(--font-open-sans));
 }
+

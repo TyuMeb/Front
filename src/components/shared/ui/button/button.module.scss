@@ -1,4 +1,5 @@
 @import "../../../../styles/variables";
+@import "~/src/styles/index";
 
 .btn {
     padding: 12px 40px;
@@ -9,6 +10,7 @@
     font-size: inherit;
     line-height: inherit;
     cursor: pointer;
+    @include font-source-sans(16px, $black, 400, 24px, var(--font-open-sans));
 
     &:focus {
         background-color: $bg-accent-color;
@@ -30,3 +32,4 @@
         background-color: $disabled-color;
     }
 }
+

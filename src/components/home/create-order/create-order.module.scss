@@ -1,3 +1,5 @@
+@import "~/src/styles/index";
+
 .inner {
     width: 1220px;
     height: 376px;
@@ -12,9 +14,9 @@
 }
 
 .paragraph {
-    font-size: 24px;
-    line-height: 160%;
+    @include font-source-sans(24px, $black, 400, 160%, var(--font-open-sans));
     width: 342px;
     margin-bottom: 36px;
     text-align: center;
 }
+

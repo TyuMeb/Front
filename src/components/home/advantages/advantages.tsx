@@ -8,7 +8,7 @@ import { CardAdvantages } from "@src/components/shared/ui/card-advantages/card-a
 export const Advantages = () => {
     return (
         <section className={styles.inner} id="advantages">
-            <h2 className={`title-h2 ${styles.title}`}>Наши преимущества</h2>
+            <h2 className={styles.title}>Наши преимущества</h2>
             <div className={styles.block}>
                 <div className={styles.cards}>
                     <CardAdvantages

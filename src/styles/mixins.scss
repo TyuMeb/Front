@@ -15,6 +15,7 @@
 
 @mixin headline {
     font-family: "Raleway", Arial, sans-serif;
+
     font-style: normal;
     font-weight: 400;
     color: $black;
@@ -27,6 +28,7 @@
 
 @mixin text {
     font-family: "Open Sans", Arial, sans-serif;
+
     font-style: normal;
     font-weight: 400;
 }
@@ -41,3 +43,25 @@
     line-height: 21px;
 }
 
+@mixin font-source-sans($size: false, $colour: false, $weight: false, $lh: false, $ff: false) {
+    font-family: var(--font-open-sans);
+    @if $size {
+        font-size: $size;
+    }
+
+    @if $colour {
+        color: $colour;
+    }
+
+    @if $weight {
+        font-weight: $weight;
+    }
+
+    @if $lh {
+        line-height: $lh;
+    }
+
+    @if $ff {
+        font-family: $ff, sans-serif;
+    }
+}

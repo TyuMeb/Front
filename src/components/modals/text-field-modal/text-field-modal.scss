@@ -1,3 +1,5 @@
+@import "~/src/styles/index";
+
 .label {
     position: relative;
     display: flex;
@@ -13,6 +15,7 @@
 }
 
 .textLabel {
+    @include font-source-sans(16px, $black, 400, 24px, var(--font-open-sans));
     display: flex;
     align-items: center;
     transition: 0.1s ease-out;

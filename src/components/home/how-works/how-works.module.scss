@@ -1,3 +1,5 @@
+@import "~/src/styles/index";
+
 .inner {
     display: flex;
     flex-direction: column;
@@ -8,6 +10,7 @@
 
 .title {
     padding-left: 28px;
+    @include font-source-sans(30px, $black, 400, 39px, var(--font-raleway));
 }
 
 .steps {
@@ -16,3 +19,4 @@
     row-gap: 32px;
     flex-wrap: wrap;
 }
+

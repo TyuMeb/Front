@@ -1,8 +1,11 @@
+@import "~/src/styles/index";
+
 .inner {
     padding-top: 140px;
 }
 
 .title {
+    @include font-source-sans(30px, $black, 400, 39px, var(--font-raleway));
     padding-left: 28px;
     padding-bottom: 40px;
 }
@@ -22,3 +25,4 @@
 .image {
     height: auto;
 }
+

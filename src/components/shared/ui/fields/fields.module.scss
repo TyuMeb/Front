@@ -9,10 +9,7 @@
     padding: 0 16px;
 
     &::placeholder {
-        @include text;
-        @include textSmall;
-
-        color: $asphalt;
+        @include font-source-sans(16px, $asphalt, 400, 24px, var(--font-open-sans));
     }
 }
 
@@ -50,8 +47,6 @@
 }
 
 .textError {
-    @include text;
-    @include textTiny;
-
-    color: $black;
+    @include font-source-sans(16px, $black, 400, 24px, var(--font-open-sans));
 }
+

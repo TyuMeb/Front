@@ -11,7 +11,7 @@ import step4 from "@public/home/step4.jpg";
 export const HowWorks = () => {
     return (
         <section className={styles.inner} id="howWorks">
-            <h2 className={`title-h2 ${styles.title}`}>Как это работает?</h2>
+            <h2 className={styles.title}>Как это работает?</h2>
             <div className={styles.steps}>
                 <Step title="Заполните заявку онлайн" num={1} imgSrc={step1}>
                     расскажите нам о пожеланиях: цвет, материал, особенности, чтобы мы удовлетворили ваши запросы

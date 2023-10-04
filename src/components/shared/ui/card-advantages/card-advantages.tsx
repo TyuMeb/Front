@@ -18,7 +18,7 @@ export const CardAdvantages = ({ bgColor, title, paragraph, src, alt, width, hei
             <div className={styles.inner}>
                 <div className={styles.text}>
                     <h4 className={styles.title}>{title}</h4>
-                    <p>{paragraph}</p>
+                    <p className={styles.description}>{paragraph}</p>
                 </div>
                 <Image className={styles.img} src={src} alt={alt} width={width} height={height} />
             </div>

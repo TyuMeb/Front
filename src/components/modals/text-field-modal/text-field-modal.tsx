@@ -16,8 +16,6 @@ const TextFieldModal = ({ isError, labelText, children }: ITextFieldModal) => {
         <label className={cx("label")}>
 
             <p className={cx("textLabel", "text", { warningText: isError })}>
-                {/* {isError && <Icon className={cx("warningIcon")} glyph="warning" />} */}
-
                 {labelText}
             </p>
             {children}

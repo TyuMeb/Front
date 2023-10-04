@@ -47,14 +47,12 @@
 .inputsSignin {
     display: grid;
     row-gap: 20px;
-    margin-bottom: 28px;
+    margin-bottom: 4px;
 }
 
 .text {
-    @include text;
-    @include textSmall;
+    @include font-source-sans(16px, $black, 400, 24px, var(--font-open-sans));
     position: relative;
-    color: $black;
 }
 
 .listButtons {
@@ -121,10 +119,12 @@
 }
 
 .titleSubtext {
+    @include font-source-sans(30px, $black, 400, 39px, var(--font-raleway));
     margin-bottom: 10px;
 }
 
 .signinTitleSubtext {
+    @include font-source-sans(30px, $black, 400, 39px, var(--font-raleway));
     margin-bottom: 36px;
 }
 
@@ -145,7 +145,7 @@
 
 .button {
     @include reset-button;
-
+    @include font-source-sans(16px, $black, 400, 24px, var(--font-open-sans));
     border-radius: 10px;
     background-color: $mustard;
     padding: 12px 40px;
@@ -163,6 +163,7 @@
 }
 
 .subtext {
+    @include font-source-sans(16px, $black, 400, 24px, var(--font-open-sans));
     max-width: 458px;
     margin-bottom: 28px;
 }
@@ -188,6 +189,7 @@
     display: grid;
     row-gap: 28px;
     margin-bottom: 28px;
+    @include font-source-sans(16px, $black, 400, 24px, var(--font-open-sans));
 }
 
 .textError {
@@ -210,12 +212,13 @@
 }
 
 .textCheckbox {
+    @include font-source-sans(16px, $black, 400, 24px, var(--font-open-sans));
     user-select: none;
 }
 
 .linkText {
     @include reset-button;
-
+    @include font-source-sans(16px, $black, 400, 21px, var(--font-open-sans));
     background-color: inherit;
     cursor: pointer;
     margin: 4px 0 46px;
@@ -231,6 +234,7 @@
 }
 
 .buttonCenter {
+    @include font-source-sans(16px, $black, 400, 24px, var(--font-open-sans));
     display: block;
     margin-left: 207px;
 }

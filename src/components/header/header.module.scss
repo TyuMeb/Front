@@ -1,4 +1,5 @@
 @import "../../styles/variables";
+@import "~/src/styles/index";
 
 .header {
     padding: $gap-default 0;
@@ -20,14 +21,12 @@
 }
 
 .logo {
+    @include font-source-sans(20px, $black, 600, 32px, var(--font-open-sans));
     cursor: pointer;
-    font-weight: 600;
 }
 
 .link {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 160%;
+    @include font-source-sans(16px, $black, 400, 160%, var(--font-open-sans));
     cursor: pointer;
     user-select: none;
 
@@ -44,6 +43,8 @@
 }
 
 .active {
+    @include font-source-sans(16px, $black, 400, 25px, var(--font-open-sans));
     text-decoration: underline;
     text-decoration-color: $accent-color;
 }
+
