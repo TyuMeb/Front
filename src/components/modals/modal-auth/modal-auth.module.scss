@@ -175,9 +175,9 @@
     padding: 12px 16px;
 
     &::placeholder {
-        @include text;
-        @include textSmall;
-
+        // @include text;
+        // @include textSmall;
+        @include font-source-sans(16px, $black, 400, 24px, var(--font-open-sans));
         color: $asphalt;
     }
 }

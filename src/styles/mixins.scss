@@ -13,35 +13,37 @@
     cursor: pointer;
 }
 
-@mixin headline {
-    font-family: "Raleway", Arial, sans-serif;
+// Если используем миксины, то это все можно випилить. Но надо учесть этот момент в уже сверстанной странице ЛК
 
-    font-style: normal;
-    font-weight: 400;
-    color: $black;
-}
+// @mixin headline {
+//     font-family: "Raleway", Arial, sans-serif;
 
-@mixin headline2 {
-    font-size: 30px;
-    line-height: 130%;
-}
+//     font-style: normal;
+//     font-weight: 400;
+//     color: $black;
+// }
 
-@mixin text {
-    font-family: "Open Sans", Arial, sans-serif;
+// @mixin headline2 {
+//     font-size: 30px;
+//     line-height: 130%;
+// }
 
-    font-style: normal;
-    font-weight: 400;
-}
+// @mixin text {
+//     font-family: "Open Sans", Arial, sans-serif;
 
-@mixin textSmall {
-    font-size: 16px;
-    line-height: 24px;
-}
+//     font-style: normal;
+//     font-weight: 400;
+// }
 
-@mixin textTiny {
-    font-size: 14px;
-    line-height: 21px;
-}
+// @mixin textSmall {
+//     font-size: 16px;
+//     line-height: 24px;
+// }
+
+// @mixin textTiny {
+//     font-size: 14px;
+//     line-height: 21px;
+// }
 
 @mixin font-source-sans($size: false, $colour: false, $weight: false, $lh: false, $ff: false) {
     font-family: var(--font-open-sans);
@@ -65,3 +67,4 @@
         font-family: $ff, sans-serif;
     }
 }
+
