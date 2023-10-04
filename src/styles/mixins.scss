@@ -14,7 +14,7 @@
 }
 
 @mixin headline {
-    font-family: var(--font-open-sans);
+    // font-family: var(--font-open-sans);
     font-family: "Raleway", Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -27,20 +27,41 @@
 }
 
 @mixin text {
-    font-family: var(--font-raleway);
-    // font-family: "Open Sans", Arial, sans-serif;
+    // font-family: var(--font-raleway);
+    font-family: "Open Sans", Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
 }
 
 @mixin textSmall {
-    font-family: var(--font-open-sans);
     font-size: 16px;
     line-height: 24px;
 }
 
 @mixin textTiny {
-    font-family: var(--font-open-sans);
     font-size: 14px;
     line-height: 21px;
+}
+
+@mixin font-source-sans($size: false, $colour: false, $weight: false, $lh: false, $ff: false) {
+    font-family: var(--font-open-sans);
+    @if $size {
+        font-size: $size;
+    }
+
+    @if $colour {
+        color: $colour;
+    }
+
+    @if $weight {
+        font-weight: $weight;
+    }
+
+    @if $lh {
+        line-height: $lh;
+    }
+
+    @if $ff {
+        font-family: $ff, sans-serif;
+    }
 }

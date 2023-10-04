@@ -52,10 +52,8 @@
 }
 
 .text {
-    @include text;
-    @include textSmall;
+    @include font-source-sans(16px, $black, 400, 24px);
     position: relative;
-    color: red;
 }
 
 .listButtons {
@@ -126,6 +124,7 @@
 }
 
 .signinTitleSubtext {
+    @include font-source-sans(30px, $black, 400, 39px, var(--font-raleway));
     margin-bottom: 36px;
 }
 

@@ -6,6 +6,7 @@ import { Providers } from "@src/redux/provider";
 import Modals from "@src/components/modals/modals";
 import { ReactNode } from "react";
 
+// Здесь подключаем шрифты
 export const openSans = Open_Sans({
     subsets: ["cyrillic"],
     variable: "--font-open-sans",
