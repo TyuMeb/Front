@@ -1,7 +1,7 @@
 "use client";
 
 import HeaderAccount from "@src/components/account/header-account/header-account";
-import Dialog from "@src/components/account/chats/order-chat/dialog/dialog";
+import Dialog from "@src/components/account/chats/dialog/dialog";
 import NavAccount from "@src/components/account/nav-account/nav-account";
 
 export default function OrderItemPage() {
