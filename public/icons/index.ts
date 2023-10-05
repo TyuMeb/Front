@@ -5,6 +5,12 @@ import checked from './checked.svg';
 import eye from './eye.svg';
 import open_eye from './open_eye.svg';
 import vk from './vk.svg';
+import couch from './couch.svg';
+import chats from './chats.svg';
+import settings from './settings.svg';
+import help from './help.svg';
+import add from './add.svg';
+import archives from './archives.svg';
 
 export default {
 	resetPassword,
@@ -13,5 +19,11 @@ export default {
 	checked,
 	eye,
 	open_eye,
-	vk
+	vk,
+	couch,
+	chats,
+	settings,
+	help,
+	add,
+	archives
 };
