@@ -1,17 +1,17 @@
 import MyOrders from "@src/components/account/my-orders/myorders";
-import HeaderMini from "@src/components/account/header-mini/header-mini";
-import Nav from "@src/components/account/nav/nav";
+import HeaderAccount from "@src/components/account/header-account/header-account";
+import Nav from "@src/components/account/navbar/navbar";
 import Archives from "@src/components/account/archives/archives";
 import Chats from "@src/components/account/chats/chats";
 
 const Account = () => {
     return (
         <>
-            <HeaderMini />
+            <HeaderAccount />
             {/* <div className="container"> */}
             <Nav />
-            {/* <MyOrders /> */}
-            {/* <Archives /> */}
+            <MyOrders />
+            <Archives />
             <Chats />
             {/* </div> */}
         </>

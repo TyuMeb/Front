@@ -1,13 +1,14 @@
 "use client";
 
-import classNames from "classnames/bind";
 import React from "react";
-import { ExitButton } from "@src/components/shared/ui/button/exit-button";
+import classNames from "classnames/bind";
 import Link from "next/link";
-import Icon from "@src/components/icon";
 import { usePathname } from "next/navigation";
 
-import styles from "./nav.module.scss";
+import { ExitButton } from "@src/components/shared/ui/button/exit-button";
+import Icon from "@src/components/icon";
+
+import styles from "./Navbar.module.scss";
 
 const cx = classNames.bind(styles);
 
@@ -22,7 +23,7 @@ const navigation = [
     { route: "help", name: "Сделать заказ", icon: <Icon className={cx("icon")} glyph="add" />, id: 6 },
 ];
 
-const Nav = () => {
+const Navbar = () => {
     const pathname = usePathname();
 
     const renderNavigation = (): JSX.Element[] =>
@@ -49,4 +50,4 @@ const Nav = () => {
     );
 };
 
-export default Nav;
+export default Navbar;

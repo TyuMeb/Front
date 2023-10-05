@@ -1,15 +1,17 @@
 "use client";
 
-import HeaderMini from "@src/components/account/header-mini/header-mini";
-import Nav from "@src/components/account/nav/nav";
+import HeaderAccount from "@src/components/account/header-account/header-account";
+import Navbar from "@src/components/account/navbar";
 import MyOrders from "@src/components/account/my-orders/myorders";
 
-export default function SettingsPage() {
+export default function OrdersPage() {
     return (
         <div className="help">
-            <HeaderMini />
-            <Nav />
-            <MyOrders />
+            <HeaderAccount />
+            <div className="container">
+                <Navbar />
+                <MyOrders />
+            </div>
         </div>
     );
 }

@@ -1,14 +1,14 @@
 "use client";
 
-import HeaderMini from "@src/components/account/header-mini/header-mini";
-import Nav from "@src/components/account/nav/nav";
+import HeaderAccount from "@src/components/account/header-account/header-account";
+import Navbar from "@src/components/account/navbar";
 import Chats from "@src/components/account/chats/chats";
 
-export default function SettingsPage() {
+export default function ChatsPage() {
     return (
         <div className="help">
-            <HeaderMini />
-            <Nav />
+            <HeaderAccount />
+            <Navbar />
             <Chats />
         </div>
     );

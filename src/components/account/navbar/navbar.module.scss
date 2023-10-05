@@ -29,14 +29,11 @@
 .list {
     display: flex;
     flex-direction: column;
-    // align-items: flex-start;
-    // margin: 0 auto;
     gap: 24px;
 }
 
 .exitbutton {
     height: 48px;
-    // padding-top: 12px;
     margin-top: 80px;
 }
 
@@ -46,11 +43,6 @@
     font-size: 14px;
     line-height: 150%;
     cursor: pointer;
-
-    // &:active {
-    //     border-left: 4px solid #FCCF55;
-    //     // text-decoration-color: $accent-color;
-    // }
 }
 
 .active {
@@ -67,7 +59,6 @@
 
     &:active {
         border-left: 4px solid #fccf55;
-        // text-decoration-color: $accent-color;
     }
 }
 
@@ -175,39 +166,3 @@
         border-left: 4px solid #fccf55;
     }
 }
-
-// .link {
-//     font-weight: 600;
-//     font-size: 14px;
-//     line-height: 150%;
-//     cursor: pointer;
-//     // user-select: none;
-
-//     // &:last-child {
-//     //     margin-left: auto;
-//     // }
-//     // &:hover {
-//     //     text-decoration: solid;
-//     // }
-//     // &:active {
-//     //     text-decoration: overline;
-//     //     text-decoration-color: $accent-color;
-//     // }
-// }
-
-// .link::before {
-// content: "";
-// position: absolute;
-// top: 10%;
-// left: 0;
-// transform: translateX(20px) translateY(-50%);
-// display: block;
-// background: url("../../../../public/icons/couch.svg") no-repeat;
-// width: 30px;
-// height: 30px;
-// }
-
-// .active {
-//     text-decoration: overline;
-//     text-decoration-color: $accent-color;
-// }

@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface INavState {
+interface IHeaderAccountState {
     contentBlock: string | undefined;
 }
 
-const initialState: INavState = {
+const initialState: IHeaderAccountState = {
     contentBlock: undefined,
 };
 
-const navSlice = createSlice({
-    name: "nav",
+const headerAccountSlice = createSlice({
+    name: "header-account",
     initialState,
     reducers: {
         setContentBlock: (state, action) => {
@@ -18,6 +18,6 @@ const navSlice = createSlice({
     },
 });
 
-export const { setContentBlock } = navSlice.actions;
+export const { setContentBlock } = headerAccountSlice.actions;
 
-export default navSlice.reducer;
+export default headerAccountSlice.reducer;

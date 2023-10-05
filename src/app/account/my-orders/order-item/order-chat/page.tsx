@@ -1,15 +1,17 @@
 "use client";
 
 import HeaderAccount from "@src/components/account/header-account/header-account";
+import OrderChat from "@src/components/account/my-orders/order-item/order-chat/orderchat";
 import Navbar from "@src/components/account/navbar";
-import Settings from "@src/components/account/settings/settings";
 
-export default function SettingsPage() {
+export default function OrderItemPage() {
     return (
         <div className="help">
             <HeaderAccount />
-            <Navbar />
-            <Settings />
+            <div className="container">
+                <Navbar />
+                <OrderChat />
+            </div>
         </div>
     );
 }

@@ -41,7 +41,10 @@
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: flex-start;
-    align-items: stretch;
+    align-items: center;
+    // position: relative;
+    width: 908px;
+    margin: auto;
 }
 
 .description {

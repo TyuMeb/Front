@@ -1,0 +1,195 @@
+@import "../../../styles/variables";
+
+.container {
+    min-height: 626px;
+    width: 256px;
+    margin: 20px auto 0 50px;
+    overflow: hidden;
+    display: flex;
+    position: fixed;
+    justify-content: flex-end;
+    border-right: 2px solid #eae5e1;
+    flex-wrap: wrap;
+    padding-right: 32px;
+    background: #fff;
+}
+
+/*----------------------------------------------------------*/
+
+.navaccount {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // padding: 24px 0;
+    flex-direction: column;
+}
+
+.nav {
+    display: flex;
+    // margin-right: auto;
+    flex-direction: column;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    // align-items: flex-start;
+    // justify-content: space-between;
+    // border-left: 4px solid #fccf55;
+    gap: 24px;
+    // width: 210px;
+    // height: 30px;
+    // margin-bottom: 16px;
+}
+
+/*----------------------------------------------------------*/
+
+.menuitem {
+    // margin: 0 12px;
+    // margin-left: 58px;
+    display: flex;
+    min-width: 210px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.active {
+    display: flex;
+    min-width: 210px;
+    align-items: center;
+    cursor: pointer;
+    border-left: 4px solid #fccf55;
+}
+
+.menuicon {
+    margin: 0 8px 0 20px;
+}
+
+.menuitem:last-child {
+    margin-right: 0;
+}
+
+.menuitem > span {
+    position: absolute;
+    transform: translateX(-38px) translateY(-5px);
+    background: url("../../../../public/icons/couch.svg") no-repeat;
+    width: 30px;
+    height: 30px;
+}
+
+.menuOrders {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.producer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.myorders {
+    position: absolute;
+    transform: translateX(-38px) translateY(-5px);
+    background: url("../../../../public/icons/couch.svg") no-repeat;
+    width: 30px;
+    height: 30px;
+    margin-left: auto;
+}
+
+.menulink {
+    display: flex;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+}
+
+/*----------------------------------------------------------*/
+
+.shelforder {
+    display: flex;
+}
+
+.shelforder > span {
+    position: absolute;
+    background: url("../../../../public/icons/triangle_down.svg") no-repeat;
+    width: 24px;
+    height: 24px;
+    transform: translateX(36px) translateY(-2px);
+}
+
+.order {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    background-color: #fffaee;
+}
+
+.order > span {
+    position: absolute;
+    background: url("../../../../public/icons/triangle.svg") no-repeat;
+    width: 24px;
+    height: 24px;
+    transform: translateX(36px);
+}
+
+.orderlink {
+    display: flex;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    margin-left: 64px;
+}
+
+.master {
+    display: flex;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    margin-left: 66px;
+}
+
+/*----------------------------------------------------------*/
+
+.chats {
+    position: absolute;
+    transform: translateX(-38px) translateY(-5px);
+    background: url("../../../../public/icons/chats.svg") no-repeat;
+    width: 30px;
+    height: 30px;
+}
+
+.archives {
+    position: absolute;
+    transform: translateX(-38px) translateY(-5px);
+    background: url("../../../../public/icons/clock.svg") no-repeat;
+    width: 30px;
+    height: 30px;
+}
+
+.settings {
+    position: absolute;
+    transform: translateX(-38px) translateY(-5px);
+    background: url("../../../../public/icons/gear.svg") no-repeat;
+    width: 30px;
+    height: 30px;
+}
+
+.help {
+    position: absolute;
+    transform: translateX(-38px) translateY(-5px);
+    background: url("../../../../public/icons/ask.svg") no-repeat;
+    width: 30px;
+    height: 30px;
+}
+
+.makeorder {
+    position: absolute;
+    transform: translateX(-38px) translateY(-5px);
+    background: url("../../../../public/icons/plus.svg") no-repeat;
+    width: 30px;
+    height: 30px;
+}
