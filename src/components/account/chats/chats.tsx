@@ -1,7 +1,11 @@
 "use client";
 
+import { RedMarkIcon } from "@src/components/shared/ui/icons/red-mark-icon/red-mark-icon";
 import styles from "./chats.module.scss";
 import { Button } from "@src/components/shared/ui/button/button";
+import { DotsIcon } from "@src/components/shared/ui/icons/dots-icon/dots-icon";
+import { GreenMarkIcon } from "@src/components/shared/ui/icons/green-mark-icon/green-mark-icon";
+import { RightArrowIcon } from "@src/components/shared/ui/icons/right-arrow-icon/right-arrow-icon";
 
 const Chats = () => {
     return (
@@ -9,7 +13,9 @@ const Chats = () => {
             <article className={styles.order}>
                 <section className={styles.head}>
                     <div className={styles.worker}>
+                        <RedMarkIcon />
                         <p>Исполнитель 1</p>
+                        <DotsIcon />
                     </div>
                     <div className={styles.workerlimit}>
                         <p>Срок исполнения: 45-50 дней</p>
@@ -28,6 +34,7 @@ const Chats = () => {
                         <li className={styles.gallery}></li>
                         <li className={styles.gallery}></li>
                         <li className={styles.gallery}></li>
+                        <RightArrowIcon />
                     </ul>
                     <Button onClick={() => {}}>Перейти в чат</Button>
                 </div>
@@ -35,7 +42,9 @@ const Chats = () => {
             <article className={styles.order}>
                 <section className={styles.head}>
                     <div className={styles.worker}>
+                        <GreenMarkIcon />
                         <p>Исполнитель 2</p>
+                        <DotsIcon />
                     </div>
                     <div className={styles.workerlimit}>
                         <p>Полка настенная</p>
@@ -54,7 +63,9 @@ const Chats = () => {
             <article className={styles.order}>
                 <section className={styles.head}>
                     <div className={styles.worker}>
+                        <GreenMarkIcon />
                         <p>Исполнитель 3</p>
+                        <DotsIcon />
                     </div>
                     <div className={styles.workerlimit}>
                         <p>Полка настенная</p>

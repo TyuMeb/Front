@@ -10,7 +10,7 @@ export default function OrdersPage() {
             <HeaderAccount />
             <div className="container">
                 <Navbar />
-                {/* <MyOrders /> */}
+                <MyOrders />
             </div>
         </div>
     );

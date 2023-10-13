@@ -9,17 +9,11 @@
     flex-direction: column;
     justify-content: flex-start;
     flex-wrap: wrap;
-    // align-items: center;
     gap: 28px;
     border-radius: 18px;
     background: var(--white, #fff);
     box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.09);
 }
-
-// .order:last-child {
-//     height: auto;
-//     padding: 24px 0px 109px 44px;
-// }
 
 .ordersmain {
     display: flex;
@@ -49,16 +43,6 @@
     line-height: 150%;
 }
 
-// .head::before {
-//     content: "";
-//     position: absolute;
-//     // top: 50%;
-//     // left: 0;
-//     // transform: translateY(-50%);
-//     // display: block;
-//     background: url("../../../../public/icons/dots.svg") no-repeat;
-// }
-
 .workerlimit {
     display: flex;
     flex-direction: row;
@@ -71,26 +55,19 @@
     font-size: 14px;
 }
 
-// .workerlimit:nth-child(2) {
-//     font-size: 14px;
-// }
-
 .list {
     display: flex;
     font-size: 14px;
     line-height: 150%;
     max-width: 332px;
     flex-direction: row;
-    align-items: flex-end;
+    align-items: center;
     gap: 20px;
 }
 
 .params {
     display: flex;
-    // padding-bottom: 16px;
     width: 420px;
-    // border-bottom: 1px solid #eae5e1;
-    // text-decoration: dotted;
 }
 
 .gallery {
@@ -100,30 +77,21 @@
     background: #d9d9d9;
     justify-content: flex-end;
     align-items: center;
-    // margin: 0 40px;
 }
-
-// .gallery:last-child {
-//     height: auto;
-//     // margin-right: 338px;
-// }
 
 .worker {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 
 .orderinfo {
     width: 800px;
-    // height: 148px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     font-size: 14px;
     font-weight: 400;
     line-height: 160%;
-    // margin: 0 0 30px 0;
-    // padding-bottom: 30px;
     overflow: hidden;
     align-items: flex-end;
 }
@@ -137,6 +105,3 @@
     cursor: pointer;
     max-width: 245px;
 }
-// .decline {
-//     color: #ff6894;
-// }

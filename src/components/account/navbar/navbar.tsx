@@ -100,7 +100,9 @@ const Navbar = () => {
                             <li key={executor.alias} className={cx("thirdLevelItem")}>
                                 <Link
                                     href={currentPathname}
-                                    className={cx("thirdLevelLink", { activatedSubmenu: true })}>
+                                    className={cx("thirdLevelLink", {
+                                        activatedSubmenu: pathname === currentPathname,
+                                    })}>
                                     <p className={cx("thirdLevelText")}>{executor.name}</p>
                                 </Link>
                             </li>
