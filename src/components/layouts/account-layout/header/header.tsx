@@ -2,6 +2,9 @@
 
 import React, { HTMLAttributes } from "react";
 import styles from "./header.module.scss";
+import Link from "next/link";
+import Image from "next/image";
+import avatar from "@public/account/photo.png";
 
 interface HeaderI extends HTMLAttributes<HTMLDivElement> {}
 
@@ -12,9 +15,9 @@ const Header = ({ className }: HeaderI) => {
                 <div className={styles.container}>
                     <div className={styles.headeraccount}>
                         <div className={styles.logo}>
-                            <a className={styles.logolink} href="">
+                            <Link className={styles.logolink} href="/">
                                 ВайВи
-                            </a>
+                            </Link>
                         </div>
                         <nav className={styles.nav}>
                             <ul className={styles.menu}>
@@ -37,7 +40,7 @@ const Header = ({ className }: HeaderI) => {
                                 </li>
                             </ul>
                         </nav>
-                        <div className={styles.avatar}></div>
+                        <Image width={32} height={32} priority={true} src={avatar} alt="Фото"></Image>
                     </div>
                 </div>
             </header>

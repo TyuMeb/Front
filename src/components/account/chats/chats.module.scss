@@ -1,10 +1,15 @@
 @import "../../../styles/variables";
 
+.ordersmain {
+    display: grid;
+    row-gap: 16px;
+}
+
 .order {
     display: flex;
-    width: 908px;
+    max-width: 908px;
+    width: 100%;
     height: auto;
-    margin: 0 422px 16px;
     padding: 24px 0px 36px 44px;
     flex-direction: column;
     justify-content: flex-start;
@@ -15,21 +20,13 @@
     box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.09);
 }
 
-.ordersmain {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: stretch;
-    padding-top: 96px;
-}
-
 .head {
     display: flex;
     font-size: 16px;
     font-weight: 600;
     line-height: 160%;
-    width: 800px;
+    max-width: 800px;
+    width: 100%;
     justify-content: space-between;
     border-bottom: 2px solid #fccf55;
     padding-bottom: 20px;
@@ -39,6 +36,7 @@
     display: flex;
     flex-direction: column;
     max-width: 800px;
+    width: 100%;
     font-size: 14px;
     line-height: 150%;
 }

@@ -1,6 +1,6 @@
 .wrapper {
     display: grid;
-    grid-template-columns: auto 256px minmax(480px, 964px) auto;
+    grid-template-columns: auto 312px minmax(480px, 908px) auto;
     grid-template-areas:
         ". header header ."
         ". sidebar main .";
@@ -15,8 +15,5 @@
 }
 
 .main {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     grid-area: main;
 }
