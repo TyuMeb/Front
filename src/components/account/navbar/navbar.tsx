@@ -7,46 +7,120 @@ import { usePathname } from "next/navigation";
 
 import { ExitButton } from "@src/components/shared/ui/button/exit-button";
 import Icon from "@src/components/icon";
+import { orders, ordersI, executorsI } from "./data";
 
-import styles from "./Navbar.module.scss";
+import styles from "./navbar.module.scss";
 
 const cx = classNames.bind(styles);
 
 const PAGE_LINK = "/account/";
 
-const navigation = [
-    { route: "my-orders", name: "Мои заказы", icon: <Icon className={cx("icon")} glyph="couch" />, id: 1 },
-    { route: "chats", name: "Чаты", icon: <Icon className={cx("icon")} glyph="chats" />, id: 2 },
-    { route: "archives", name: "Архивы", icon: <Icon className={cx("icon")} glyph="archives" />, id: 3 },
-    { route: "settings", name: "Настройки", icon: <Icon className={cx("icon")} glyph="settings" />, id: 4 },
-    { route: "help", name: "Помощь", icon: <Icon className={cx("icon")} glyph="help" />, id: 5 },
-    { route: "help", name: "Сделать заказ", icon: <Icon className={cx("icon")} glyph="add" />, id: 6 },
+interface firstLevelMenuItemI {
+    alias: string;
+    name: string;
+    numberPerformers?: number;
+    icon?: React.JSX.Element;
+    isOpened?: boolean;
+    pages?: firstLevelMenuItemI[];
+}
+
+const firstLevelMenu: firstLevelMenuItemI[] = [
+    { alias: "my-orders", name: "Мои заказы", icon: <Icon className={cx("icon")} glyph="couch" /> },
+    { alias: "chats", name: "Чаты", icon: <Icon className={cx("icon")} glyph="chats" /> },
+    { alias: "archives", name: "Архивы", icon: <Icon className={cx("icon")} glyph="archives" /> },
+    { alias: "settings", name: "Настройки", icon: <Icon className={cx("icon")} glyph="settings" /> },
+    { alias: "help", name: "Помощь", icon: <Icon className={cx("icon")} glyph="help" /> },
+    { alias: "help", name: "Сделать заказ", icon: <Icon className={cx("icon")} glyph="add" /> },
 ];
 
 const Navbar = () => {
     const pathname = usePathname();
 
-    const renderNavigation = (): JSX.Element[] =>
-        navigation.map((nav) => {
-            const currentPathname = PAGE_LINK + nav.route;
+    const buildFirstLevel = (): JSX.Element => {
+        return (
+            <ul className={cx("firstLevelMenu")}>
+                {firstLevelMenu.map((menu, i) => {
+                    const currentPathname = PAGE_LINK + menu.alias;
 
-            return (
-                <li key={nav.id} className={cx("navItem", { active: pathname === currentPathname })}>
-                    <Link className={cx("link")} href={currentPathname}>
-                        {nav.icon}
-                        {nav.name}
-                    </Link>
-                </li>
-            );
-        });
+                    return (
+                        <li key={menu.alias}>
+                            <Link
+                                className={cx("firstLevelLink", { activatedMenu: pathname === currentPathname })}
+                                href={currentPathname}>
+                                {menu.icon}
+                                <p className={cx("text")}>
+                                    {menu.name}
+                                    &nbsp;
+                                    {orders.length && i === 0 && `(${orders.length})`}
+                                </p>
+                            </Link>
+                            {i === 0 && buildSecondLevel(orders, currentPathname)}
+                        </li>
+                    );
+                })}
+            </ul>
+        );
+    };
+
+    const buildSecondLevel = (orders: ordersI[], route: string): JSX.Element | undefined => {
+        return (
+            orders && (
+                <ul className={cx("secondLevelMenu")}>
+                    {orders.map((order) => {
+                        const currentPathname = route + "/" + order.alias;
+
+                        return (
+                            <li key={order.alias}>
+                                <Link
+                                    className={cx("secondLevelLink", { openedSubmenu: pathname === currentPathname })}
+                                    href={currentPathname}>
+                                    <p className={cx("text")}>
+                                        {order.name}
+                                        &nbsp;
+                                        {order.executors.length && `(${order.executors.length})`}
+                                    </p>
+                                </Link>
+                                {buildThirdLevel(order.executors, currentPathname)}
+                            </li>
+                        );
+                    })}
+                </ul>
+            )
+        );
+    };
+
+    const buildThirdLevel = (executors: executorsI[], route: string): JSX.Element | undefined => {
+        return (
+            executors && (
+                <ul className={cx("thirdLevelMenu")}>
+                    {executors.map((executor) => {
+                        const currentPathname = route + "/" + executor.alias;
+
+                        return (
+                            <li key={executor.alias} className={cx("thirdLevelItem")}>
+                                <Link
+                                    href={currentPathname}
+                                    className={cx("thirdLevelLink", { activatedSubmenu: true })}>
+                                    <p className={cx("thirdLevelText")}>{executor.name}</p>
+                                </Link>
+                            </li>
+                        );
+                    })}
+                </ul>
+            )
+        );
+    };
 
     return (
-        <nav className={styles.nav}>
-            <ul className={styles.list}>{renderNavigation()}</ul>
-            <div className={styles.exitbutton}>
-                <ExitButton onClick={() => {}}>Выйти</ExitButton>
-            </div>
-        </nav>
+        <aside className={cx("menu")}>
+            <nav className={cx("navigation")}>
+                {buildFirstLevel()}
+
+                <div className={styles.exitbutton}>
+                    <ExitButton onClick={() => {}}>Выйти</ExitButton>
+                </div>
+            </nav>
+        </aside>
     );
 };
 

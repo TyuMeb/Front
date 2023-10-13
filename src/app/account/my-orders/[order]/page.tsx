@@ -2,15 +2,15 @@
 
 import HeaderAccount from "@src/components/account/header-account/header-account";
 import Navbar from "@src/components/account/navbar";
-import MyOrders from "@src/components/account/my-orders/myorders";
+import OrderItem from "@src/components/account/my-orders/order-item/orderitem";
 
-export default function OrdersPage() {
+export default function OrderItemPage() {
     return (
         <div className="help">
             <HeaderAccount />
             <div className="container">
                 <Navbar />
-                {/* <MyOrders /> */}
+                <OrderItem />
             </div>
         </div>
     );
