@@ -11,6 +11,7 @@ import settings from './settings.svg';
 import help from './help.svg';
 import add from './add.svg';
 import archives from './archives.svg';
+import arrowLeft from './arrow-left.svg';
 
 export default {
 	resetPassword,
@@ -25,5 +26,6 @@ export default {
 	settings,
 	help,
 	add,
-	archives
+	archives,
+	arrowLeft
 };
