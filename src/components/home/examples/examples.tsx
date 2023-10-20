@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { CardExample } from "@src/components/shared/ui/card-example/card-example";
 import styles from "./examples.module.scss";
 import cn from "classnames";
 import { useState } from "react";
-import Slider from "@src/components/shared/ui/slider/slider";
+import { CardExample } from "@src/shared/ui/card-example/card-example";
+import { Slider } from "@src/shared/ui/slider";
 
 export const Examples = () => {
     const [currentSlide, setCurrentSlide] = useState(0);

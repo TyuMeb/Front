@@ -4,7 +4,6 @@ import classNames from "classnames/bind";
 import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/slices/modal-slice";
 import useInput from "@src/hooks/use-Input";
-import { InputEmail, InputPassword } from "@src/components/shared/ui/inputs";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
@@ -12,7 +11,9 @@ import Icon from "@src/components/icon";
 
 import { useCreateTokenMutation } from "@src/redux/api/jwt-api-slice";
 import { setCookie, removeCookie } from "typescript-cookie";
-import { lengthCheck, submitForm } from "../validation";
+import { submitForm } from "../validation";
+import { InputEmail, InputPassword } from "@src/shared/ui/inputs";
+import { Button } from "@src/shared/ui/button";
 
 const cx = classNames.bind(styles);
 
@@ -51,9 +52,6 @@ const SignIn = () => {
     const formValidation = () => {
         setEmailError("");
         setPasswordError("");
-
-        lengthCheck(emailField.value, setEmailError);
-        lengthCheck(passwordField.value, setPasswordError);
     };
 
     useEffect(() => {
@@ -76,7 +74,7 @@ const SignIn = () => {
 
             <form className={cx("form")}>
                 <div className={cx("inputsSignin")}>
-                    <div style={{ width: "296px" }}>
+                    <div>
                         <InputEmail
                             textLabel="E-mail"
                             placeholder="Введите свою почту"
@@ -86,7 +84,7 @@ const SignIn = () => {
                         />
                     </div>
 
-                    <div style={{ width: "296px" }}>
+                    <div>
                         <InputPassword
                             textLabel="Пароль"
                             placeholder="Введите пароль"
@@ -106,7 +104,7 @@ const SignIn = () => {
                     Забыли пароль?
                 </button>
 
-                <button
+                <Button
                     className={cx("text", "button")}
                     type="submit"
                     onClick={(e) =>
@@ -119,7 +117,7 @@ const SignIn = () => {
                         })
                     }>
                     Войти
-                </button>
+                </Button>
             </form>
         </ModalAuth>
     );

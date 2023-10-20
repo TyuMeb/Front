@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 
 import useInput from "@src/hooks/use-Input";
-import { CheckboxField } from "@src/components/shared/ui/inputs/checkbox";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
-import InputPhone from "@src/components/shared/ui/inputs/phone";
-import { Input, InputEmail, InputPassword } from "@src/components/shared/ui/inputs";
-import { submitForm, lengthCheck } from "../validation";
+import { submitForm } from "../validation";
+import { Input, InputEmail, InputPassword, InputPhone } from "@src/shared/ui/inputs";
+import { CheckboxField } from "@src/shared/ui/inputs/checkbox";
+import { Button } from "@src/shared/ui/button";
 
 const cx = classNames.bind(styles);
 
@@ -39,15 +39,6 @@ const Registration = () => {
         setPhoneError("");
         setPasswordError("");
         setPasswordRepeatError("");
-
-        lengthCheck(firstNameField.value, setFirstNameError);
-        lengthCheck(lastNameField.value, setLastNameError);
-
-        lengthCheck(emailField.value, setEmailError);
-        lengthCheck(phoneField.value, setPhoneError);
-
-        lengthCheck(passwordField.value, setPasswordError);
-        lengthCheck(passwordRepeatField.value, setPasswordRepeatError);
     };
 
     useEffect(() => {
@@ -155,8 +146,8 @@ const Registration = () => {
                     onClick={() => handleChange()}
                 />
 
-                <button
-                    className={cx("text", "button", "positionCenter")}
+                <Button
+                    className={cx("positionCenter")}
                     type="submit"
                     onClick={(e) =>
                         submitForm({
@@ -172,7 +163,7 @@ const Registration = () => {
                         })
                     }>
                     Зарегистрироваться
-                </button>
+                </Button>
             </form>
         </ModalAuth>
     );

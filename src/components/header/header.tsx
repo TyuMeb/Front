@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 import { openModal } from "@src/redux/slices/modal-slice";
 import { useRefreshTokenMutation, useVerifyTokenMutation } from "@src/redux/api/jwt-api-slice";
 import { getCookie, setCookie } from "typescript-cookie";
+import { cn } from "@src/shared/lib/cn";
 
 const Header = () => {
     const dispatch = useAppDispatch();
@@ -63,7 +64,7 @@ const Header = () => {
 
     return (
         <header className={styles.header}>
-            <nav className={styles.nav}>
+            <nav className={cn(styles.nav, "container")}>
                 <ul className={styles.list}>
                     <li className={styles.logo}>ВайВи</li>
                     <li

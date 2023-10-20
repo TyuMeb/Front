@@ -11,10 +11,9 @@ import { CreateOrder } from "@src/components/home/create-order/create-order";
 import { useInView } from "react-intersection-observer";
 import { useAppDispatch } from "@src/redux/hooks";
 import { setContentBlock } from "@src/redux/slices/header-slice";
-import { relative } from "path";
 
 export default function HomePage() {
-    const [current, setCurrent] = useState<string | null>(null);
+    const [, setCurrent] = useState<string | null>(null);
     const dispatch = useAppDispatch();
     const [aboutRef, inViewAbout] = useInView({ threshold: 0.5, triggerOnce: false });
     const [howWorksStartRef, inViewStartHowWorks] = useInView({ threshold: 0.5, triggerOnce: false });

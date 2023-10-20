@@ -2,11 +2,11 @@
 
 import styles from "./how-works.module.scss";
 
-import { Step } from "@src/components/shared/ui/step/step";
 import step1 from "@public/home/step1.jpg";
 import step2 from "@public/home/step2.jpg";
 import step3 from "@public/home/step3.jpg";
 import step4 from "@public/home/step4.jpg";
+import { Step } from "@src/shared/ui/step/step";
 
 export const HowWorks = () => {
     return (

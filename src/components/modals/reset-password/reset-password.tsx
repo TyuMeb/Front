@@ -8,8 +8,9 @@ import useInput from "@src/hooks/use-Input";
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
 import Icon from "@src/components/icon";
-import { InputEmail } from "@src/components/shared/ui/inputs";
-import { submitForm, lengthCheck } from "../validation";
+import { submitForm } from "../validation";
+import { InputEmail } from "@src/shared/ui/inputs";
+import { Button } from "@src/shared/ui/button";
 
 const cx = classNames.bind(styles);
 
@@ -23,12 +24,7 @@ export const ResetPassword = () => {
     // Проверка работы валидации
     const formValidation = () => {
         setEmailError("");
-        lengthCheck(emailField.value, setEmailError);
     };
-
-    useEffect(() => {
-        formValidation();
-    }, [emailField]);
 
     const renderError = () =>
         emailError && (
@@ -49,23 +45,20 @@ export const ResetPassword = () => {
 
             <form className={cx("form")}>
                 <div className={cx("inputsResetPassword")}>
-                    <div style={{ width: "296px" }}>
-                        <InputEmail
-                            textLabel="E-mail"
-                            placeholder="Введите свою почту"
-                            error={Boolean(emailError)}
-                            id="email"
-                            {...emailField}
-                        />
-                    </div>
+                    <InputEmail
+                        textLabel="E-mail"
+                        placeholder="Введите свою почту"
+                        error={Boolean(emailError)}
+                        id="email"
+                        {...emailField}
+                    />
                 </div>
 
                 {renderError()}
 
                 <ul className={cx("listButtons")}>
                     <li className={cx("itemButtons")}>
-                        <button
-                            className={cx("text", "button")}
+                        <Button
                             type="submit"
                             onClick={(e) =>
                                 submitForm({
@@ -76,16 +69,13 @@ export const ResetPassword = () => {
                                 })
                             }>
                             Сбросить пароль
-                        </button>
+                        </Button>
                     </li>
 
                     <li className={cx("itemButtons")}>
-                        <button
-                            className={cx("text", "button", "buttonWhite")}
-                            type="button"
-                            onClick={() => dispatch(setTypeModal("signIn"))}>
+                        <Button variant="cancel" type="button" onClick={() => dispatch(setTypeModal("signIn"))}>
                             Отмена
-                        </button>
+                        </Button>
                     </li>
                 </ul>
             </form>

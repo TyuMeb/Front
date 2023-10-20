@@ -1,6 +1,6 @@
+import { Button } from "@src/shared/ui/button";
 import styles from "./form.module.scss";
-import { Input } from "@src/components/shared/ui/inputs/input/input";
-import Button from "@src/components/shared/ui/button/button";
+import { Input } from "@src/shared/ui/inputs";
 
 export const Form = () => {
     return (
@@ -14,12 +14,7 @@ export const Form = () => {
                     <Input placeholder="Имя" required />
                     <Input placeholder="Номер телефона" type="tel" maxLength={11} required />
                 </div>
-                <Button
-                    onClick={function (): void {
-                        throw new Error("Function not implemented.");
-                    }}>
-                    Связаться
-                </Button>
+                <Button>Связаться</Button>
             </form>
         </section>
     );
