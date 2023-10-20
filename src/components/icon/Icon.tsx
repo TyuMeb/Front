@@ -3,6 +3,7 @@ import React, { FC, SVGProps } from "react";
 import icons from "@public/icons";
 
 export type IconGlyph = keyof typeof icons;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const iconTypes: IconGlyph[] = Object.keys(icons) as any[];
 
 export interface IIconProps extends SVGProps<SVGSVGElement> {

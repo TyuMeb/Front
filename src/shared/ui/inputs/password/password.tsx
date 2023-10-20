@@ -7,19 +7,17 @@ import { InputProps, Input } from "../input";
 
 const cx = classNames.bind(styles);
 
-const Password = (props: InputProps) => {
-    const { type, ...restProps } = props;
-
+export const PasswordInput = (props: InputProps) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
     return (
         <div className={cx("container")}>
-            <Input type={showPassword ? "text" : "password"} {...restProps} />
+            <Input {...props} type={showPassword ? "text" : "password"} />
 
             <button
                 className={cx("buttonShowPassword")}
                 type="button"
-                onMouseDown={!restProps.disabled ? () => setShowPassword(true) : undefined}
+                onMouseDown={!props.disabled ? () => setShowPassword(true) : undefined}
                 onMouseUp={() => setShowPassword(false)}>
                 {showPassword ? (
                     <Icon className={cx("icon")} glyph="open_eye" />
@@ -30,5 +28,3 @@ const Password = (props: InputProps) => {
         </div>
     );
 };
-
-export default Password;

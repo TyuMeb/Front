@@ -9,10 +9,10 @@ import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
 import Icon from "@src/components/icon";
 
-import { useCreateTokenMutation } from "@src/redux/api/jwt-api-slice";
-import { setCookie, removeCookie } from "typescript-cookie";
+// import { useCreateTokenMutation } from "@src/redux/api/jwt-api-slice";
+// import { setCookie, removeCookie } from "typescript-cookie";
 import { submitForm } from "../validation";
-import { InputEmail, InputPassword } from "@src/shared/ui/inputs";
+import { Input, PasswordInput } from "@src/shared/ui/inputs";
 import { Button } from "@src/shared/ui/button";
 
 const cx = classNames.bind(styles);
@@ -75,18 +75,19 @@ const SignIn = () => {
             <form className={cx("form")}>
                 <div className={cx("inputsSignin")}>
                     <div>
-                        <InputEmail
-                            textLabel="E-mail"
+                        <Input
+                            label="E-mail"
                             placeholder="Введите свою почту"
                             error={Boolean(emailError)}
                             id="email"
+                            type="email"
                             {...emailField}
                         />
                     </div>
 
                     <div>
-                        <InputPassword
-                            textLabel="Пароль"
+                        <PasswordInput
+                            label="Пароль"
                             placeholder="Введите пароль"
                             error={Boolean(passwordError)}
                             id="password"

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import styles from "./card-advantages.module.scss";
 
-interface ICardAdvantagesProps {
+type CardAdvantagesProps = {
     bgColor: string;
     title: string;
     paragraph: string;
@@ -10,9 +10,9 @@ interface ICardAdvantagesProps {
     alt: string;
     width: number;
     height: number;
-}
+};
 
-export const CardAdvantages = ({ bgColor, title, paragraph, src, alt, width, height }: ICardAdvantagesProps) => {
+export const CardAdvantages = ({ bgColor, title, paragraph, src, alt, width, height }: CardAdvantagesProps) => {
     return (
         <div className={`${styles.card} ${styles[bgColor]}`}>
             <div className={styles.inner}>

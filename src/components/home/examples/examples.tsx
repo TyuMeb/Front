@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import styles from "./examples.module.scss";
 import cn from "classnames";
 import { useState } from "react";
@@ -10,6 +9,7 @@ import { Slider } from "@src/shared/ui/slider";
 export const Examples = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function forwardSlide() {
         setCurrentSlide((current) => {
             if (current < 1) return current + 1;
@@ -17,6 +17,7 @@ export const Examples = () => {
         });
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function backwardSlide() {
         setCurrentSlide((current) => {
             if (current > 0) return current - 1;

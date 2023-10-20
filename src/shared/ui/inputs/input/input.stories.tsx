@@ -22,7 +22,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const TemplateInput = (args: InputProps): JSX.Element => {
-    const { onChange, ...restArgs } = args;
+    const { ...restArgs } = args;
 
     const [{ value }, updateArgs] = useArgs();
 
@@ -30,7 +30,7 @@ const TemplateInput = (args: InputProps): JSX.Element => {
 
     return (
         <div style={{ width: "296px" }}>
-            <Input value={value} onChange={(e) => handleChange(e)} {...restArgs} />
+            <Input {...restArgs} value={value} onChange={(e) => handleChange(e)} />
         </div>
     );
 };
@@ -41,7 +41,7 @@ export const Default: Story = {
         className: "",
         disabled: false,
         placeholder: "Введите свое имя",
-        textLabel: "Имя",
+        label: "Имя",
         error: false,
         errorMessage: "Пример ошибки",
     },

@@ -45,7 +45,7 @@ const changePhoneNumber = (e: ChangeEvent<HTMLInputElement>, previousValue: stri
 const phoneNumberMask = (e: ChangeEvent<HTMLInputElement>) => {
     const input = e.target;
 
-    let inputNumbersValue = getInputNumbersValue(input.value);
+    const inputNumbersValue = getInputNumbersValue(input.value);
     let formattedInputValue = "";
 
     // Маска для при вводе +
@@ -60,19 +60,19 @@ const phoneNumberMask = (e: ChangeEvent<HTMLInputElement>) => {
         }
 
         if (inputNumbersValue.length > 1) {
-            formattedInputValue += " " + inputNumbersValue.substring(1, 4);
+            formattedInputValue += ` ${inputNumbersValue.substring(1, 4)}`;
         }
 
         if (inputNumbersValue.length > 4) {
-            formattedInputValue += " " + inputNumbersValue.substring(4, 7);
+            formattedInputValue += ` ${inputNumbersValue.substring(4, 7)}`;
         }
 
         if (inputNumbersValue.length > 7) {
-            formattedInputValue += " " + inputNumbersValue.substring(7, 9);
+            formattedInputValue += ` ${inputNumbersValue.substring(7, 9)}`;
         }
 
         if (inputNumbersValue.length > 9) {
-            formattedInputValue += " " + inputNumbersValue.substring(9, 11);
+            formattedInputValue += ` ${inputNumbersValue.substring(9, 11)}`;
         }
 
         input.value = formattedInputValue;

@@ -6,16 +6,16 @@ import Icon from "@src/components/icon";
 
 const cx = classNames.bind(styles);
 
-export interface ICheckboxField {
+export type CheckboxInputProps = {
     textLabel?: string;
     error?: boolean;
     errorMessage?: string;
     checked?: boolean;
-    onClick?: () => void;
     disabled?: boolean;
-}
+    onClick?: () => void;
+};
 
-export const CheckboxField = (props: ICheckboxField) => {
+export const CheckboxInput = (props: CheckboxInputProps) => {
     const { textLabel, error, errorMessage, checked = false, disabled, onClick } = props;
 
     return (
@@ -23,8 +23,9 @@ export const CheckboxField = (props: ICheckboxField) => {
             <div className={cx("container")}>
                 <input className={cx("checkboxFieldHide")} />
 
-                <div
-                    onClick={disabled ? undefined : onClick}
+                <button
+                    disabled={disabled}
+                    onClick={onClick}
                     className={cx("checkboxField", {
                         checked: checked,
                         disabled: disabled,
@@ -36,7 +37,7 @@ export const CheckboxField = (props: ICheckboxField) => {
                             glyph="checked"
                         />
                     )}
-                </div>
+                </button>
 
                 <label
                     className={cx("label", {
@@ -52,5 +53,3 @@ export const CheckboxField = (props: ICheckboxField) => {
         </>
     );
 };
-
-export default CheckboxField;

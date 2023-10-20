@@ -7,7 +7,7 @@ import { submitForm } from "../validation";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
-import { InputPassword } from "@src/shared/ui/inputs";
+import { PasswordInput } from "@src/shared/ui/inputs";
 import { Button } from "@src/shared/ui/button";
 
 const cx = classNames.bind(styles);
@@ -43,8 +43,8 @@ export const ResetPasswordConfirm = () => {
 
             <form className={cx("form")}>
                 <div className={cx("inputsResetPassword")}>
-                    <InputPassword
-                        textLabel="Пароль"
+                    <PasswordInput
+                        label="Пароль"
                         placeholder="Введите свой пароль"
                         error={Boolean(passwordError)}
                         id="password"

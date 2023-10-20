@@ -1,7 +1,7 @@
-import Email from "./email";
-import Password from "./password";
-import Phone from "./phone";
+import { PasswordInput } from "./password";
+import { PhoneInput } from "./phone";
 
-export { Email as InputEmail, Password as InputPassword, Phone as InputPhone };
+export { CheckboxInput } from "./checkbox";
+export { PasswordInput, PhoneInput };
 export { Input } from "./input";
 export type { InputProps } from "./input";

@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import Slider from "./slider";
+import { Slider } from "./slider";
 
 const meta = {
     title: "UI/Slider",

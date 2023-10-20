@@ -6,8 +6,8 @@ import useInput from "@src/hooks/use-Input";
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
 import { submitForm } from "../validation";
-import { Input, InputEmail, InputPassword, InputPhone } from "@src/shared/ui/inputs";
-import { CheckboxField } from "@src/shared/ui/inputs/checkbox";
+import { Input, PasswordInput, PhoneInput } from "@src/shared/ui/inputs";
+import { CheckboxInput } from "@src/shared/ui/inputs/checkbox";
 import { Button } from "@src/shared/ui/button";
 
 const cx = classNames.bind(styles);
@@ -77,7 +77,7 @@ const Registration = () => {
                 <div className={cx("inputsRegistration")}>
                     <div className={cx("wrapperField")}>
                         <Input
-                            textLabel="Имя"
+                            label="Имя"
                             placeholder="Введите свое имя"
                             error={Boolean(firstNameError)}
                             id="firstName"
@@ -87,7 +87,7 @@ const Registration = () => {
 
                     <div className={cx("wrapperField")}>
                         <Input
-                            textLabel="Фамилия"
+                            label="Фамилия"
                             placeholder="Введите свою фамилию"
                             error={Boolean(lastNameError)}
                             id="lastName"
@@ -96,8 +96,9 @@ const Registration = () => {
                     </div>
 
                     <div className={cx("wrapperField")}>
-                        <InputEmail
-                            textLabel="E-mail"
+                        <Input
+                            type="email"
+                            label="E-mail"
                             placeholder="Введите свою почту"
                             error={Boolean(emailError)}
                             id="email"
@@ -106,8 +107,8 @@ const Registration = () => {
                     </div>
 
                     <div className={cx("wrapperField")}>
-                        <InputPhone
-                            textLabel="Телефон"
+                        <PhoneInput
+                            label="Телефон"
                             placeholder="Введите номер телефона"
                             error={Boolean(phoneError)}
                             id="phone"
@@ -116,8 +117,8 @@ const Registration = () => {
                     </div>
 
                     <div className={cx("wrapperField")}>
-                        <InputPassword
-                            textLabel="Пароль"
+                        <PasswordInput
+                            label="Пароль"
                             placeholder="Введите свой пароль"
                             error={Boolean(passwordError)}
                             id="password"
@@ -126,8 +127,8 @@ const Registration = () => {
                     </div>
 
                     <div className={cx("wrapperField")}>
-                        <InputPassword
-                            textLabel="Повторить пароль"
+                        <PasswordInput
+                            label="Повторить пароль"
                             placeholder="Повторите свой пароль"
                             error={Boolean(passwordRepeatError)}
                             id="passwordRepeat"
@@ -138,7 +139,7 @@ const Registration = () => {
 
                 {renderError()}
 
-                <CheckboxField
+                <CheckboxInput
                     error={true}
                     errorMessage="234"
                     textLabel="Вы соглашаетесь с обработкой персональных данных"

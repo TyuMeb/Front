@@ -1,13 +1,13 @@
 import { Meta, StoryObj } from "@storybook/react";
-import Password from "./password";
-import { InputProps } from "@src/components/shared/ui/inputs/input";
+import { InputProps } from "@src/shared/ui/inputs/input";
 import { ChangeEvent } from "react";
 import { useArgs } from "@storybook/client-api";
 import "./password.module.scss";
+import { PasswordInput } from "./password";
 
 const meta = {
-    title: "UI/Inputs/InputPassword",
-    component: Password,
+    title: "UI/Inputs/PasswordInput",
+    component: PasswordInput,
     parameters: {
         layout: "padded",
     },
@@ -19,13 +19,13 @@ const meta = {
         value: "",
         onChange: () => {},
     },
-} satisfies Meta<typeof Password>;
+} satisfies Meta<typeof PasswordInput>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 const TemplateInput = (args: InputProps): JSX.Element => {
-    const { onChange, ...restArgs } = args;
+    const { ...restArgs } = args;
 
     const [{ value }, updateArgs] = useArgs();
 
@@ -33,7 +33,7 @@ const TemplateInput = (args: InputProps): JSX.Element => {
 
     return (
         <div style={{ width: "296px" }}>
-            <Password value={value} onChange={handleChange} {...restArgs} />
+            <PasswordInput {...restArgs} value={value} onChange={handleChange} />
         </div>
     );
 };
@@ -44,7 +44,7 @@ export const Default: Story = {
         className: "",
         disabled: false,
         placeholder: "Введите пароль",
-        textLabel: "Пароль",
+        label: "Пароль",
         error: false,
         errorMessage: "Пример ошибки",
     },

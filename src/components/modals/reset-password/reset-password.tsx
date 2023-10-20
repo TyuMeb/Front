@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import classNames from "classnames/bind";
 
 import { useAppDispatch } from "@src/redux/hooks";
@@ -9,7 +9,7 @@ import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
 import Icon from "@src/components/icon";
 import { submitForm } from "../validation";
-import { InputEmail } from "@src/shared/ui/inputs";
+import { Input } from "@src/shared/ui/inputs";
 import { Button } from "@src/shared/ui/button";
 
 const cx = classNames.bind(styles);
@@ -19,12 +19,7 @@ export const ResetPassword = () => {
 
     const emailField = useInput("");
 
-    const [emailError, setEmailError] = useState("");
-
-    // Проверка работы валидации
-    const formValidation = () => {
-        setEmailError("");
-    };
+    const [emailError] = useState("");
 
     const renderError = () =>
         emailError && (
@@ -45,8 +40,8 @@ export const ResetPassword = () => {
 
             <form className={cx("form")}>
                 <div className={cx("inputsResetPassword")}>
-                    <InputEmail
-                        textLabel="E-mail"
+                    <Input
+                        label="E-mail"
                         placeholder="Введите свою почту"
                         error={Boolean(emailError)}
                         id="email"

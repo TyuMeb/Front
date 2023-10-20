@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./button";
 import { ExitIcon } from "@src/shared/ui/icons/exit-icon";
-import Icon from "@src/components/icon/Icon";
 import { CheckedIcon } from "../icons/checked-icon";
 
 const meta = {

@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { CheckboxField, ICheckboxField } from "./checkbox";
+import { CheckboxInput, CheckboxInputProps } from "./checkbox";
 import { useArgs } from "@storybook/client-api";
 
 const meta = {
     title: "UI/Inputs/Checkbox",
-    component: CheckboxField,
+    component: CheckboxInput,
     parameters: {
         layout: "centered",
     },
@@ -13,13 +13,13 @@ const meta = {
         textLabel: "Вы соглашаетесь с обработкой персональных данных",
         onClick: () => {},
     },
-} satisfies Meta<typeof CheckboxField>;
+} satisfies Meta<typeof CheckboxInput>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const TemplateCheckboxField = (args: ICheckboxField): JSX.Element => {
-    const { onClick, ...restArgs } = args;
+const TemplateCheckboxField = (args: CheckboxInputProps): JSX.Element => {
+    const { ...restArgs } = args;
 
     const [{ checked }, updateArgs] = useArgs();
 
@@ -27,7 +27,7 @@ const TemplateCheckboxField = (args: ICheckboxField): JSX.Element => {
 
     return (
         <div style={{ width: "636px" }}>
-            <CheckboxField checked={checked} onClick={onHandlerClick} {...restArgs} />
+            <CheckboxInput checked={checked} {...restArgs} onClick={onHandlerClick} />
         </div>
     );
 };

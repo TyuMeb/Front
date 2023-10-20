@@ -1,16 +1,16 @@
 import Image from "next/image";
 import styles from "./card-example.module.scss";
 
-interface ICardExampleProps {
+type CardExampleProps = {
     width: number;
     height: number;
     src: string;
     alt: string;
     object: string;
     price: string;
-}
+};
 
-export const CardExample = ({ width, height, src, alt, object, price }: ICardExampleProps) => {
+export const CardExample = ({ width, height, src, alt, object, price }: CardExampleProps) => {
     return (
         <div className={styles.inner}>
             <Image className={styles.image} width={width} height={height} src={src} alt={alt} />

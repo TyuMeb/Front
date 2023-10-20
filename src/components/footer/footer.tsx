@@ -1,13 +1,12 @@
 "use client";
 
-import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
+import { useAppSelector } from "@src/redux/hooks";
 import { useEffect, useState } from "react";
 import Icon from "@src/components/icon";
 import styles from "./footer.module.scss";
 
 const Footer = () => {
-    const dispatch = useAppDispatch();
-    const [current, setCurrent] = useState<string | undefined>(undefined);
+    const [, setCurrent] = useState<string | undefined>(undefined);
     const { contentBlock } = useAppSelector((store) => store.header);
 
     useEffect(() => {
