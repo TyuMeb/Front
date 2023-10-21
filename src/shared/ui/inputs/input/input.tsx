@@ -17,15 +17,15 @@ export const Input = ({ id, errorMessage, error = false, label, disabled, classN
         <>
             {label && (
                 <label className={cx("text", "label", { warning: error && !disabled })} htmlFor={id}>
-                    {error && !disabled && <Icon glyph="warning" className={cx("warningIcon")} />}
+                    {error && <Icon glyph="warning" className={cx("warningIcon")} />}
 
                     {label}
                 </label>
             )}
 
-            <input className={cx("input", "text", { disabled }, { error }, className)} {...props} />
+            <input disabled={disabled} className={cx("input", "text", { disabled }, { error }, className)} {...props} />
 
-            {errorMessage && error && !disabled && <span className={cx("message")}>{errorMessage}</span>}
+            {errorMessage && error && <span className={cx("message")}>{errorMessage}</span>}
         </>
     );
 };

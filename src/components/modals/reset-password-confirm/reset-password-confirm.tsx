@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/slices/modal-slice";
-import useInput from "@src/hooks/use-Input";
+import useInput from "@src/hooks/use-input";
 import { submitForm } from "../validation";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";

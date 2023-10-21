@@ -44,6 +44,7 @@ export const Default: Story = {
         label: "Телефон",
         error: false,
         errorMessage: "Неверный формат телефона",
+        value: "8922812222",
     },
     render: (args) => TemplateInput(args),
 };
