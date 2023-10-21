@@ -30,7 +30,7 @@ const TemplateInput = (args: InputProps): JSX.Element => {
     const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => updateArgs({ value: e.target.value });
     return (
         <div style={{ width: "296px" }}>
-            <PhoneInput value={value} onChange={handlePhoneChange} {...restArgs} />
+            <PhoneInput {...restArgs} value={value} onChange={handlePhoneChange} />
         </div>
     );
 };
