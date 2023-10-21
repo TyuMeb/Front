@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 
-import useInput from "@src/hooks/use-input";
-
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
 import { submitForm } from "../validation";
 import { Input, PasswordInput, PhoneInput } from "@src/shared/ui/inputs";
 import { CheckboxInput } from "@src/shared/ui/inputs/checkbox";
 import { Button } from "@src/shared/ui/button";
+import { useInput } from "@src/hooks/use-input";
 
 const cx = classNames.bind(styles);
 
@@ -140,8 +139,7 @@ const Registration = () => {
                 {renderError()}
 
                 <CheckboxInput
-                    error={true}
-                    errorMessage="234"
+                    className={styles.checkbox}
                     textLabel="Вы соглашаетесь с обработкой персональных данных"
                     checked={checked}
                     onClick={() => handleChange()}

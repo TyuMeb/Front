@@ -2,7 +2,8 @@ import React from "react";
 import classNames from "classnames/bind";
 
 import styles from "./checkbox.module.scss";
-import Icon from "@src/components/icon";
+import { Icon } from "@src/components/icon";
+import { cn } from "@src/shared/lib/cn";
 
 const cx = classNames.bind(styles);
 
@@ -12,6 +13,7 @@ export type CheckboxInputProps = {
     errorMessage?: string;
     checked?: boolean;
     disabled?: boolean;
+    className?: string;
     onClick?: () => void;
 };
 
@@ -20,8 +22,8 @@ export const CheckboxInput = (props: CheckboxInputProps) => {
 
     return (
         <>
-            <div className={cx("container")}>
-                <input className={cx("checkboxFieldHide")} />
+            <label className={cn(styles.container, props.className)}>
+                <input type="checkbox" className={cx("checkboxFieldHide")} onChange={() => onClick?.()} />
 
                 <button
                     disabled={disabled}
@@ -39,13 +41,13 @@ export const CheckboxInput = (props: CheckboxInputProps) => {
                     )}
                 </button>
 
-                <label
+                <span
                     className={cx("label", {
                         warning: error && !disabled && !checked,
                     })}>
                     {textLabel}
-                </label>
-            </div>
+                </span>
+            </label>
 
             {errorMessage && error && !disabled && !checked && (
                 <span className={cx("message", "errorTextMargins")}>{errorMessage}</span>

@@ -1,6 +1,6 @@
 import { InputHTMLAttributes } from "react";
 import classNames from "classnames/bind";
-import Icon from "@src/components/icon";
+import { Icon } from "@src/components/icon";
 
 import styles from "./input.module.scss";
 

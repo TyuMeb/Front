@@ -1,19 +1,19 @@
-@import "~/src/styles/index";
-
 .window {
     width: 804px;
     border-radius: 20px;
-    background-color: $white;
+    background-color: #fff;
     position: relative;
-    box-shadow: 1px 1px 15px #00000020;
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.125);
     box-sizing: border-box;
-    overflow-y: auto;
-    min-height: 758px;
+    min-height: 720px;
     max-height: 100vh;
 }
 
 .backgroundSignIn {
     @include background;
+    position: absolute;
+    background-position: 50%;
+    background-repeat: no-repeat;
     position: absolute;
     top: 34px;
     left: 76px;
@@ -107,7 +107,7 @@
 }
 
 .content {
-    padding: 84px 76px;
+    padding: 50px 0 50px 75px;
     position: relative;
     z-index: 1;
 }
@@ -211,4 +211,8 @@
     position: absolute;
     top: 96px;
     right: 32px;
+}
+
+.checkbox {
+    margin-bottom: 52px;
 }

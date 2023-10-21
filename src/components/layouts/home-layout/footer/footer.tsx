@@ -2,7 +2,7 @@
 
 import { useAppSelector } from "@src/redux/hooks";
 import { useEffect, useState } from "react";
-import Icon from "@src/components/icon";
+import { Icon } from "@src/components/icon";
 import styles from "./footer.module.scss";
 
 const Footer = () => {

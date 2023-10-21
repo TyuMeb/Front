@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import classNames from "classnames/bind";
 
 import styles from "./password.module.scss";
-import Icon from "@src/components/icon";
+import { Icon } from "@src/components/icon";
 import { InputProps, Input } from "../input";
 
 const cx = classNames.bind(styles);

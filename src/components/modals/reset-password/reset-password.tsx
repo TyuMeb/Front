@@ -3,14 +3,14 @@ import classNames from "classnames/bind";
 
 import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/slices/modal-slice";
-import useInput from "@src/hooks/use-input";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
-import Icon from "@src/components/icon";
+import { Icon } from "@src/components/icon";
 import { submitForm } from "../validation";
 import { Input } from "@src/shared/ui/inputs";
 import { Button } from "@src/shared/ui/button";
+import { useInput } from "@src/hooks/use-input";
 
 const cx = classNames.bind(styles);
 
