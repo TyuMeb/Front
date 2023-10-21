@@ -1,88 +1,70 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 
 import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/slices/modal-slice";
-import useInput from "@src/hooks/use-Input";
-import { TextField, PasswordField } from "@src/components/shared/ui/fields";
-import TextFieldModal from "@src/components/modals/text-field-modal";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
-import Icon from "@src/components/icon";
+import { Icon } from "@src/components/icon";
 
-import { useCreateTokenMutation } from "@src/redux/api/jwt-api-slice";
-import { setCookie, removeCookie } from "typescript-cookie";
+// import { useCreateTokenMutation } from "@src/redux/api/jwt-api-slice";
+// import { setCookie, removeCookie } from "typescript-cookie";
+import { submitForm } from "../validation";
+import { Input, PasswordInput } from "@src/shared/ui/inputs";
+import { Button } from "@src/shared/ui/button";
+import { useInput } from "@src/hooks/use-input";
 
 const cx = classNames.bind(styles);
 
 const SignIn = () => {
-    const [createToken] = useCreateTokenMutation();
-    const data = {
-        email: "rustamaaa@bk.ru",
-        password: "rustamaaa1",
-    };
+    // const [createToken] = useCreateTokenMutation();
+    // const data = {
+    //     email: "rustamaaa@bk.ru",
+    //     password: "rustamaaa1",
+    // };
 
-    useEffect(() => {
-        createToken(data)
-            .unwrap()
-            .then((res) => {
-                setCookie("accessToken", res.access);
-                localStorage.setItem("refreshToken", res.refresh);
-                console.log("Авторизация прошла успешно");
-            })
-            .catch((error) => {
-                console.log("Неверный логин или пароль");
-                removeCookie("accessToken");
-                localStorage.removeItem("refreshToken");
-                console.log(error);
-            });
-    }, []);
+    // useEffect(() => {
+    //     createToken(data)
+    //         .unwrap()
+    //         .then((res) => {
+    //             setCookie("accessToken", res.access);
+    //             localStorage.setItem("refreshToken", res.refresh);
+    //             console.log("Авторизация прошла успешно");
+    //         })
+    //         .catch((error) => {
+    //             console.log("Неверный логин или пароль");
+    //             removeCookie("accessToken");
+    //             localStorage.removeItem("refreshToken");
+    //             console.log(error);
+    //         });
+    // }, []);
 
     const dispatch = useAppDispatch();
 
     const emailField = useInput("");
     const passwordField = useInput("");
 
-    const emailError = useInput("");
-    const passwordError = useInput("");
-
-    const submitForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        try {
-            console.log({
-                email: emailField.value,
-                password: passwordField.value,
-            });
-            emailField.onChange("");
-            passwordField.onChange("");
-        } catch {
-            console.log("Ошибка");
-        } finally {
-            e.preventDefault();
-        }
-    };
-
-    const lengthCheck = (field: string, onChange: any, length: number = 12) => {
-        if (field.length >= length) {
-            onChange(`Длина ${field} не может быть больше ${length} символов!`);
-        }
-    };
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
 
     // Проверка работы валидации
     const formValidation = () => {
-        emailError.onChange("");
-        passwordError.onChange("");
-
-        lengthCheck(emailField.value, emailError.onChange);
-        lengthCheck(passwordField.value, passwordError.onChange);
+        setEmailError("");
+        setPasswordError("");
     };
 
     useEffect(() => {
         formValidation();
     }, [emailField, passwordError]);
 
-    const renderError = (value: string) =>
-        value && <li className={cx("textError", { warningText: value })}>{value}</li>;
+    const renderError = () =>
+        (emailError || passwordError) && (
+            <ul className={cx("errorsText")}>
+                {emailError && <li className={cx("textError", { warningText: emailError })}>{emailError}</li>}
+                {passwordError && <li className={cx("textError", { warningText: passwordError })}>{passwordError}</li>}
+            </ul>
+        );
 
     return (
         <ModalAuth>
@@ -92,21 +74,29 @@ const SignIn = () => {
 
             <form className={cx("form")}>
                 <div className={cx("inputsSignin")}>
-                    <TextFieldModal isError={Boolean(emailError.value)} labelText="E-mail">
-                        <TextField className="inputAuth" placeholder="Введите почту" {...emailField} />
-                    </TextFieldModal>
+                    <div>
+                        <Input
+                            label="E-mail"
+                            placeholder="Введите свою почту"
+                            error={Boolean(emailError)}
+                            id="email"
+                            type="email"
+                            {...emailField}
+                        />
+                    </div>
 
-                    <TextFieldModal isError={Boolean(passwordError.value)} labelText="Пароль">
-                        <PasswordField className="inputAuth" placeholder="Введите пароль" {...passwordField} />
-                    </TextFieldModal>
+                    <div>
+                        <PasswordInput
+                            label="Пароль"
+                            placeholder="Введите пароль"
+                            error={Boolean(passwordError)}
+                            id="password"
+                            {...passwordField}
+                        />
+                    </div>
                 </div>
 
-                {(emailError.value || passwordError.value) && (
-                    <ul className={cx("errorsText")}>
-                        {renderError(emailError.value)}
-                        {renderError(passwordError.value)}
-                    </ul>
-                )}
+                {renderError()}
 
                 <button
                     className={cx("linkText")}
@@ -115,9 +105,20 @@ const SignIn = () => {
                     Забыли пароль?
                 </button>
 
-                <button className={cx("text", "button")} type="submit" onClick={submitForm}>
+                <Button
+                    className={cx("text", "button")}
+                    type="submit"
+                    onClick={(e) =>
+                        submitForm({
+                            e,
+                            fields: {
+                                emailField: emailField.value,
+                                passwordField: passwordField.value,
+                            },
+                        })
+                    }>
                     Войти
-                </button>
+                </Button>
             </form>
         </ModalAuth>
     );
