@@ -1,10 +1,7 @@
-import "../styles/global.css";
-import { Open_Sans } from "next/font/google";
-import Header from "@src/components/header/header";
-import Footer from "@src/components/footer/footer";
+import React, { ReactNode } from "react";
 import { Providers } from "@src/redux/provider";
-import Modals from "@src/components/modals/modals";
-import { ReactNode } from "react";
+import { Open_Sans } from "next/font/google";
+import "@src/styles/global.css";
 
 const openSans = Open_Sans({ subsets: ["cyrillic"] });
 
@@ -15,14 +12,9 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
-        <html lang="en">
+        <html lang="ru">
             <Providers>
-                <body className={openSans.className}>
-                    <Header />
-                    <main /* ref={ref} */>{children}</main>
-                    <Footer />
-                    <Modals />
-                </body>
+                <body className={openSans.className}>{children}</body>
             </Providers>
         </html>
     );

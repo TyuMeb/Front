@@ -1,63 +1,31 @@
 import { apiSlice } from "./api-slice";
-import { getCookie } from "typescript-cookie";
-
-interface UserI {
-    id: number;
-    email: string;
-    name: string;
-    person_telephone: string;
-    surname: string | null;
-}
-
-interface UserWithPasswordI extends UserI {
-    password: string;
-}
-
-type emailType = { email: string };
-
-type resetEmailConfirmType = {
-    uid: string;
-    token: string;
-    new_email: string;
-};
-
-type resetPasswordConfirmType = {
-    uid: string;
-    token: string;
-    new_password: string;
-};
-
-const getHeader = () => ({ Authorization: `JWT ${getCookie("accessToken")}` });
+import { UserCreate, SendEmailReset, PasswordResetConfirm, UserAccount } from "./generated";
 
 const usersApi = apiSlice.injectEndpoints({
     endpoints: (build) => ({
-        getUsers: build.query<UserWithPasswordI[], {}>({
+        getUsers: build.query<UserCreate[], {}>({
             query: () => ({
                 url: "auth/users/",
                 method: "GET",
-                headers: getHeader(),
             }),
         }),
-        getUsersMe: build.query<UserI, void>({
+        getUsersMe: build.query<UserAccount, void>({
             query: () => ({
                 url: "auth/users/me/",
                 method: "GET",
-                headers: getHeader(),
             }),
         }),
-        putUsersMe: build.mutation<UserI, void>({
+        putUsersMe: build.mutation<UserAccount, void>({
             query: (body) => ({
                 url: "auth/users/me/",
                 method: "PUT",
-                headers: getHeader(),
                 body,
             }),
         }),
-        patchUsersMe: build.mutation<UserI, void>({
+        patchUsersMe: build.mutation<UserAccount, void>({
             query: (body) => ({
                 url: "auth/users/me/",
                 method: "PATCH",
-                headers: getHeader(),
                 body,
             }),
         }),
@@ -65,63 +33,60 @@ const usersApi = apiSlice.injectEndpoints({
             query: () => ({
                 url: "auth/users/me/",
                 method: "DELETE",
-                headers: getHeader(),
             }),
         }),
-        getUsersId: build.query<UserWithPasswordI, void>({
+        getUsersId: build.query<UserAccount, void>({
             query: (id) => ({
                 url: `/auth/users/${id}/`,
                 method: "GET",
-                headers: getHeader(),
             }),
         }),
-        putUsersId: build.mutation<UserWithPasswordI, void>({
-            query: ({ id, body }: any) => ({
+        putUsersId: build.mutation<UserAccount, UserAccount>({
+            query: ({ id, ...body }) => ({
                 url: `/auth/users/${id}/`,
                 method: "PUT",
-                headers: getHeader(),
                 body,
             }),
         }),
-        patchUsersId: build.mutation<UserWithPasswordI, void>({
-            query: ({ id, body }: any) => ({
+        patchUsersId: build.mutation<UserAccount, UserAccount>({
+            query: ({ id, ...body }) => ({
                 url: `/auth/users/${id}/`,
                 method: "PATCH",
-                headers: getHeader(),
                 body,
             }),
         }),
         deleteUsersId: build.mutation({
-            query: ({ id, body }: any) => ({
+            query: ({ id, body }) => ({
                 url: `/auth/users/${id}/`,
                 method: "DELETE",
-                headers: getHeader(),
                 body,
             }),
         }),
         postUsersResetEmail: build.mutation({
-            query: (body: emailType) => ({
+            query: (body: SendEmailReset) => ({
                 url: "/auth/users/reset_email/",
                 method: "POST",
                 body,
             }),
         }),
         postUsersResetEmailConfirm: build.mutation({
-            query: (body: resetEmailConfirmType) => ({
+            query: (body: PasswordResetConfirm) => ({
                 url: "/auth/users/reset_email_confirm/",
                 method: "POST",
                 body,
             }),
         }),
         postUsersResetPassword: build.mutation({
-            query: (body: emailType) => ({
-                url: "/auth/users/reset_password/",
-                method: "POST",
-                body,
-            }),
+            query: (body) => {
+                return {
+                    url: "/auth/users/reset_password/",
+                    method: "POST",
+                    body,
+                };
+            },
         }),
         postUsersResetPasswordConfirm: build.mutation({
-            query: (body: resetPasswordConfirmType) => ({
+            query: (body: PasswordResetConfirm) => ({
                 url: `/auth/users/reset_password_confirm/`,
                 method: "POST",
                 body,

@@ -1,66 +1,55 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import classNames from "classnames/bind";
-import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
+import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/slices/modal-slice";
-import { PasswordField } from "@src/components/shared/ui/fields";
-import TextFieldModal from "@src/components/modals/text-field-modal";
-import useInput from "@src/hooks/use-Input";
 import { usePostUsersResetPasswordConfirmMutation } from "@src/redux/api/users-api-slice";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
+import { PasswordInput } from "@src/shared/ui/inputs";
+import { Button } from "@src/shared/ui/button";
+import { useForm } from "react-hook-form";
 
 const cx = classNames.bind(styles);
+
+type Form = {
+    new_password: string;
+};
 
 export const ResetPasswordConfirm = () => {
     const dispatch = useAppDispatch();
 
-    const passwordField = useInput("");
-
-    const passwordError = useInput("");
-
-    const [ResetPasswordConfirm] = usePostUsersResetPasswordConfirmMutation();
-
-    const { passwordResetConfirm } = useAppSelector((store) => store.query);
-
+    const params = useParams();
     const router = useRouter();
 
-    const submitForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        e.preventDefault();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<Form>({
+        values: {
+            new_password: "",
+        },
+    });
 
-        if (passwordResetConfirm) {
-            ResetPasswordConfirm({ new_password: passwordField.value, ...passwordResetConfirm })
-                .unwrap()
-                .then((data) => {
-                    console.log(data);
-                    router.push("/");
-                    dispatch(setTypeModal("signIn"));
-                })
-                .catch((e) => console.log("Ошибка востановления пароля", e));
+    const [error, setError] = useState("");
 
-            passwordField.onChange("");
-        }
+    const [resetPasswordConfirm] = usePostUsersResetPasswordConfirmMutation();
+
+    const onSubmit = (data: Form) => {
+        setError("");
+
+        resetPasswordConfirm({ ...data, uid: params.uid as string, token: params.token as string })
+            .unwrap()
+            .then(() => {
+                router.push("/");
+                dispatch(setTypeModal("signIn"));
+            })
+            .catch((error) => {
+                setError(error?.data?.uid?.join(""));
+            });
     };
-
-    const lengthCheck = (field: string, onChange: any, length: number = 12) => {
-        if (field.length >= length) {
-            onChange(`Длина ${field} не может быть больше ${length} символов!`);
-        }
-    };
-
-    // Проверка работы валидации
-    const formValidation = () => {
-        passwordError.onChange("");
-        lengthCheck(passwordError.value, passwordError.onChange);
-    };
-
-    useEffect(() => {
-        formValidation();
-    }, [passwordField]);
-
-    const renderError = (value: string) =>
-        value && <li className={cx("textError", { warningText: value })}>{value}</li>;
 
     return (
         <ModalAuth>
@@ -68,29 +57,35 @@ export const ResetPasswordConfirm = () => {
 
             <p className={cx("text", "subtext")}>Чтобы изменить пароль, нужно ввести новый пароль.</p>
 
-            <form className={cx("form")}>
+            <form onSubmit={handleSubmit(onSubmit)} className={cx("form")}>
                 <div className={cx("inputsResetPassword")}>
-                    <TextFieldModal isError={Boolean(passwordError.value)} labelText="Новый пароль">
-                        <PasswordField className="inputAuth" placeholder="Введите новый пароль" {...passwordField} />
-                    </TextFieldModal>
+                    <PasswordInput
+                        {...register("new_password", {
+                            required: { value: true, message: "Данное поле обязательно" },
+                            minLength: {
+                                value: 8,
+                                message: "Минимальная длинна 8 символов",
+                            },
+                        })}
+                        label="Пароль"
+                        placeholder="Введите свой пароль"
+                        error={Boolean(errors.new_password?.message)}
+                        errorMessage={errors.new_password?.message}
+                        id="new_password"
+                    />
                 </div>
 
-                {passwordError.value && <ul className={cx("errorsText")}>{renderError(passwordField.value)}</ul>}
+                {error && <p className={cx("textError", { warningText: true })}>{error}</p>}
 
                 <ul className={cx("listButtons")}>
                     <li className={cx("itemButtons")}>
-                        <button className={cx("text", "button")} type="submit" onClick={submitForm}>
-                            Сбросить пароль
-                        </button>
+                        <Button type="submit">Сбросить пароль</Button>
                     </li>
 
                     <li className={cx("itemButtons")}>
-                        <button
-                            className={cx("text", "button", "buttonWhite")}
-                            type="button"
-                            onClick={() => dispatch(setTypeModal("signIn"))}>
+                        <Button variant="cancel" type="button" onClick={() => dispatch(setTypeModal("signIn"))}>
                             Отмена
-                        </button>
+                        </Button>
                     </li>
                 </ul>
             </form>
