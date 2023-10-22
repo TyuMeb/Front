@@ -1,19 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UserAccount } from "../api/generated";
 
-interface IUser {
-    id: number;
-    name: string;
-    email: string;
-    person_telephone: string;
-}
+type UserState = {
+    users: UserAccount[] | null;
+    usersMe: UserAccount | null;
+    usersId: UserAccount | null;
+};
 
-interface IUserState {
-    users: IUser[] | null;
-    usersMe: IUser | null;
-    usersId: IUser | null;
-}
-
-const initialState: IUserState = {
+const initialState: UserState = {
     users: null,
     usersMe: null,
     usersId: null,
@@ -23,18 +17,16 @@ export const userSlice = createSlice({
     initialState,
     name: "user-slice",
     reducers: {
-        saveUsers: (state, action: PayloadAction<IUser[]>) => {
+        saveUsers: (state, action: PayloadAction<UserAccount[]>) => {
             state.users = action.payload;
         },
-        saveUsersMe: (state, action: PayloadAction<IUser>) => {
+        saveUsersMe: (state, action: PayloadAction<UserAccount>) => {
             state.usersMe = action.payload;
         },
-        saveUsersId: (state, action: PayloadAction<IUser>) => {
+        saveUsersId: (state, action: PayloadAction<UserAccount>) => {
             state.usersId = action.payload;
         },
     },
 });
-
-export default userSlice.reducer;
 
 export const {} = userSlice.actions;
