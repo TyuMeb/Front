@@ -1,13 +1,10 @@
 "use client";
 
 import React, { HTMLAttributes } from "react";
-import classNames from "classnames/bind";
 import styles from "./performers.module.scss";
 import PerformerCard from "@src/components/account/performers/performer-card";
 
-const cx = classNames.bind(styles);
-
-interface PerformersI extends HTMLAttributes<HTMLDivElement> {}
+interface PerformersI extends HTMLAttributes<HTMLUListElement> {}
 
 const performers = [
     {
@@ -37,7 +34,11 @@ const Performers = (props: PerformersI) => {
         });
     };
 
-    return <ul className={styles.wrapperPerformers}>{renderPerformers()}</ul>;
+    return (
+        <ul className={styles.wrapperPerformers} {...props}>
+            {renderPerformers()}
+        </ul>
+    );
 };
 
 export default Performers;

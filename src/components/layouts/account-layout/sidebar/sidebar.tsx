@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { ExitButton } from "@src/components/shared/ui/button/exit-button";
-import Icon from "@src/components/icon";
+import { Icon } from "@src/components/icon";
 import { orders, ordersI, executorsI } from "./data";
 
 import styles from "./sidebar.module.scss";
@@ -69,7 +69,7 @@ const Sidebar = ({ className }: SidebarI) => {
             orders && (
                 <ul className={cx("secondLevelMenu")}>
                     {orders.map((order) => {
-                        const currentPathname = route + "/" + order.alias;
+                        const currentPathname = `${route}/${order.alias}`;
 
                         return (
                             <li key={order.alias}>
@@ -96,7 +96,7 @@ const Sidebar = ({ className }: SidebarI) => {
             executors && (
                 <ul className={cx("thirdLevelMenu")}>
                     {executors.map((executor) => {
-                        const currentPathname = route + "/" + executor.alias;
+                        const currentPathname = `${route}/${executor.alias}`;
 
                         return (
                             <li key={executor.alias} className={cx("thirdLevelItem")}>

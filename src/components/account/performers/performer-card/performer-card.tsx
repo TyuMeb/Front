@@ -6,7 +6,7 @@ import styles from "./performer-card.module.scss";
 import "src/components/account/wrapper-card/wrapper-card.module.scss";
 import { Button } from "src/components/shared/ui/button/button";
 import WrapperCard from "src/components/account/wrapper-card";
-import Icon from "src/components/icon";
+import { Icon } from "src/components/icon";
 
 const cx = classNames.bind(styles);
 

@@ -6,7 +6,7 @@ import image from "public/account/desk.jpg";
 
 import styles from "./order-card.module.scss";
 import { Button } from "@src/components/shared/ui/button/button";
-import Icon from "@src/components/icon";
+import { Icon } from "src/components/icon";
 import WrapperCard from "@src/components/account/wrapper-card";
 
 interface DescriptionI {
