@@ -1,6 +1,6 @@
 import React, { HTMLAttributes } from "react";
 import classNames from "classnames/bind";
-import Icon from "@src/components/icon";
+import { Icon } from "@src/components/icon";
 
 import styles from "@src/components/shared/ui/fields/fields.module.scss";
 

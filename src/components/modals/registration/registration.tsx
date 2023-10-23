@@ -1,12 +1,13 @@
-import React, { useEffect, MouseEvent } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
-
-import useInput from "@src/hooks/use-Input";
-import { TextField, PasswordField, PhoneField, СheckboxField } from "@src/components/shared/ui/fields";
-import TextFieldModal from "@src/components/modals/text-field-modal";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
+import { submitForm } from "../validation";
+import { Input, PasswordInput, PhoneInput } from "@src/shared/ui/inputs";
+import { CheckboxInput } from "@src/shared/ui/inputs/checkbox";
+import { Button } from "@src/shared/ui/button";
+import { useInput } from "@src/hooks/use-input";
 
 const cx = classNames.bind(styles);
 
@@ -18,64 +19,25 @@ const Registration = () => {
     const passwordRepeatField = useInput("");
     const phoneField = useInput("");
 
-    const firstNameError = useInput("");
-    const lastNameError = useInput("");
-    const emailError = useInput("");
-    const passwordError = useInput("");
-    const passwordRepeatError = useInput("");
-    const phoneError = useInput("");
+    const [firstNameError, setFirstNameError] = useState("");
+    const [lastNameError, setLastNameError] = useState("");
+    const [emailError, setEmailError] = useState("");
+    const [phoneError, setPhoneError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+    const [passwordRepeatError, setPasswordRepeatError] = useState("");
 
-    const [checked, setChecked] = React.useState(false);
+    const [checked, setChecked] = useState(false);
 
     const handleChange = () => setChecked((state) => !state);
 
-    const submitForm = (e: MouseEvent<HTMLButtonElement>) => {
-        try {
-            console.log({
-                firstName: firstNameField.value,
-                lastName: lastNameField.value,
-                email: emailField.value,
-                password: passwordField.value,
-                password_repeat: passwordRepeatField.value,
-                phone: phoneField.value,
-                checked,
-            });
-            firstNameField.onChange("");
-            lastNameField.onChange("");
-            emailField.onChange("");
-            passwordField.onChange("");
-            passwordRepeatField.onChange("");
-            phoneField.onChange("");
-        } catch {
-            console.log("Ошибка регистрации");
-        } finally {
-            e.preventDefault();
-        }
-    };
-
-    const lengthCheck = (field: string, onChange: any, length: number = 12) => {
-        if (field.length >= length) {
-            onChange(`Длина ${field} не может быть больше ${length} символов!`);
-        }
-    };
-
     // Проверка работы валидации
     const formValidation = () => {
-        firstNameError.onChange("");
-        lastNameError.onChange("");
-        emailError.onChange("");
-        phoneError.onChange("");
-        passwordError.onChange("");
-        passwordRepeatError.onChange("");
-
-        lengthCheck(firstNameField.value, firstNameError.onChange);
-        lengthCheck(lastNameField.value, lastNameError.onChange);
-
-        lengthCheck(emailField.value, emailError.onChange);
-        lengthCheck(phoneField.value, phoneError.onChange);
-
-        lengthCheck(passwordField.value, passwordError.onChange);
-        lengthCheck(passwordRepeatField.value, passwordRepeatError.onChange);
+        setFirstNameError("");
+        setLastNameError("");
+        setEmailError("");
+        setPhoneError("");
+        setPasswordError("");
+        setPasswordRepeatError("");
     };
 
     useEffect(() => {
@@ -83,8 +45,26 @@ const Registration = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [firstNameField, lastNameField, emailField, passwordField, passwordRepeatField, phoneField]);
 
-    const renderError = (value: string) =>
-        value && <li className={cx("textError", { warningText: value })}>{value}</li>;
+    const renderError = () => {
+        return (
+            (firstNameError || lastNameError || emailError || phoneError || passwordError || passwordRepeatError) && (
+                <ul className={cx("errorsText")}>
+                    {firstNameError && (
+                        <li className={cx("textError", { warningText: firstNameError })}>{firstNameError}</li>
+                    )}
+                    {lastNameError && (
+                        <li className={cx("textError", { warningText: lastNameError })}>{lastNameError}</li>
+                    )}
+                    {emailError && <li className={cx("textError", { warningText: emailError })}>{emailError}</li>}
+                    {phoneError && <li className={cx("textError", { warningText: phoneError })}>{phoneError}</li>}
+                    {passwordError && <li className={cx("textError", { warningText: emailError })}>{passwordError}</li>}
+                    {passwordRepeatError && (
+                        <li className={cx("textError", { warningText: emailError })}>{passwordRepeatError}</li>
+                    )}
+                </ul>
+            )
+        );
+    };
 
     return (
         <ModalAuth>
@@ -94,61 +74,95 @@ const Registration = () => {
 
             <form className={cx("form")}>
                 <div className={cx("inputsRegistration")}>
-                    <TextFieldModal isError={Boolean(firstNameError.value)} labelText="Имя">
-                        <TextField className="inputAuth" placeholder="Введите свое имя" {...firstNameField} />
-                    </TextFieldModal>
-
-                    <TextFieldModal isError={Boolean(lastNameError.value)} labelText="Фамилия">
-                        <TextField className="inputAuth" placeholder="Введите свою фамилию" {...lastNameField} />
-                    </TextFieldModal>
-
-                    <TextFieldModal isError={Boolean(emailError.value)} labelText="E-mail">
-                        <TextField className="inputAuth" placeholder="Введите свою почту" {...emailField} />
-                    </TextFieldModal>
-
-                    <TextFieldModal isError={Boolean(phoneError.value)} labelText="Телефон">
-                        <PhoneField className="inputAuth" placeholder="Введите свой номер телефона" {...phoneField} />
-                    </TextFieldModal>
-
-                    <TextFieldModal isError={Boolean(passwordError.value)} labelText="Пароль">
-                        <PasswordField className="inputAuth" placeholder="Введите свой пароль" {...passwordField} />
-                    </TextFieldModal>
-
-                    <TextFieldModal isError={Boolean(passwordRepeatError.value)} labelText="Повторить пароль">
-                        <PasswordField
-                            className="inputAuth"
-                            placeholder="Повторите свой пароль"
-                            {...passwordRepeatField}
+                    <div className={cx("wrapperField")}>
+                        <Input
+                            label="Имя"
+                            placeholder="Введите свое имя"
+                            error={Boolean(firstNameError)}
+                            id="firstName"
+                            {...firstNameField}
                         />
-                    </TextFieldModal>
+                    </div>
+
+                    <div className={cx("wrapperField")}>
+                        <Input
+                            label="Фамилия"
+                            placeholder="Введите свою фамилию"
+                            error={Boolean(lastNameError)}
+                            id="lastName"
+                            {...lastNameField}
+                        />
+                    </div>
+
+                    <div className={cx("wrapperField")}>
+                        <Input
+                            type="email"
+                            label="E-mail"
+                            placeholder="Введите свою почту"
+                            error={Boolean(emailError)}
+                            id="email"
+                            {...emailField}
+                        />
+                    </div>
+
+                    <div className={cx("wrapperField")}>
+                        <PhoneInput
+                            label="Телефон"
+                            placeholder="Введите номер телефона"
+                            error={Boolean(phoneError)}
+                            id="phone"
+                            {...phoneField}
+                        />
+                    </div>
+
+                    <div className={cx("wrapperField")}>
+                        <PasswordInput
+                            label="Пароль"
+                            placeholder="Введите свой пароль"
+                            error={Boolean(passwordError)}
+                            id="password"
+                            {...passwordField}
+                        />
+                    </div>
+
+                    <div className={cx("wrapperField")}>
+                        <PasswordInput
+                            label="Повторить пароль"
+                            placeholder="Повторите свой пароль"
+                            error={Boolean(passwordRepeatError)}
+                            id="passwordRepeat"
+                            {...passwordField}
+                        />
+                    </div>
                 </div>
 
-                {(firstNameError.value ||
-                    lastNameError.value ||
-                    emailError.value ||
-                    phoneError.value ||
-                    passwordError.value ||
-                    passwordRepeatError.value) && (
-                    <ul className={cx("errorsText")}>
-                        {renderError(firstNameError.value)}
-                        {renderError(lastNameError.value)}
+                {renderError()}
 
-                        {renderError(emailError.value)}
-                        {renderError(phoneError.value)}
+                <CheckboxInput
+                    className={styles.checkbox}
+                    textLabel="Вы соглашаетесь с обработкой персональных данных"
+                    checked={checked}
+                    onClick={() => handleChange()}
+                />
 
-                        {renderError(passwordError.value)}
-                        {renderError(passwordRepeatError.value)}
-                    </ul>
-                )}
-
-                <label className={cx("checkboxLabel")}>
-                    <СheckboxField checked={checked} handleChange={() => handleChange()} />
-                    <p className={cx("textCheckbox", "text")}>Вы соглашаетесь с обработкой персональных данных</p>
-                </label>
-
-                <button className={cx("text", "button", "positionCenter")} type="submit" onClick={submitForm}>
+                <Button
+                    className={cx("positionCenter")}
+                    type="submit"
+                    onClick={(e) =>
+                        submitForm({
+                            e,
+                            fields: {
+                                firstName: firstNameField.value,
+                                lastName: lastNameField.value,
+                                email: emailField.value,
+                                password: passwordField.value,
+                                passwordRepeat: passwordRepeatField.value,
+                                phone: phoneField.value,
+                            },
+                        })
+                    }>
                     Зарегистрироваться
-                </button>
+                </Button>
             </form>
         </ModalAuth>
     );

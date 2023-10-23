@@ -1,13 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/slices/modal-slice";
-import { PasswordField } from "@src/components/shared/ui/fields";
-import TextFieldModal from "@src/components/modals/text-field-modal";
-import useInput from "@src/hooks/use-Input";
+import { submitForm } from "../validation";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
+import { useInput } from "@src/hooks/use-input";
+import { PasswordInput } from "@src/shared/ui/inputs";
+import { Button } from "@src/shared/ui/button";
 
 const cx = classNames.bind(styles);
 
@@ -16,37 +17,23 @@ export const ResetPasswordConfirm = () => {
 
     const passwordField = useInput("");
 
-    const passwordError = useInput("");
-
-    const submitForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        try {
-            console.log({ email: passwordField.value });
-            passwordField.onChange("");
-        } catch {
-            console.log("Ошибка востановления пароля");
-        } finally {
-            e.preventDefault();
-        }
-    };
-
-    const lengthCheck = (field: string, onChange: any, length: number = 12) => {
-        if (field.length >= length) {
-            onChange(`Длина ${field} не может быть больше ${length} символов!`);
-        }
-    };
+    const [passwordError, setPasswordError] = useState("");
 
     // Проверка работы валидации
     const formValidation = () => {
-        passwordError.onChange("");
-        lengthCheck(passwordError.value, passwordError.onChange);
+        setPasswordError("");
     };
 
     useEffect(() => {
         formValidation();
     }, [passwordField]);
 
-    const renderError = (value: string) =>
-        value && <li className={cx("textError", { warningText: value })}>{value}</li>;
+    const renderError = () =>
+        passwordError && (
+            <ul className={cx("errorsText")}>
+                <li className={cx("textError", { warningText: passwordError })}>{passwordError}</li>
+            </ul>
+        );
 
     return (
         <ModalAuth>
@@ -56,27 +43,37 @@ export const ResetPasswordConfirm = () => {
 
             <form className={cx("form")}>
                 <div className={cx("inputsResetPassword")}>
-                    <TextFieldModal isError={Boolean(passwordError.value)} labelText="Новый пароль">
-                        <PasswordField className="inputAuth" placeholder="Введите новый пароль" {...passwordField} />
-                    </TextFieldModal>
+                    <PasswordInput
+                        label="Пароль"
+                        placeholder="Введите свой пароль"
+                        error={Boolean(passwordError)}
+                        id="password"
+                        {...passwordField}
+                    />
                 </div>
 
-                {passwordError.value && <ul className={cx("errorsText")}>{renderError(passwordField.value)}</ul>}
+                {renderError()}
 
                 <ul className={cx("listButtons")}>
                     <li className={cx("itemButtons")}>
-                        <button className={cx("text", "button")} type="submit" onClick={submitForm}>
+                        <Button
+                            type="submit"
+                            onClick={(e) =>
+                                submitForm({
+                                    e,
+                                    fields: {
+                                        passwordField: passwordField.value,
+                                    },
+                                })
+                            }>
                             Сбросить пароль
-                        </button>
+                        </Button>
                     </li>
 
                     <li className={cx("itemButtons")}>
-                        <button
-                            className={cx("text", "button", "buttonWhite")}
-                            type="button"
-                            onClick={() => dispatch(setTypeModal("signIn"))}>
+                        <Button variant="cancel" type="button" onClick={() => dispatch(setTypeModal("signIn"))}>
                             Отмена
-                        </button>
+                        </Button>
                     </li>
                 </ul>
             </form>

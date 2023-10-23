@@ -12,7 +12,9 @@ import help from './help.svg';
 import add from './add.svg';
 import archives from './archives.svg';
 import arrowLeft from './arrow-left.svg';
+import exit from './exit.svg';
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
 	resetPassword,
 	signin,
@@ -27,5 +29,6 @@ export default {
 	help,
 	add,
 	archives,
-	arrowLeft
+	arrowLeft,
+	exit
 };
