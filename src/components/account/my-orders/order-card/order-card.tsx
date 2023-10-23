@@ -4,9 +4,10 @@ import React from "react";
 import Image from "next/image";
 import image from "public/account/desk.jpg";
 
-import styles from "./order.module.scss";
+import styles from "./order-card.module.scss";
 import { Button } from "@src/components/shared/ui/button/button";
 import Icon from "@src/components/icon";
+import WrapperCard from "@src/components/account/wrapper-card";
 
 interface DescriptionI {
     date: string;
@@ -20,11 +21,11 @@ interface OrderI {
     description: DescriptionI;
 }
 
-const Order = ({ title, notOffer, description, ...props }: OrderI) => {
+const OrderCard = ({ title, notOffer, description }: OrderI) => {
     const { date, status, countOffer } = description;
 
     return (
-        <article className={styles.order} {...props}>
+        <WrapperCard>
             <div className={styles.wrapperText}>
                 <h2 className={styles.header}>{title}</h2>
                 {notOffer && (
@@ -43,13 +44,13 @@ const Order = ({ title, notOffer, description, ...props }: OrderI) => {
                         <time className={styles.text}>{date}</time>
                     </li>
                     <li className={styles.item}>
-                        <p className={`${styles.text}`}>
+                        <p className={styles.text}>
                             <span className={styles.decor}>Статус заказа:</span>
                         </p>
                         <p className={styles.text}>{status}</p>
                     </li>
                     <li className={styles.item}>
-                        <p className={`${styles.text}`}>
+                        <p className={styles.text}>
                             <span className={styles.decor}>Предложения:</span>
                         </p>
                         <p className={`${styles.text} ${styles.textBold}`}>
@@ -69,12 +70,12 @@ const Order = ({ title, notOffer, description, ...props }: OrderI) => {
                 </div>
             </div>
             {notOffer && (
-                <div className={styles.wrapperButton}>
-                    <Button onClick={() => {}}>Повторить заказ</Button>
-                </div>
+                <Button className={styles.wrapperButton} onClick={() => {}}>
+                    Повторить заказ
+                </Button>
             )}
-        </article>
+        </WrapperCard>
     );
 };
 
-export default Order;
+export default OrderCard;

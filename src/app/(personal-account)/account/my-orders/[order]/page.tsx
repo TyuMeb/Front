@@ -1,7 +1,9 @@
 "use client";
 
-import OrderItem from "@src/components/account/my-orders/order-item/orderitem";
+import Performers from "@src/components/account/performers";
 
-export default function OrderItemPage() {
-    return <OrderItem />;
-}
+const OrderItemPage = () => {
+    return <Performers />;
+};
+
+export default OrderItemPage;

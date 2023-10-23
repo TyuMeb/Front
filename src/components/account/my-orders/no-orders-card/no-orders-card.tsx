@@ -1,9 +1,9 @@
 "use client";
 
-import styles from "./no-orders.module.scss";
+import styles from "./no-orders-card.module.scss";
 import { Button } from "@src/components/shared/ui/button/button";
 
-const NoOrders = () => {
+const NoOrdersCard = () => {
     return (
         <article className={styles.noOrders}>
             <p className={styles.description}>У вас пока нет заказов. Но вы всегда можете исправить это, создав его</p>
@@ -12,4 +12,4 @@ const NoOrders = () => {
     );
 };
 
-export default NoOrders;
+export default NoOrdersCard;

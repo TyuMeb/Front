@@ -2,8 +2,8 @@
 
 import React, { HTMLAttributes } from "react";
 import styles from "./my-orders.module.scss";
-import Order from "@src/components/account/order";
-import NoOrders from "../no-orders/no-orders";
+import OrderCard from "@src/components/account/my-orders/order-card";
+import NoOrdersCard from "@src/components/account/my-orders/no-orders-card";
 
 const orders = [
     {
@@ -26,6 +26,16 @@ const orders = [
             countOffer: 0,
         },
     },
+    {
+        id: "2",
+        title: "Комод",
+        notOffer: false,
+        description: {
+            date: "24.04.2024",
+            status: "сбор предложений окончен",
+            countOffer: 0,
+        },
+    },
 ];
 
 interface MyOrdersI extends HTMLAttributes<HTMLDivElement> {}
@@ -35,7 +45,7 @@ const MyOrders = (props: MyOrdersI) => {
         return orders.map((order) => {
             return (
                 <li key={order.id}>
-                    <Order title={order.title} notOffer={order.notOffer} description={order.description} />
+                    <OrderCard title={order.title} notOffer={order.notOffer} description={order.description} />
                 </li>
             );
         });
@@ -43,7 +53,7 @@ const MyOrders = (props: MyOrdersI) => {
 
     return (
         <section className={styles.wrapperOrders}>
-            {orders.length && <NoOrders />}
+            {!orders.length && <NoOrdersCard />}
 
             <ul className={styles.wrapperOrders}>{renderOrders()}</ul>
         </section>
