@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { RootState } from "../store";
 
 // const baseQuery = fetchBaseQuery({
 //     baseUrl: "http://185.244.173.82/",
@@ -16,5 +15,5 @@ export const marketplaceApi = createApi({
     reducerPath: "MarketplaceApi",
     tagTypes: ["authorization", "users"],
     baseQuery: fetchBaseQuery({ baseUrl: "http://185.244.173.82" }),
-    endpoints: (build) => ({}),
+    endpoints: () => ({}),
 });

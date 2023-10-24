@@ -1,19 +1,19 @@
-@import "~/src/styles/index";
-
 .window {
     width: 804px;
     border-radius: 20px;
-    background-color: $white;
+    background-color: #fff;
     position: relative;
-    box-shadow: 1px 1px 15px #00000020;
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.125);
     box-sizing: border-box;
-    overflow-y: auto;
-    min-height: 758px;
+    min-height: 720px;
     max-height: 100vh;
 }
 
 .backgroundSignIn {
     @include background;
+    position: absolute;
+    background-position: 50%;
+    background-repeat: no-repeat;
     position: absolute;
     top: 34px;
     left: 76px;
@@ -39,22 +39,20 @@
 
 .inputsResetPassword {
     display: grid;
-    row-gap: 20px;
     margin-bottom: 28px;
+    max-width: 296px;
 }
 
 .inputsSignin {
     display: grid;
     row-gap: 20px;
     margin-bottom: 8px;
+    max-width: 296px;
 }
 
-.text {
-    @include text;
-    @include textSmall;
-
-    position: relative;
-    color: $black;
+.wrapperField {
+    max-width: "296px";
+    width: 100%;
 }
 
 .listButtons {
@@ -109,7 +107,7 @@
 }
 
 .content {
-    padding: 84px 76px;
+    padding: 50px 0 50px 75px;
     position: relative;
     z-index: 1;
 }
@@ -142,24 +140,9 @@
     }
 }
 
-.button {
-    @include reset-button;
-
-    grid-column: startline/endline;
-    border-radius: 10px;
-    background-color: $mustard;
-    padding: 12px 40px;
-}
-
 .positionCenter {
     display: block;
     margin: 0 auto;
-}
-
-.buttonWhite {
-    border-radius: 10px;
-    border: 1px solid $mustard;
-    background-color: $white;
 }
 
 .subtext {
@@ -228,4 +211,8 @@
     position: absolute;
     top: 96px;
     right: 32px;
+}
+
+.checkbox {
+    margin-bottom: 52px;
 }
