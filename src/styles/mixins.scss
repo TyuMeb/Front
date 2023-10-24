@@ -40,3 +40,19 @@
     font-size: 14px;
     line-height: 21px;
 }
+
+@mixin textNumberItem {
+    font-family: "Open Sans", Arial, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+@mixin textPriceItem {
+    font-family: "Source Sans Pro", Arial, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

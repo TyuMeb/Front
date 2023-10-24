@@ -1,9 +1,10 @@
 import Image from "next/image";
 import styles from "./card-example.module.scss";
+import { PriceItem } from "../PriceItem/PriceItem";
 
 type CardExampleProps = {
-    width: number;
-    height: number;
+    width?: string | undefined;
+    height?: string | undefined;
     src: string;
     alt: string;
     object: string;
@@ -13,11 +14,22 @@ type CardExampleProps = {
 export const CardExample = ({ width, height, src, alt, object, price }: CardExampleProps) => {
     return (
         <div className={styles.inner}>
-            <Image className={styles.image} width={width} height={height} src={src} alt={alt} />
+            <Image
+                style={{ borderRadius: "44px", objectFit: "cover", width: width, height: height }}
+                width={0}
+                height={0}
+                src={src}
+                alt={alt}
+            />
             <div className={styles.description}>
-                <div className={styles.object}>{object}</div>
-                <div className={styles.price}>{price}</div>
+                {object && <PriceItem caption={object} />}
+                {price && <PriceItem caption={price} />}
             </div>
         </div>
     );
+};
+
+CardExample.defaultProps = {
+    width: "100%",
+    height: "100%",
 };

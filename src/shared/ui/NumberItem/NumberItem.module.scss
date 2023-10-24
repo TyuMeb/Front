@@ -1,0 +1,12 @@
+.numberItem {
+    border: none;
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    background-color: $almond;
+    color: inherit;
+    @include textNumberItem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

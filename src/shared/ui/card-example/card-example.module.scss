@@ -1,6 +1,7 @@
 .inner {
     position: relative;
     display: flex;
+    overflow: hidden;
 
     .image {
         border-radius: 44px;
@@ -13,14 +14,5 @@
         position: absolute;
         top: 28px;
         left: 28px;
-
-        .object,
-        .price {
-            font-size: 12px;
-            line-height: 16px;
-            padding: 10px 20px;
-            background-color: $bg-accent-color;
-            border-radius: 30px;
-        }
     }
 }
