@@ -2,11 +2,8 @@
     position: relative;
     display: flex;
     overflow: hidden;
-
-    .image {
-        border-radius: 44px;
-        object-fit: cover;
-    }
+    height: 100%;
+    width: 100%;
 
     .description {
         display: flex;

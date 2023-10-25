@@ -1,3 +1,71 @@
+.inner {
+    padding-top: 140px;
+}
+
+.title {
+    padding-left: 28px;
+    padding-bottom: 40px;
+}
+
+.examples {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-areas:
+        "small1 small2 right"
+        "big big right";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 208px 326px;
+    gap: 28px;
+
+    &_small1 {
+        grid-area: small1;
+        height: 100%;
+        position: relative;
+    }
+
+    &_small2 {
+        grid-area: small2;
+        height: 100%;
+        position: relative;
+    }
+
+    &_big {
+        grid-area: big;
+        height: 100%;
+        position: relative;
+    }
+
+    &_right {
+        grid-area: right;
+        position: relative;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        gap: 28px;
+    }
+
+    /*
+    .leftSide {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .rightSide {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .top {
+        display: flex;
+        gap: 28px;
+    }*/
+}
+/*
 .slider {
     display: flex;
     justify-content: space-between;
@@ -8,28 +76,19 @@
     border-radius: 40px;
     padding: 0 28px;
 
-    &:disabled {
-        background-color: $disabled-color;
-        pointer-events: none;
+    a {
+        display: flex;
     }
+}*/
 
-    &_true {
-        background-color: $disabled-color;
-        pointer-events: none;
-    }
-
-    &:hover {
-        border: 0;
-        background-color: $btn-hover-color;
-        outline: none;
-    }
+.button {
+    outline: none;
+    border: none;
+    background: none;
 }
 
-.sliderHide {
-    display: none;
-}
-
-.disabled {
-    background-color: $disabled-color;
-    pointer-events: none;
+.button:hover {
+    opacity: 0.7;
+    transition: opacity ease-in-out 0.2s;
+    cursor: pointer;
 }

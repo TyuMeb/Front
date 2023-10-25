@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { Slider } from "./slider";
+import { SliderControl } from "./SliderControl";
 
 const meta = {
-    title: "UI/Slider",
-    component: Slider,
+    title: "UI/SliderControl",
+    component: SliderControl,
     parameters: {
         layout: "padded",
     },
@@ -21,7 +21,7 @@ const meta = {
             options: ["false", "true"],
         },
     },
-} satisfies Meta<typeof Slider>;
+} satisfies Meta<typeof SliderControl>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

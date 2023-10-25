@@ -11,13 +11,12 @@ type CardExampleProps = {
     price: string;
 };
 
-export const CardExample = ({ width, height, src, alt, object, price }: CardExampleProps) => {
+export const CardExample = ({ width = "100%", height = "100%", src, alt, object, price }: CardExampleProps) => {
     return (
         <div className={styles.inner}>
             <Image
                 style={{ borderRadius: "44px", objectFit: "cover", width: width, height: height }}
-                width={0}
-                height={0}
+                fill={true}
                 src={src}
                 alt={alt}
             />
@@ -27,9 +26,4 @@ export const CardExample = ({ width, height, src, alt, object, price }: CardExam
             </div>
         </div>
     );
-};
-
-CardExample.defaultProps = {
-    width: "100%",
-    height: "100%",
 };
