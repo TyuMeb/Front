@@ -12,39 +12,38 @@
     padding: 0;
     display: grid;
     grid-template-areas:
-        "small1 small2 right"
-        "big big right";
+        "small1 small2 aside"
+        "big big aside";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 208px 326px;
     gap: 28px;
 
-    &_small1 {
-        grid-area: small1;
+    &_item {
         height: 100%;
         position: relative;
-    }
+        padding: 0;
+        opacity: 1;
 
-    &_small2 {
-        grid-area: small2;
-        height: 100%;
-        position: relative;
-    }
+        &:first-of-type {
+            grid-area: aside;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            gap: 28px;
+        }
 
-    &_big {
-        grid-area: big;
-        height: 100%;
-        position: relative;
-    }
+        &:nth-of-type(2) {
+            grid-area: small1;
+        }
 
-    &_right {
-        grid-area: right;
-        position: relative;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        gap: 28px;
+        &:nth-of-type(3) {
+            grid-area: small2;
+        }
+
+        &:nth-of-type(4) {
+            grid-area: big;
+        }
     }
 }
 
