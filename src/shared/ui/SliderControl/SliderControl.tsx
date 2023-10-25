@@ -5,25 +5,27 @@ import { ArrowLeftIcon } from "../icons/arrow-left-icon";
 import { ArrowRightIcon } from "../icons/arrow-right-icon";
 
 export type SliderControlProps = {
+    onRightArrowClick: () => void;
+    onLeftArrowClick: () => void;
     disabled?: boolean;
 } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
-const SliderControl = ({ disabled, ...props }: SliderControlProps) => {
-    const [, setCurrentSlide] = useState(0);
+const SliderControl = ({ disabled, onRightArrowClick, onLeftArrowClick, ...props }: SliderControlProps) => {
+    // const [, setCurrentSlide] = useState(0);
 
-    function backwardSlide() {
-        setCurrentSlide((current) => {
-            if (current > 0) return current - 1;
-            else return 1;
-        });
-    }
+    // function backwardSlide() {
+    //     setCurrentSlide((current) => {
+    //         if (current > 0) return current - 1;
+    //         else return 1;
+    //     });
+    // }
 
-    function forwardSlide() {
-        setCurrentSlide((current) => {
-            if (current < 1) return current + 1;
-            else return 0;
-        });
-    }
+    // function forwardSlide() {
+    //     setCurrentSlide((current) => {
+    //         if (current < 1) return current + 1;
+    //         else return 0;
+    //     });
+    // }
 
     return (
         <>
@@ -34,14 +36,14 @@ const SliderControl = ({ disabled, ...props }: SliderControlProps) => {
                     type="button"
                     icon={<ArrowLeftIcon />}
                     variant={"slider"}
-                    onClick={backwardSlide}
+                    onClick={onLeftArrowClick}
                 />
                 <Button
                     disabled={disabled}
                     type="button"
                     icon={<ArrowRightIcon />}
                     variant={"slider"}
-                    onClick={forwardSlide}
+                    onClick={onRightArrowClick}
                 />
             </div>
         </>

@@ -5,7 +5,7 @@ const meta = {
     title: "UI/Slider",
     component: Slider,
     parameters: {
-        layout: "centered",
+        layout: "padded",
     },
     /*    tags: ["autodocs"],
     argTypes: {
@@ -71,5 +71,36 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-    args: {},
+    args: {
+        slides: [
+            {
+                slideItems: [
+                    {
+                        src: "https://sun9-57.userapi.com/impf/c638220/v638220304/2351c/Jl_pfu38vNc.jpg?size=604x452&quality=96&sign=690dd73d786aaeea277b8707fc40ee81&c_uniq_tag=Ud9Z4iy3giwrdrUnfQE1o7mAv5Nw993VvMqRWp6rgY0&type=album",
+                        alt: "logo-nightstand1",
+                        object: "Полка1",
+                        price: "1001 р",
+                    },
+                    {
+                        src: "https://30.img.avito.st/image/1/1.s_CNXba5Hxm79N0c53ea2Xn-GRM5fhfbPP4dHTH0FRs.52YXp-OFCHU0hXp6Qf4c74-UqDPhemGMJyVDoVbQDvc",
+                        alt: "logo-nightstand2",
+                        object: "Полка2",
+                        price: "1002 р",
+                    },
+                    {
+                        src: "/home/slide02.jpg",
+                        alt: "logo-nightstand3",
+                        object: "Полка3",
+                        price: "1003 р",
+                    },
+                    {
+                        src: "/home/slide03.jpg",
+                        alt: "logo-nightstand4",
+                        object: "Полка4",
+                        price: "1004 р",
+                    },
+                ],
+            },
+        ],
+    },
 };

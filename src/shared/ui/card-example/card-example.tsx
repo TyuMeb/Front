@@ -2,7 +2,7 @@ import Image from "next/image";
 import styles from "./card-example.module.scss";
 import { PriceItem } from "../PriceItem/PriceItem";
 
-type CardExampleProps = {
+export type CardExampleProps = {
     width?: string | undefined;
     height?: string | undefined;
     src: string;
@@ -15,7 +15,13 @@ export const CardExample = ({ width = "100%", height = "100%", src, alt, object,
     return (
         <div className={styles.inner}>
             <Image
-                style={{ borderRadius: "44px", objectFit: "cover", width: width, height: height }}
+                style={{
+                    backgroundColor: "#F5F3F1",
+                    borderRadius: "44px",
+                    objectFit: "cover",
+                    width: width,
+                    height: height,
+                }}
                 fill={true}
                 src={src}
                 alt={alt}

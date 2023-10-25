@@ -8,6 +8,7 @@
     background-color: $accent-color;
     border-radius: 40px;
     padding: 0 28px;
+    box-sizing: border-box;
 
     &:disabled {
         background-color: $disabled-color;
