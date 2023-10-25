@@ -29,7 +29,7 @@ export const ResetPassword = () => {
         },
     });
 
-    const [resetPassword] = usePostUsersResetPasswordMutation();
+    const [resetPassword, { isLoading, isSuccess }] = usePostUsersResetPasswordMutation();
 
     const onSubmit = (data: SendEmailReset) => {
         resetPassword(data)
@@ -58,18 +58,19 @@ export const ResetPassword = () => {
                         label="E-mail"
                         placeholder="Введите свою почту"
                         error={Boolean(errors.email?.message)}
+                        errorMessage={errors.email?.message}
                         id="email"
                         {...register("email", { required: { value: true, message: "Данное поле обязательно" } })}
                     />
                 </div>
 
-                {errors.email?.message && (
-                    <p className={cx("textError", { warningText: true })}>{errors.email?.message}</p>
-                )}
+                {isSuccess && <p className={cx("textSuccess")}>Письмо с инструкцией отправлено на почту</p>}
 
                 <ul className={cx("listButtons")}>
                     <li className={cx("itemButtons")}>
-                        <Button type="submit">Сбросить пароль</Button>
+                        <Button isLoading={isLoading} type="submit">
+                            Сбросить пароль
+                        </Button>
                     </li>
 
                     <li className={cx("itemButtons")}>
