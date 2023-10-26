@@ -1,6 +1,6 @@
 "use client";
 
-import { HTMLAttributes } from "react";
+// import { HTMLAttributes } from "react";
 import styles from "./settings.module.scss";
 import { Button } from "@src/shared/ui/button/button";
 import { Input } from "@src/shared/ui/inputs";
@@ -8,9 +8,9 @@ import { CheckboxInput } from "@src/shared/ui/inputs";
 import { PasswordInput } from "@src/shared/ui/inputs";
 import { PhoneInput } from "@src/shared/ui/inputs";
 
-interface SettingsI extends HTMLAttributes<HTMLDivElement> {}
+// interface SettingsI extends HTMLAttributes<HTMLDivElement> {}
 
-const Settings = (props: SettingsI) => {
+const Settings = () => {
     return (
         <div className={styles.wrapperSettings}>
             <div className={styles.wrapperInput}>
