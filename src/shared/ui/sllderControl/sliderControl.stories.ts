@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { SliderControl } from "./SliderControl";
+import { SliderControl } from "./sliderControl";
 
 const meta = {
     title: "UI/SliderControl",

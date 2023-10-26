@@ -1,10 +1,10 @@
 "use client";
 
-import styles from "./Slider.module.scss";
+import styles from "./slider.module.scss";
 import cn from "classnames";
 import { useState, FC } from "react";
 import { CardExample, CardExampleProps } from "@src/shared/ui/card-example/card-example";
-import { SliderControl } from "../SliderControl";
+import { SliderControl } from "../sllderControl";
 
 type SlideItem = {
     slideItems: Array<CardExampleProps>;

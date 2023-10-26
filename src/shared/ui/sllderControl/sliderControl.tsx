@@ -1,5 +1,5 @@
 import { HTMLAttributes, type DetailedHTMLProps } from "react";
-import styles from "./SliderControl.module.scss";
+import styles from "./sliderControl.module.scss";
 import { Button } from "../button";
 import { ArrowLeftIcon } from "../icons/arrow-left-icon";
 import { ArrowRightIcon } from "../icons/arrow-right-icon";

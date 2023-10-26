@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { NumberItem } from "./NumberItem";
+import { NumberItem } from "./numberItem";
 
 const meta = {
     title: "UI/NumberItem",
