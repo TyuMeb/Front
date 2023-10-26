@@ -1,0 +1,539 @@
+{
+    "v": 3,
+    "stories": {
+        "ui-icon--docs": {
+            "id": "ui-icon--docs",
+            "title": "UI/Icon",
+            "name": "Docs",
+            "importPath": "./src/components/icon/Icon.stories.tsx",
+            "tags": ["autodocs", "docs"],
+            "storiesImports": [],
+            "kind": "UI/Icon",
+            "story": "Docs",
+            "parameters": {
+                "__id": "ui-icon--docs",
+                "docsOnly": true,
+                "fileName": "./src/components/icon/Icon.stories.tsx"
+            }
+        },
+        "ui-icon--default": {
+            "id": "ui-icon--default",
+            "name": "Default",
+            "title": "UI/Icon",
+            "importPath": "./src/components/icon/Icon.stories.tsx",
+            "tags": ["autodocs", "story"],
+            "kind": "UI/Icon",
+            "story": "Default",
+            "parameters": {
+                "__id": "ui-icon--default",
+                "docsOnly": false,
+                "fileName": "./src/components/icon/Icon.stories.tsx"
+            }
+        },
+        "ui-priceitem--docs": {
+            "id": "ui-priceitem--docs",
+            "title": "UI/PriceItem",
+            "name": "Docs",
+            "importPath": "./src/shared/ui/PriceItem/priceItem.stories.tsx",
+            "tags": ["autodocs", "docs"],
+            "storiesImports": [],
+            "kind": "UI/PriceItem",
+            "story": "Docs",
+            "parameters": {
+                "__id": "ui-priceitem--docs",
+                "docsOnly": true,
+                "fileName": "./src/shared/ui/PriceItem/priceItem.stories.tsx"
+            }
+        },
+        "ui-priceitem--default": {
+            "id": "ui-priceitem--default",
+            "name": "Default",
+            "title": "UI/PriceItem",
+            "importPath": "./src/shared/ui/PriceItem/priceItem.stories.tsx",
+            "tags": ["autodocs", "story"],
+            "kind": "UI/PriceItem",
+            "story": "Default",
+            "parameters": {
+                "__id": "ui-priceitem--default",
+                "docsOnly": false,
+                "fileName": "./src/shared/ui/PriceItem/priceItem.stories.tsx"
+            }
+        },
+        "ui-button--docs": {
+            "id": "ui-button--docs",
+            "title": "UI/Button",
+            "name": "Docs",
+            "importPath": "./src/shared/ui/button/button.stories.tsx",
+            "tags": ["autodocs", "docs"],
+            "storiesImports": [],
+            "kind": "UI/Button",
+            "story": "Docs",
+            "parameters": {
+                "__id": "ui-button--docs",
+                "docsOnly": true,
+                "fileName": "./src/shared/ui/button/button.stories.tsx"
+            }
+        },
+        "ui-button--default": {
+            "id": "ui-button--default",
+            "name": "Default",
+            "title": "UI/Button",
+            "importPath": "./src/shared/ui/button/button.stories.tsx",
+            "tags": ["autodocs", "story"],
+            "kind": "UI/Button",
+            "story": "Default",
+            "parameters": {
+                "__id": "ui-button--default",
+                "docsOnly": false,
+                "fileName": "./src/shared/ui/button/button.stories.tsx"
+            }
+        },
+        "ui-button--disabled": {
+            "id": "ui-button--disabled",
+            "name": "Disabled",
+            "title": "UI/Button",
+            "importPath": "./src/shared/ui/button/button.stories.tsx",
+            "tags": ["autodocs", "story"],
+            "kind": "UI/Button",
+            "story": "Disabled",
+            "parameters": {
+                "__id": "ui-button--disabled",
+                "docsOnly": false,
+                "fileName": "./src/shared/ui/button/button.stories.tsx"
+            }
+        },
+        "ui-button--cancel": {
+            "id": "ui-button--cancel",
+            "name": "Cancel",
+            "title": "UI/Button",
+            "importPath": "./src/shared/ui/button/button.stories.tsx",
+            "tags": ["autodocs", "story"],
+            "kind": "UI/Button",
+            "story": "Cancel",
+            "parameters": {
+                "__id": "ui-button--cancel",
+                "docsOnly": false,
+                "fileName": "./src/shared/ui/button/button.stories.tsx"
+            }
+        },
+        "ui-button--exit": {
+            "id": "ui-button--exit",
+            "name": "Exit",
+            "title": "UI/Button",
+            "importPath": "./src/shared/ui/button/button.stories.tsx",
+            "tags": ["autodocs", "story"],
+            "kind": "UI/Button",
+            "story": "Exit",
+            "parameters": {
+                "__id": "ui-button--exit",
+                "docsOnly": false,
+                "fileName": "./src/shared/ui/button/button.stories.tsx"
+            }
+        },
+        "ui-cardexample--docs": {
+            "id": "ui-cardexample--docs",
+            "title": "UI/CardExample",
+            "name": "Docs",
+            "importPath": "./src/shared/ui/card-example/card-example.stories.tsx",
+            "tags": ["autodocs", "docs"],
+            "storiesImports": [],
+            "kind": "UI/CardExample",
+            "story": "Docs",
+            "parameters": {
+                "__id": "ui-cardexample--docs",
+                "docsOnly": true,
+                "fileName": "./src/shared/ui/card-example/card-example.stories.tsx"
+            }
+        },
+        "ui-cardexample--default": {
+            "id": "ui-cardexample--default",
+            "name": "Default",
+            "title": "UI/CardExample",
+            "importPath": "./src/shared/ui/card-example/card-example.stories.tsx",
+            "tags": ["autodocs", "story"],
+            "kind": "UI/CardExample",
+            "story": "Default",
+            "parameters": {
+                "__id": "ui-cardexample--default",
+                "docsOnly": false,
+                "fileName": "./src/shared/ui/card-example/card-example.stories.tsx"
+            }
+        },
+        "ui-icons-arrowlefticon--docs": {
+            "id": "ui-icons-arrowlefticon--docs",
+            "title": "UI/Icons/ArrowLeftIcon",
+            "name": "Docs",
+            "importPath": "./src/shared/ui/icons/arrow-left-icon/arrow-left-icon.stories.ts",
+            "tags": ["autodocs", "docs"],
+            "storiesImports": [],
+            "kind": "UI/Icons/ArrowLeftIcon",
+            "story": "Docs",
+            "parameters": {
+                "__id": "ui-icons-arrowlefticon--docs",
+                "docsOnly": true,
+                "fileName": "./src/shared/ui/icons/arrow-left-icon/arrow-left-icon.stories.ts"
+            }
+        },
+        "ui-icons-arrowlefticon--default": {
+            "id": "ui-icons-arrowlefticon--default",
+            "name": "Default",
+            "title": "UI/Icons/ArrowLeftIcon",
+            "importPath": "./src/shared/ui/icons/arrow-left-icon/arrow-left-icon.stories.ts",
+            "tags": ["autodocs", "story"],
+            "kind": "UI/Icons/ArrowLeftIcon",
+            "story": "Default",
+            "parameters": {
+                "__id": "ui-icons-arrowlefticon--default",
+                "docsOnly": false,
+                "fileName": "./src/shared/ui/icons/arrow-left-icon/arrow-left-icon.stories.ts"
+            }
+        },
+        "ui-icons-arrowrighticon--docs": {
+            "id": "ui-icons-arrowrighticon--docs",
+            "title": "UI/Icons/ArrowRightIcon",
+            "name": "Docs",
+            "importPath": "./src/shared/ui/icons/arrow-right-icon/arrow-left-icon.stories.ts",
+            "tags": ["autodocs", "docs"],
+            "storiesImports": [],
+            "kind": "UI/Icons/ArrowRightIcon",
+            "story": "Docs",
+            "parameters": {
+                "__id": "ui-icons-arrowrighticon--docs",
+                "docsOnly": true,
+                "fileName": "./src/shared/ui/icons/arrow-right-icon/arrow-left-icon.stories.ts"
+            }
+        },
+        "ui-icons-arrowrighticon--default": {
+            "id": "ui-icons-arrowrighticon--default",
+            "name": "Default",
+            "title": "UI/Icons/ArrowRightIcon",
+            "importPath": "./src/shared/ui/icons/arrow-right-icon/arrow-left-icon.stories.ts",
+            "tags": ["autodocs", "story"],
+            "kind": "UI/Icons/ArrowRightIcon",
+            "story": "Default",
+            "parameters": {
+                "__id": "ui-icons-arrowrighticon--default",
+                "docsOnly": false,
+                "fileName": "./src/shared/ui/icons/arrow-right-icon/arrow-left-icon.stories.ts"
+            }
+        },
+        "ui-icons-checkedicon--docs": {
+            "id": "ui-icons-checkedicon--docs",
+            "title": "UI/Icons/CheckedIcon",
+            "name": "Docs",
+            "importPath": "./src/shared/ui/icons/checked-icon/checked.stories.ts",
+            "tags": ["autodocs", "docs"],
+            "storiesImports": [],
+            "kind": "UI/Icons/CheckedIcon",
+            "story": "Docs",
+            "parameters": {
+                "__id": "ui-icons-checkedicon--docs",
+                "docsOnly": true,
+                "fileName": "./src/shared/ui/icons/checked-icon/checked.stories.ts"
+            }
+        },
+        "ui-icons-checkedicon--default": {
+            "id": "ui-icons-checkedicon--default",
+            "name": "Default",
+            "title": "UI/Icons/CheckedIcon",
+            "importPath": "./src/shared/ui/icons/checked-icon/checked.stories.ts",
+            "tags": ["autodocs", "story"],
+            "kind": "UI/Icons/CheckedIcon",
+            "story": "Default",
+            "parameters": {
+                "__id": "ui-icons-checkedicon--default",
+                "docsOnly": false,
+                "fileName": "./src/shared/ui/icons/checked-icon/checked.stories.ts"
+            }
+        },
+        "ui-icons-exiticon--docs": {
+            "id": "ui-icons-exiticon--docs",
+            "title": "UI/Icons/ExitIcon",
+            "name": "Docs",
+            "importPath": "./src/shared/ui/icons/exit-icon/exit-icon.stories.ts",
+            "tags": ["autodocs", "docs"],
+            "storiesImports": [],
+            "kind": "UI/Icons/ExitIcon",
+            "story": "Docs",
+            "parameters": {
+                "__id": "ui-icons-exiticon--docs",
+                "docsOnly": true,
+                "fileName": "./src/shared/ui/icons/exit-icon/exit-icon.stories.ts"
+            }
+        },
+        "ui-icons-exiticon--default": {
+            "id": "ui-icons-exiticon--default",
+            "name": "Default",
+            "title": "UI/Icons/ExitIcon",
+            "importPath": "./src/shared/ui/icons/exit-icon/exit-icon.stories.ts",
+            "tags": ["autodocs", "story"],
+            "kind": "UI/Icons/ExitIcon",
+            "story": "Default",
+            "parameters": {
+                "__id": "ui-icons-exiticon--default",
+                "docsOnly": false,
+                "fileName": "./src/shared/ui/icons/exit-icon/exit-icon.stories.ts"
+            }
+        },
+        "ui-icons-eyeicon--docs": {
+            "id": "ui-icons-eyeicon--docs",
+            "title": "UI/Icons/EyeIcon",
+            "name": "Docs",
+            "importPath": "./src/shared/ui/icons/eye-icon/eye-icon.stories.ts",
+            "tags": ["autodocs", "docs"],
+            "storiesImports": [],
+            "kind": "UI/Icons/EyeIcon",
+            "story": "Docs",
+            "parameters": {
+                "__id": "ui-icons-eyeicon--docs",
+                "docsOnly": true,
+                "fileName": "./src/shared/ui/icons/eye-icon/eye-icon.stories.ts"
+            }
+        },
+        "ui-icons-eyeicon--default": {
+            "id": "ui-icons-eyeicon--default",
+            "name": "Default",
+            "title": "UI/Icons/EyeIcon",
+            "importPath": "./src/shared/ui/icons/eye-icon/eye-icon.stories.ts",
+            "tags": ["autodocs", "story"],
+            "kind": "UI/Icons/EyeIcon",
+            "story": "Default",
+            "parameters": {
+                "__id": "ui-icons-eyeicon--default",
+                "docsOnly": false,
+                "fileName": "./src/shared/ui/icons/eye-icon/eye-icon.stories.ts"
+            }
+        },
+        "ui-icons-warningicon--docs": {
+            "id": "ui-icons-warningicon--docs",
+            "title": "UI/Icons/WarningIcon",
+            "name": "Docs",
+            "importPath": "./src/shared/ui/icons/warning-icon/warning-icon.stories.ts",
+            "tags": ["autodocs", "docs"],
+            "storiesImports": [],
+            "kind": "UI/Icons/WarningIcon",
+            "story": "Docs",
+            "parameters": {
+                "__id": "ui-icons-warningicon--docs",
+                "docsOnly": true,
+                "fileName": "./src/shared/ui/icons/warning-icon/warning-icon.stories.ts"
+            }
+        },
+        "ui-icons-warningicon--default": {
+            "id": "ui-icons-warningicon--default",
+            "name": "Default",
+            "title": "UI/Icons/WarningIcon",
+            "importPath": "./src/shared/ui/icons/warning-icon/warning-icon.stories.ts",
+            "tags": ["autodocs", "story"],
+            "kind": "UI/Icons/WarningIcon",
+            "story": "Default",
+            "parameters": {
+                "__id": "ui-icons-warningicon--default",
+                "docsOnly": false,
+                "fileName": "./src/shared/ui/icons/warning-icon/warning-icon.stories.ts"
+            }
+        },
+        "ui-inputs-checkbox--docs": {
+            "id": "ui-inputs-checkbox--docs",
+            "title": "UI/Inputs/Checkbox",
+            "name": "Docs",
+            "importPath": "./src/shared/ui/inputs/checkbox/checkbox.stories.tsx",
+            "tags": ["autodocs", "docs"],
+            "storiesImports": [],
+            "kind": "UI/Inputs/Checkbox",
+            "story": "Docs",
+            "parameters": {
+                "__id": "ui-inputs-checkbox--docs",
+                "docsOnly": true,
+                "fileName": "./src/shared/ui/inputs/checkbox/checkbox.stories.tsx"
+            }
+        },
+        "ui-inputs-checkbox--default": {
+            "id": "ui-inputs-checkbox--default",
+            "name": "Default",
+            "title": "UI/Inputs/Checkbox",
+            "importPath": "./src/shared/ui/inputs/checkbox/checkbox.stories.tsx",
+            "tags": ["autodocs", "story"],
+            "kind": "UI/Inputs/Checkbox",
+            "story": "Default",
+            "parameters": {
+                "__id": "ui-inputs-checkbox--default",
+                "docsOnly": false,
+                "fileName": "./src/shared/ui/inputs/checkbox/checkbox.stories.tsx"
+            }
+        },
+        "ui-inputs--docs": {
+            "id": "ui-inputs--docs",
+            "title": "UI/Inputs",
+            "name": "Docs",
+            "importPath": "./src/shared/ui/inputs/input/input.stories.tsx",
+            "tags": ["autodocs", "docs"],
+            "storiesImports": [],
+            "kind": "UI/Inputs",
+            "story": "Docs",
+            "parameters": {
+                "__id": "ui-inputs--docs",
+                "docsOnly": true,
+                "fileName": "./src/shared/ui/inputs/input/input.stories.tsx"
+            }
+        },
+        "ui-inputs--default": {
+            "id": "ui-inputs--default",
+            "name": "Default",
+            "title": "UI/Inputs",
+            "importPath": "./src/shared/ui/inputs/input/input.stories.tsx",
+            "tags": ["autodocs", "story"],
+            "kind": "UI/Inputs",
+            "story": "Default",
+            "parameters": {
+                "__id": "ui-inputs--default",
+                "docsOnly": false,
+                "fileName": "./src/shared/ui/inputs/input/input.stories.tsx"
+            }
+        },
+        "ui-inputs-passwordinput--docs": {
+            "id": "ui-inputs-passwordinput--docs",
+            "title": "UI/Inputs/PasswordInput",
+            "name": "Docs",
+            "importPath": "./src/shared/ui/inputs/password/password.stories.tsx",
+            "tags": ["autodocs", "docs"],
+            "storiesImports": [],
+            "kind": "UI/Inputs/PasswordInput",
+            "story": "Docs",
+            "parameters": {
+                "__id": "ui-inputs-passwordinput--docs",
+                "docsOnly": true,
+                "fileName": "./src/shared/ui/inputs/password/password.stories.tsx"
+            }
+        },
+        "ui-inputs-passwordinput--default": {
+            "id": "ui-inputs-passwordinput--default",
+            "name": "Default",
+            "title": "UI/Inputs/PasswordInput",
+            "importPath": "./src/shared/ui/inputs/password/password.stories.tsx",
+            "tags": ["autodocs", "story"],
+            "kind": "UI/Inputs/PasswordInput",
+            "story": "Default",
+            "parameters": {
+                "__id": "ui-inputs-passwordinput--default",
+                "docsOnly": false,
+                "fileName": "./src/shared/ui/inputs/password/password.stories.tsx"
+            }
+        },
+        "ui-inputs-inputphone--docs": {
+            "id": "ui-inputs-inputphone--docs",
+            "title": "UI/Inputs/InputPhone",
+            "name": "Docs",
+            "importPath": "./src/shared/ui/inputs/phone/phone.stories.tsx",
+            "tags": ["autodocs", "docs"],
+            "storiesImports": [],
+            "kind": "UI/Inputs/InputPhone",
+            "story": "Docs",
+            "parameters": {
+                "__id": "ui-inputs-inputphone--docs",
+                "docsOnly": true,
+                "fileName": "./src/shared/ui/inputs/phone/phone.stories.tsx"
+            }
+        },
+        "ui-inputs-inputphone--default": {
+            "id": "ui-inputs-inputphone--default",
+            "name": "Default",
+            "title": "UI/Inputs/InputPhone",
+            "importPath": "./src/shared/ui/inputs/phone/phone.stories.tsx",
+            "tags": ["autodocs", "story"],
+            "kind": "UI/Inputs/InputPhone",
+            "story": "Default",
+            "parameters": {
+                "__id": "ui-inputs-inputphone--default",
+                "docsOnly": false,
+                "fileName": "./src/shared/ui/inputs/phone/phone.stories.tsx"
+            }
+        },
+        "ui-numberitem--docs": {
+            "id": "ui-numberitem--docs",
+            "title": "UI/NumberItem",
+            "name": "Docs",
+            "importPath": "./src/shared/ui/numberItem/numberItem.stories.tsx",
+            "tags": ["autodocs", "docs"],
+            "storiesImports": [],
+            "kind": "UI/NumberItem",
+            "story": "Docs",
+            "parameters": {
+                "__id": "ui-numberitem--docs",
+                "docsOnly": true,
+                "fileName": "./src/shared/ui/numberItem/numberItem.stories.tsx"
+            }
+        },
+        "ui-numberitem--default": {
+            "id": "ui-numberitem--default",
+            "name": "Default",
+            "title": "UI/NumberItem",
+            "importPath": "./src/shared/ui/numberItem/numberItem.stories.tsx",
+            "tags": ["autodocs", "story"],
+            "kind": "UI/NumberItem",
+            "story": "Default",
+            "parameters": {
+                "__id": "ui-numberitem--default",
+                "docsOnly": false,
+                "fileName": "./src/shared/ui/numberItem/numberItem.stories.tsx"
+            }
+        },
+        "ui-slider--default": {
+            "id": "ui-slider--default",
+            "name": "Default",
+            "title": "UI/Slider",
+            "importPath": "./src/shared/ui/slider/slider.stories.tsx",
+            "tags": ["story"],
+            "kind": "UI/Slider",
+            "story": "Default",
+            "parameters": {
+                "__id": "ui-slider--default",
+                "docsOnly": false,
+                "fileName": "./src/shared/ui/slider/slider.stories.tsx"
+            }
+        },
+        "ui-slidercontrol--docs": {
+            "id": "ui-slidercontrol--docs",
+            "title": "UI/SliderControl",
+            "name": "Docs",
+            "importPath": "./src/shared/ui/sllderControl/sliderControl.stories.ts",
+            "tags": ["autodocs", "docs"],
+            "storiesImports": [],
+            "kind": "UI/SliderControl",
+            "story": "Docs",
+            "parameters": {
+                "__id": "ui-slidercontrol--docs",
+                "docsOnly": true,
+                "fileName": "./src/shared/ui/sllderControl/sliderControl.stories.ts"
+            }
+        },
+        "ui-slidercontrol--default": {
+            "id": "ui-slidercontrol--default",
+            "name": "Default",
+            "title": "UI/SliderControl",
+            "importPath": "./src/shared/ui/sllderControl/sliderControl.stories.ts",
+            "tags": ["autodocs", "story"],
+            "kind": "UI/SliderControl",
+            "story": "Default",
+            "parameters": {
+                "__id": "ui-slidercontrol--default",
+                "docsOnly": false,
+                "fileName": "./src/shared/ui/sllderControl/sliderControl.stories.ts"
+            }
+        },
+        "ui-slidercontrol--disabled": {
+            "id": "ui-slidercontrol--disabled",
+            "name": "Disabled",
+            "title": "UI/SliderControl",
+            "importPath": "./src/shared/ui/sllderControl/sliderControl.stories.ts",
+            "tags": ["autodocs", "story"],
+            "kind": "UI/SliderControl",
+            "story": "Disabled",
+            "parameters": {
+                "__id": "ui-slidercontrol--disabled",
+                "docsOnly": false,
+                "fileName": "./src/shared/ui/sllderControl/sliderControl.stories.ts"
+            }
+        }
+    }
+}

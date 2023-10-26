@@ -1,6 +1,6 @@
 import { useState, useEffect, FC } from "react";
 import styles from "./card-example.module.scss";
-import { PriceItem } from "../PriceItem/priceItem";
+import { PriceItem } from "../priceItem/priceItem";
 import { cn } from "@src/shared/lib/cn";
 
 export type CardExampleProps = {
