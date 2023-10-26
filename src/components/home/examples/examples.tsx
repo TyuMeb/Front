@@ -1,8 +1,6 @@
 "use client";
 
 import styles from "./examples.module.scss";
-import cn from "classnames";
-import { CardExample } from "@src/shared/ui/card-example/card-example";
 import { Slider } from "@src/shared/ui/slider/slider";
 import { SLIDER_TEST_DATA } from "@src/shared/lib/sliderTestData";
 
