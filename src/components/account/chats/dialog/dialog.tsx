@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./dialog.module.scss";
-import { Button } from "@src/components/shared/ui/button/button";
+import { Button } from "@src/shared/ui/button/button";
 import { GreenMarkIcon } from "@src/components/shared/ui/icons/green-mark-icon/green-mark-icon";
 import { RedMarkIcon } from "@src/components/shared/ui/icons/red-mark-icon/red-mark-icon";
 import { GreenCheckIcon } from "@src/components/shared/ui/icons/green-check-icon/green-check-icon";

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { ExitButton } from "@src/components/shared/ui/button/exit-button";
-import Icon from "@src/components/icon";
+import { Icon } from "@src/components/icon";
 import { orders, ordersI, executorsI } from "./data";
 
 import styles from "./sidebar.module.scss";
@@ -27,12 +27,12 @@ interface firstLevelMenuItemI {
 }
 
 const firstLevelMenu: firstLevelMenuItemI[] = [
-    { alias: "my-orders", name: "Мои заказы", icon: <Icon className={cx("icon")} glyph="couch" /> },
-    { alias: "chats", name: "Чаты", icon: <Icon className={cx("icon")} glyph="chats" /> },
-    { alias: "archives", name: "Архивы", icon: <Icon className={cx("icon")} glyph="archives" /> },
-    { alias: "settings", name: "Настройки", icon: <Icon className={cx("icon")} glyph="settings" /> },
-    { alias: "help", name: "Помощь", icon: <Icon className={cx("icon")} glyph="help" /> },
-    { alias: "help", name: "Сделать заказ", icon: <Icon className={cx("icon")} glyph="add" /> },
+    { alias: "my-orders", name: "Мои заказы", icon: <Icon className={cx("icon")} glyph={"eye"} /> },
+    { alias: "chats", name: "Чаты", icon: <Icon className={cx("icon")} glyph={"eye"} /> },
+    { alias: "archives", name: "Архивы", icon: <Icon className={cx("icon")} glyph={"eye"} /> },
+    { alias: "settings", name: "Настройки", icon: <Icon className={cx("icon")} glyph={"eye"} /> },
+    { alias: "help", name: "Помощь", icon: <Icon className={cx("icon")} glyph={"eye"} /> },
+    { alias: "help", name: "Сделать заказ", icon: <Icon className={cx("icon")} glyph={"eye"} /> },
 ];
 
 const Sidebar = ({ className }: SidebarI) => {

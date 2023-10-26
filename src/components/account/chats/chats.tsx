@@ -2,7 +2,7 @@
 
 import { RedMarkIcon } from "@src/components/shared/ui/icons/red-mark-icon/red-mark-icon";
 import styles from "./chats.module.scss";
-import { Button } from "@src/components/shared/ui/button/button";
+import { Button } from "@src/shared/ui/button/button";
 import { DotsIcon } from "@src/components/shared/ui/icons/dots-icon/dots-icon";
 import { GreenMarkIcon } from "@src/components/shared/ui/icons/green-mark-icon/green-mark-icon";
 import { RightArrowIcon } from "@src/components/shared/ui/icons/right-arrow-icon/right-arrow-icon";

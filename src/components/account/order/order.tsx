@@ -5,8 +5,8 @@ import Image from "next/image";
 import image from "public/account/desk.jpg";
 
 import styles from "./order.module.scss";
-import { Button } from "@src/components/shared/ui/button/button";
-import Icon from "@src/components/icon";
+import { Button } from "@src/shared/ui/button/button";
+import { ArrowLeftIcon } from "@src/shared/ui/icons/arrow-left-icon/arrow-left-icon";
 
 interface DescriptionI {
     date: string;
@@ -60,11 +60,11 @@ const Order = ({ title, notOffer, description, ...props }: OrderI) => {
 
                 <div className={styles.wrapperGallery}>
                     <button className={styles.button}>
-                        <Icon glyph="arrowLeft" />
+                        <ArrowLeftIcon />
                     </button>
                     <Image src={image} width={288} height={148} loading="lazy" quality={100} alt="Картинка" />
                     <button className={styles.button}>
-                        <Icon glyph="arrowLeft" transform="rotate(180)" />
+                        <ArrowLeftIcon />
                     </button>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./no-orders.module.scss";
-import { Button } from "@src/components/shared/ui/button/button";
+import { Button } from "@src/shared/ui/button/button";
 
 const NoOrders = () => {
     return (
