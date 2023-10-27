@@ -12,9 +12,10 @@ type SlideItem = {
 
 type SliderProps = {
     slides: Array<SlideItem>;
+    disabled?: boolean;
 };
 
-export const Slider: FC<SliderProps> = ({ slides }) => {
+export const Slider: FC<SliderProps> = ({ slides, disabled }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
 
     function slideForward() {
@@ -32,7 +33,13 @@ export const Slider: FC<SliderProps> = ({ slides }) => {
                 {slides[currentSlide].slideItems.map((el, i) => (
                     <li className={styles.examples_item} key={i}>
                         <CardExample src={el.src} alt={el.alt} object={el.object} price={el.price} />
-                        {!i && <SliderControl onRightArrowClick={slideForward} onLeftArrowClick={slideBackward} />}
+                        {!i && (
+                            <SliderControl
+                                onRightArrowClick={slideForward}
+                                onLeftArrowClick={slideBackward}
+                                disabled={disabled}
+                            />
+                        )}
                     </li>
                 ))}
             </ul>
