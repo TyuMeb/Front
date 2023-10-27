@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, forwardRef } from "react";
 import classNames from "classnames/bind";
 import { Icon } from "@src/components/icon";
 
@@ -8,24 +8,33 @@ const cx = classNames.bind(styles);
 
 export type InputProps = {
     label?: string;
-    errorMessage?: string;
     error?: boolean;
+    errorMessage?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-export const Input = ({ id, errorMessage, error = false, label, disabled, className, ...props }: InputProps) => {
-    return (
-        <>
-            {label && (
-                <label className={cx("text", "label", { warning: error && !disabled })} htmlFor={id}>
-                    {error && <Icon glyph="warning" className={cx("warningIcon")} />}
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+    ({ id, errorMessage, error = false, label, disabled, className, ...props }: InputProps, ref) => {
+        return (
+            <>
+                {label && (
+                    <label className={cx("text", "label", { warning: error && !disabled })} htmlFor={id}>
+                        {error && <Icon glyph="warning" className={cx("warningIcon")} />}
 
-                    {label}
-                </label>
-            )}
+                        {label}
+                    </label>
+                )}
 
-            <input disabled={disabled} className={cx("input", "text", { disabled }, { error }, className)} {...props} />
+                <input
+                    ref={ref}
+                    disabled={disabled}
+                    className={cx("input", "text", { disabled }, { error }, className)}
+                    {...props}
+                />
 
-            {errorMessage && error && <span className={cx("message")}>{errorMessage}</span>}
-        </>
-    );
-};
+                {errorMessage && error && <span className={cx("message")}>{errorMessage}</span>}
+            </>
+        );
+    }
+);
+
+Input.displayName = "Input";
