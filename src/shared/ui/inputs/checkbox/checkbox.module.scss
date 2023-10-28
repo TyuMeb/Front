@@ -1,0 +1,88 @@
+@import "~/src/styles/index.scss";
+
+.container {
+    display: flex;
+    cursor: pointer;
+    position: relative;
+}
+
+.checkboxFieldHide {
+    height: 1px;
+    width: 1px;
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    z-index: -1;
+}
+
+.checkboxField {
+    position: relative;
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #b5b3b2;
+    box-sizing: border-box;
+    user-select: none;
+    transition: 0.2s ease-out;
+}
+
+.checkboxField:hover {
+    border: 1px solid#1C1C1C;
+    transition: 0.2s ease-in;
+}
+
+.checked {
+    background-color: $mustard;
+    border: 1px solid $mustard;
+}
+
+.disabled {
+    border: 1px solid#B5B3B2;
+    background-color: #f5f3f1;
+}
+
+.disabled:hover {
+    border: 1px solid #b5b3b2;
+}
+
+.error {
+    border: 1px solid #ff6894;
+    background-color: #fef7f9;
+}
+
+.checkboxFieldIcon {
+    position: absolute;
+    top: 24%;
+    left: 18%;
+    width: 16px;
+    height: 13px;
+}
+
+.checkboxFieldIconHide {
+    display: none;
+}
+
+.label {
+    @include textSmall;
+    @include text;
+
+    margin-left: 20px;
+    color: $black;
+}
+
+.warning {
+    color: $pink-pig;
+}
+
+.errorTextMargins {
+    margin: 8px 0 0 44px;
+}
+
+.message {
+    @include textTiny;
+    @include text;
+
+    display: inline-block;
+    margin-top: 4px;
+    color: $error-accent-color;
+}

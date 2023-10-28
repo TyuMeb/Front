@@ -1,54 +1,46 @@
-import React, { useEffect } from "react";
+import React from "react";
 import classNames from "classnames/bind";
 
 import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/slices/modal-slice";
-import { TextField } from "@src/components/shared/ui/fields";
-import TextFieldModal from "@src/components/modals/text-field-modal";
-import useInput from "@src/hooks/use-Input";
+import { usePostUsersResetPasswordMutation } from "@src/redux/api/users-api-slice";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
-import Icon from "@src/components/icon";
+import { Icon } from "@src/components/icon";
+import { Input } from "@src/shared/ui/inputs";
+import { Button } from "@src/shared/ui/button";
+import { useForm } from "react-hook-form";
+import { SendEmailReset } from "@src/redux/api/generated";
 
 const cx = classNames.bind(styles);
 
 export const ResetPassword = () => {
     const dispatch = useAppDispatch();
 
-    const emailField = useInput("");
+    const {
+        register,
+        handleSubmit,
+        setError,
+        formState: { errors },
+    } = useForm({
+        values: {
+            email: "",
+        },
+    });
 
-    const emailError = useInput("");
+    const [resetPassword, { isLoading, isSuccess }] = usePostUsersResetPasswordMutation();
 
-    const submitForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        try {
-            console.log({ email: emailField.value });
-            emailField.onChange("");
-        } catch {
-            console.log("Ошибка востановления пароля");
-        } finally {
-            e.preventDefault();
-        }
+    const onSubmit = (data: SendEmailReset) => {
+        resetPassword(data)
+            .unwrap()
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((error) => {
+                setError("email", { message: error?.data?.join("") });
+            });
     };
-
-    const lengthCheck = (field: string, onChange: any, length: number = 12) => {
-        if (field.length >= length) {
-            onChange(`Длина ${field} не может быть больше ${length} символов!`);
-        }
-    };
-
-    // Проверка работы валидации
-    const formValidation = () => {
-        emailError.onChange("");
-        lengthCheck(emailField.value, emailError.onChange);
-    };
-
-    useEffect(() => {
-        formValidation();
-    }, [emailField]);
-
-    const renderError = (value: string) =>
-        value && <li className={cx("textError", { warningText: value })}>{value}</li>;
 
     return (
         <ModalAuth>
@@ -60,34 +52,34 @@ export const ResetPassword = () => {
                 Введите E-mail, который вы указывали при регистрации. Туда придет инструкция по сбросу пароля.
             </p>
 
-            <form className={cx("form")}>
+            <form onSubmit={handleSubmit(onSubmit)} className={cx("form")}>
                 <div className={cx("inputsResetPassword")}>
-                    <TextFieldModal isError={Boolean(emailError.value)} labelText="E-mail">
-                        <TextField className="inputAuth" placeholder="Введите свою почту" {...emailField} />
-                    </TextFieldModal>
+                    <Input
+                        label="E-mail"
+                        placeholder="Введите свою почту"
+                        error={Boolean(errors.email?.message)}
+                        errorMessage={errors.email?.message}
+                        id="email"
+                        {...register("email", { required: { value: true, message: "Данное поле обязательно" } })}
+                    />
                 </div>
 
-                {emailError.value && <ul className={cx("errorsText")}>{renderError(emailError.value)}</ul>}
+                {isSuccess && <p className={cx("textSuccess")}>Письмо с инструкцией отправлено на почту</p>}
 
                 <ul className={cx("listButtons")}>
                     <li className={cx("itemButtons")}>
-                        <button className={cx("text", "button")} type="submit" onClick={submitForm}>
+                        <Button isLoading={isLoading} type="submit">
                             Сбросить пароль
-                        </button>
+                        </Button>
                     </li>
 
                     <li className={cx("itemButtons")}>
-                        <button
-                            className={cx("text", "button", "buttonWhite")}
-                            type="button"
-                            onClick={() => dispatch(setTypeModal("signIn"))}>
+                        <Button variant="cancel" type="button" onClick={() => dispatch(setTypeModal("signIn"))}>
                             Отмена
-                        </button>
+                        </Button>
                     </li>
                 </ul>
             </form>
         </ModalAuth>
     );
 };
-
-export default ResetPassword;

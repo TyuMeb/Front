@@ -16,7 +16,7 @@ const jwtApi = apiSlice.injectEndpoints({
                 body,
             }),
         }),
-        refreshToken: build.mutation({
+        refresh_token: build.mutation({
             query: (body: { refresh: string | null }) => ({
                 url: "/auth/jwt/refresh/",
                 method: "POST",

@@ -1,0 +1,127 @@
+.btn {
+    padding: 12px 40px;
+    border: 0;
+    border-radius: $border-radius-s;
+    color: inherit;
+    background-color: $accent-color;
+    font-size: inherit;
+    line-height: inherit;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &:focus {
+        background-color: $bg-accent-color;
+        outline: 2px solid $accent-color;
+    }
+
+    &:hover {
+        border: 0;
+        background-color: $btn-hover-color;
+        outline: none;
+    }
+
+    &:active {
+        background-color: $btn-active-color;
+        outline: none;
+    }
+
+    &:disabled {
+        background-color: $disabled-color;
+        & svg > path {
+            fill: $disabled-color;
+        }
+    }
+
+    &_cancel {
+        background-color: $bg-main-color;
+        border-radius: $border-radius-s;
+        outline: 1px solid $accent-color;
+
+        &:focus {
+            background-color: $bg-accent-color;
+            outline: 1px solid $accent-color;
+        }
+
+        &:hover {
+            background-color: rgba(253, 182, 116, 0.18);
+            outline: 2px solid $btn-hover-color;
+        }
+
+        &:active {
+            background-color: rgba(245, 161, 63, 0.4);
+            outline: 2px solid $btn-active-color;
+        }
+
+        &:disabled {
+            outline: 1px solid $bg-disabled-color;
+            color: $disabled-color;
+            background-color: $bg-main-color;
+        }
+    }
+
+    &_exit {
+        padding: 12px 20px;
+        border-radius: 0px 4px 4px 0px;
+        background-color: $light-latte-color;
+        min-width: 224px;
+
+        &:focus {
+            background-color: $accent-color;
+        }
+
+        &:hover {
+            background-color: $latte-color;
+        }
+
+        &:active {
+            background-color: $accent-color;
+        }
+
+        &:disabled {
+            color: $disabled-color;
+            background-color: $light-latte-color;
+        }
+    }
+
+    &_slider {
+        padding: 0;
+        border-radius: 0;
+        background-color: transparent;
+        background: transparent;
+        &:hover {
+            opacity: 0.7;
+            transition: opacity ease-in-out 0.2s;
+        }
+        &:active {
+            background-color: transparent;
+            & svg > path {
+                fill: $btn-arrow-active-color;
+            }
+        }
+        &:focus {
+            background-color: transparent;
+            outline: none;
+        }
+    }
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fff;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    animation: rotation 0.7s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

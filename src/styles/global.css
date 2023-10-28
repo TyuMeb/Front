@@ -23,7 +23,7 @@
     --gap-xxl: 110px;
     --gap-xxxl: 140px;
     --border-radius-s: 10px;
-    --border-radius-m: 44px;
+    --border-radius-m: 45px;
 }
 
 * {
@@ -72,7 +72,8 @@ h4 {
 }
 
 .container {
-    max-width: 1220px;
+    max-width: calc(1220px + 32px);
+    padding: 0 16px;
     margin: 0 auto;
 }
 

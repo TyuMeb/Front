@@ -1,1 +1,1 @@
-export { default } from "./reset-password";
+export { ResetPassword } from "./reset-password";
