@@ -1,0 +1,22 @@
+.textarea {
+    display: block;
+    width: 100%;
+    border: none;
+    padding: 24px;
+    height: 82px;
+    box-sizing: border-box;
+    border-radius: 18px;
+    resize: none;
+
+    &::placeholder {
+        color: $asphalt;
+    }
+}
+
+.text {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+
+    color: $graphite-black;
+}

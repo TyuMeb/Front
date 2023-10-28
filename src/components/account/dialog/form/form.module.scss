@@ -1,0 +1,20 @@
+@import "~/src/styles/index.scss";
+
+.wrapper {
+    box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.09);
+    background-color: $white;
+    border-radius: 18px;
+    margin-right: 64px;
+}
+
+.formChat {
+    display: flex;
+    align-items: center;
+    padding-right: 24px;
+    column-gap: 20px;
+}
+
+.buttonSubmit {
+    border-radius: 2px;
+    padding: 8px 24px;
+}

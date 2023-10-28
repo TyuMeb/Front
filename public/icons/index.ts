@@ -13,6 +13,10 @@ import add from './add.svg';
 import archives from './archives.svg';
 import arrowLeft from './arrow-left.svg';
 import exit from './exit.svg';
+import paperclip from './paperclip.svg';
+import paper_airplane from './paper_airplane.svg';
+import file from './file.svg';
+import exclamation from './exclamation.svg';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -30,5 +34,9 @@ export default {
 	add,
 	archives,
 	arrowLeft,
-	exit
+	exit,
+	paperclip,
+	paper_airplane,
+	file,
+	exclamation
 };
