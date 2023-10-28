@@ -14,14 +14,26 @@ import { useForm } from "react-hook-form";
 import { TokenObtain } from "@src/redux/api/generated";
 import { useCreateTokenMutation } from "@src/redux/api/jwt-api-slice";
 import { setCookie, removeCookie } from "typescript-cookie";
-import { useLazyGetUserQuery } from "@src/redux/api/auth-api-slice";
+import { useLazyGetUserQuery, useVerifyUserQuery } from "@src/redux/api/auth-api-slice";
 import { setUser } from "@src/redux/slices/users-slice";
 import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
 const cx = classNames.bind(styles);
 
 const SignIn = () => {
     const router = useRouter();
+
+    const params = useParams();
+
+    const token = params.token as string;
+    const uid = params.uid as string;
+
+    const { error: errorVerify, isSuccess: isSuccessVerify } = useVerifyUserQuery(
+        { token, uid },
+        { refetchOnReconnect: true, skip: !token || !uid }
+    );
+
     const {
         register,
         handleSubmit,
@@ -98,6 +110,11 @@ const SignIn = () => {
                     onClick={() => dispatch(setTypeModal("resetPassword"))}>
                     Забыли пароль?
                 </button>
+
+                {isSuccessVerify && <p className={styles.textSuccess}>Ваш аккаунт подтвержден</p>}
+                {errorVerify && (
+                    <p className={cx("textError", { warningText: true })}>Ссылка для подтверждения неактивна</p>
+                )}
 
                 <Button isLoading={isLoadingToken || isLoadingUser} className={cx("text", "button")} type="submit">
                     Войти
