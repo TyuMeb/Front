@@ -182,7 +182,9 @@ const Registration = () => {
                     textLabel="Вы соглашаетесь с обработкой персональных данных"
                 />
 
-                {!isSuccess && <p className={styles.textSuccess}>Ваш аккаунт успешно создан, теперь вы можете войти</p>}
+                {isSuccess && (
+                    <p className={styles.textSuccess}>На вашу почту отправлено письмо для подтверждения аккаунта</p>
+                )}
 
                 <Button isLoading={isLoading} className={cx("positionCenter")} type="submit">
                     Зарегистрироваться
