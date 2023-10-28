@@ -1,5 +1,5 @@
 import React, { ChangeEvent, forwardRef } from "react";
-import { phoneMask } from "@src/helpers/phoneMask";
+import { phoneMask } from "@src/shared/lib/phoneMask";
 import { InputProps, Input } from "../input";
 
 export const PhoneInput = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) => {
