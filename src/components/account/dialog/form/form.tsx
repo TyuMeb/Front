@@ -39,9 +39,10 @@ const Form = () => {
                     <FileInput
                         maxSizeFile={1000000}
                         maxSizeImage={1000000}
-                        accept={[".png", ".jpg", ".jpeg"]}
-                        multi
-                        setFiles={setFiles}>
+                        accept=".png, .jpg, .jpeg"
+                        multiple
+                        setFiles={setFiles}
+                        countFiles={files.length}>
                         <Paperclip />
                     </FileInput>
 

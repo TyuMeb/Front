@@ -12,6 +12,11 @@ export interface ITextareaProps extends InputHTMLAttributes<HTMLTextAreaElement>
 
 const setAutomaticHeight = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     const textarea = e.target as HTMLTextAreaElement;
+    textarea.style.height = "";
+
+    if (e.key === "Backspace" && textarea.selectionStart === 0) {
+        textarea.style.height = "";
+    }
 
     if (textarea && textarea.clientHeight < 178) {
         textarea.style.height = "auto";
@@ -26,7 +31,7 @@ const Textarea = (props: ITextareaProps) => {
         <textarea
             className={cx("textarea", "text", { disabled }, className)}
             disabled={disabled}
-            onKeyDown={setAutomaticHeight}
+            onKeyUp={setAutomaticHeight}
             {...restProps}
         />
     );

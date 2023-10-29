@@ -5,11 +5,24 @@
     padding: 24px;
     height: 82px;
     box-sizing: border-box;
-    border-radius: 18px;
+    border-radius: 18px 0 0 18px;
     resize: none;
 
     &::placeholder {
         color: $asphalt;
+    }
+
+    &::-webkit-scrollbar {
+        width: 9px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #d9d9d9;
+        border-radius: 20px;
     }
 }
 

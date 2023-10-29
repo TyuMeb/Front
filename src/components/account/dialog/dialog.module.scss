@@ -8,6 +8,8 @@
     box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.09);
     display: grid;
     row-gap: 28px;
+    grid-auto-rows: 120px 1fr minmax(min-content, max-content);
+    height: 82vh;
 }
 
 .wrapperHead {
@@ -42,7 +44,6 @@
 }
 
 .wrapperMessage {
-    max-height: 46vh;
     overflow-y: auto;
     padding-right: 64px;
 
