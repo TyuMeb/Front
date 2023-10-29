@@ -1,0 +1,100 @@
+@import "~/src/styles/index.scss";
+
+.wrapper {
+    box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.09);
+    background-color: $white;
+    border-radius: 18px;
+    margin-right: 64px;
+}
+
+.formChat {
+    display: flex;
+    align-items: center;
+    padding-right: 24px;
+    column-gap: 20px;
+}
+
+.textarea {
+    display: block;
+    width: 100%;
+    border: none;
+    padding: 24px;
+    height: 82px;
+    box-sizing: border-box;
+    border-radius: 18px;
+    resize: none;
+
+    &::placeholder {
+        color: $asphalt;
+    }
+}
+
+.text {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+
+    color: $graphite-black;
+}
+
+.wrapperFile {
+    display: flex;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.disabled {
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+
+.buttonSubmit {
+    border-radius: 2px;
+    padding: 8px 24px;
+}
+
+.image {
+    position: relative;
+}
+
+.containerImages {
+    display: flex;
+    column-gap: 20px;
+}
+
+.crossDelete {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+
+    &::after {
+        position: absolute;
+        top: 0;
+        left: 10px;
+        content: "";
+        width: 2px;
+        height: 20px;
+        background-color: #1c1c1c;
+        transform: rotate(45deg);
+    }
+
+    &::before {
+        position: absolute;
+        top: 0;
+        left: 10px;
+        content: "";
+        width: 2px;
+        height: 20px;
+        background-color: #1c1c1c;
+        transform: rotate(-45deg);
+    }
+}
+
+// .disabled {
+//     background-color: #B5B3B2;
+// }

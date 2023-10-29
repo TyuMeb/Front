@@ -1,0 +1,45 @@
+@import "~src/styles/index.scss";
+
+.order {
+    max-width: 908px;
+    width: 100%;
+    padding: 24px 64px 36px 44px;
+    border-radius: 18px;
+    background: var(--white, #fff);
+    box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.09);
+    display: grid;
+    row-gap: 28px;
+}
+
+.wrapperText {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(min-content, max-content));
+    align-items: center;
+    column-gap: 40px;
+    border-bottom: 2px solid #fccf55;
+    padding-bottom: 20px;
+    justify-content: space-between;
+}
+
+.header {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 150%;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.text {
+    display: inline-block;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 21px;
+    color: var(--text, #1c1c1c);
+}
+
+.textBold {
+    font-weight: 600;
+}

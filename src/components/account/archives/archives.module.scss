@@ -1,0 +1,69 @@
+@import "../../../styles/variables";
+
+.ordersmain {
+    display: grid;
+    row-gap: 16px;
+}
+
+.order {
+    display: flex;
+    max-width: 908px;
+    width: 100%;
+    height: auto;
+    padding: 24px 0px 36px 44px;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 28px;
+    border-radius: 18px;
+    background: var(--light-latte, #f5f3f1);
+    box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.09);
+}
+
+.head {
+    display: flex;
+    font-size: 16px;
+    line-height: 150%;
+    max-width: 800px;
+    width: 100%;
+    justify-content: space-between;
+    border-bottom: 2px solid #fccf55;
+    padding-bottom: 20px;
+}
+
+.list {
+    display: flex;
+    font-size: 14px;
+    line-height: 150%;
+    width: 440px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.params {
+    display: flex;
+    padding-bottom: 16px;
+    width: 420px;
+    border-bottom: 1px solid #eae5e1;
+    text-decoration: dotted;
+}
+
+.gallery {
+    width: 386px;
+    height: 148px;
+    display: flex;
+    background: url("../../../../public/account/desk.jpg") no-repeat;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0 40px;
+}
+
+.orderinfo {
+    width: 800px;
+    height: 148px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

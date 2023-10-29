@@ -1,6 +1,75 @@
+@import "~/src/styles/variables";
+
+.wrapper {
+    min-height: 100%;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.container {
+    max-width: 1220px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.logo {
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.logolink {
+    margin-right: 28px;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 160%;
+}
+
+/*----------------------------------------------------------*/
+
 .header {
     display: flex;
+}
+
+.headeraccount {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    min-height: 80px;
+    padding: 24px 0;
+}
+
+.nav {
+    margin-right: auto;
+    z-index: -1;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu > span {
+    background: url("../../../../../public/icons/triangle.svg") no-repeat;
+    width: 24px;
+    height: 24px;
+}
+
+.menuitem {
+    margin: 0 12px;
+}
+
+.menuitem:last-child {
+    margin-right: 0;
+    font-weight: 600;
+}
+
+.menulink:not(:last-child) {
+    display: flex;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    white-space: nowrap;
 }

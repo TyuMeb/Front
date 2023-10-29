@@ -1,13 +1,51 @@
+"use client";
+
 import React, { HTMLAttributes } from "react";
-import classNames from "classnames/bind";
-
 import styles from "./header.module.scss";
-const cx = classNames.bind(styles);
+import Link from "next/link";
+import Image from "next/image";
+import avatar from "@public/account/photo.png";
 
-interface IHeader extends HTMLAttributes<HTMLDivElement> {}
+interface HeaderI extends HTMLAttributes<HTMLDivElement> {}
 
-const Header = ({ className }: IHeader) => {
-    return <div className={cx("header", className)}>Header</div>;
+const Header = ({ className }: HeaderI) => {
+    return (
+        <div className={`${styles.wrapper} ${className}`}>
+            <header className={styles.header}>
+                <div className={styles.container}>
+                    <div className={styles.headeraccount}>
+                        <div className={styles.logo}>
+                            <Link className={styles.logolink} href="/">
+                                ВайВи
+                            </Link>
+                        </div>
+                        <nav className={styles.nav}>
+                            <ul className={styles.menu}>
+                                <li className={styles.menuitem}>
+                                    <a className={styles.menulink} href="">
+                                        Мои заказы
+                                    </a>
+                                </li>
+                                <span></span>
+                                <li className={styles.menuitem}>
+                                    <a className={styles.menulink} href="">
+                                        Полка настенная
+                                    </a>
+                                </li>
+                                <span></span>
+                                <li className={styles.menuitem}>
+                                    <a className={styles.menulink} href="">
+                                        чат с исполнителем 1
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <Image width={32} height={32} priority={true} src={avatar} alt="Фото"></Image>
+                    </div>
+                </div>
+            </header>
+        </div>
+    );
 };
 
 export default Header;

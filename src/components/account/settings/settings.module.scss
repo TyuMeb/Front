@@ -1,0 +1,26 @@
+@import "../../../styles/variables";
+
+.settings {
+    display: flex;
+    font-size: 16px;
+    line-height: 150%;
+    padding-bottom: 20px;
+    width: 200;
+    flex-direction: column;
+}
+
+.delete {
+    display: flex;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 160%;
+    flex-direction: row;
+}
+
+.row {
+    width: 624px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

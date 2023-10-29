@@ -1,0 +1,50 @@
+@import "../../../../styles/variables";
+
+.btn {
+    display: flex;
+    padding: 12px 20px;
+    align-items: center;
+    width: 224px;
+    gap: 35px;
+    border: 0;
+    border-radius: 0px 10px 10px 0px;
+    color: inherit;
+    background-color: #f5f3f1;
+    // background: url("../../../../public/icons/couch.svg") no-repeat;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 150%;
+    cursor: pointer;
+
+    &:focus {
+        background-color: #f5f3f1;
+        outline: 2px solid $accent-color;
+    }
+
+    &:hover {
+        border: 0;
+        background-color: #eae5e1;
+        outline: none;
+    }
+
+    &:active {
+        background-color: #f5f3f1;
+        outline: none;
+    }
+
+    &:disabled {
+        background-color: #f5f3f1;
+    }
+}
+
+// .btn::before {
+//     content: "";
+//     position: absolute;
+//     top: 10%;
+//     left: 0;
+//     transform: translateX(20px) translateY(-50%);
+//     display: block;
+//     background: url("../../../../public/icons/couch.svg") no-repeat;
+//     width: 30px;
+//     height: 30px;
+// }
