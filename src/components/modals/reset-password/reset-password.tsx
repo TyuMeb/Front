@@ -1,32 +1,46 @@
-import React, { useState } from "react";
+import React from "react";
 import classNames from "classnames/bind";
 
 import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/slices/modal-slice";
+import { usePostUsersResetPasswordMutation } from "@src/redux/api/users-api-slice";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
 import { Icon } from "@src/components/icon";
-import { submitForm } from "../validation";
 import { Input } from "@src/shared/ui/inputs";
 import { Button } from "@src/shared/ui/button";
-import { useInput } from "@src/hooks/use-input";
+import { useForm } from "react-hook-form";
+import { SendEmailReset } from "@src/redux/api/generated";
 
 const cx = classNames.bind(styles);
 
 export const ResetPassword = () => {
     const dispatch = useAppDispatch();
 
-    const emailField = useInput("");
+    const {
+        register,
+        handleSubmit,
+        setError,
+        formState: { errors },
+    } = useForm({
+        values: {
+            email: "",
+        },
+    });
 
-    const [emailError] = useState("");
+    const [resetPassword, { isLoading, isSuccess }] = usePostUsersResetPasswordMutation();
 
-    const renderError = () =>
-        emailError && (
-            <ul className={cx("errorsText")}>
-                <li className={cx("textError", { warningText: emailError })}>{emailError}</li>
-            </ul>
-        );
+    const onSubmit = (data: SendEmailReset) => {
+        resetPassword(data)
+            .unwrap()
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((error) => {
+                setError("email", { message: error?.data?.join("") });
+            });
+    };
 
     return (
         <ModalAuth>
@@ -38,31 +52,23 @@ export const ResetPassword = () => {
                 Введите E-mail, который вы указывали при регистрации. Туда придет инструкция по сбросу пароля.
             </p>
 
-            <form className={cx("form")}>
+            <form onSubmit={handleSubmit(onSubmit)} className={cx("form")}>
                 <div className={cx("inputsResetPassword")}>
                     <Input
                         label="E-mail"
                         placeholder="Введите свою почту"
-                        error={Boolean(emailError)}
+                        error={Boolean(errors.email?.message)}
+                        errorMessage={errors.email?.message}
                         id="email"
-                        {...emailField}
+                        {...register("email", { required: { value: true, message: "Данное поле обязательно" } })}
                     />
                 </div>
 
-                {renderError()}
+                {isSuccess && <p className={cx("textSuccess")}>Письмо с инструкцией отправлено на почту</p>}
 
                 <ul className={cx("listButtons")}>
                     <li className={cx("itemButtons")}>
-                        <Button
-                            type="submit"
-                            onClick={(e) =>
-                                submitForm({
-                                    e,
-                                    fields: {
-                                        emailField: emailField.value,
-                                    },
-                                })
-                            }>
+                        <Button isLoading={isLoading} type="submit">
                             Сбросить пароль
                         </Button>
                     </li>
@@ -77,5 +83,3 @@ export const ResetPassword = () => {
         </ModalAuth>
     );
 };
-
-export default ResetPassword;
