@@ -1,5 +1,7 @@
 "use client";
 
+import Chats from "@src/components/account/chats";
+
 export default function ChatsPage() {
-    return "Чат";
+    return <Chats />;
 }

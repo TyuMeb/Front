@@ -55,7 +55,7 @@ const MyOrders = (props: MyOrdersI) => {
         <section className={styles.wrapperOrders} {...props}>
             {!orders.length && <NoOrdersCard />}
 
-            <ul className={styles.wrapperOrders}>{renderOrders()}</ul>
+            {orders.length && <ul className={styles.wrapperOrders}>{renderOrders()}</ul>}
         </section>
     );
 };
