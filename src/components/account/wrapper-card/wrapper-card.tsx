@@ -4,9 +4,9 @@ import React, { HTMLAttributes } from "react";
 
 import styles from "./wrapper-card.module.scss";
 
-interface OrderI extends HTMLAttributes<HTMLDivElement> {}
+type OrderType = {} & HTMLAttributes<HTMLDivElement>;
 
-const WrapperCard = ({ children, className, ...props }: OrderI) => (
+const WrapperCard = ({ children, className, ...props }: OrderType) => (
     <article className={`${styles.order} ${className}`} {...props}>
         {children}
     </article>

@@ -9,7 +9,7 @@ import PreviewFiles from "./previewFiles";
 import { filesType } from "./formTypes";
 
 import styles from "./form.module.scss";
-import { useInput } from "@src/hooks/use-Input";
+import { useInput } from "@src/hooks/use-input";
 
 const Form = () => {
     const [files, setFiles] = useState<filesType[] | []>([]);

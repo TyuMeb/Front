@@ -1,38 +1,60 @@
 "use client";
 
+import React, { HTMLAttributes } from "react";
 import styles from "./archives.module.scss";
+import OrderCard from "@src/components/account/my-orders/order-card";
+import NoOrdersCard from "@src/components/account/my-orders/no-orders-card";
 
-const Archives = () => {
+const orders = [
+    {
+        id: "1",
+        title: "Полка настенная",
+        description: {
+            date: "24.04.2024",
+            status: "сбор предложений окончен",
+            countOffer: 4,
+        },
+    },
+    {
+        id: "2",
+        title: "Комод",
+        description: {
+            date: "24.04.2024",
+            status: "сбор предложений окончен",
+            countOffer: 0,
+        },
+    },
+    {
+        id: "2",
+        title: "Комод",
+        description: {
+            date: "24.04.2024",
+            status: "сбор предложений окончен",
+            countOffer: 0,
+        },
+    },
+];
+
+interface MyOrdersI extends HTMLAttributes<HTMLDivElement> {}
+
+const MyOrders = (props: MyOrdersI) => {
+    const renderOrders = () => {
+        return orders.map((order) => {
+            return (
+                <li key={order.id}>
+                    <OrderCard className={styles.backgroundColor} title={order.title} description={order.description} />
+                </li>
+            );
+        });
+    };
+
     return (
-        <div className={styles.ordersmain}>
-            <article className={styles.order}>
-                <section className={styles.head}>
-                    <p>Полка настенная</p>
-                </section>
-                <div className={styles.orderinfo}>
-                    <ul className={styles.list}>
-                        <li className={styles.params}>Дата заказа: 24.04.2024</li>
-                        <li className={styles.params}>Статус заказа: закрыт </li>
-                        <li className={styles.params}>Предложения: 4 предложения</li>
-                    </ul>
-                    <section className={styles.gallery}></section>
-                </div>
-            </article>
-            <article className={styles.order}>
-                <section className={styles.head}>
-                    <p>Шкаф</p>
-                </section>
-                <div className={styles.orderinfo}>
-                    <ul className={styles.list}>
-                        <li className={styles.params}>Дата заказа: 24.04.2024</li>
-                        <li className={styles.params}>Статус заказа: закрыт </li>
-                        <li className={styles.params}>Предложения: 4 предложения</li>
-                    </ul>
-                    <section className={styles.gallery}></section>
-                </div>
-            </article>
-        </div>
+        <section className={styles.wrapperOrders} {...props}>
+            {!orders.length && <NoOrdersCard />}
+
+            <ul className={styles.wrapperOrders}>{renderOrders()}</ul>
+        </section>
     );
 };
 
-export default Archives;
+export default MyOrders;

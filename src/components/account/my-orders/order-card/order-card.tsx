@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { HTMLAttributes } from "react";
 import Image from "next/image";
 import image from "public/account/desk.jpg";
 
@@ -9,23 +9,23 @@ import { Button } from "@src/components/shared/ui/button/button";
 import { Icon } from "src/components/icon";
 import WrapperCard from "@src/components/account/wrapper-card";
 
-interface DescriptionI {
+type DescriptionType = {
     date: string;
     status: string;
     countOffer: number;
-}
+};
 
-interface OrderI {
+type OrderType = {
     title: string;
-    notOffer: boolean;
-    description: DescriptionI;
-}
+    notOffer?: boolean;
+    description: DescriptionType;
+} & HTMLAttributes<HTMLDivElement>;
 
-const OrderCard = ({ title, notOffer, description }: OrderI) => {
+const OrderCard = ({ title, notOffer, description, ...props }: OrderType) => {
     const { date, status, countOffer } = description;
 
     return (
-        <WrapperCard>
+        <WrapperCard {...props}>
             <div className={styles.wrapperText}>
                 <h2 className={styles.header}>{title}</h2>
                 {notOffer && (
@@ -63,7 +63,15 @@ const OrderCard = ({ title, notOffer, description }: OrderI) => {
                     <button className={styles.button}>
                         <Icon glyph="arrowLeft" />
                     </button>
-                    <Image src={image} width={288} height={148} loading="lazy" quality={100} alt="Картинка" />
+                    <Image
+                        className={styles.borderRadius}
+                        src={image}
+                        width={288}
+                        height={148}
+                        loading="lazy"
+                        quality={100}
+                        alt="Картинка"
+                    />
                     <button className={styles.button}>
                         <Icon glyph="arrowLeft" transform="rotate(180)" />
                     </button>
