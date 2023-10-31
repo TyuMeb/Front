@@ -5,7 +5,7 @@ import classNames from "classnames/bind";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { ExitButton } from "@src/components/shared/ui/button/exit-button";
+import { Button } from "@src/shared/ui/button";
 import { Icon } from "@src/components/icon";
 import { orders, ordersI, executorsI } from "./data";
 
@@ -38,17 +38,26 @@ const firstLevelMenu: firstLevelMenuItemI[] = [
 const Sidebar = ({ className }: SidebarI) => {
     const pathname = usePathname();
 
+    const onHandlerClick = () => {
+        // TODO отправлять на сервер запрос на выход
+        console.log("Выход");
+    };
+
     const buildFirstLevel = (): JSX.Element => {
         return (
             <ul className={cx("firstLevelMenu")}>
                 {firstLevelMenu.map((menu, i) => {
-                    const currentPathname = PAGE_LINK + menu.alias;
+                    let currentPathname = PAGE_LINK + menu.alias;
+                    let activatedMenu = { activatedMenu: pathname === currentPathname };
+
+                    if (i === firstLevelMenu.length - 1) {
+                        currentPathname = "/";
+                        activatedMenu = { activatedMenu: false };
+                    }
 
                     return (
                         <li key={menu.alias}>
-                            <Link
-                                className={cx("firstLevelLink", { activatedMenu: pathname === currentPathname })}
-                                href={currentPathname}>
+                            <Link className={cx("firstLevelLink", activatedMenu)} href={currentPathname}>
                                 {menu.icon}
                                 <p className={cx("text")}>
                                     {menu.name}
@@ -120,9 +129,11 @@ const Sidebar = ({ className }: SidebarI) => {
             <nav className={cx("navigation")}>
                 {buildFirstLevel()}
 
-                <div className={styles.exitbutton}>
-                    <ExitButton onClick={() => {}}>Выйти</ExitButton>
-                </div>
+                <Link href="/">
+                    <Button variant="exit" onClick={onHandlerClick}>
+                        Выйти
+                    </Button>
+                </Link>
             </nav>
         </aside>
     );
