@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Slider } from "./slider";
+import { Slider_v2 } from "./slider_v2";
 
 const meta = {
-    title: "UI/Slider",
-    component: Slider,
+    title: "UI/Slider_v2",
+    component: Slider_v2,
     parameters: {
         layout: "padded",
     },
@@ -21,7 +21,7 @@ const meta = {
             options: ["false", "true"],
         },
     },
-} satisfies Meta<typeof Slider>;
+} satisfies Meta<typeof Slider_v2>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -31,7 +31,7 @@ export const Default: Story = {
         disabled: false,
         slides: [
             {
-                slideItems: [
+                items: [
                     {
                         src: "https://ekbkupe.ru/images/stories/virtuemart/product/shk-0003-16.jpg",
                         alt: "Какой-то текст 1",
@@ -59,7 +59,63 @@ export const Default: Story = {
                 ],
             },
             {
-                slideItems: [
+                items: [
+                    {
+                        src: "https://ekbkupe.ru/images/stories/virtuemart/product/shk-0003-4.jpg",
+                        alt: "Какой-то текст 5",
+                        object: "Товар 5",
+                        price: "1005 р",
+                    },
+                    {
+                        src: "https://ekbkupe.ru/images/stories/virtuemart/product/shk-0003-6.jpg",
+                        alt: "Какой-то текст 6",
+                        object: "Товар 6",
+                        price: "1006 р",
+                    },
+                    {
+                        src: "https://ekbkupe.ru/images/stories/virtuemart/product/shk-0005-1.jpg",
+                        alt: "Какой-то текст 7",
+                        object: "Товар 7",
+                        price: "1007 р",
+                    },
+                    {
+                        src: "https://ekbkupe.ru/images/stories/virtuemart/product/shk-0005-3.jpg",
+                        alt: "Какой-то текст 8",
+                        object: "Товар 8",
+                        price: "1008 р",
+                    },
+                ],
+            },
+            {
+                items: [
+                    {
+                        src: "https://ekbkupe.ru/images/stories/virtuemart/product/shk-0003-4.jpg",
+                        alt: "Какой-то текст 5",
+                        object: "Товар 5",
+                        price: "1005 р",
+                    },
+                    {
+                        src: "https://ekbkupe.ru/images/stories/virtuemart/product/shk-0003-6.jpg",
+                        alt: "Какой-то текст 6",
+                        object: "Товар 6",
+                        price: "1006 р",
+                    },
+                    {
+                        src: "https://ekbkupe.ru/images/stories/virtuemart/product/shk-0005-1.jpg",
+                        alt: "Какой-то текст 7",
+                        object: "Товар 7",
+                        price: "1007 р",
+                    },
+                    {
+                        src: "https://ekbkupe.ru/images/stories/virtuemart/product/shk-0005-3.jpg",
+                        alt: "Какой-то текст 8",
+                        object: "Товар 8",
+                        price: "1008 р",
+                    },
+                ],
+            },
+            {
+                items: [
                     {
                         src: "https://ekbkupe.ru/images/stories/virtuemart/product/shk-0003-4.jpg",
                         alt: "Какой-то текст 5",
