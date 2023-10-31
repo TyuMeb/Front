@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Slider_v2 } from "./slider_v2";
+import { SliderNew } from "./sliderNew";
 
 const meta = {
-    title: "UI/Slider_v2",
-    component: Slider_v2,
+    title: "UI/SliderNew",
+    component: SliderNew,
     parameters: {
         layout: "fullscreen",
     },
@@ -21,7 +21,7 @@ const meta = {
             options: ["false", "true"],
         },
     },
-} satisfies Meta<typeof Slider_v2>;
+} satisfies Meta<typeof SliderNew>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

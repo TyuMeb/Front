@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import styles from "./slider_v2.module.scss";
+import styles from "./sliderNew.module.scss";
 import { cn } from "@src/shared/lib/cn";
 import { CardExample, CardExampleProps } from "@src/shared/ui/card-example/card-example";
 import { SliderControl } from "../sllderControl";
@@ -15,7 +15,7 @@ type SliderProps = {
     disabled?: boolean;
 };
 
-export const Slider_v2: FC<SliderProps> = ({ slides, disabled }) => {
+export const SliderNew: FC<SliderProps> = ({ slides, disabled }) => {
     const [currentSlide1, setCurrentSlide1] = useState<number>(0);
     const [currentSlide2, setCurrentSlide2] = useState<number>(0);
     const [currentSlide3, setCurrentSlide3] = useState<number>(0);
