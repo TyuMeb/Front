@@ -5,28 +5,20 @@ import cn from "classnames";
 import { useState } from "react";
 import { CardExample } from "@src/shared/ui/card-example/card-example";
 import { Slider } from "@src/shared/ui/slider";
+import { useGalleryQuery } from "@src/redux/api/content-api-slice.1";
 
 export const Examples = () => {
-    const [currentSlide, setCurrentSlide] = useState(0);
+    const { data } = useGalleryQuery();
+    const [currentSlide, setCurrentSlide] = useState<number>(1);
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    function forwardSlide() {
-        setCurrentSlide((current) => {
-            if (current < 1) return current + 1;
-            else return 0;
-        });
-    }
+    const currentData = data?.filter(({ slider_number }) => slider_number === String(currentSlide));
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    function backwardSlide() {
-        setCurrentSlide((current) => {
-            if (current > 0) return current - 1;
-            else return 1;
-        });
-    }
+    // need for correct sliding data
+    const minSlide = Math.min(...(data || []).map(({ slider_number }) => Number(slider_number)));
+    const maxSlide = Math.max(...(data || []).map(({ slider_number }) => Number(slider_number)));
 
     return (
-        <div className={styles.inner}>
+        <div className={styles.inner} id="examples">
             <h2 className={cn("title-h2", styles.title)}>Примеры работ</h2>
             <div className={styles.examples}>
                 <div className={styles.leftSide}>
@@ -71,14 +63,6 @@ export const Examples = () => {
                             throw new Error("Function not implemented.");
                         }}
                     />
-                    {/* <div className={styles.slider}>
-                        <button className={styles.button} onClick={backwardSlide}>
-                            <Image src="/home/arrow-left.svg" alt="arrow-left" width={14} height={32} />
-                        </button>
-                        <button className={styles.button} onClick={forwardSlide}>
-                            <Image src="/home/arrow-right.svg" alt="arrow-right" width={14} height={32} />
-                        </button>
-                    </div> */}
                 </div>
             </div>
         </div>

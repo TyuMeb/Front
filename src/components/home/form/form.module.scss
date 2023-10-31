@@ -29,3 +29,8 @@
     max-width: 600px;
     margin: auto;
 }
+
+.textSuccess {
+    margin-top: $gap-xs;
+    color: $success-accent-color;
+}

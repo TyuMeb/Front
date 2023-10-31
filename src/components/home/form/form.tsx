@@ -3,25 +3,20 @@ import styles from "./form.module.scss";
 import { Input, PhoneInput } from "@src/shared/ui/inputs";
 import { useForm } from "react-hook-form";
 import { useCooperateMutation } from "@src/redux/api/contact-api-slice";
-
-type Form = {
-    name: string;
-    phone: string;
-};
+import { CooperationOffer } from "@src/redux/api/generated";
 
 export const Form = () => {
     const { register, handleSubmit } = useForm({
         values: {
             name: "",
-            phone: "",
+            telephone: "",
         },
     });
 
-    const [cooperate, { isLoading, isSuccess, error }] = useCooperateMutation();
-    console.log("🚀 ~ file: form.tsx:21 ~ Form ~ error:", error);
+    const [cooperate, { isLoading, isSuccess }] = useCooperateMutation();
 
-    const onSubmit = (data: Form) => {
-        cooperate(data);
+    const onSubmit = ({ name, telephone }: CooperationOffer) => {
+        cooperate({ name, telephone: telephone?.replaceAll(" ", "") });
     };
 
     return (
@@ -30,21 +25,19 @@ export const Form = () => {
                 Хотите стать одним из исполнителей на ВайВи? — оставьте заявку и мы с вами свяжемся. Мы готовы
                 предоставить постоянный поток клиентов и взаимовыгодное сотрудничество
             </p>
-            <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-                <div className={styles.inputs}>
-                    <Input placeholder="Имя" required {...register("name")} />
-                    <PhoneInput
-                        placeholder="Номер телефона"
-                        type="tel"
-                        maxLength={11}
-                        required
-                        {...register("phone")}
-                    />
-                </div>
-                <Button type="submit" isLoading={isLoading}>
-                    Связаться
-                </Button>
-            </form>
+            {isSuccess ? (
+                <p className={styles.textSuccess}>Заявка успешно отправлена!</p>
+            ) : (
+                <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+                    <div className={styles.inputs}>
+                        <Input placeholder="Имя" required {...register("name")} />
+                        <PhoneInput placeholder="Номер телефона" type="tel" required {...register("telephone")} />
+                    </div>
+                    <Button type="submit" isLoading={isLoading}>
+                        Связаться
+                    </Button>
+                </form>
+            )}
         </section>
     );
 };
