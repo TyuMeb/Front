@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, MouseEvent } from "react";
 import Image from "next/image";
 
-import styles from "./previewFiles.module.scss";
+import styles from "./preview-files.module.scss";
 import { Icon } from "@src/components/icon";
 import { filesType } from "../formTypes";
 

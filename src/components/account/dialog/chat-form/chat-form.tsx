@@ -4,14 +4,15 @@ import Paperclip from "@public/icons/paperclip.svg";
 import { Button } from "@src/shared/ui/button";
 import { Icon } from "@src/components/icon";
 import { FileInput } from "@src/shared/ui/inputs/file/file";
-import Textarea from "./textarea";
-import PreviewFiles from "./previewFiles";
-import { filesType } from "./formTypes";
+import Textarea from "@src/components/account/form/textarea";
+import PreviewFiles from "@src/components/account/form/preview-files";
+import { filesType } from "@src/components/account/form/formTypes";
 
-import styles from "./form.module.scss";
+import styles from "./chat-form.module.scss";
 import { useInput } from "@src/hooks/use-input";
+import Form from "@src/components/account/form";
 
-const Form = () => {
+const ChatForm = () => {
     const [files, setFiles] = useState<filesType[] | []>([]);
     const chat = useInput("");
 
@@ -31,30 +32,28 @@ const Form = () => {
     };
 
     return (
-        <div>
-            <div className={styles.wrapper}>
-                <form className={styles.formChat} onSubmit={onSubmitHandler}>
-                    <Textarea onChange={chat.onChange} />
+        <div className={styles.wrapper}>
+            <Form onSubmit={onSubmitHandler}>
+                <Textarea onChange={chat.onChange} />
 
-                    <FileInput
-                        maxSizeFile={1000000}
-                        maxSizeImage={1000000}
-                        accept=".png, .jpg, .jpeg"
-                        multiple
-                        setFiles={setFiles}
-                        countFiles={files.length}>
-                        <Paperclip />
-                    </FileInput>
+                <FileInput
+                    maxSizeFile={1000000}
+                    maxSizeImage={1000000}
+                    accept=".png, .jpg, .jpeg"
+                    multiple
+                    setFiles={setFiles}
+                    countFiles={files.length}>
+                    <Paperclip />
+                </FileInput>
 
-                    <Button className={styles.buttonSubmit}>
-                        <Icon glyph="paper_airplane" />
-                    </Button>
-                </form>
-            </div>
+                <Button className={styles.buttonSubmit}>
+                    <Icon glyph="paper_airplane" />
+                </Button>
+            </Form>
 
             <PreviewFiles files={files} setFiles={setFiles} />
         </div>
     );
 };
 
-export default Form;
+export default ChatForm;

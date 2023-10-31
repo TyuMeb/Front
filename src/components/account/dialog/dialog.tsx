@@ -2,7 +2,7 @@
 
 import styles from "./dialog.module.scss";
 import { Button } from "@src/components/shared/ui/button/button";
-import Form from "@src/components/account/dialog/form";
+import ChatForm from "@src/components/account/dialog/chat-form";
 
 const Dialog = () => {
     return (
@@ -95,7 +95,7 @@ const Dialog = () => {
                 </div>
             </div>
 
-            <Form />
+            <ChatForm />
         </article>
     );
 };
