@@ -1,63 +1,57 @@
 @import "~/src/styles/variables";
 
-.wrapperSettings {
-    display: flex;
-    font-size: 16px;
-    line-height: 150%;
-    padding-bottom: 20px;
-    width: 200;
-    flex-direction: column;
-}
-
 .delete {
     display: flex;
     font-size: 16px;
-    font-style: normal;
     font-weight: 600;
-    line-height: 160%;
-    flex-direction: row;
     margin-top: 64px;
 }
 
 .row {
-    width: 624px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-}
-
-.wrapperButton {
-    margin-right: auto;
-}
-
-.wrapperInput {
-    display: grid;
-    justify-items: start;
-    gap: 28px;
-    margin-bottom: 44px;
-}
-
-.title {
-    margin-left: 16px;
-}
-
-.name {
-    display: flex;
-    row-gap: 8px;
-    flex-direction: column;
+    column-gap: 80px;
 }
 
 .string {
     display: flex;
-    gap: 28px;
 }
 
 .wrapperCheckbox {
+    gap: 44px;
     display: flex;
-    flex-direction: row;
     margin-top: 64px;
+}
+
+.text {
+    font-weight: normal;
+}
+
+.title {
     font-size: 16px;
-    font-style: normal;
     font-weight: 600;
-    line-height: 160%;
+    margin-left: 0;
+}
+
+.checkbox {
+    margin-bottom: 0;
+    margin-right: 28px;
+}
+
+.form {
+    position: relative;
+    margin-right: auto;
+}
+
+.inputsRegistration {
+    display: grid;
+    grid-template-columns: [startline] repeat(2, minmax(296px, max-content)) [endline];
+    column-gap: 28px;
+    row-gap: 28px;
+    margin-bottom: 44px;
+}
+
+.wrapperField {
+    max-width: "296px";
+    width: 100%;
 }

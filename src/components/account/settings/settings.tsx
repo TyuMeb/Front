@@ -1,16 +1,15 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import classNames from "classnames/bind";
 
-import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
+import styles from "@src/components/account/settings/settings.module.scss";
 import { Button } from "@src/shared/ui/button";
 import { Input } from "@src/shared/ui/inputs";
 import { CheckboxInput } from "@src/shared/ui/inputs";
 import { PasswordInput } from "@src/shared/ui/inputs";
 import { PhoneInput } from "@src/shared/ui/inputs";
 import { useInput } from "@src/hooks/use-Input";
-import { submitForm } from "@src/components/modals/validation";
 
 const cx = classNames.bind(styles);
 
@@ -19,15 +18,19 @@ const Settings = () => {
     const lastNameField = useInput("");
     const emailField = useInput("");
     const passwordField = useInput("");
-    const passwordRepeatField = useInput("");
     const phoneField = useInput("");
 
-    const [firstNameError, setFirstNameError] = useState("");
-    const [lastNameError, setLastNameError] = useState("");
-    const [emailError, setEmailError] = useState("");
-    const [phoneError, setPhoneError] = useState("");
-    const [passwordError, setPasswordError] = useState("");
-    const [passwordRepeatError, setPasswordRepeatError] = useState("");
+    const [firstNameError] = useState("");
+    const [lastNameError] = useState("");
+    const [emailError] = useState("");
+    const [phoneError] = useState("");
+    const [passwordError] = useState("");
+    const [passwordRepeatError] = useState("");
+
+    const [checked, setChecked] = useState(false);
+
+    const handleChange = () => setChecked((state) => !state);
+
     return (
         <form className={cx("form")}>
             <div className={cx("inputsRegistration")}>
@@ -54,6 +57,17 @@ const Settings = () => {
                 </div>
 
                 <div className={cx("wrapperField")}>
+                    <PhoneInput
+                        label="Телефон"
+                        placeholder="Введите номер телефона"
+                        error={Boolean(phoneError)}
+                        disabled
+                        id="phone"
+                        {...phoneField}
+                    />
+                </div>
+
+                <div className={cx("wrapperField")}>
                     <Input
                         type="email"
                         label="E-mail"
@@ -62,17 +76,6 @@ const Settings = () => {
                         disabled
                         id="email"
                         {...emailField}
-                    />
-                </div>
-
-                <div className={cx("wrapperField")}>
-                    <PhoneInput
-                        label="Телефон"
-                        placeholder="Введите номер телефона"
-                        error={Boolean(phoneError)}
-                        disabled
-                        id="phone"
-                        {...phoneField}
                     />
                 </div>
 
@@ -102,66 +105,37 @@ const Settings = () => {
             <Button className={cx("positionLeft")} onClick={() => {}}>
                 Редактировать
             </Button>
-        </form>
 
-        // <div className={styles.wrapperSettings}>
-        //     <div className={styles.wrapperInput}>
-        //         <ul className={styles.string}>
-        //             <div className={styles.name}>
-        //                 <h4 className={styles.title}>Имя</h4>
-        //                 <Input />
-        //             </div>
-        //             <div className={styles.name}>
-        //                 <h4 className={styles.title}>Фамилия</h4>
-        //                 <Input />
-        //             </div>
-        //         </ul>
-        //         <ul className={styles.string}>
-        //             <div className={styles.name}>
-        //                 <h4 className={styles.title}>Телефон</h4>
-        //                 <PhoneInput />
-        //             </div>
-        //             <div className={styles.name}>
-        //                 <h4 className={styles.title}>E-mail</h4>
-        //                 <Input />
-        //             </div>
-        //         </ul>
-        //         <ul className={styles.string}>
-        //             <div className={styles.name}>
-        //                 <h4 className={styles.title}>Пароль</h4>
-        //                 <PasswordInput />
-        //             </div>
-        //             <div className={styles.name}>
-        //                 <h4 className={styles.title}>Повторите пароль</h4>
-        //                 <PasswordInput />
-        //             </div>
-        //         </ul>
-        //     </div>
-        //     <div className={styles.wrapperButton}>
-        //         <Button onClick={() => {}}>Редактировать</Button>
-        //     </div>
-        //     <div className={styles.wrapperCheckbox}>
-        //         <h4>Получать уведомления</h4>
-        //         <ul className={styles.string}>
-        //             <CheckboxInput />
-        //             <h5>по sms</h5>
-        //             <CheckboxInput />
-        //             <h5>на e-mail</h5>
-        //             <CheckboxInput />
-        //             <h5>не получать</h5>
-        //         </ul>
-        //     </div>
-        //     <div className={styles.delete}>
-        //         <ul className={styles.row}>
-        //             <li>Удаление профиля</li>
-        //             <li>
-        //                 Если вы хотите удалить профиль, пожалуйста, <br />
-        //                 свяжитесь с нашей технической поддержкой на <br />
-        //                 вкладке «помощь»
-        //             </li>
-        //         </ul>
-        //     </div>
-        // </div>
+            <div className={styles.wrapperCheckbox}>
+                <h4 className={styles.title}>Получать уведомления</h4>
+                <ul className={styles.string}>
+                    <CheckboxInput className={styles.checkbox} textLabel="по sms" checked={checked} disabled />
+                    <CheckboxInput
+                        className={styles.checkbox}
+                        textLabel="на e-mail"
+                        checked={checked}
+                        onClick={() => handleChange()}
+                    />
+                    <CheckboxInput
+                        className={styles.checkbox}
+                        textLabel="не получать"
+                        checked={checked}
+                        onClick={() => handleChange()}
+                    />
+                </ul>
+            </div>
+
+            <div className={styles.delete}>
+                <ul className={styles.row}>
+                    <li>Удаление профиля</li>
+                    <li className={styles.text}>
+                        Если вы хотите удалить профиль, пожалуйста, <br />
+                        свяжитесь с нашей технической поддержкой на <br />
+                        вкладке «помощь»
+                    </li>
+                </ul>
+            </div>
+        </form>
     );
 };
 
