@@ -4,7 +4,7 @@ import styles from "./slider.module.scss";
 import cn from "classnames";
 import { useState, FC } from "react";
 import { CardExample, CardExampleProps } from "@src/shared/ui/card-example/card-example";
-import { SliderControl } from "../sllderControl";
+import { SliderControl } from "../sllder-control";
 
 type SlideItem = {
     slideItems: Array<CardExampleProps>;

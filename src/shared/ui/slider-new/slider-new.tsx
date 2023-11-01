@@ -1,10 +1,10 @@
 import React, { FC, useState, useEffect } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import styles from "./sliderNew.module.scss";
+import styles from "./slider-new.module.scss";
 import { cn } from "@src/shared/lib/cn";
 import { CardExample, CardExampleProps } from "@src/shared/ui/card-example/card-example";
-import { SliderControl } from "../sllderControl";
+import { SliderControl } from "../sllder-control";
 
 type SlideItem = {
     items: Array<CardExampleProps>;
