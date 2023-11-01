@@ -1,73 +1,116 @@
 "use client";
 
-import React from "react";
-import styles from "./settings.module.scss";
-import { Button } from "@src/shared/ui/button/button";
+import React, { useState } from "react";
+
+import styles from "@src/components/account/settings/settings.module.scss";
+import { Button } from "@src/shared/ui/button";
 import { Input } from "@src/shared/ui/inputs";
 import { CheckboxInput } from "@src/shared/ui/inputs";
 import { PasswordInput } from "@src/shared/ui/inputs";
 import { PhoneInput } from "@src/shared/ui/inputs";
+import { useInput } from "@src/hooks/use-input";
 
 const Settings = () => {
+    const firstNameField = useInput("");
+    const lastNameField = useInput("");
+    const emailField = useInput("");
+    const passwordField = useInput("");
+    const repeatPasswordField = useInput("");
+    const phoneField = useInput("");
+
+    const [noticeEmail, setNoticeEmail] = useState(false);
+    const [notNotice, setNotNotice] = useState(false);
+
+    const handleChangeNoticeEmail = () => {
+        setNotNotice(false);
+        setNoticeEmail(true);
+    };
+    const handleChangeNotNotice = () => {
+        setNotNotice(true);
+        setNoticeEmail(false);
+    };
+
+    const onSubmitHandler = (e) => {
+        e.preventDefault();
+        console.log({
+            noticeEmail,
+            notNotice,
+            firstNameField,
+            lastNameField,
+            emailField,
+            passwordField,
+            repeatPasswordField,
+            phoneField,
+        });
+    };
+
     return (
-        <div className={styles.wrapperSettings}>
-            <div className={styles.wrapperInput}>
-                <ul className={styles.string}>
-                    <div className={styles.name}>
-                        <h4 className={styles.title}>Имя</h4>
-                        <Input />
-                    </div>
-                    <div className={styles.name}>
-                        <h4 className={styles.title}>Фамилия</h4>
-                        <Input />
-                    </div>
-                </ul>
-                <ul className={styles.string}>
-                    <div className={styles.name}>
-                        <h4 className={styles.title}>Телефон</h4>
-                        <PhoneInput />
-                    </div>
-                    <div className={styles.name}>
-                        <h4 className={styles.title}>E-mail</h4>
-                        <Input />
-                    </div>
-                </ul>
-                <ul className={styles.string}>
-                    <div className={styles.name}>
-                        <h4 className={styles.title}>Пароль</h4>
-                        <PasswordInput />
-                    </div>
-                    <div className={styles.name}>
-                        <h4 className={styles.title}>Повторите пароль</h4>
-                        <PasswordInput />
-                    </div>
-                </ul>
+        <form onSubmit={onSubmitHandler}>
+            <div className={styles.inputsRegistration}>
+                <Input label="Имя" placeholder="Введите свое имя" disabled id="firstName" {...firstNameField} />
+
+                <Input label="Фамилия" placeholder="Введите свою фамилию" disabled id="lastName" {...lastNameField} />
+
+                <PhoneInput label="Телефон" placeholder="Введите номер телефона" disabled id="phone" {...phoneField} />
+
+                <Input
+                    type="email"
+                    label="E-mail"
+                    placeholder="Введите свою почту"
+                    disabled
+                    id="email"
+                    {...emailField}
+                />
+
+                <PasswordInput
+                    label="Пароль"
+                    placeholder="Введите свой пароль"
+                    id="password"
+                    disabled
+                    {...passwordField}
+                />
+
+                <PasswordInput
+                    label="Повторить пароль"
+                    placeholder="Повторите свой пароль"
+                    id="passwordRepeat"
+                    disabled
+                    {...repeatPasswordField}
+                />
             </div>
-            <div className={styles.wrapperButton}>
-                <Button onClick={() => {}}>Редактировать</Button>
-            </div>
+
+            <Button className={styles.marginButton} onClick={() => {}}>
+                Редактировать
+            </Button>
+
             <div className={styles.wrapperCheckbox}>
-                <h4>Получать уведомления</h4>
-                <ul className={styles.string}>
-                    <CheckboxInput />
-                    <h5>по sms</h5>
-                    <CheckboxInput />
-                    <h5>на e-mail</h5>
-                    <CheckboxInput />
-                    <h5>не получать</h5>
+                <h2 className={styles.title}>Получать уведомления</h2>
+
+                <ul className={styles.list}>
+                    <CheckboxInput
+                        className={styles.checkbox}
+                        textLabel="на e-mail"
+                        checked={noticeEmail}
+                        onClick={handleChangeNoticeEmail}
+                    />
+                    <CheckboxInput
+                        className={styles.checkbox}
+                        textLabel="не получать"
+                        checked={notNotice}
+                        onClick={handleChangeNotNotice}
+                    />
                 </ul>
             </div>
-            <div className={styles.delete}>
-                <ul className={styles.row}>
-                    <li>Удаление профиля</li>
-                    <li>
-                        Если вы хотите удалить профиль, пожалуйста, <br />
-                        свяжитесь с нашей технической поддержкой на <br />
-                        вкладке «помощь»
-                    </li>
-                </ul>
+
+            <div className={styles.row}>
+                <h2 className={styles.title}>Удаление профиля</h2>
+                <p className={styles.text}>
+                    Если вы хотите удалить профиль, пожалуйста, <br />
+                    свяжитесь с нашей технической поддержкой на <br />
+                    вкладке «помощь»
+                </p>
             </div>
-        </div>
+        </form>
     );
 };
 
