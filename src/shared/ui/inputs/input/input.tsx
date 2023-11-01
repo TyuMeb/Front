@@ -15,7 +15,7 @@ export type InputProps = {
 export const Input = forwardRef<HTMLInputElement, InputProps>(
     ({ id, errorMessage, error = false, label, disabled, className, ...props }: InputProps, ref) => {
         return (
-            <>
+            <div>
                 {label && (
                     <label className={cx("text", "label", { warning: error && !disabled })} htmlFor={id}>
                         {error && <Icon glyph="warning" className={cx("warningIcon")} />}
@@ -32,7 +32,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 />
 
                 {errorMessage && error && <span className={cx("message")}>{errorMessage}</span>}
-            </>
+            </div>
         );
     }
 );

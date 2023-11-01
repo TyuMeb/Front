@@ -1,10 +1,37 @@
 @import "~/src/styles/variables";
 
-.delete {
+.inputsRegistration {
+    display: grid;
+    grid-template-columns: [startline] repeat(2, minmax(296px, max-content)) [endline];
+    gap: 28px;
+    margin-bottom: 44px;
+}
+
+.marginButton {
+    margin-bottom: 64px;
+}
+
+.wrapperCheckbox {
+    gap: 44px;
     display: flex;
+    align-items: center;
+    margin-bottom: 64px;
+}
+
+.title {
     font-size: 16px;
+    font-style: normal;
     font-weight: 600;
-    margin-top: 64px;
+    line-height: 160%;
+}
+
+.list {
+    display: flex;
+    column-gap: 28px;
+}
+
+.checkbox {
+    column-gap: 8px;
 }
 
 .row {
@@ -13,45 +40,9 @@
     column-gap: 80px;
 }
 
-.string {
-    display: flex;
-}
-
-.wrapperCheckbox {
-    gap: 44px;
-    display: flex;
-    margin-top: 64px;
-}
-
 .text {
-    font-weight: normal;
-}
-
-.title {
     font-size: 16px;
-    font-weight: 600;
-    margin-left: 0;
-}
-
-.checkbox {
-    margin-bottom: 0;
-    margin-right: 28px;
-}
-
-.form {
-    position: relative;
-    margin-right: auto;
-}
-
-.inputsRegistration {
-    display: grid;
-    grid-template-columns: [startline] repeat(2, minmax(296px, max-content)) [endline];
-    column-gap: 28px;
-    row-gap: 28px;
-    margin-bottom: 44px;
-}
-
-.wrapperField {
-    max-width: "296px";
-    width: 100%;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
 }

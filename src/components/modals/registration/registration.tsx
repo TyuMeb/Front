@@ -7,7 +7,7 @@ import { submitForm } from "../validation";
 import { Input, PasswordInput, PhoneInput } from "@src/shared/ui/inputs";
 import { CheckboxInput } from "@src/shared/ui/inputs/checkbox";
 import { Button } from "@src/shared/ui/button";
-import { useInput } from "@src/hooks/use-Input";
+import { useInput } from "@src/hooks/use-input";
 
 const cx = classNames.bind(styles);
 
