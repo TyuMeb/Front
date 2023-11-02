@@ -1,28 +1,33 @@
 "use client";
 
+import React, { useRef } from "react";
 import styles from "./dialog.module.scss";
 import { Button } from "@src/components/shared/ui/button/button";
 import Form from "@src/components/account/dialog/form";
 
 const Dialog = () => {
+    const formRef = useRef(146);
+
     return (
         <article className={styles.dialog}>
             <div className={styles.wrapperHead}>
-                <div className={styles.info}>
-                    <div className={styles.infoPerformer}>
-                        <span className={styles.userIcon}></span>
-                        <h2 className={styles.header}>Чат с Исполнителем 1</h2>
+                <div className={styles.line}>
+                    <div className={styles.info}>
+                        <div className={styles.infoPerformer}>
+                            <span className={styles.userIcon}></span>
+                            <h2 className={styles.header}>Чат с Исполнителем 1</h2>
+                        </div>
+                        <div className={styles.infoOrder}>
+                            <p className={`${styles.text} ${styles.textBold}`}>Полка настенная</p>
+                            <p className={`${styles.text} ${styles.textBold}`}>Срок исполнения: 45-50 дней</p>
+                            <p className={`${styles.text} ${styles.textBold}`}>Стоимость: от 100 000 руб</p>
+                        </div>
                     </div>
-                    <div className={styles.infoOrder}>
-                        <p className={`${styles.text} ${styles.textBold}`}>Полка настенная</p>
-                        <p className={`${styles.text} ${styles.textBold}`}>Срок исполнения: 45-50 дней</p>
-                        <p className={`${styles.text} ${styles.textBold}`}>Стоимость: от 100 000 руб</p>
-                    </div>
+                    <Button onClick={() => {}}>Выбрать этого исполнителя</Button>
                 </div>
-                <Button onClick={() => {}}>Выбрать этого исполнителя</Button>
             </div>
 
-            <div className={styles.wrapperMessage}>
+            <div style={{ marginBottom: `${formRef.current}px` }} className={styles.wrapper}>
                 <div className={`${styles.chat} ${styles.positionLeft}`}>
                     <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
 
@@ -95,7 +100,7 @@ const Dialog = () => {
                 </div>
             </div>
 
-            <Form />
+            <Form formRef={formRef} />
         </article>
     );
 };

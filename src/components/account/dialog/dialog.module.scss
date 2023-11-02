@@ -2,20 +2,31 @@
 @import "~/src/components/account/wrapper-card/wrapper-card.module.scss";
 
 .dialog {
-    padding: 24px 0 36px 44px;
-    border-radius: 18px;
+    position: relative;
+    padding: 0px 66px 0 44px;
+    border-radius: 0 0 18px 18px;
     background: var(--white, #fff);
     box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.09);
-    display: grid;
-    row-gap: 28px;
-    grid-auto-rows: 120px 1fr minmax(min-content, max-content);
-    height: 82vh;
+    max-width: 908px;
+    width: 100%;
+    margin-bottom: 64px;
 }
 
 .wrapperHead {
+    position: fixed;
+    width: 100%;
+    max-width: 908px;
+    background-color: white;
+    padding: 24px 64px 0 44px;
+    top: 80px;
+    left: 312px;
+    right: 0;
+    margin: 0 auto;
+}
+
+.line {
+    padding-bottom: 24px;
     border-bottom: 2px solid #fccf55;
-    padding-bottom: 20px;
-    margin-right: 64px;
 }
 
 .info {
@@ -43,26 +54,10 @@
     column-gap: 16px;
 }
 
-.wrapperMessage {
-    overflow-y: auto;
-    padding-right: 64px;
-
-    &::-webkit-scrollbar {
-        width: 9px;
-    }
-
-    &::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: #d9d9d9;
-        border-radius: 20px;
-    }
-
-    &::-webkit-resizer {
-        height: 100px;
-    }
+.wrapper {
+    display: grid;
+    row-gap: 8px;
+    margin-top: 152px;
 }
 
 .chat {

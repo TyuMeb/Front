@@ -1,10 +1,9 @@
 @import "~/src/styles/variables";
 
 .wrapper {
-    min-height: 100%;
+    max-width: 1220px;
     width: 100%;
-    overflow: hidden;
-    margin-bottom: 16px;
+    margin: 0 auto;
 }
 
 .container {
@@ -24,12 +23,6 @@
     font-style: normal;
     font-weight: 600;
     line-height: 160%;
-}
-
-/*----------------------------------------------------------*/
-
-.header {
-    display: flex;
 }
 
 .headeraccount {

@@ -1,11 +1,18 @@
 @import "~/src/styles/index.scss";
 
 .wrapper {
+    position: absolute;
+    width: 100%;
+    max-width: 828px;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.wrapperForm {
     box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.09);
     background-color: $white;
     border-radius: 18px;
-    margin-right: 64px;
-    margin-bottom: 20px;
 }
 
 .formChat {

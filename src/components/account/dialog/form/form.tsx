@@ -11,7 +11,7 @@ import { filesType } from "./formTypes";
 import styles from "./form.module.scss";
 import { useInput } from "@src/hooks/use-input";
 
-const Form = () => {
+const Form = ({ formRef }) => {
     const [files, setFiles] = useState<filesType[] | []>([]);
     const chat = useInput("");
 
@@ -31,8 +31,8 @@ const Form = () => {
     };
 
     return (
-        <div>
-            <div className={styles.wrapper}>
+        <div className={styles.wrapper} ref={formRef}>
+            <div className={styles.wrapperForm}>
                 <form className={styles.formChat} onSubmit={onSubmitHandler}>
                     <Textarea onChange={chat.onChange} />
 

@@ -2,15 +2,16 @@
 @import "~/src/styles/index";
 
 .menu {
-    width: 256px;
-    padding: 20px 0;
-    margin-right: 48px;
     background-color: $white;
 }
 
 .navigation {
     border-right: 2px solid #eae5e1;
     padding-right: 16px;
+    position: fixed;
+    max-width: 256px;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .firstLevelMenu {
@@ -104,7 +105,6 @@
     line-height: 21px;
 }
 
-.exitbutton {
-    height: 48px;
+.exitButton {
     margin-top: 80px;
 }

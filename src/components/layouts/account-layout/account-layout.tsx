@@ -11,8 +11,10 @@ const AccountLayout = ({ children }: { children: ReactNode }) => {
     return (
         <div className={cx("wrapper")}>
             <Header className={cx("header")} />
-            <Sidebar className={cx("sidebar")} />
-            <main className={cx("main")}>{children}</main>
+            <div className={cx("content")}>
+                <Sidebar className={cx("sidebar")} />
+                <main className={cx("main")}>{children}</main>
+            </div>
         </div>
     );
 };

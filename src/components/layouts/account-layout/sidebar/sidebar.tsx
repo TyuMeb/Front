@@ -120,7 +120,7 @@ const Sidebar = ({ className }: SidebarI) => {
             <nav className={cx("navigation")}>
                 {buildFirstLevel()}
 
-                <div className={styles.exitbutton}>
+                <div className={styles.exitButton}>
                     <ExitButton onClick={() => {}}>Выйти</ExitButton>
                 </div>
             </nav>
