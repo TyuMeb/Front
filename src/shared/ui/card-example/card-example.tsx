@@ -19,10 +19,10 @@ export const CardExample: FC<CardExampleProps> = ({ width = "100%", height = "10
         let timer: number;
         if (!isVisible) {
             timer = window.setTimeout(() => setIsVisible(true), 100);
+            return () => {
+                window.clearTimeout(timer);
+            };
         }
-        return () => {
-            window.clearTimeout(timer);
-        };
     }, [, isVisible]);
 
     useEffect(() => {

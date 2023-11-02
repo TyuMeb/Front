@@ -13,9 +13,12 @@ type SlideItem = {
 type SliderProps = {
     slides: Array<SlideItem>;
     disabled?: boolean;
+    delay?: number;
+    slideRight?: boolean;
+    auto?: boolean;
 };
 
-export const SliderNew: FC<SliderProps> = ({ slides, disabled }) => {
+export const SliderNew: FC<SliderProps> = ({ slides, disabled, delay = 4, slideRight = false, auto = true }) => {
     const [currentSlide1, setCurrentSlide1] = useState<number>(0);
     const [currentSlide2, setCurrentSlide2] = useState<number>(0);
     const [currentSlide3, setCurrentSlide3] = useState<number>(0);
@@ -39,13 +42,13 @@ export const SliderNew: FC<SliderProps> = ({ slides, disabled }) => {
 
     useEffect(() => {
         let timer: number;
-        if (!isDisabled) {
+        if (!isDisabled && auto) {
             timer = window.setTimeout(() => {
                 !mOver1 && instanceRef1.current?.next();
                 !mOver2 && instanceRef2.current?.next();
                 !mOver3 && instanceRef3.current?.next();
                 !mOver4 && instanceRef4.current?.next();
-            }, 4000);
+            }, delay * 1000);
             return () => {
                 window.clearTimeout(timer);
             };
@@ -75,6 +78,7 @@ export const SliderNew: FC<SliderProps> = ({ slides, disabled }) => {
             loop: true,
             initial: 0,
             drag: !isDisabled,
+            rtl: slideRight,
             slideChanged(slider) {
                 setCurrentSlide1(slider.track.details.rel);
             },
@@ -101,6 +105,7 @@ export const SliderNew: FC<SliderProps> = ({ slides, disabled }) => {
             loop: true,
             initial: 0,
             drag: !isDisabled,
+            rtl: slideRight,
             slideChanged(slider) {
                 setCurrentSlide2(slider.track.details.rel);
             },
@@ -127,6 +132,7 @@ export const SliderNew: FC<SliderProps> = ({ slides, disabled }) => {
             loop: true,
             initial: 0,
             drag: !isDisabled,
+            rtl: slideRight,
             slideChanged(slider) {
                 setCurrentSlide3(slider.track.details.rel);
             },
@@ -153,6 +159,7 @@ export const SliderNew: FC<SliderProps> = ({ slides, disabled }) => {
             loop: true,
             initial: 0,
             drag: !isDisabled,
+            rtl: slideRight,
             slideChanged(slider) {
                 setCurrentSlide4(slider.track.details.rel);
             },
