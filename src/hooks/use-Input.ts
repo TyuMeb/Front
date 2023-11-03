@@ -14,3 +14,5 @@ export function useInput(initialValue: string) {
         onChange,
     };
 }
+
+console.log(1);
