@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import classNames from "classnames/bind";
 
 import { useAppDispatch } from "@src/redux/hooks";
@@ -8,63 +8,69 @@ import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
 import { Icon } from "@src/components/icon";
 
-// import { useCreateTokenMutation } from "@src/redux/api/jwt-api-slice";
-// import { setCookie, removeCookie } from "typescript-cookie";
-import { submitForm } from "../validation";
 import { Input, PasswordInput } from "@src/shared/ui/inputs";
 import { Button } from "@src/shared/ui/button";
-import { useInput } from "@src/hooks/use-input";
+import { useForm } from "react-hook-form";
+import { TokenObtain } from "@src/redux/api/generated";
+import { useCreateTokenMutation } from "@src/redux/api/jwt-api-slice";
+import { setCookie, removeCookie } from "typescript-cookie";
+import { useLazyGetUserQuery, useVerifyUserQuery } from "@src/redux/api/auth-api-slice";
+import { setUser } from "@src/redux/slices/users-slice";
+import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
 const cx = classNames.bind(styles);
 
 const SignIn = () => {
-    // const [createToken] = useCreateTokenMutation();
-    // const data = {
-    //     email: "rustamaaa@bk.ru",
-    //     password: "rustamaaa1",
-    // };
+    const router = useRouter();
 
-    // useEffect(() => {
-    //     createToken(data)
-    //         .unwrap()
-    //         .then((res) => {
-    //             setCookie("accessToken", res.access);
-    //             localStorage.setItem("refreshToken", res.refresh);
-    //             console.log("Авторизация прошла успешно");
-    //         })
-    //         .catch((error) => {
-    //             console.log("Неверный логин или пароль");
-    //             removeCookie("accessToken");
-    //             localStorage.removeItem("refreshToken");
-    //             console.log(error);
-    //         });
-    // }, []);
+    const params = useParams();
+
+    const token = params.token as string;
+    const uid = params.uid as string;
+
+    const { error: errorVerify, isSuccess: isSuccessVerify } = useVerifyUserQuery(
+        { token, uid },
+        { refetchOnReconnect: true, skip: !token || !uid }
+    );
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        setError,
+    } = useForm({
+        values: {
+            email: "",
+            password: "",
+        },
+    });
+
+    const [createToken, { isLoading: isLoadingToken }] = useCreateTokenMutation();
+    const [getUser, { isLoading: isLoadingUser }] = useLazyGetUserQuery();
 
     const dispatch = useAppDispatch();
 
-    const emailField = useInput("");
-    const passwordField = useInput("");
+    const onSubmit = (data: TokenObtain) => {
+        createToken(data)
+            .unwrap()
+            .then(({ access, refresh }) => {
+                setCookie("access_token", access);
+                setCookie("refresh_token", refresh);
 
-    const [emailError, setEmailError] = useState("");
-    const [passwordError, setPasswordError] = useState("");
-
-    // Проверка работы валидации
-    const formValidation = () => {
-        setEmailError("");
-        setPasswordError("");
+                getUser()
+                    .unwrap()
+                    .then((user) => {
+                        dispatch(() => setUser(user));
+                        router.push("/personal-account");
+                    });
+            })
+            .catch((error) => {
+                setError("email", { message: error?.data?.detail || "Аккаунт не найден" });
+                removeCookie("access_token");
+                removeCookie("refresh_token");
+            });
     };
-
-    useEffect(() => {
-        formValidation();
-    }, [emailField, passwordError]);
-
-    const renderError = () =>
-        (emailError || passwordError) && (
-            <ul className={cx("errorsText")}>
-                {emailError && <li className={cx("textError", { warningText: emailError })}>{emailError}</li>}
-                {passwordError && <li className={cx("textError", { warningText: passwordError })}>{passwordError}</li>}
-            </ul>
-        );
 
     return (
         <ModalAuth>
@@ -72,16 +78,17 @@ const SignIn = () => {
 
             <h2 className={cx("title")}>Добро пожаловать!</h2>
 
-            <form className={cx("form")}>
+            <form className={cx("form")} onSubmit={handleSubmit(onSubmit)}>
                 <div className={cx("inputsSignin")}>
                     <div>
                         <Input
                             label="E-mail"
                             placeholder="Введите свою почту"
-                            error={Boolean(emailError)}
+                            error={Boolean(errors.email?.message)}
+                            errorMessage={errors.email?.message}
                             id="email"
                             type="email"
-                            {...emailField}
+                            {...register("email")}
                         />
                     </div>
 
@@ -89,14 +96,13 @@ const SignIn = () => {
                         <PasswordInput
                             label="Пароль"
                             placeholder="Введите пароль"
-                            error={Boolean(passwordError)}
+                            error={Boolean(errors.password?.message)}
+                            errorMessage={errors.password?.message}
                             id="password"
-                            {...passwordField}
+                            {...register("password")}
                         />
                     </div>
                 </div>
-
-                {renderError()}
 
                 <button
                     className={cx("linkText")}
@@ -105,18 +111,12 @@ const SignIn = () => {
                     Забыли пароль?
                 </button>
 
-                <Button
-                    className={cx("text", "button")}
-                    type="submit"
-                    onClick={(e) =>
-                        submitForm({
-                            e,
-                            fields: {
-                                emailField: emailField.value,
-                                passwordField: passwordField.value,
-                            },
-                        })
-                    }>
+                {isSuccessVerify && <p className={styles.textSuccess}>Ваш аккаунт подтвержден</p>}
+                {errorVerify && (
+                    <p className={cx("textError", { warningText: true })}>Ссылка для подтверждения неактивна</p>
+                )}
+
+                <Button isLoading={isLoadingToken || isLoadingUser} className={cx("text", "button")} type="submit">
                     Войти
                 </Button>
             </form>

@@ -1,69 +1,56 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import classNames from "classnames/bind";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
-import { submitForm } from "../validation";
 import { Input, PasswordInput, PhoneInput } from "@src/shared/ui/inputs";
 import { CheckboxInput } from "@src/shared/ui/inputs/checkbox";
 import { Button } from "@src/shared/ui/button";
-import { useInput } from "@src/hooks/use-input";
+import { useRegisterUserMutation } from "@src/redux/api/auth-api-slice";
+import { useForm } from "react-hook-form";
+import { UserCreate } from "@src/redux/api/generated";
 
 const cx = classNames.bind(styles);
 
+type Form = UserCreate & { confirm_password: string };
+
 const Registration = () => {
-    const firstNameField = useInput("");
-    const lastNameField = useInput("");
-    const emailField = useInput("");
-    const passwordField = useInput("");
-    const passwordRepeatField = useInput("");
-    const phoneField = useInput("");
-
-    const [firstNameError, setFirstNameError] = useState("");
-    const [lastNameError, setLastNameError] = useState("");
-    const [emailError, setEmailError] = useState("");
-    const [phoneError, setPhoneError] = useState("");
-    const [passwordError, setPasswordError] = useState("");
-    const [passwordRepeatError, setPasswordRepeatError] = useState("");
-
     const [checked, setChecked] = useState(false);
+    const [registerUser, { isSuccess, isLoading }] = useRegisterUserMutation();
 
-    const handleChange = () => setChecked((state) => !state);
+    const {
+        register,
+        handleSubmit,
+        watch,
+        setError,
+        reset,
+        formState: { errors },
+    } = useForm<Form>({
+        values: {
+            email: "",
+            name: "",
+            surname: "",
+            password: "",
+            person_telephone: "",
+            confirm_password: "",
+        },
+    });
 
-    // Проверка работы валидации
-    const formValidation = () => {
-        setFirstNameError("");
-        setLastNameError("");
-        setEmailError("");
-        setPhoneError("");
-        setPasswordError("");
-        setPasswordRepeatError("");
-    };
+    const onSubmit = (data: Form) => {
+        const { confirm_password, person_telephone, ...rest } = data;
 
-    useEffect(() => {
-        formValidation();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [firstNameField, lastNameField, emailField, passwordField, passwordRepeatField, phoneField]);
+        registerUser({ ...rest, person_telephone: person_telephone?.replaceAll(" ", "") })
+            .unwrap()
+            .then(() => {
+                reset();
+            })
+            .catch((error) => {
+                const keys = Object.keys(error?.data || {}) as unknown as Array<keyof Form>;
 
-    const renderError = () => {
-        return (
-            (firstNameError || lastNameError || emailError || phoneError || passwordError || passwordRepeatError) && (
-                <ul className={cx("errorsText")}>
-                    {firstNameError && (
-                        <li className={cx("textError", { warningText: firstNameError })}>{firstNameError}</li>
-                    )}
-                    {lastNameError && (
-                        <li className={cx("textError", { warningText: lastNameError })}>{lastNameError}</li>
-                    )}
-                    {emailError && <li className={cx("textError", { warningText: emailError })}>{emailError}</li>}
-                    {phoneError && <li className={cx("textError", { warningText: phoneError })}>{phoneError}</li>}
-                    {passwordError && <li className={cx("textError", { warningText: emailError })}>{passwordError}</li>}
-                    {passwordRepeatError && (
-                        <li className={cx("textError", { warningText: emailError })}>{passwordRepeatError}</li>
-                    )}
-                </ul>
-            )
-        );
+                keys.forEach((key) => {
+                    setError(key, { message: error.data[key]?.join(", ") });
+                });
+            });
     };
 
     return (
@@ -72,95 +59,134 @@ const Registration = () => {
 
             <p className={cx("text", "subtext")}>Заполните все поля, чтобы создать свой заказ</p>
 
-            <form className={cx("form")}>
+            <form className={cx("form")} onSubmit={handleSubmit(onSubmit)}>
                 <div className={cx("inputsRegistration")}>
                     <div className={cx("wrapperField")}>
                         <Input
+                            error={Boolean(errors.name?.message)}
+                            errorMessage={errors.name?.message}
+                            {...register("name", {
+                                required: {
+                                    value: true,
+                                    message: "Данное поле обязательно",
+                                },
+                            })}
                             label="Имя"
                             placeholder="Введите свое имя"
-                            error={Boolean(firstNameError)}
-                            id="firstName"
-                            {...firstNameField}
+                            id="name"
                         />
                     </div>
 
                     <div className={cx("wrapperField")}>
                         <Input
+                            error={Boolean(errors.surname?.message)}
+                            errorMessage={errors.surname?.message}
+                            {...register("surname", {
+                                required: {
+                                    value: true,
+                                    message: "Данное поле обязательно",
+                                },
+                            })}
                             label="Фамилия"
                             placeholder="Введите свою фамилию"
-                            error={Boolean(lastNameError)}
-                            id="lastName"
-                            {...lastNameField}
+                            id="surname"
                         />
                     </div>
 
                     <div className={cx("wrapperField")}>
                         <Input
+                            error={Boolean(errors.email?.message)}
+                            errorMessage={errors.email?.message}
+                            {...register("email", {
+                                required: {
+                                    value: true,
+                                    message: "Данное поле обязательно",
+                                },
+                            })}
                             type="email"
                             label="E-mail"
                             placeholder="Введите свою почту"
-                            error={Boolean(emailError)}
                             id="email"
-                            {...emailField}
                         />
                     </div>
 
                     <div className={cx("wrapperField")}>
                         <PhoneInput
+                            error={Boolean(errors.person_telephone?.message)}
+                            errorMessage={errors.person_telephone?.message}
+                            {...register("person_telephone", {
+                                required: {
+                                    value: true,
+                                    message: "Данное поле обязательно",
+                                },
+                            })}
                             label="Телефон"
                             placeholder="Введите номер телефона"
-                            error={Boolean(phoneError)}
-                            id="phone"
-                            {...phoneField}
+                            id="person_telephone"
                         />
                     </div>
 
                     <div className={cx("wrapperField")}>
                         <PasswordInput
+                            error={Boolean(errors.password?.message)}
+                            errorMessage={errors.password?.message}
+                            {...register("password", {
+                                required: {
+                                    value: true,
+                                    message: "Данное поле обязательно",
+                                },
+                                minLength: {
+                                    value: 8,
+                                    message: "Минимальная длинна 8 символов",
+                                },
+                            })}
                             label="Пароль"
                             placeholder="Введите свой пароль"
-                            error={Boolean(passwordError)}
                             id="password"
-                            {...passwordField}
                         />
                     </div>
 
                     <div className={cx("wrapperField")}>
                         <PasswordInput
+                            error={Boolean(errors.confirm_password?.message)}
+                            errorMessage={errors.confirm_password?.message}
+                            {...register("confirm_password", {
+                                required: {
+                                    value: true,
+                                    message: "Данное поле обязательно",
+                                },
+                                minLength: {
+                                    value: 8,
+                                    message: "Минимальная длинна 8 символов",
+                                },
+                                validate: (value) => {
+                                    if (watch("password") !== value) {
+                                        return "Пароли не совпадают";
+                                    }
+                                },
+                            })}
                             label="Повторить пароль"
                             placeholder="Повторите свой пароль"
-                            error={Boolean(passwordRepeatError)}
-                            id="passwordRepeat"
-                            {...passwordField}
+                            id="confirm_password"
                         />
                     </div>
                 </div>
 
-                {renderError()}
-
                 <CheckboxInput
+                    checked={checked}
+                    onChange={(event) => setChecked(event.target.checked)}
+                    required
+                    defaultChecked={false}
+                    id="agreement"
                     className={styles.checkbox}
                     textLabel="Вы соглашаетесь с обработкой персональных данных"
-                    checked={checked}
-                    onClick={() => handleChange()}
                 />
 
-                <Button
-                    className={cx("positionCenter")}
-                    type="submit"
-                    onClick={(e) =>
-                        submitForm({
-                            e,
-                            fields: {
-                                firstName: firstNameField.value,
-                                lastName: lastNameField.value,
-                                email: emailField.value,
-                                password: passwordField.value,
-                                passwordRepeat: passwordRepeatField.value,
-                                phone: phoneField.value,
-                            },
-                        })
-                    }>
+                {isSuccess && (
+                    <p className={styles.textSuccess}>На вашу почту отправлено письмо для подтверждения аккаунта</p>
+                )}
+
+                <Button isLoading={isLoading} className={cx("positionCenter")} type="submit">
                     Зарегистрироваться
                 </Button>
             </form>

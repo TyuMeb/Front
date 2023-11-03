@@ -3,10 +3,16 @@
 .container {
     display: flex;
     cursor: pointer;
+    position: relative;
 }
 
 .checkboxFieldHide {
-    display: none;
+    height: 1px;
+    width: 1px;
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    z-index: -1;
 }
 
 .checkboxField {

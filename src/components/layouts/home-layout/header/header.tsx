@@ -4,49 +4,12 @@ import styles from "./header.module.scss";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 import { openModal } from "@src/redux/slices/modal-slice";
-// import { useRefreshTokenMutation, useVerifyTokenMutation } from "@src/redux/api/jwt-api-slice";
-// import { getCookie, setCookie } from "typescript-cookie";
 import { cn } from "@src/shared/lib/cn";
 
 const Header = () => {
     const dispatch = useAppDispatch();
     const [current, setCurrent] = useState<string | undefined>(undefined);
     const { contentBlock } = useAppSelector((store) => store.header);
-    // const [veryfyToken] = useVerifyTokenMutation();
-    // const [refreshToken] = useRefreshTokenMutation();
-
-    // useEffect(() => {
-    //     veryfyToken({ token: getCookie("accessToken") })
-    //         .unwrap()
-    //         .then(() => {
-    //             console.log("Верификация прошла успешно");
-    //         })
-    //         .catch((error) => {
-    //             if (error.status === 401 || error.status === 400) {
-    //                 refreshToken({ refresh: localStorage.getItem("refreshToken") })
-    //                     .unwrap()
-    //                     .then((res: { access: string }) => {
-    //                         setCookie("accessToken", res.access);
-    //                         console.log("Токен успешно обновлён");
-    //                         veryfyToken({ token: getCookie("accessToken") })
-    //                             .unwrap()
-    //                             .then(() => {
-    //                                 console.log("Верификация прошла успешно");
-    //                             });
-    //                     })
-    //                     .catch((error) => {
-    //                         console.log("Рефреш токен не действителен");
-    //                         localStorage.removeItem("refreshToken");
-    //                         console.log(error);
-    //                     });
-    //             }
-
-    //             if (error.status === 429) {
-    //                 console.log("Превышено количество попыток авторизации");
-    //                 console.log(error);
-    //             }
-    //         });
-    // }, []);
 
     useEffect(() => {
         setCurrent(contentBlock);
