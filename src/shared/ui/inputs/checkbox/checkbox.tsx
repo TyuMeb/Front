@@ -3,7 +3,6 @@ import classNames from "classnames/bind";
 
 import styles from "./checkbox.module.scss";
 import { Icon } from "@src/components/icon";
-import { cn } from "@src/shared/lib/cn";
 
 const cx = classNames.bind(styles);
 
@@ -15,6 +14,7 @@ export type CheckboxInputProps = {
     disabled?: boolean;
     className?: string;
     onClick?: () => void;
+    onChange?: (e) => void;
 };
 
 export const CheckboxInput = (props: CheckboxInputProps) => {
@@ -22,10 +22,11 @@ export const CheckboxInput = (props: CheckboxInputProps) => {
 
     return (
         <>
-            <label className={cn(styles.container, props.className)}>
+            <label className={cx(styles.container, props.className)}>
                 <input type="checkbox" className={cx("checkboxFieldHide")} onChange={() => onClick?.()} />
 
                 <button
+                    type="button"
                     disabled={disabled}
                     onClick={onClick}
                     className={cx("checkboxField", {
