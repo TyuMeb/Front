@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, FormEvent } from "react";
 
 import styles from "@src/components/account/settings/settings.module.scss";
 import { Button } from "@src/shared/ui/button";
@@ -31,7 +31,7 @@ const Settings = () => {
         setNoticeEmail(false);
     };
 
-    const onSubmitHandler = (e) => {
+    const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log({
             noticeEmail,
