@@ -1,13 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-type typeModal = "signIn" | "registration" | "resetPassword" | "resetPasswordConfirm";
+type TypeModal = "signIn" | "registration" | "resetPassword" | "resetPasswordConfirm";
 
-interface IModalState {
+type ModalState = {
     modal: boolean;
-    typeModal: typeModal;
-}
+    typeModal: TypeModal;
+};
 
-const initialState: IModalState = {
+const initialState: ModalState = {
     modal: false,
     typeModal: "signIn",
 };
@@ -20,7 +20,7 @@ const modalSlice = createSlice({
         openModal: (state) => {
             state.modal = true;
         },
-        setTypeModal: (state, action) => {
+        setTypeModal: (state, action: PayloadAction<TypeModal>) => {
             state.typeModal = action.payload;
         },
     },
