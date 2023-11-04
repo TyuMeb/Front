@@ -32,7 +32,7 @@ const firstLevelMenu: firstLevelMenuItemI[] = [
     { alias: "archives", name: "Архивы", icon: <Icon className={cx("icon")} glyph="archives" /> },
     { alias: "settings", name: "Настройки", icon: <Icon className={cx("icon")} glyph="settings" /> },
     { alias: "help", name: "Помощь", icon: <Icon className={cx("icon")} glyph="help" /> },
-    { alias: "help", name: "Сделать заказ", icon: <Icon className={cx("icon")} glyph="add" /> },
+    { alias: "help1", name: "Сделать заказ", icon: <Icon className={cx("icon")} glyph="add" /> },
 ];
 
 const Sidebar = ({ className }: SidebarI) => {

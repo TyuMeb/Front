@@ -1,7 +1,7 @@
-import React, { ChangeEvent, Dispatch, InputHTMLAttributes, SetStateAction } from "react";
+import React, { ChangeEvent, Dispatch, InputHTMLAttributes, SetStateAction, forwardRef } from "react";
 
 import styles from "./file.module.scss";
-import { filesType } from "@src/components/account/dialog/form/formTypes";
+import { filesType } from "@src/components/account/form/formTypes";
 
 export type FileInputI = {
     maxSizeImage?: number;
@@ -11,17 +11,21 @@ export type FileInputI = {
     setFiles: Dispatch<SetStateAction<filesType[] | []>>;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-export const FileInput = ({
-    children,
-    multiple = false,
-    disabled = false,
-    maxCountFiles,
-    countFiles,
-    maxSizeImage,
-    maxSizeFile,
-    setFiles,
-    ...props
-}: FileInputI) => {
+export const FileInput = forwardRef<HTMLInputElement, FileInputI>((props: FileInputI, ref) => {
+    const {
+        children,
+        multiple = false,
+        disabled = false,
+        maxCountFiles,
+        countFiles,
+        maxSizeImage,
+        maxSizeFile,
+        setFiles,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        onChange,
+        ...restProps
+    } = props;
+
     const saveFiles = (data: filesType) => {
         if (data.error) {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -56,7 +60,7 @@ export const FileInput = ({
                 return;
             }
 
-            files.slice(countFiles - (maxCountFiles || 0), maxCountFiles).forEach((file) => {
+            files.forEach((file) => {
                 const id = `f${(~~(Math.random() * 1e8)).toString(16)}`;
 
                 const fileData = {
@@ -109,14 +113,17 @@ export const FileInput = ({
     return (
         <label className={styles.wrapperFile}>
             <input
+                ref={ref}
                 type="file"
                 className={styles.disabled}
-                onChange={changeHandlerFiles}
                 multiple={multiple}
                 disabled={countFiles === maxCountFiles ? true : disabled}
-                {...props}
+                onChange={(e) => changeHandlerFiles(e)}
+                {...restProps}
             />
             <div>{children}</div>
         </label>
     );
-};
+});
+
+FileInput.displayName = "FileInput";

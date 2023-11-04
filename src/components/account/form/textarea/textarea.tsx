@@ -1,40 +1,41 @@
-import React, { InputHTMLAttributes, KeyboardEvent } from "react";
+import React, { InputHTMLAttributes, KeyboardEvent, forwardRef } from "react";
 import classNames from "classnames/bind";
 
 import styles from "./textarea.module.scss";
 
 const cx = classNames.bind(styles);
 
-export interface ITextareaProps extends InputHTMLAttributes<HTMLTextAreaElement> {
-    className?: string;
-    disabled?: boolean;
-}
+export interface ITextareaProps extends InputHTMLAttributes<HTMLTextAreaElement> {}
 
-const setAutomaticHeight = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    const textarea = e.target as HTMLTextAreaElement;
-    textarea.style.height = "";
+const Textarea = forwardRef<HTMLTextAreaElement, ITextareaProps>((props: ITextareaProps, ref) => {
+    const { disabled, className, ...restProps } = props;
 
-    if (e.key === "Backspace" && textarea.selectionStart === 0) {
-        textarea.style.height = "";
-    }
+    const setAutomaticHeight = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        const textarea = e.target as HTMLTextAreaElement;
 
-    if (textarea && textarea.clientHeight < 178) {
+        if (e.key === "Backspace" && textarea.selectionStart === 0) {
+            textarea.style.height = "";
+        }
+
+        if (textarea && textarea.scrollHeight > 178) {
+            return;
+        }
+
         textarea.style.height = "auto";
         textarea.style.height = `${textarea.scrollHeight}px`;
-    }
-};
-
-const Textarea = (props: ITextareaProps) => {
-    const { disabled, className, ...restProps } = props;
+    };
 
     return (
         <textarea
+            ref={ref}
             className={cx("textarea", "text", { disabled }, className)}
             disabled={disabled}
             onKeyUp={setAutomaticHeight}
             {...restProps}
         />
     );
-};
+});
+
+Textarea.displayName = "Textarea";
 
 export default Textarea;

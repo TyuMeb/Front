@@ -1,4 +1,5 @@
-import React, { FormEvent, useState } from "react";
+import React, { useState, LegacyRef } from "react";
+import { useForm } from "react-hook-form";
 
 import Paperclip from "@public/icons/paperclip.svg";
 import { Button } from "@src/shared/ui/button";
@@ -9,40 +10,39 @@ import PreviewFiles from "@src/components/account/form/preview-files";
 import { filesType } from "@src/components/account/form/formTypes";
 
 import styles from "./chat-form.module.scss";
-import { useInput } from "@src/hooks/use-input";
 import Form from "@src/components/account/form";
 
-const ChatForm = () => {
+const ChatForm = ({ formRef }: { formRef: LegacyRef<HTMLDivElement> }) => {
     const [files, setFiles] = useState<filesType[] | []>([]);
-    const chat = useInput("");
 
-    const filterFiles = (files: filesType[], returnEl: "file" | "url") => {
-        const res = [];
-        for (let i = 0; i < files.length; i++) {
-            if (!files[i].error) {
-                res.push({ file: files[i][returnEl] });
-            }
-        }
-        return res;
-    };
+    const {
+        register,
+        handleSubmit,
+        formState: {},
+    } = useForm({
+        values: {
+            chat: "",
+            files: "",
+        },
+    });
 
-    const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        console.log(chat.value, files, filterFiles(files, "file"), filterFiles(files, "url"));
+    const onSubmitHandler = (data: { chat: string; files: string }) => {
+        console.log(data);
     };
 
     return (
-        <div className={styles.wrapper}>
-            <Form onSubmit={onSubmitHandler}>
-                <Textarea onChange={chat.onChange} />
+        <div className={styles.wrapper} ref={formRef}>
+            <Form onSubmit={handleSubmit(onSubmitHandler)}>
+                <Textarea {...register("chat")} />
 
                 <FileInput
                     maxSizeFile={1000000}
                     maxSizeImage={1000000}
-                    accept=".png, .jpg, .jpeg"
+                    // accept=".png, .jpg, .jpeg"
                     multiple
                     setFiles={setFiles}
-                    countFiles={files.length}>
+                    countFiles={files.length}
+                    {...register("files")}>
                     <Paperclip />
                 </FileInput>
 
@@ -51,7 +51,7 @@ const ChatForm = () => {
                 </Button>
             </Form>
 
-            <PreviewFiles files={files} setFiles={setFiles} />
+            {files.length ? <PreviewFiles files={files} setFiles={setFiles} /> : undefined}
         </div>
     );
 };
