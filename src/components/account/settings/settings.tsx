@@ -25,6 +25,7 @@ const Settings = () => {
         setNotNotice(false);
         setNoticeEmail(true);
     };
+
     const handleChangeNotNotice = () => {
         setNotNotice(true);
         setNoticeEmail(false);
