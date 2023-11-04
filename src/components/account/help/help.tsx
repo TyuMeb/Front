@@ -9,7 +9,7 @@ import PreviewFiles from "@src/components/account/form/preview-files";
 import { filesType } from "@src/components/account/form/formTypes";
 
 import styles from "./help.module.scss";
-import { useInput } from "@src/hooks/use-input";
+import { useInput } from "@src/hook/use-input";
 import Form from "@src/components/account/form";
 
 const Help = () => {
