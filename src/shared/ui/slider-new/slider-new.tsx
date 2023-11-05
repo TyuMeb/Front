@@ -18,13 +18,19 @@ type SliderProps = {
     auto?: boolean;
 };
 
-export const SliderNew: FC<SliderProps> = ({ slides, disabled, delay = 4, slideRight = false, auto = true }) => {
+export const SliderNew: FC<SliderProps> = ({
+    slides,
+    disabled = false,
+    delay = 4,
+    slideRight = false,
+    auto = true,
+}) => {
     const [currentSlide1, setCurrentSlide1] = useState<number>(0);
     const [currentSlide2, setCurrentSlide2] = useState<number>(0);
     const [currentSlide3, setCurrentSlide3] = useState<number>(0);
     const [currentSlide4, setCurrentSlide4] = useState<number>(0);
 
-    const [isDisabled, setIsDisabled] = useState(disabled);
+    const [isDisabled, setIsDisabled] = useState<boolean>(disabled);
 
     const [mOver1, setMOver1] = useState<boolean>(false);
     const [mOver2, setMOver2] = useState<boolean>(false);
@@ -109,7 +115,7 @@ export const SliderNew: FC<SliderProps> = ({ slides, disabled, delay = 4, slideR
             slideChanged(slider) {
                 setCurrentSlide2(slider.track.details.rel);
             },
-            created(s) {
+            created() {
                 setLoaded2(true);
             },
         },

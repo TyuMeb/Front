@@ -23,11 +23,7 @@ export const CardExample: FC<CardExampleProps> = ({ width = "100%", height = "10
                 window.clearTimeout(timer);
             };
         }
-    }, [, isVisible]);
-
-    useEffect(() => {
-        setIsVisible(false);
-    }, [src, alt, object, price]);
+    }, []);
 
     return (
         <div className={cn(styles.inner, isVisible ? styles.inner_visible : null)}>
