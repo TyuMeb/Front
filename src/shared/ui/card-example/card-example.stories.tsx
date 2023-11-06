@@ -78,5 +78,6 @@ export const Default: Story = {
         alt: "",
         object: "Полка",
         price: "1000 р",
+        id: 1,
     },
 };

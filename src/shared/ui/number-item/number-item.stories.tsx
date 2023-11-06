@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { PriceItem } from "./priceItem";
+import { NumberItem } from "./number-item";
 
 const meta = {
-    title: "UI/PriceItem",
-    component: PriceItem,
+    title: "UI/NumberItem",
+    component: NumberItem,
     parameters: {
         layout: "centered",
     },
@@ -11,21 +11,21 @@ const meta = {
     argTypes: {
         caption: {
             name: "caption",
-            defaultValue: "1000 р",
-            description: "Отображаемый текст",
+            defaultValue: "1",
+            description: "Отображаемое значение (макс первые 3 цифры)",
             table: {
                 type: { summary: "string" },
-                defaultValue: { summary: "1000 р" },
+                defaultValue: { summary: "1" },
             },
         },
     },
-} satisfies Meta<typeof PriceItem>;
+} satisfies Meta<typeof NumberItem>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        caption: "1000 р",
+        caption: "1",
     },
 };
