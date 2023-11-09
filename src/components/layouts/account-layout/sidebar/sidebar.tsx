@@ -128,7 +128,7 @@ const Sidebar = ({ className }: SidebarI) => {
                 {buildFirstLevel()}
 
                 <Link href="/">
-                    <Button variant="exit" onClick={onHandlerClick}>
+                    <Button icon={<Icon glyph="exit" />} variant="exit" onClick={onHandlerClick}>
                         <p className={styles.text}>Выйти</p>
                     </Button>
                 </Link>

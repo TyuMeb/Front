@@ -68,7 +68,7 @@ const PerformerCard = ({ performer }: { performer: PerformerCardI }) => {
                 <p className={cx("text", "textPosition", { hiddenText: showText })}>{DESCRIPTION}</p>
 
                 <button className={cx("buttonExpand", { removeMargins: !showGallery })} onClick={showTextHandler}>
-                    <p className={`${styles.text} ${styles.fontWeightBold}`}>Посмотреть весь текст</p>
+                    <p className={`${styles.text} ${styles.fontWeightBold}`}>посмотреть весь текст</p>
                 </button>
 
                 {showGallery && (

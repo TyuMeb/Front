@@ -27,7 +27,9 @@ const Dialog = () => {
                     <div className={styles.info}>
                         <div className={styles.infoPerformer}>
                             <span className={styles.userIcon}></span>
-                            <h2 className={styles.header}>Чат с Исполнителем 1</h2>
+                            <h2 className={styles.header}>
+                                Чат с <span className={styles.fontWeight}>Исполнителем 1</span>
+                            </h2>
                         </div>
                         <div className={styles.infoOrder}>
                             <p className={`${styles.text} ${styles.textBold}`}>Полка настенная</p>

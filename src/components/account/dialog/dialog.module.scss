@@ -51,6 +51,10 @@
     background-color: #7cc19e;
 }
 
+.fontWeight {
+    font-weight: 700;
+}
+
 .infoOrder {
     display: flex;
     column-gap: 16px;
@@ -62,7 +66,7 @@
 
 .wrapper {
     display: grid;
-    row-gap: 8px;
+    row-gap: 28px;
     margin-top: 152px;
 }
 
