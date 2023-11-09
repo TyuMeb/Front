@@ -1,68 +1,35 @@
 @import "~/src/styles/variables";
 
+.nav {
+    margin-right: auto;
+}
+
 .wrapper {
     max-width: 1220px;
     width: 100%;
     margin: 0 auto;
+    display: flex;
+    padding: 24px 0;
+    margin-bottom: 16px;
 }
 
-.container {
-    max-width: 1220px;
-    margin: 0 auto;
+.navigation {
+    display: flex;
+    align-items: baseline;
     width: 100%;
 }
 
 .logo {
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.logolink {
-    margin-right: 28px;
     font-size: 20px;
     font-style: normal;
     font-weight: 600;
     line-height: 160%;
+    color: var(--text, #1c1c1c);
+    margin-right: 40px;
 }
 
-.headeraccount {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 24px 0;
-}
-
-.nav {
-    margin-right: auto;
-    z-index: -1;
-}
-
-.menu {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.menu > span {
-    background: url("../../../../../public/icons/triangle.svg") no-repeat;
-    width: 24px;
-    height: 24px;
-}
-
-.menuitem {
-    margin: 0 12px;
-}
-
-.menuitem:last-child {
-    margin-right: 0;
-    font-weight: 600;
-}
-
-.menulink:not(:last-child) {
-    display: flex;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 150%;
-    white-space: nowrap;
+.avatar {
+    margin: auto 0 0 auto;
+    width: 32px;
+    height: 32px;
 }

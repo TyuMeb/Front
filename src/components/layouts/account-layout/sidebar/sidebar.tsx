@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 
 import { Button } from "@src/shared/ui/button";
 import { Icon } from "@src/components/icon";
-import { orders, ordersI, executorsI } from "./data";
+import { orders, performers } from "@src/data/account";
 
 import styles from "./sidebar.module.scss";
 
@@ -20,10 +20,8 @@ interface SidebarI extends HTMLAttributes<HTMLDivElement> {}
 interface firstLevelMenuItemI {
     alias: string;
     name: string;
-    numberPerformers?: number;
-    icon?: React.JSX.Element;
+    icon?: JSX.Element;
     isOpened?: boolean;
-    pages?: firstLevelMenuItemI[];
 }
 
 const firstLevelMenu: firstLevelMenuItemI[] = [
@@ -65,7 +63,7 @@ const Sidebar = ({ className }: SidebarI) => {
                                     {orders.length && i === 0 && `(${orders.length})`}
                                 </p>
                             </Link>
-                            {i === 0 && buildSecondLevel(orders, currentPathname)}
+                            {i === 0 && buildSecondLevel(currentPathname)}
                         </li>
                     );
                 })}
@@ -73,25 +71,25 @@ const Sidebar = ({ className }: SidebarI) => {
         );
     };
 
-    const buildSecondLevel = (orders: ordersI[], route: string): JSX.Element | undefined => {
+    const buildSecondLevel = (route: string): JSX.Element | undefined => {
         return (
             orders && (
                 <ul className={cx("secondLevelMenu")}>
                     {orders.map((order) => {
-                        const currentPathname = `${route}/${order.alias}`;
+                        const currentPathname = `${route}/order-${order.id}`;
 
                         return (
-                            <li key={order.alias}>
+                            <li key={order.id}>
                                 <Link
                                     className={cx("secondLevelLink", { openedSubmenu: pathname === currentPathname })}
                                     href={currentPathname}>
                                     <p className={cx("text")}>
                                         {order.name}
                                         &nbsp;
-                                        {order.executors.length && `(${order.executors.length})`}
+                                        {order.countPerformers && `(${order.countPerformers})`}
                                     </p>
                                 </Link>
-                                {buildThirdLevel(order.executors, currentPathname)}
+                                {buildThirdLevel(currentPathname)}
                             </li>
                         );
                     })}
@@ -100,21 +98,21 @@ const Sidebar = ({ className }: SidebarI) => {
         );
     };
 
-    const buildThirdLevel = (executors: executorsI[], route: string): JSX.Element | undefined => {
+    const buildThirdLevel = (route: string): JSX.Element | undefined => {
         return (
-            executors && (
+            performers && (
                 <ul className={cx("thirdLevelMenu")}>
-                    {executors.map((executor) => {
-                        const currentPathname = `${route}/${executor.alias}`;
+                    {performers.map((executor, i) => {
+                        const currentPathname = `${route}/executor-${executor.id}`;
 
                         return (
-                            <li key={executor.alias} className={cx("thirdLevelItem")}>
+                            <li key={executor.id} className={cx("thirdLevelItem")}>
                                 <Link
                                     href={currentPathname}
                                     className={cx("thirdLevelLink", {
                                         activatedSubmenu: pathname === currentPathname,
                                     })}>
-                                    <p className={cx("thirdLevelText")}>{executor.name}</p>
+                                    <p className={cx("thirdLevelText")}>Исполнитель {i + 1}</p>
                                 </Link>
                             </li>
                         );

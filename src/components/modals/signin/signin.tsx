@@ -16,8 +16,7 @@ import { useCreateTokenMutation } from "@src/redux/api/jwt-api-slice";
 import { setCookie, removeCookie } from "typescript-cookie";
 import { useLazyGetUserQuery, useVerifyUserQuery } from "@src/redux/api/auth-api-slice";
 import { setUser } from "@src/redux/slices/users-slice";
-import { useRouter } from "next/navigation";
-import { useParams } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 
 const cx = classNames.bind(styles);
 

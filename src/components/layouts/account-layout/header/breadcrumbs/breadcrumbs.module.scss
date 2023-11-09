@@ -1,0 +1,38 @@
+.menu {
+    display: flex;
+    align-items: center;
+    column-gap: 48px;
+}
+
+.item {
+    position: relative;
+
+    &::after {
+        content: "";
+        position: absolute;
+        right: -32px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 2px;
+        border-top: 6px solid transparent;
+        border-left: 8.5px solid #9ca2bd;
+        border-bottom: 6px solid transparent;
+    }
+
+    &:last-of-type::after {
+        content: "";
+        display: none;
+    }
+}
+
+.active {
+    font-weight: 600;
+}
+
+.link {
+    color: var(--text, #1c1c1c);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+}

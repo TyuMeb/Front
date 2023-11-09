@@ -1,10 +1,12 @@
 "use client";
 
 import React, { HTMLAttributes } from "react";
+
 import styles from "./header.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import avatar from "@public/account/photo.png";
+import Breadcrumbs from "./breadcrumbs";
 
 interface HeaderI extends HTMLAttributes<HTMLDivElement> {}
 
@@ -12,35 +14,15 @@ const Header = ({ className, ...props }: HeaderI) => {
     return (
         <header className={className} {...props}>
             <div className={styles.wrapper}>
-                <div className={styles.headeraccount}>
-                    <div className={styles.logo}>
-                        <Link className={styles.logolink} href="/">
-                            ВайВи
-                        </Link>
-                    </div>
-                    <nav className={styles.nav}>
-                        <ul className={styles.menu}>
-                            <li className={styles.menuitem}>
-                                <a className={styles.menulink} href="">
-                                    Мои заказы
-                                </a>
-                            </li>
-                            <span></span>
-                            <li className={styles.menuitem}>
-                                <a className={styles.menulink} href="">
-                                    Полка настенная
-                                </a>
-                            </li>
-                            <span></span>
-                            <li className={styles.menuitem}>
-                                <a className={styles.menulink} href="">
-                                    чат с исполнителем 1
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <Image width={32} height={32} priority={true} src={avatar} alt="Фото"></Image>
-                </div>
+                <nav className={styles.navigation}>
+                    <Link className={styles.logo} href="/">
+                        ВайВи
+                    </Link>
+                    <Breadcrumbs />
+                    <Link className={styles.avatar} href="#">
+                        <Image priority={true} src={avatar} alt="Фото"></Image>
+                    </Link>
+                </nav>
             </div>
         </header>
     );
