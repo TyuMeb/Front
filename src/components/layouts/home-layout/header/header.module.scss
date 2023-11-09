@@ -1,0 +1,47 @@
+.header {
+    padding: $gap-default 0;
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0 auto;
+    background: $bg-main-color;
+}
+
+.list {
+    display: flex;
+    max-width: 1220px;
+    margin: 0 auto;
+    justify-content: space-between;
+    gap: $gap-l;
+}
+
+.logo {
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.link {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    cursor: pointer;
+    user-select: none;
+
+    &:last-child {
+        margin-left: auto;
+    }
+    &:hover {
+        text-decoration: underline;
+    }
+    &:active {
+        text-decoration: underline;
+        text-decoration-color: $accent-color;
+    }
+}
+
+.active {
+    text-decoration: underline;
+    text-decoration-color: $accent-color;
+}

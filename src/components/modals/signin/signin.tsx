@@ -1,88 +1,76 @@
-import React, { useEffect } from "react";
+import React from "react";
 import classNames from "classnames/bind";
 
 import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/slices/modal-slice";
-import useInput from "@src/hooks/use-Input";
-import { TextField, PasswordField } from "@src/components/shared/ui/fields";
-import TextFieldModal from "@src/components/modals/text-field-modal";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
-import Icon from "@src/components/icon";
+import { Icon } from "@src/components/icon";
 
+import { Input, PasswordInput } from "@src/shared/ui/inputs";
+import { Button } from "@src/shared/ui/button";
+import { useForm } from "react-hook-form";
+import { TokenObtain } from "@src/redux/api/generated";
 import { useCreateTokenMutation } from "@src/redux/api/jwt-api-slice";
 import { setCookie, removeCookie } from "typescript-cookie";
+import { useLazyGetUserQuery, useVerifyUserQuery } from "@src/redux/api/auth-api-slice";
+import { setUser } from "@src/redux/slices/users-slice";
+import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
 const cx = classNames.bind(styles);
 
 const SignIn = () => {
-    const [createToken] = useCreateTokenMutation();
-    const data = {
-        email: "rustamaaa@bk.ru",
-        password: "rustamaaa1",
-    };
+    const router = useRouter();
 
-    useEffect(() => {
-        createToken(data)
-            .unwrap()
-            .then((res) => {
-                setCookie("accessToken", res.access);
-                localStorage.setItem("refreshToken", res.refresh);
-                console.log("Авторизация прошла успешно");
-            })
-            .catch((error) => {
-                console.log("Неверный логин или пароль");
-                removeCookie("accessToken");
-                localStorage.removeItem("refreshToken");
-                console.log(error);
-            });
-    }, []);
+    const params = useParams();
+
+    const token = params.token as string;
+    const uid = params.uid as string;
+
+    const { error: errorVerify, isSuccess: isSuccessVerify } = useVerifyUserQuery(
+        { token, uid },
+        { refetchOnReconnect: true, skip: !token || !uid }
+    );
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        setError,
+    } = useForm({
+        values: {
+            email: "",
+            password: "",
+        },
+    });
+
+    const [createToken, { isLoading: isLoadingToken }] = useCreateTokenMutation();
+    const [getUser, { isLoading: isLoadingUser }] = useLazyGetUserQuery();
 
     const dispatch = useAppDispatch();
 
-    const emailField = useInput("");
-    const passwordField = useInput("");
+    const onSubmit = (data: TokenObtain) => {
+        createToken(data)
+            .unwrap()
+            .then(({ access, refresh }) => {
+                setCookie("access_token", access);
+                setCookie("refresh_token", refresh);
 
-    const emailError = useInput("");
-    const passwordError = useInput("");
-
-    const submitForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        try {
-            console.log({
-                email: emailField.value,
-                password: passwordField.value,
+                getUser()
+                    .unwrap()
+                    .then((user) => {
+                        dispatch(() => setUser(user));
+                        router.push("/personal-account");
+                    });
+            })
+            .catch((error) => {
+                setError("email", { message: error?.data?.detail || "Аккаунт не найден" });
+                removeCookie("access_token");
+                removeCookie("refresh_token");
             });
-            emailField.onChange("");
-            passwordField.onChange("");
-        } catch {
-            console.log("Ошибка");
-        } finally {
-            e.preventDefault();
-        }
     };
-
-    const lengthCheck = (field: string, onChange: any, length: number = 12) => {
-        if (field.length >= length) {
-            onChange(`Длина ${field} не может быть больше ${length} символов!`);
-        }
-    };
-
-    // Проверка работы валидации
-    const formValidation = () => {
-        emailError.onChange("");
-        passwordError.onChange("");
-
-        lengthCheck(emailField.value, emailError.onChange);
-        lengthCheck(passwordField.value, passwordError.onChange);
-    };
-
-    useEffect(() => {
-        formValidation();
-    }, [emailField, passwordError]);
-
-    const renderError = (value: string) =>
-        value && <li className={cx("textError", { warningText: value })}>{value}</li>;
 
     return (
         <ModalAuth>
@@ -90,23 +78,31 @@ const SignIn = () => {
 
             <h2 className={cx("title")}>Добро пожаловать!</h2>
 
-            <form className={cx("form")}>
+            <form className={cx("form")} onSubmit={handleSubmit(onSubmit)}>
                 <div className={cx("inputsSignin")}>
-                    <TextFieldModal isError={Boolean(emailError.value)} labelText="E-mail">
-                        <TextField className="inputAuth" placeholder="Введите почту" {...emailField} />
-                    </TextFieldModal>
+                    <div>
+                        <Input
+                            label="E-mail"
+                            placeholder="Введите свою почту"
+                            error={Boolean(errors.email?.message)}
+                            errorMessage={errors.email?.message}
+                            id="email"
+                            type="email"
+                            {...register("email")}
+                        />
+                    </div>
 
-                    <TextFieldModal isError={Boolean(passwordError.value)} labelText="Пароль">
-                        <PasswordField className="inputAuth" placeholder="Введите пароль" {...passwordField} />
-                    </TextFieldModal>
+                    <div>
+                        <PasswordInput
+                            label="Пароль"
+                            placeholder="Введите пароль"
+                            error={Boolean(errors.password?.message)}
+                            errorMessage={errors.password?.message}
+                            id="password"
+                            {...register("password")}
+                        />
+                    </div>
                 </div>
-
-                {(emailError.value || passwordError.value) && (
-                    <ul className={cx("errorsText")}>
-                        {renderError(emailError.value)}
-                        {renderError(passwordError.value)}
-                    </ul>
-                )}
 
                 <button
                     className={cx("linkText")}
@@ -115,9 +111,14 @@ const SignIn = () => {
                     Забыли пароль?
                 </button>
 
-                <button className={cx("text", "button")} type="submit" onClick={submitForm}>
+                {isSuccessVerify && <p className={styles.textSuccess}>Ваш аккаунт подтвержден</p>}
+                {errorVerify && (
+                    <p className={cx("textError", { warningText: true })}>Ссылка для подтверждения неактивна</p>
+                )}
+
+                <Button isLoading={isLoadingToken || isLoadingUser} className={cx("text", "button")} type="submit">
                     Войти
-                </button>
+                </Button>
             </form>
         </ModalAuth>
     );

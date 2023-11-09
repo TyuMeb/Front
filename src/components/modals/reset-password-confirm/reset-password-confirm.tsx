@@ -1,82 +1,120 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import classNames from "classnames/bind";
 import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/slices/modal-slice";
-import { PasswordField } from "@src/components/shared/ui/fields";
-import TextFieldModal from "@src/components/modals/text-field-modal";
-import useInput from "@src/hooks/use-Input";
+import { usePostUsersResetPasswordConfirmMutation } from "@src/redux/api/users-api-slice";
+import { useParams, useRouter } from "next/navigation";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 import ModalAuth from "@src/components/modals/modal-auth";
+import { PasswordInput } from "@src/shared/ui/inputs";
+import { Button } from "@src/shared/ui/button";
+import { useForm } from "react-hook-form";
+import { Icon } from "@src/components/icon";
 
 const cx = classNames.bind(styles);
+
+type Form = {
+    new_password: string;
+    confirm_password: string;
+};
 
 export const ResetPasswordConfirm = () => {
     const dispatch = useAppDispatch();
 
-    const passwordField = useInput("");
+    const params = useParams();
+    const router = useRouter();
 
-    const passwordError = useInput("");
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm<Form>({
+        values: {
+            new_password: "",
+            confirm_password: "",
+        },
+    });
 
-    const submitForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        try {
-            console.log({ email: passwordField.value });
-            passwordField.onChange("");
-        } catch {
-            console.log("Ошибка востановления пароля");
-        } finally {
-            e.preventDefault();
-        }
+    const [error, setError] = useState("");
+
+    const [resetPasswordConfirm, { isLoading, isSuccess }] = usePostUsersResetPasswordConfirmMutation();
+
+    const onSubmit = (data: Form) => {
+        setError("");
+
+        resetPasswordConfirm({ ...data, uid: params.uid as string, token: params.token as string })
+            .unwrap()
+            .then(() => {
+                router.push("/");
+                dispatch(setTypeModal("signIn"));
+            })
+            .catch((error) => {
+                const { uid, new_password } = error?.data || {};
+                setError((uid || new_password)?.join(""));
+            });
     };
-
-    const lengthCheck = (field: string, onChange: any, length: number = 12) => {
-        if (field.length >= length) {
-            onChange(`Длина ${field} не может быть больше ${length} символов!`);
-        }
-    };
-
-    // Проверка работы валидации
-    const formValidation = () => {
-        passwordError.onChange("");
-        lengthCheck(passwordError.value, passwordError.onChange);
-    };
-
-    useEffect(() => {
-        formValidation();
-    }, [passwordField]);
-
-    const renderError = (value: string) =>
-        value && <li className={cx("textError", { warningText: value })}>{value}</li>;
 
     return (
         <ModalAuth>
+            <Icon className={cx("backgroundResetPassword")} glyph="resetPassword" />
+
             <h2 className={cx("title", "titleSubtext")}>Новый пароль</h2>
 
             <p className={cx("text", "subtext")}>Чтобы изменить пароль, нужно ввести новый пароль.</p>
 
-            <form className={cx("form")}>
+            <form onSubmit={handleSubmit(onSubmit)} className={cx("form")}>
                 <div className={cx("inputsResetPassword")}>
-                    <TextFieldModal isError={Boolean(passwordError.value)} labelText="Новый пароль">
-                        <PasswordField className="inputAuth" placeholder="Введите новый пароль" {...passwordField} />
-                    </TextFieldModal>
+                    <PasswordInput
+                        {...register("new_password", {
+                            required: { value: true, message: "Данное поле обязательно" },
+                            minLength: {
+                                value: 8,
+                                message: "Минимальная длинна 8 символов",
+                            },
+                        })}
+                        label="Пароль"
+                        placeholder="Введите свой пароль"
+                        error={Boolean(errors.new_password?.message)}
+                        errorMessage={errors.new_password?.message}
+                        id="new_password"
+                    />
+                    <PasswordInput
+                        {...register("confirm_password", {
+                            required: { value: true, message: "Данное поле обязательно" },
+                            minLength: {
+                                value: 8,
+                                message: "Минимальная длинна 8 символов",
+                            },
+                            validate: (value) => {
+                                if (watch("new_password") !== value) {
+                                    return "Пароли не совпадают";
+                                }
+                            },
+                        })}
+                        label="Повторите пароль"
+                        placeholder="Повторите свой пароль"
+                        error={Boolean(errors.confirm_password?.message)}
+                        errorMessage={errors.confirm_password?.message}
+                        id="confirm_password"
+                    />
                 </div>
 
-                {passwordError.value && <ul className={cx("errorsText")}>{renderError(passwordField.value)}</ul>}
+                {error && <p className={cx("textError", { warningText: true })}>{error}</p>}
+                {isSuccess && <p className={cx("textSuccess")}>Ваш пароль успешно изменен</p>}
 
                 <ul className={cx("listButtons")}>
                     <li className={cx("itemButtons")}>
-                        <button className={cx("text", "button")} type="submit" onClick={submitForm}>
+                        <Button isLoading={isLoading} type="submit">
                             Сбросить пароль
-                        </button>
+                        </Button>
                     </li>
 
                     <li className={cx("itemButtons")}>
-                        <button
-                            className={cx("text", "button", "buttonWhite")}
-                            type="button"
-                            onClick={() => dispatch(setTypeModal("signIn"))}>
+                        <Button variant="cancel" type="button" onClick={() => dispatch(setTypeModal("signIn"))}>
                             Отмена
-                        </button>
+                        </Button>
                     </li>
                 </ul>
             </form>

@@ -1,10 +1,10 @@
 "use client";
 
-import { CardExample } from "@src/components/shared/ui/card-example/card-example";
+import { Icon } from "@src/components/icon";
+import { CardExample } from "@src/shared/ui/card-example/card-example";
 import styles from "./examples.module.scss";
 import cn from "classnames";
 import { useState } from "react";
-import Icon from "@src/components/icon";
 
 export const Examples = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
