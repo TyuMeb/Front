@@ -12,9 +12,8 @@
 }
 
 .header {
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 150%;
+    @include font-source-sans(16px, $graphite-black, 600, 150%);
+
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 1;

@@ -20,11 +20,8 @@
 }
 
 .logo {
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 160%;
-    color: var(--text, #1c1c1c);
+    @include font-source-sans(20px, $graphite-black, 600, 160%);
+
     margin-right: 40px;
 }
 

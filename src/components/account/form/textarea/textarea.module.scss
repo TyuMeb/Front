@@ -27,9 +27,5 @@
 }
 
 .text {
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-
-    color: $graphite-black;
+    @include font-source-sans(16px, $graphite-black, 400, 21px);
 }

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./performer-card.module.scss";
 import "src/components/account/wrapper-card/wrapper-card.module.scss";
-import { Button } from "src/components/shared/ui/button/button";
+import { Button } from "src/shared/ui/button";
 import WrapperCard from "src/components/account/wrapper-card";
 import { Icon } from "src/components/icon";
 
@@ -85,8 +85,8 @@ const PerformerCard = ({ performer }: { performer: PerformerCardI }) => {
                     </ul>
                 )}
 
-                <Button className={cx("button", { addMargins: !showGallery })} onClick={() => {}}>
-                    Перейти в чат
+                <Button className={cx("button", { addMargins: !showGallery })}>
+                    <p className={cx("text")}>Перейти в чат</p>
                 </Button>
             </div>
         </WrapperCard>

@@ -40,3 +40,25 @@
     font-size: 14px;
     line-height: 21px;
 }
+
+@mixin font-source-sans($size: false, $colour: false, $weight: false, $lh: false, $ff: var(--font-open-sans)) {
+    @if $size {
+        font-size: $size;
+    }
+
+    @if $colour {
+        color: $colour;
+    }
+
+    @if $weight {
+        font-weight: $weight;
+    }
+
+    @if $lh {
+        line-height: $lh;
+    }
+
+    @if $ff {
+        font-family: $ff, sans-serif;
+    }
+}

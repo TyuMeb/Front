@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback, useEffect } from "react";
 import styles from "./dialog.module.scss";
-import { Button } from "@src/components/shared/ui/button/button";
+import { Button } from "@src/shared/ui/button";
 import ChatForm from "@src/components/account/dialog/chat-form";
 
 const Dialog = () => {
@@ -35,7 +35,9 @@ const Dialog = () => {
                             <p className={`${styles.text} ${styles.textBold}`}>Стоимость: от 100 000 руб</p>
                         </div>
                     </div>
-                    <Button onClick={() => {}}>Выбрать этого исполнителя</Button>
+                    <Button>
+                        <p className={styles.textButton}>Выбрать этого исполнителя</p>
+                    </Button>
                 </div>
             </div>
 

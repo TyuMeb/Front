@@ -121,7 +121,7 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputI>((props: FileIn
                 onChange={(e) => changeHandlerFiles(e)}
                 {...restProps}
             />
-            <div>{children}</div>
+            {children}
         </label>
     );
 });

@@ -19,10 +19,7 @@
 }
 
 .title {
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 160%;
+    @include font-source-sans(16px, $graphite-black, 600, 160%);
 }
 
 .list {
@@ -41,8 +38,5 @@
 }
 
 .text {
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 150%;
+    @include font-source-sans(16px, $graphite-black, 400, 150%);
 }

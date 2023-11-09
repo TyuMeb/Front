@@ -129,7 +129,7 @@ const Sidebar = ({ className }: SidebarI) => {
 
                 <Link href="/">
                     <Button variant="exit" onClick={onHandlerClick}>
-                        Выйти
+                        <p className={styles.text}>Выйти</p>
                     </Button>
                 </Link>
             </nav>

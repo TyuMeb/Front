@@ -56,6 +56,10 @@
     column-gap: 16px;
 }
 
+.textButton {
+    @include font-source-sans(16px, $graphite-black, 400, 24px);
+}
+
 .wrapper {
     display: grid;
     row-gap: 8px;
@@ -106,11 +110,7 @@
 }
 
 .timeText {
-    color: #7c7c7c;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 18px;
+    @include font-source-sans(12px, #7c7c7c, 600, 18px);
 }
 
 .positionRight {

@@ -25,14 +25,10 @@
     }
 }
 
-.active {
-    font-weight: 600;
+.link {
+    @include font-source-sans(16px, $graphite-black, 400, 150%);
 }
 
-.link {
-    color: var(--text, #1c1c1c);
-    font-size: 16px;
-    font-style: normal;
+.active {
     font-weight: 600;
-    line-height: 150%;
 }
