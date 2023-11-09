@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import styles from "./head-block.module.scss";
 import { Button } from "@src/shared/ui/button";
 
@@ -13,7 +14,9 @@ export const HeadBlock = () => {
                         <p className={styles.description}>
                             Сделайте заказ прямо сейчас, и мы подберём вам лучшие предложения за 24 часа
                         </p>
-                        <Button onClick={() => {}}>Сделать заказ</Button>
+                        <Link href="/order">
+                            <Button>Сделать заказ</Button>
+                        </Link>{" "}
                     </div>
                 </div>
             </div>

@@ -80,8 +80,11 @@ h4 {
 
 .container {
     max-width: calc(1220px + 32px);
-    padding: 0 16px;
+
     margin: 0 auto;
+
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
 .homePage {
