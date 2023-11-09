@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 import classNames from "classnames/bind";
 
 import styles from "./password.module.scss";
@@ -7,12 +7,12 @@ import { InputProps, Input } from "../input";
 
 const cx = classNames.bind(styles);
 
-export const PasswordInput = (props: InputProps) => {
+export const PasswordInput = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
     return (
         <div className={cx("container")}>
-            <Input {...props} type={showPassword ? "text" : "password"} />
+            <Input ref={ref} {...props} type={showPassword ? "text" : "password"} />
 
             <button
                 className={cx("buttonShowPassword")}
@@ -27,4 +27,6 @@ export const PasswordInput = (props: InputProps) => {
             </button>
         </div>
     );
-};
+});
+
+PasswordInput.displayName = "PasswordInput";

@@ -27,6 +27,7 @@ const TemplateCheckboxField = (args: CheckboxInputProps): JSX.Element => {
 
     return (
         <div style={{ width: "636px" }}>
+            {/* @ts-ignore */}
             <CheckboxInput checked={checked} {...restArgs} onClick={onHandlerClick} />
         </div>
     );

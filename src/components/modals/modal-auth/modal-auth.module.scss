@@ -41,6 +41,7 @@
     display: grid;
     margin-bottom: 28px;
     max-width: 296px;
+    gap: 20px;
 }
 
 .inputsSignin {
@@ -174,6 +175,16 @@
 }
 
 .textError {
+    margin-bottom: 28px;
+    &::before {
+        content: "\2022";
+        margin-right: 10px;
+    }
+}
+
+.textSuccess {
+    color: $success-accent-color;
+    margin-bottom: 28px;
     &::before {
         content: "\2022";
         margin-right: 10px;
