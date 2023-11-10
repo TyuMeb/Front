@@ -1,0 +1,20 @@
+.window {
+    padding: 68px 270px;
+    max-width: 1220px;
+    background-color: #fffaee;
+    border-radius: 45px;
+}
+
+.text {
+    @include font-source-sans(16px, $graphite-black, 400, 150%);
+
+    text-align: center;
+}
+
+.marginBottom {
+    margin-bottom: 36px;
+}
+
+.buttonClose {
+    margin: 0 auto;
+}

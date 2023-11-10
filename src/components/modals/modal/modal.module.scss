@@ -1,4 +1,4 @@
-.overlay {
+.wrapper {
     position: fixed;
     z-index: 100;
     top: 0;
@@ -8,7 +8,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.overlayBlur {
     backdrop-filter: blur(5px);
+}
+
+.overlayDark {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: none;
+}
+
+.overlayNone {
+    backdrop-filter: none;
 }
 
 .modal {

@@ -2,11 +2,14 @@
 
 import React, { useState, useCallback, useEffect } from "react";
 import styles from "./dialog.module.scss";
+import { openModal } from "@src/redux/slices/modal-slice";
+import { useAppDispatch } from "@src/redux/hooks";
 import { Button } from "@src/shared/ui/button";
 import ChatForm from "@src/components/account/dialog/chat-form";
 
 const Dialog = () => {
     const [formHeight, setFormHeight] = useState<number>(0);
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         window.scrollTo(0, document.body.scrollHeight);
@@ -37,7 +40,7 @@ const Dialog = () => {
                             <p className={`${styles.text} ${styles.textBold}`}>Стоимость: от 100 000 руб</p>
                         </div>
                     </div>
-                    <Button>
+                    <Button onClick={() => dispatch(openModal("chooseThisProducer"))}>
                         <p className={styles.textButton}>Выбрать этого исполнителя</p>
                     </Button>
                 </div>

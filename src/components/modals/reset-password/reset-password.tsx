@@ -15,7 +15,7 @@ import { SendEmailReset } from "@src/redux/api/generated";
 
 const cx = classNames.bind(styles);
 
-export const ResetPassword = () => {
+const ResetPassword = () => {
     const dispatch = useAppDispatch();
 
     const {
@@ -83,3 +83,5 @@ export const ResetPassword = () => {
         </ModalAuth>
     );
 };
+
+export default ResetPassword;

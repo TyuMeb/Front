@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import classNames from "classnames/bind";
 import Header from "@src/components/layouts/account-layout/header";
 import Sidebar from "@src/components/layouts/account-layout/sidebar";
+import Modals from "@src/components/modals/modals";
 
 import styles from "./account-layout.module.scss";
 
@@ -14,6 +15,7 @@ const AccountLayout = ({ children }: { children: ReactNode }) => {
             <div className={cx("content")}>
                 <Sidebar className={cx("sidebar")} />
                 <main className={cx("main")}>{children}</main>
+                <Modals />
             </div>
         </div>
     );
