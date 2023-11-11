@@ -10,7 +10,7 @@ export default function Page() {
 
     useEffect(() => {
         dispatch(openModal());
-        dispatch(setTypeModal("resetPasswordConfirm"));
+        dispatch(setTypeModal("signIn"));
     }, []);
 
     return <Home />;

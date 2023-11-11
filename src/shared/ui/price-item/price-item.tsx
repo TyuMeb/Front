@@ -1,4 +1,4 @@
-import styles from "./priceItem.module.scss";
+import styles from "./price-item.module.scss";
 
 type PriceItemProps = {
     caption: string;

@@ -1,4 +1,4 @@
-import styles from "./numberItem.module.scss";
+import styles from "./number-item.module.scss";
 
 type NumberItemProps = {
     caption: string;

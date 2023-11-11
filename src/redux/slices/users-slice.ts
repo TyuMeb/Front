@@ -3,13 +3,13 @@ import { UserAccount } from "../api/generated";
 
 type UserState = {
     users: UserAccount[] | null;
-    usersMe: UserAccount | null;
+    user: UserAccount | null;
     usersId: UserAccount | null;
 };
 
 const initialState: UserState = {
     users: null,
-    usersMe: null,
+    user: null,
     usersId: null,
 };
 
@@ -20,8 +20,8 @@ export const userSlice = createSlice({
         saveUsers: (state, action: PayloadAction<UserAccount[]>) => {
             state.users = action.payload;
         },
-        saveUsersMe: (state, action: PayloadAction<UserAccount>) => {
-            state.usersMe = action.payload;
+        setUser: (state, action: PayloadAction<UserAccount | null>) => {
+            state.user = action.payload;
         },
         saveUsersId: (state, action: PayloadAction<UserAccount>) => {
             state.usersId = action.payload;
@@ -29,4 +29,4 @@ export const userSlice = createSlice({
     },
 });
 
-export const {} = userSlice.actions;
+export const { setUser } = userSlice.actions;

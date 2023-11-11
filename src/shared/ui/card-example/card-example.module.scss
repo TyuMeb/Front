@@ -4,12 +4,6 @@
     overflow: hidden;
     height: 100%;
     width: 100%;
-    opacity: 0;
-
-    &_visible {
-        opacity: 1;
-        transition: opacity 1s;
-    }
 }
 
 .description {

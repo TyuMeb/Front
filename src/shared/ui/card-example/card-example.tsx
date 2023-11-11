@@ -1,7 +1,6 @@
-import { useState, useEffect, FC } from "react";
+import { FC } from "react";
 import styles from "./card-example.module.scss";
-import { PriceItem } from "../priceItem/priceItem";
-import { cn } from "@src/shared/lib/cn";
+import { PriceItem } from "../price-item/price-item";
 
 export type CardExampleProps = {
     width?: string | undefined;
@@ -10,27 +9,15 @@ export type CardExampleProps = {
     alt: string;
     object: string;
     price: string;
+    id: number;
 };
 
 export const CardExample: FC<CardExampleProps> = ({ width = "100%", height = "100%", src, alt, object, price }) => {
-    const [isVisible, setIsVisible] = useState(false);
-
-    useEffect(() => {
-        if (!isVisible) {
-            setTimeout(() => setIsVisible(true), 100);
-        }
-    }, [, isVisible]);
-
-    useEffect(() => {
-        setIsVisible(false);
-    }, [src, alt, object, price]);
-
     return (
-        <div className={cn(styles.inner, isVisible ? styles.inner_visible : null)}>
+        <div className={styles.inner}>
             <img
                 style={{
                     backgroundColor: "#F5F3F1",
-                    borderRadius: "44px",
                     objectFit: "cover",
                     width: width,
                     height: height,

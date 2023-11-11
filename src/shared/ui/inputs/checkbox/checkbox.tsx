@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import classNames from "classnames/bind";
 
 import styles from "./checkbox.module.scss";
@@ -15,43 +15,38 @@ export type CheckboxInputProps = {
     disabled?: boolean;
     className?: string;
     onClick?: () => void;
-};
+} & React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
-export const CheckboxInput = (props: CheckboxInputProps) => {
-    const { textLabel, error, errorMessage, checked = false, disabled, onClick } = props;
+export const CheckboxInput = forwardRef<HTMLInputElement, CheckboxInputProps>(
+    ({ textLabel, error, errorMessage, checked, disabled, ...props }, ref) => {
+        return (
+            <>
+                <label htmlFor={props.id} className={cn(styles.container, props.className)}>
+                    <input {...props} checked={checked} type="checkbox" className={cx("checkboxFieldHide")} ref={ref} />
 
-    return (
-        <>
-            <label className={cn(styles.container, props.className)}>
-                <input type="checkbox" className={cx("checkboxFieldHide")} onChange={() => onClick?.()} />
+                    <span className={cx("checkboxField", { checked, disabled, error: error && !disabled && !checked })}>
+                        {!disabled && (
+                            <Icon
+                                className={cx("checkboxFieldIcon", { checkboxFieldIconHide: checked === false })}
+                                glyph="checked"
+                            />
+                        )}
+                    </span>
 
-                <button
-                    disabled={disabled}
-                    onClick={onClick}
-                    className={cx("checkboxField", {
-                        checked: checked,
-                        disabled: disabled,
-                        error: error && !disabled && !checked,
-                    })}>
-                    {!disabled && (
-                        <Icon
-                            className={cx("checkboxFieldIcon", { checkboxFieldIconHide: checked === false })}
-                            glyph="checked"
-                        />
-                    )}
-                </button>
+                    <span
+                        className={cx("label", {
+                            warning: error && !disabled && !checked,
+                        })}>
+                        {textLabel}
+                    </span>
+                </label>
 
-                <span
-                    className={cx("label", {
-                        warning: error && !disabled && !checked,
-                    })}>
-                    {textLabel}
-                </span>
-            </label>
+                {errorMessage && error && !disabled && !checked && (
+                    <span className={cx("message", "errorTextMargins")}>{errorMessage}</span>
+                )}
+            </>
+        );
+    }
+);
 
-            {errorMessage && error && !disabled && !checked && (
-                <span className={cx("message", "errorTextMargins")}>{errorMessage}</span>
-            )}
-        </>
-    );
-};
+CheckboxInput.displayName = "CheckboxInput";

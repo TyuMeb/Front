@@ -1,8 +1,9 @@
 import { HTMLAttributes, type DetailedHTMLProps } from "react";
-import styles from "./sliderControl.module.scss";
+import styles from "./slider-control.module.scss";
 import { Button } from "../button";
 import { ArrowLeftIcon } from "../icons/arrow-left-icon";
 import { ArrowRightIcon } from "../icons/arrow-right-icon";
+import { cn } from "@src/shared/lib/cn";
 
 export type SliderControlProps = {
     onRightArrowClick: () => void;
@@ -14,7 +15,7 @@ const SliderControl = ({ disabled, onRightArrowClick, onLeftArrowClick, ...props
     return (
         <>
             <input className={styles.sliderControlHide} />
-            <div className={styles.sliderControl} {...props}>
+            <div className={cn(styles.sliderControl, disabled ? styles.sliderControl_disabled : null)} {...props}>
                 <Button
                     disabled={disabled}
                     type="button"

@@ -1,5 +1,4 @@
-import Image from "next/image";
-
+import { Icon } from "@src/components/icon";
 import styles from "./card-advantages.module.scss";
 
 type CardAdvantagesProps = {
@@ -10,9 +9,10 @@ type CardAdvantagesProps = {
     alt: string;
     width: number;
     height: number;
+    glyphIcon: "clock" | "settings" | "dollar" | "person";
 };
 
-export const CardAdvantages = ({ bgColor, title, paragraph, src, alt, width, height }: CardAdvantagesProps) => {
+export const CardAdvantages = ({ bgColor, title, paragraph, glyphIcon }: CardAdvantagesProps) => {
     return (
         <div className={`${styles.card} ${styles[bgColor]}`}>
             <div className={styles.inner}>
@@ -20,7 +20,7 @@ export const CardAdvantages = ({ bgColor, title, paragraph, src, alt, width, hei
                     <h4 className={styles.title}>{title}</h4>
                     <p>{paragraph}</p>
                 </div>
-                <Image className={styles.img} src={src} alt={alt} width={width} height={height} />
+                <Icon className={styles.img} glyph={glyphIcon} />
             </div>
         </div>
     );
