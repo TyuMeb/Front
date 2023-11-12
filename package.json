@@ -16,6 +16,7 @@
         "swagger": "node scripts/swagger.js"
     },
     "dependencies": {
+        "@radix-ui/react-dialog": "^1.0.5",
         "@reduxjs/toolkit": "^1.9.7",
         "classnames": "^2.3.2",
         "jwt-decode": "^3.1.2",
