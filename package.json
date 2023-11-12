@@ -6,7 +6,7 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint",
+        "lint": "tsc --noEmit && next lint",
         "prepare": "husky install",
         "lint-staged": "lint-staged",
         "prettier": "prettier --write --ignore-unknown .",

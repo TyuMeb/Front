@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import "keen-slider/keen-slider.min.css";
 import { useSlider } from "@src/hooks/use-slider";
 import styles from "./slider-example.module.scss";
@@ -6,12 +6,12 @@ import { cn } from "@src/shared/lib/cn";
 import { CardExample, CardExampleProps } from "@src/shared/ui/card-example/card-example";
 import { SliderControl } from "../sllder-control/slider-control";
 
-type SlideItem = {
-    items: Array<CardExampleProps>;
+export type SlideItem = {
+    items: Required<Array<CardExampleProps>>;
 };
 
 type SliderProps = {
-    slides: Array<SlideItem>;
+    slides: Required<Array<SlideItem>>;
     disabled?: boolean;
     delay?: number;
     slideRight?: boolean;
@@ -25,18 +25,12 @@ export const SliderExample: FC<SliderProps> = ({
     slideRight = false,
     auto = true,
 }) => {
-    const [isVisible, setIsVisible] = useState(false);
-
     const slider1 = useSlider({ disabled: disabled, rtl: slideRight });
     const slider2 = useSlider({ disabled: disabled, rtl: slideRight });
     const slider3 = useSlider({ disabled: disabled, rtl: slideRight });
     const slider4 = useSlider({ disabled: disabled, rtl: slideRight });
 
     const sliders = [slider1, slider2, slider3, slider4];
-
-    useEffect(() => {
-        setIsVisible(true);
-    }, []);
 
     useEffect(() => {
         let timer: number;
@@ -63,23 +57,17 @@ export const SliderExample: FC<SliderProps> = ({
     }
 
     return (
-        <main className={cn(styles.slider, isVisible ? styles.slider_visible : null)}>
+        <main className={cn(styles.slider, styles.slider_visible)}>
             <div className={styles.slider__content}>
-                {sliders.map((slideItem, i) => (
+                {sliders.map((slideItem, index) => (
                     <div
                         ref={slideItem.sliderRef}
                         className={cn("keen-slider", styles.slider__slideContainer)}
-                        key={123 + i}>
-                        {slides[i].items &&
-                            slides[i].items.map((item) => (
-                                <div className="keen-slider__slide" key={item.id}>
-                                    <CardExample
-                                        src={item.src}
-                                        alt={item.alt}
-                                        object={item.object}
-                                        price={item.price}
-                                        id={item.id}
-                                    />
+                        key={index}>
+                        {slides?.[index]?.items &&
+                            slides?.[index]?.items.map((item) => (
+                                <div className="keen-slider__slide" key={item.name}>
+                                    <CardExample src={item.src} alt={item.alt} name={item.name} price={item.price} />
                                 </div>
                             ))}
                     </div>
