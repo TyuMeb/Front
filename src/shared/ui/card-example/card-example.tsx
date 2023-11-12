@@ -3,16 +3,16 @@ import styles from "./card-example.module.scss";
 import { PriceItem } from "../price-item/price-item";
 
 export type CardExampleProps = {
+    id?: number;
+    alt?: string;
     width?: string | undefined;
     height?: string | undefined;
     src: string;
-    alt: string;
-    object: string;
+    name: string;
     price: string;
-    id: number;
 };
 
-export const CardExample: FC<CardExampleProps> = ({ width = "100%", height = "100%", src, alt, object, price }) => {
+export const CardExample: FC<CardExampleProps> = ({ width = "100%", height = "100%", src, alt, name, price }) => {
     return (
         <div className={styles.inner}>
             <img
@@ -27,7 +27,7 @@ export const CardExample: FC<CardExampleProps> = ({ width = "100%", height = "10
             />
 
             <div className={styles.description}>
-                {object && <PriceItem caption={object} />}
+                {name && <PriceItem caption={name} />}
                 {price && <PriceItem caption={price} />}
             </div>
         </div>

@@ -1,28 +1,33 @@
 .overlay {
-    position: fixed;
+    inset: 0;
+    animation: show 150ms ease-in;
     z-index: 100;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     backdrop-filter: blur(5px);
+
+    position: fixed;
+
+    display: grid;
+    place-items: center;
+    overflow-y: auto;
 }
 
 .modal {
     position: relative;
     display: flex;
     justify-content: center;
+
+    min-width: 300px;
+    padding: 30px;
+    border-radius: 4px;
+    animation: show 150ms ease-in;
 }
 
 .closeModal {
     @include reset-button;
 
     position: absolute;
-    top: -24px;
-    right: -44px;
+    top: 0px;
+    right: 0px;
     width: 24px;
     height: 24px;
     background-color: inherit;
@@ -50,5 +55,14 @@
         height: 14px;
         background-color: $graphite-black;
         transform: rotateZ(-45deg);
+    }
+}
+
+@keyframes show {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }

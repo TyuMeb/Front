@@ -23,6 +23,11 @@
             "a b c"
             "d d c"
             "d d e";
+
+        @media (max-width: 1024px) {
+            display: flex;
+            flex-direction: column;
+        }
     }
 
     &__slideContainer {

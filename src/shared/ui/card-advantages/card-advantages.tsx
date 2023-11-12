@@ -5,10 +5,6 @@ type CardAdvantagesProps = {
     bgColor: string;
     title: string;
     paragraph: string;
-    src: string;
-    alt: string;
-    width: number;
-    height: number;
     glyphIcon: "clock" | "settings" | "dollar" | "person";
 };
 

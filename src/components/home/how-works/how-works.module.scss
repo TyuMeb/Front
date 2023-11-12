@@ -11,8 +11,11 @@
 }
 
 .steps {
-    display: flex;
-    justify-content: space-between;
-    row-gap: 32px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+
+    @media (max-width: 1024px) {
+        grid-template-columns: 1fr;
+    }
 }

@@ -4,6 +4,7 @@ import { useAppSelector } from "@src/redux/hooks";
 import { useEffect, useState } from "react";
 import { Icon } from "@src/components/icon";
 import styles from "./footer.module.scss";
+import { cn } from "@src/shared/lib/cn";
 
 const Footer = () => {
     const [, setCurrent] = useState<string | undefined>(undefined);
@@ -20,7 +21,7 @@ const Footer = () => {
     };
     return (
         <footer className={styles.footer}>
-            <div className={styles.container}>
+            <div className={cn(styles.container, "container")}>
                 <div className={styles.left}>
                     <h1 className={styles.logo}>ВайВи</h1>
                     <p className={styles.text}>

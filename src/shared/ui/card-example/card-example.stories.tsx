@@ -46,7 +46,7 @@ const meta = {
                 defaultValue: { summary: "Изображение товара" },
             },
         },
-        object: {
+        name: {
             name: "object",
             defaultValue: "Товар",
             description: "Название товара",
@@ -76,7 +76,7 @@ export const Default: Story = {
         height: "326px",
         src: "https://mykaleidoscope.ru/uploads/posts/2020-02/1582123670_42-p-udobnii-dizain-malenkikh-kukhon-81.jpg",
         alt: "",
-        object: "Полка",
+        name: "Полка",
         price: "1000 р",
         id: 1,
     },
