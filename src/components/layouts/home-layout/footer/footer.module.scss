@@ -6,9 +6,12 @@
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
-    width: 1440px;
-    height: 336px;
     padding: 44px 110px;
+    gap: 28px;
+
+    @media (max-width: 1024px) {
+        flex-direction: column;
+    }
 }
 
 .left {
@@ -38,6 +41,10 @@
 .right {
     display: flex;
     gap: 60px;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
 }
 
 .list {

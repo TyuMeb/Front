@@ -20,7 +20,7 @@ export default function HomePage() {
     const [howWorksEndRef, inViewEndHowWorks] = useInView({ threshold: 0.5, triggerOnce: false });
     const [formStartRef, inViewStartForm] = useInView({ threshold: 1, triggerOnce: false });
     const [formEndRef, inViewEndForm] = useInView({ threshold: 1, triggerOnce: false });
-    const [examplesRef, inViewExamples] = useInView({ threshold: 0.5, triggerOnce: false });
+    const [examplesRef, inViewExamples] = useInView({ threshold: 1, triggerOnce: false });
     const [advantagesRef, inViewAdvantages] = useInView({ threshold: 0.5, triggerOnce: false });
     const [createOrderRef, inViewCreateOrder] = useInView({ threshold: 0.5, triggerOnce: false });
     //чтобы класс active срабатывал только после скролла
