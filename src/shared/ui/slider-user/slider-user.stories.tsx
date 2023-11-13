@@ -5,7 +5,7 @@ const meta = {
     title: "UI/SliderUser",
     component: SliderUser,
     parameters: {
-        layout: "fullscreen",
+        layout: "padded",
     },
     tags: ["autodocs"],
     argTypes: {

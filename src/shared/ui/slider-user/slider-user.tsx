@@ -25,7 +25,7 @@ export const SliderUser: FC<UserSliderProps> = ({ slides, itemsToShow, photoSlid
 
     const [sliderRef, instanceRef] = useKeenSlider({
         loop: true,
-        initial: 0,
+        initial: 1,
         drag: false,
         slides: {
             perView: itemsToShow,
@@ -54,7 +54,7 @@ export const SliderUser: FC<UserSliderProps> = ({ slides, itemsToShow, photoSlid
     return (
         <main className={cn(styles.slider, isVisible ? styles.slider_visible : null)}>
             <div className={cn(styles.slider__content, photoSlider && styles.slider__content_photo)}>
-                {loaded && !photoSlider && slides.length > itemsToShow && (
+                {!photoSlider && slides.length > itemsToShow && (
                     <span className={styles.slider__arrow_wrapper}>
                         <Button
                             type="button"
@@ -66,21 +66,23 @@ export const SliderUser: FC<UserSliderProps> = ({ slides, itemsToShow, photoSlid
                     </span>
                 )}
 
-                <div ref={sliderRef} className={cn("keen-slider", !photoSlider && styles.slider__slider_wrapper)}>
-                    {slides.map((item, i) => (
-                        <div
-                            className={cn(
-                                "keen-slider__slide",
-                                styles.slider__slide,
-                                photoSlider && styles.slider__slide_photo
-                            )}
-                            key={i}>
-                            <img className={styles.slider__image} src={item.src} alt={item.alt} />
-                        </div>
-                    ))}
-                </div>
+                {
+                    <div ref={sliderRef} className={cn("keen-slider", !photoSlider && styles.slider__slider_wrapper)}>
+                        {slides.map((item, i) => (
+                            <div
+                                className={cn(
+                                    "keen-slider__slide",
+                                    styles.slider__slide,
+                                    photoSlider && styles.slider__slide_photo
+                                )}
+                                key={i}>
+                                <img className={styles.slider__image} src={item.src} alt={item.alt} />
+                            </div>
+                        ))}
+                    </div>
+                }
 
-                {loaded && slides.length > itemsToShow && (
+                {slides.length > itemsToShow && (
                     <span className={styles.slider__arrow_wrapper}>
                         <Button
                             type="button"
