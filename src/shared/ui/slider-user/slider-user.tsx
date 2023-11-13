@@ -21,7 +21,7 @@ type UserSliderProps = {
 export const SliderUser: FC<UserSliderProps> = ({ slides, itemsToShow, photoSlider = false }) => {
     const [isVisible, setIsVisible] = useState(false);
     const [, setCurrentSlide] = useState(0);
-    const [loaded, setLoaded] = useState(false);
+    const [, setLoaded] = useState(false);
 
     const [sliderRef, instanceRef] = useKeenSlider({
         loop: true,
