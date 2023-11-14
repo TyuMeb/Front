@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { SliderUser } from "./slider-user";
+import { USER_SLIDER_TEST_DATA } from "@src/shared/data/userSliderTestData";
 
 const meta = {
     title: "UI/SliderUser",
@@ -9,16 +10,16 @@ const meta = {
     },
     tags: ["autodocs"],
     argTypes: {
-        photoSlider: {
-            name: "photoSlider",
-            type: { name: "boolean", required: false },
-            defaultValue: false,
-            description: "Вариант слайдера (true - для фото / false - для продукта)",
+        variant: {
+            name: "variant",
+            type: { name: "enum", value: ["small", "big"] },
+            defaultValue: "small",
+            description: "Вариант слайдера (small - для фото / big - для продукта)",
             table: {
-                type: { summary: "boolean" },
-                defaultValue: { summary: "false" },
+                type: { summary: "variant" },
+                defaultValue: { summary: "small" },
             },
-            options: ["false", "true"],
+            options: ["small", "big"],
         },
         itemsToShow: {
             name: "itemsToShow",
@@ -39,28 +40,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
     args: {
         itemsToShow: 3,
-        photoSlider: false,
-        slides: [
-            {
-                src: "https://ekbkupe.ru/images/stories/virtuemart/product/shk-0003-16.jpg",
-                alt: "Какой-то текст 1",
-            },
-            {
-                src: "https://ekbkupe.ru/images/stories/virtuemart/product/shk-0003-2.jpg",
-                alt: "Какой-то текст 2",
-            },
-            {
-                src: "https://ekbkupe.ru/images/stories/virtuemart/product/shk-0003-3.jpg",
-                alt: "Какой-то текст 3",
-            },
-            {
-                src: "https://ekbkupe.ru/images/stories/virtuemart/product/4179-1-1-2.jpg",
-                alt: "Какой-то текст 4",
-            },
-            {
-                src: "https://ekbkupe.ru/images/stories/virtuemart/product/shk-0003-6.jpg",
-                alt: "Какой-то текст 6",
-            },
-        ],
+        variant: "small",
+        slides: USER_SLIDER_TEST_DATA,
     },
 };

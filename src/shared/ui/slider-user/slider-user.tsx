@@ -1,42 +1,28 @@
 import React, { FC, useState, useEffect } from "react";
 import "keen-slider/keen-slider.min.css";
-import { useKeenSlider } from "keen-slider/react";
 import { Button } from "../button";
-import { ArrowRightIcon } from "../icons/arrow-right-icon";
-import { ArrowLeftIcon } from "../icons/arrow-left-icon";
 import styles from "./slider-user.module.scss";
 import { cn } from "@src/shared/lib/cn";
+import { useSlider } from "@src/hooks/use-slider";
+import { Icon } from "@src/components/icon";
 
-type SlideItem = {
+type UserSliderItem = {
     src: string;
     alt: string;
 };
 
 type UserSliderProps = {
-    slides: Array<SlideItem>;
-    itemsToShow: number;
-    photoSlider: boolean;
+    slides: Required<Array<UserSliderItem>>;
+    itemsToShow?: number;
+    variant?: "small" | "big";
 };
 
-export const SliderUser: FC<UserSliderProps> = ({ slides, itemsToShow, photoSlider = false }) => {
+export const SliderUser: FC<UserSliderProps> = ({ slides, itemsToShow = 1, variant = "big" }) => {
     const [isVisible, setIsVisible] = useState(false);
-    const [, setCurrentSlide] = useState(0);
-    const [, setLoaded] = useState(false);
 
-    const [sliderRef, instanceRef] = useKeenSlider({
-        loop: true,
-        initial: 1,
-        drag: false,
-        slides: {
-            perView: itemsToShow,
-            spacing: photoSlider ? 20 : 8,
-        },
-        slideChanged(slider) {
-            setCurrentSlide(slider.track.details.rel);
-        },
-        created() {
-            setLoaded(true);
-        },
+    const { sliderRef, instanceRef, loaded } = useSlider({
+        perView: itemsToShow,
+        spacing: variant === "small" ? 20 : 8,
     });
 
     useEffect(() => {
@@ -52,28 +38,36 @@ export const SliderUser: FC<UserSliderProps> = ({ slides, itemsToShow, photoSlid
     }
 
     return (
-        <main className={cn(styles.slider, isVisible ? styles.slider_visible : null)}>
-            <div className={cn(styles.slider__content, photoSlider && styles.slider__content_photo)}>
-                {!photoSlider && slides.length > itemsToShow && (
-                    <span className={styles.slider__arrow_wrapper}>
-                        <Button
-                            type="button"
-                            icon={<ArrowLeftIcon />}
-                            variant={"slider"}
-                            onClick={slideBackward}
-                            className={styles.slider__btn}
-                        />
-                    </span>
+        <section className={cn(styles.slider, isVisible ? styles.slider_visible : null)}>
+            <div className={cn(styles.slider__content, variant === "small" && styles.slider__content_photo)}>
+                {loaded && slides.length > itemsToShow && (
+                    <Button
+                        type="button"
+                        icon={
+                            <Icon
+                                glyph={"arrowRight"}
+                                width={7}
+                                height={15}
+                                viewBox="0 0 16 30"
+                                transform="rotate(-180)"
+                            />
+                        }
+                        variant={"slider"}
+                        onClick={slideBackward}
+                        className={styles.slider__btn}
+                    />
                 )}
 
                 {
-                    <div ref={sliderRef} className={cn("keen-slider", !photoSlider && styles.slider__slider_wrapper)}>
+                    <div
+                        ref={sliderRef}
+                        className={cn("keen-slider", variant !== "small" && styles.slider__slider_wrapper)}>
                         {slides.map((item, i) => (
                             <div
                                 className={cn(
                                     "keen-slider__slide",
                                     styles.slider__slide,
-                                    photoSlider && styles.slider__slide_photo
+                                    variant === "small" && styles.slider__slide_photo
                                 )}
                                 key={i}>
                                 <img className={styles.slider__image} src={item.src} alt={item.alt} />
@@ -82,18 +76,16 @@ export const SliderUser: FC<UserSliderProps> = ({ slides, itemsToShow, photoSlid
                     </div>
                 }
 
-                {slides.length > itemsToShow && (
-                    <span className={styles.slider__arrow_wrapper}>
-                        <Button
-                            type="button"
-                            icon={<ArrowRightIcon />}
-                            variant={"slider"}
-                            onClick={slideForward}
-                            className={styles.slider__btn}
-                        />
-                    </span>
+                {loaded && slides.length > itemsToShow && (
+                    <Button
+                        type="button"
+                        icon={<Icon glyph={"arrowRight"} width={7} height={15} viewBox="0 0 16 30" />}
+                        variant={"slider"}
+                        onClick={slideForward}
+                        className={styles.slider__btn}
+                    />
                 )}
             </div>
-        </main>
+        </section>
     );
 };

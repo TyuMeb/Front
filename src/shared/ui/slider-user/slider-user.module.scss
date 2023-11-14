@@ -50,15 +50,10 @@
         height: 100%;
     }
 
-    &__arrow_wrapper {
-        width: 40px;
+    &__btn {
+        width: 32px;
+        height: 32px;
         display: flex;
         justify-content: center;
-        align-items: center;
-    }
-
-    &__btn {
-        width: 7px;
-        height: 15px;
     }
 }

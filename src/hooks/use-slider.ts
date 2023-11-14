@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 
-type Props = { disabled?: boolean; rtl?: boolean };
+type Props = { disabled?: boolean; rtl?: boolean; perView?: number; spacing?: number };
 
 export const useSlider = (options: Props) => {
     const [, setCurrentSlide] = useState(0);
@@ -14,6 +14,10 @@ export const useSlider = (options: Props) => {
             initial: 0,
             drag: !options.disabled,
             rtl: options.rtl,
+            slides: {
+                perView: options.perView ? options.perView : 1,
+                spacing: options.spacing ? options.spacing : 0,
+            },
             slideChanged(slider) {
                 setCurrentSlide(slider.track.details.rel);
             },
