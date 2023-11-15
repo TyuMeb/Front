@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, ReactNode } from "react";
 import "keen-slider/keen-slider.min.css";
 import { Button } from "../button";
 import styles from "./slider-user.module.scss";
@@ -6,13 +6,8 @@ import { cn } from "@src/shared/lib/cn";
 import { useSlider } from "@src/hooks/use-slider";
 import { Icon } from "@src/components/icon";
 
-type UserSliderItem = {
-    src: string;
-    alt: string;
-};
-
 type UserSliderProps = {
-    slides: Required<Array<UserSliderItem>>;
+    slides: Required<Array<ReactNode>>;
     itemsToShow?: number;
     variant?: "small" | "big";
 };
@@ -70,7 +65,7 @@ export const SliderUser: FC<UserSliderProps> = ({ slides, itemsToShow = 1, varia
                                     variant === "small" && styles.slider__slide_photo
                                 )}
                                 key={i}>
-                                <img className={styles.slider__image} src={item.src} alt={item.alt} />
+                                {item}
                             </div>
                         ))}
                     </div>
