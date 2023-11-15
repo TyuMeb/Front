@@ -92,6 +92,10 @@
         background-color: transparent;
         background: transparent;
 
+        &:hover {
+            background-color: transparent;
+        }
+
         &:focus {
             background-color: transparent;
             outline: none;
