@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, FormEvent, Fragment } from "react";
+import React, { useState, useEffect, useMemo, useCallback, FormEvent, Fragment } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import styles from "@src/components/account/settings/settings.module.scss";
@@ -8,7 +8,9 @@ import { Button } from "@src/shared/ui/button";
 import { Input } from "@src/shared/ui/inputs";
 import { CheckboxInput } from "@src/shared/ui/inputs";
 import { PasswordInput } from "@src/shared/ui/inputs";
+// TODO: заменил PhoneInput на Input, из-за проблем с валидацией PhoneInput из-за некорректной работы. Нужно доработать маску.
 import { PhoneInput } from "@src/shared/ui/inputs";
+// Вместо хуков использования инпутов используется ReactHookForm
 import { useInput } from "@src/hook/use-input";
 
 export interface TSettings {
@@ -23,75 +25,173 @@ export interface TSettings {
 }
 
 const Settings = () => {
+    //TODO: стейт чекбокса подписки (недоделано)
     const [noticeEmail, setNoticeEmail] = useState(true);
+    //Режим изменения данных (общий)
     const [isModifyMode, setIsModifyMode] = useState(false);
+    //Режим изменения данных пользователя
+    const [isPassModifyMode, setIsPassModifyMode] = useState(false);
+    //Режим изменения пароля
+    const [isDataModifyMode, setIsDataModifyMode] = useState(false);
+    //Данные пользователя (тестовый хардкод)
     const [userData, setUserData] = useState<TSettings>({
-        name: "",
-        surname: "",
-        email: "",
-        phone: "",
+        name: "John",
+        surname: "Doe",
+        email: "JohnDoe@yahoo.com",
+        phone: "+71234567890",
         currentPass: "",
         newPass: "",
         newPassRepeat: "",
-        notice: false,
+        notice: true,
     });
 
     const {
         register,
         handleSubmit,
         reset,
+        resetField,
         getValues,
+        getFieldState,
         setError,
         clearErrors,
-        formState: { errors, isValid, isDirty },
+        formState: { errors, isValid, isDirty, dirtyFields },
     } = useForm<TSettings>({
-        defaultValues: {
-            name: "John",
-            surname: "Doe",
-            email: "JohnDoe@yahoo.com",
-            phone: "+71234567890",
-            currentPass: "12345678",
-            newPass: "12345678",
-            newPassRepeat: "12345678",
-            notice: true,
-        },
+        defaultValues: useMemo(() => {
+            return userData;
+        }, [userData]),
         mode: "onChange",
     });
 
+    //Включение режимов изменения данных при изменении соответствующих полей
+    useEffect(() => {
+        if (dirtyFields.name || dirtyFields.surname || dirtyFields.phone) {
+            setIsDataModifyMode(true);
+            console.log("data Modify");
+        } else {
+            setIsDataModifyMode(false);
+            console.log("NO data Modify");
+        }
+        if (dirtyFields.currentPass) {
+            setIsPassModifyMode(true);
+            console.log("pass Modify");
+        } else {
+            setIsPassModifyMode(false);
+            console.log("NO pass Modify");
+        }
+    }, [dirtyFields.name, dirtyFields.surname, dirtyFields.phone, dirtyFields.currentPass]);
+
+    //Сброс полей формы при обновлении данных пользователя
+    useEffect(() => {
+        reset(userData);
+    }, [userData]);
+
+    //TODO: Изменение чекбокса подписки (недоделано)
+    const handleChangeNotice = () => {
+        setNoticeEmail(true);
+    };
+
+    //TODO: Изменение чекбокса подписки (недоделано)
+    const handleChangeNotNotice = () => {
+        setNoticeEmail(false);
+    };
+
+    //включение режима изменения данных
     const handleModifyModeOn = () => {
         setIsModifyMode(true);
     };
 
+    //выключение режима изменения данных
     const handleModifyModeOff = () => {
         setIsModifyMode(false);
+        setIsDataModifyMode(false);
+        setIsPassModifyMode(false);
+    };
+
+    //сброс данных в инпутах, связанных со сменой данных пользователя
+    const handleResetDataInputs = () => {
+        resetField("name");
+        resetField("surname");
+        resetField("phone");
+        resetField("email");
+    };
+
+    //вызов API изменения данных пользователя
+    const handlePatchUserData = () => {
+        //заглушка с выводом новых данных
+        console.log({
+            name: getValues().name,
+            surname: getValues().surname,
+            email: getValues().email,
+            person_telephone: getValues().phone,
+            role: "client",
+        });
+        //заглушка с обновлением данных пользователя
+        setUserData({
+            ...userData,
+            name: getValues().name,
+            surname: getValues().surname,
+            email: getValues().email,
+            phone: getValues().phone,
+        });
+    };
+
+    //сброс данных в инпутах, связанных со сменой пароля
+    const handleResetPassInputs = () => {
+        resetField("currentPass");
+        resetField("newPass");
+        resetField("newPassRepeat");
+    };
+
+    //вызов API изменения пароля
+    const handleChangePassword = () => {
+        //заглушка с выводом новых данных
+        console.log({
+            current_password: getValues().currentPass,
+            new_password: getValues().newPass,
+            re_new_password: getValues().newPassRepeat,
+        });
     };
 
     const handleSaveModiifications = () => {
+        if (isDataModifyMode) {
+            handlePatchUserData();
+            //тут должна быть обработка ошибок при обращении к API
+            handleResetDataInputs();
+            setIsDataModifyMode(false);
+        }
+        if (isPassModifyMode) {
+            handleChangePassword();
+            //тут должна быть обработка ошибок при обращении к API
+            handleResetPassInputs();
+            setIsPassModifyMode(false);
+        }
         handleModifyModeOff();
+        reset();
     };
 
+    //обработка выхода из режима изменения данных по кнопке Отмена
     const handleCancelModiifications = () => {
         handleModifyModeOff();
         reset();
     };
 
-    const handleChangeNotice = () => {
-        setNoticeEmail(true);
-    };
-
-    const handleChangeNotNotice = () => {
-        setNoticeEmail(false);
-    };
-
-    const submit: SubmitHandler<TSettings> = (data) => {
-        console.log(data);
+    //обработка сабмита формы
+    const submit: SubmitHandler<TSettings> = () => {
         handleSaveModiifications();
     };
 
+    //валидатор связки полей смены пароля, старый пароль / новый пароль / повторение пароля
     const handleNewPassChange = (flag: boolean) => {
-        if (getValues().newPass !== getValues().newPassRepeat) {
+        //если режим изменения пароля и старый и новый пароли совпадают -> устанавливается ошибка
+        if (isPassModifyMode && getValues().currentPass === getValues().newPass) {
+            setError("newPass", { type: "custom", message: "новый пароль должен отличаться от существующего" });
+
+            //если пароли в инпутах новый пароль и повторить пароль не совпадают -> устанавливается ошибка
+        } else if (getValues().newPass !== getValues().newPassRepeat) {
             setError("newPassRepeat", { type: "custom", message: "пароли не совпадают" });
             return flag ? "Пароли не совпадают" : undefined;
+
+            //в противном случае ошибки сбрасываются
         } else {
             clearErrors("newPassRepeat");
             clearErrors("newPass");
@@ -175,7 +275,6 @@ const Settings = () => {
                         },
                         pattern: {
                             message: "Может включать только префикс + и цифры",
-                            //                            value: RegExp("^\\+[0-9]{1} [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}$")},
                             value: RegExp("^\\+[0-9]{11}$"),
                         },
                     })}
@@ -222,7 +321,6 @@ const Settings = () => {
                     autoComplete="new-password"
                     disabled={isModifyMode ? false : true}
                     {...register("currentPass", {
-                        required: "Поле должно быть заполнено",
                         minLength: {
                             message: "Длина пароля не менее 8 символов",
                             value: 8,
@@ -248,9 +346,9 @@ const Settings = () => {
                     error={errors.newPass ? true : false}
                     errorMessage={errors?.newPass ? errors.newPass.message : ""}
                     autoComplete="new-password"
-                    disabled={isModifyMode ? false : true}
+                    disabled={isModifyMode && isPassModifyMode ? false : true}
                     {...register("newPass", {
-                        required: "Поле должно быть заполнено",
+                        required: isPassModifyMode ? "Поле должно быть заполнено" : false,
                         minLength: {
                             message: "Длина пароля не менее 8 символов",
                             value: 8,
@@ -277,9 +375,9 @@ const Settings = () => {
                     error={errors.newPassRepeat ? true : false}
                     errorMessage={errors?.newPassRepeat ? errors.newPassRepeat.message : ""}
                     autoComplete="new-password"
-                    disabled={isModifyMode ? false : true}
+                    disabled={isModifyMode && isPassModifyMode ? false : true}
                     {...register("newPassRepeat", {
-                        required: "Поле должно быть заполнено",
+                        required: isPassModifyMode ? "Поле должно быть заполнено" : false,
                         minLength: {
                             message: "Длина пароля не менее 8 символов",
                             value: 8,
@@ -308,7 +406,24 @@ const Settings = () => {
 
                 {isModifyMode && (
                     <>
-                        <Button disabled={!isValid || !isDirty}>Сохранить</Button>
+                        <Button
+                            disabled={
+                                //Если нет изменений в инпутах формы или
+                                !isDirty ||
+                                //включен режим смены пароля и какой-то из инпутов невалиден
+                                (isPassModifyMode &&
+                                    (getFieldState("currentPass").invalid ||
+                                        getFieldState("newPass").invalid ||
+                                        getFieldState("newPassRepeat").invalid)) ||
+                                //включен режим редактирования данных и какой-то из инпутов невалиден
+                                (isDataModifyMode &&
+                                    (getFieldState("name").invalid ||
+                                        getFieldState("surname").invalid ||
+                                        getFieldState("phone").invalid ||
+                                        getFieldState("email").invalid))
+                            }>
+                            Сохранить
+                        </Button>
                         <Button type="button" onClick={handleCancelModiifications}>
                             Отменить
                         </Button>
