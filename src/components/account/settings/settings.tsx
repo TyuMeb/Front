@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useCallback, FormEvent, Fragment } from "react";
+import React, { useState, useEffect, useMemo, Fragment } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import styles from "@src/components/account/settings/settings.module.scss";
@@ -9,9 +9,9 @@ import { Input } from "@src/shared/ui/inputs";
 import { CheckboxInput } from "@src/shared/ui/inputs";
 import { PasswordInput } from "@src/shared/ui/inputs";
 // TODO: заменил PhoneInput на Input, из-за проблем с валидацией PhoneInput из-за некорректной работы. Нужно доработать маску.
-import { PhoneInput } from "@src/shared/ui/inputs";
+//import { PhoneInput } from "@src/shared/ui/inputs";
 // Вместо хуков использования инпутов используется ReactHookForm
-import { useInput } from "@src/hook/use-input";
+//import { useInput } from "@src/hook/use-input";
 
 export interface TSettings {
     name: string;
@@ -54,7 +54,7 @@ const Settings = () => {
         getFieldState,
         setError,
         clearErrors,
-        formState: { errors, isValid, isDirty, dirtyFields },
+        formState: { errors, isDirty, dirtyFields },
     } = useForm<TSettings>({
         defaultValues: useMemo(() => {
             return userData;
