@@ -1,58 +1,44 @@
-import React, { useState, LegacyRef } from "react";
-import { useForm } from "react-hook-form";
+import React, { Children, createElement, useEffect, ReactElement } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 
-import Paperclip from "@public/icons/paperclip.svg";
-import { Button } from "@src/shared/ui/button";
-import { Icon } from "@src/components/icon";
-import { FileInput } from "@src/shared/ui/inputs/file/file";
-import Textarea from "@src/components/account/form/textarea";
-import PreviewFiles from "@src/components/account/form/preview-files";
-import { filesType } from "@src/components/account/form/formTypes";
-
-import styles from "./chat-form.module.scss";
 import Form from "@src/components/account/form";
+import { filesListType } from "@src/components/account/form/formTypes";
 
-const ChatForm = ({ formRef }: { formRef: LegacyRef<HTMLDivElement> }) => {
-    const [files, setFiles] = useState<filesType[] | []>([]);
+type ChatFormType = {
+    filesList: filesListType[];
+    children: ReactElement[];
+    onSubmit: SubmitHandler<FormValuesType>;
+};
 
-    const {
-        register,
-        handleSubmit,
-        formState: {},
-    } = useForm({
-        values: {
-            chat: "",
-            files: "",
-        },
-    });
+type FormValuesType = {
+    chat: string;
+    input: FileList;
+    files: filesListType[];
+};
 
-    const onSubmitHandler = (data: { chat: string; files: string }) => {
-        console.log(data);
-    };
+const ChatForm = ({ filesList, children, onSubmit }: ChatFormType) => {
+    const { register, handleSubmit, setValue } = useForm<FormValuesType>();
+
+    useEffect(() => {
+        setValue("files", filesList);
+    }, [filesList]);
 
     return (
-        <div className={styles.wrapper} ref={formRef}>
-            <Form onSubmit={handleSubmit(onSubmitHandler)}>
-                <Textarea {...register("chat")} />
-
-                <FileInput
-                    maxSizeFile={1000000}
-                    maxSizeImage={1000000}
-                    // accept=".png, .jpg, .jpeg"
-                    multiple
-                    setFiles={setFiles}
-                    countFiles={files.length}
-                    {...register("files")}>
-                    <Paperclip />
-                </FileInput>
-
-                <Button className={styles.buttonSubmit}>
-                    <Icon glyph="paper_airplane" />
-                </Button>
+        <>
+            <Form onSubmit={handleSubmit(onSubmit)}>
+                {Children.map(children, (child) => {
+                    return child.props.name
+                        ? createElement(child.type, {
+                              ...{
+                                  ...child.props,
+                                  register: register,
+                                  key: child.props.name,
+                              },
+                          })
+                        : child;
+                })}
             </Form>
-
-            {files.length ? <PreviewFiles files={files} setFiles={setFiles} /> : undefined}
-        </div>
+        </>
     );
 };
 

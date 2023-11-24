@@ -1,14 +1,17 @@
-import React, { InputHTMLAttributes, KeyboardEvent, forwardRef } from "react";
+import React, { InputHTMLAttributes, KeyboardEvent } from "react";
 import classNames from "classnames/bind";
 
 import styles from "./textarea.module.scss";
 
 const cx = classNames.bind(styles);
 
-export interface ITextareaProps extends InputHTMLAttributes<HTMLTextAreaElement> {}
+export interface ITextareaProps extends InputHTMLAttributes<HTMLTextAreaElement> {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    register?: any;
+}
 
-const Textarea = forwardRef<HTMLTextAreaElement, ITextareaProps>((props: ITextareaProps, ref) => {
-    const { disabled, className, ...restProps } = props;
+const Textarea = (props: ITextareaProps) => {
+    const { disabled, className, register, name, ...restProps } = props;
 
     const setAutomaticHeight = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         const textarea = e.target as HTMLTextAreaElement;
@@ -27,15 +30,13 @@ const Textarea = forwardRef<HTMLTextAreaElement, ITextareaProps>((props: ITextar
 
     return (
         <textarea
-            ref={ref}
             className={cx("textarea", "text", { disabled }, className)}
             disabled={disabled}
             onKeyUp={setAutomaticHeight}
+            {...register(name)}
             {...restProps}
         />
     );
-});
-
-Textarea.displayName = "Textarea";
+};
 
 export default Textarea;

@@ -1,11 +1,22 @@
 "use client";
 
 import React, { useState, useCallback, useEffect } from "react";
+import classNames from "classnames/bind";
+
 import styles from "./dialog.module.scss";
 import { openModal } from "@src/redux/slices/modal-slice";
 import { useAppDispatch } from "@src/redux/hooks";
 import { Button } from "@src/shared/ui/button";
 import ChatForm from "@src/components/account/dialog/chat-form";
+import Textarea from "@src/components/account/form/textarea";
+
+import { FileInput } from "@src/shared/ui/inputs/file/file";
+import Paperclip from "@public/icons/paperclip.svg";
+import { Icon } from "@src/components/icon";
+import PreviewFiles from "@src/components/account/form/preview-files";
+import { filesPreviewType, filesListType } from "@src/components/account/form/formTypes";
+
+const cx = classNames.bind(styles);
 
 const Dialog = () => {
     const [formHeight, setFormHeight] = useState<number>(0);
@@ -22,6 +33,16 @@ const Dialog = () => {
         });
         resizeObserver.observe(node);
     }, []);
+
+    const [filesPreview, setFilesPreview] = useState<filesPreviewType[] | []>([]);
+    const [filesList, setFilesList] = useState<filesListType[] | []>([]);
+
+    const onSubmitHandler = (data: { chat: string; files: filesListType[] }) => {
+        const formFiles = new FormData();
+        data.files.forEach((file) => formFiles.append(`file-${file.id}`, file.file));
+
+        console.log(data.files, data.chat, formFiles, filesPreview);
+    };
 
     return (
         <article className={styles.dialog}>
@@ -153,7 +174,32 @@ const Dialog = () => {
                 </div>
             </div>
 
-            <ChatForm formRef={measuredRef} />
+            <div className={styles.wrapperForm} ref={measuredRef}>
+                <ChatForm onSubmit={onSubmitHandler} filesList={filesList}>
+                    <Textarea name="chat" />
+
+                    <FileInput
+                        name="input"
+                        maxSizeFile={1000000}
+                        maxSizeImage={100000}
+                        maxCountFiles={6}
+                        // accept=".png, .jpg, .jpeg"
+                        disabled={filesPreview.length >= 6 && true}
+                        multiple
+                        setFilesPreview={setFilesPreview}
+                        setFilesList={setFilesList}>
+                        <Paperclip className={cx({ disabled: filesPreview.length >= 6 && true })} />
+                    </FileInput>
+
+                    <Button className={styles.buttonSubmit}>
+                        <Icon glyph="paper_airplane" />
+                    </Button>
+                </ChatForm>
+
+                {filesPreview.length ? (
+                    <PreviewFiles files={filesPreview} setFilesList={setFilesList} setFilesPreview={setFilesPreview} />
+                ) : undefined}
+            </div>
         </article>
     );
 };

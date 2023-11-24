@@ -1,52 +1,86 @@
-import React, { ChangeEvent, Dispatch, InputHTMLAttributes, SetStateAction, forwardRef } from "react";
+import React, { ChangeEvent, Dispatch, InputHTMLAttributes, SetStateAction, useRef } from "react";
+import classNames from "classnames/bind";
 
 import styles from "./file.module.scss";
-import { filesType } from "@src/components/account/form/formTypes";
+import { filesPreviewType, filesListType } from "@src/components/account/form/formTypes";
+
+const cx = classNames.bind(styles);
 
 export type FileInputI = {
     maxSizeImage?: number;
     maxSizeFile?: number;
     maxCountFiles?: number;
-    countFiles: number;
-    setFiles: Dispatch<SetStateAction<filesType[] | []>>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    register?: any;
+    setFilesPreview: Dispatch<SetStateAction<filesPreviewType[] | []>>;
+    setFilesList: Dispatch<SetStateAction<filesListType[] | []>>;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-export const FileInput = forwardRef<HTMLInputElement, FileInputI>((props: FileInputI, ref) => {
+export const FileInput = (props: FileInputI) => {
     const {
         children,
         multiple = false,
         disabled = false,
         maxCountFiles,
-        countFiles,
         maxSizeImage,
         maxSizeFile,
-        setFiles,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        onChange,
+        setFilesPreview,
+        setFilesList,
+        name,
+        register,
         ...restProps
     } = props;
 
-    const saveFiles = (data: filesType) => {
+    const fileRef = useRef(null);
+
+    const checkMaxSizeFiles = (file: File | filesPreviewType) => {
+        if (maxSizeImage && file.size >= maxSizeImage && file.type.match("image")) {
+            return false;
+        }
+
+        if (maxSizeFile && file.size >= maxSizeFile && !file.type.match("image")) {
+            return false;
+        }
+
+        return true;
+    };
+
+    const { onChange, ...restRegister } = register(name, {
+        validate: (files: filesPreviewType[]) => {
+            const filesList = Array.from(files);
+
+            filesList.forEach((file) => {
+                return checkMaxSizeFiles(file);
+            });
+        },
+    });
+
+    const saveFiles = (data: filesPreviewType) => {
         if (data.error) {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const { file, url, ...fileDataError } = data;
-            setFiles((prevValue) => {
+            setFilesPreview((prevValue) => {
                 const newArray = [...prevValue];
-                newArray.push(fileDataError);
+                newArray.push(data);
+                if (maxCountFiles && newArray.length > maxCountFiles) {
+                    return newArray.slice(0, maxCountFiles);
+                }
                 return newArray;
             });
         }
 
         if (!data.error && multiple) {
-            setFiles((prevValue) => {
+            setFilesPreview((prevValue) => {
                 const newArray = [...prevValue];
                 newArray.push(data);
+                if (maxCountFiles && newArray.length > maxCountFiles) {
+                    return newArray.slice(0, maxCountFiles);
+                }
                 return newArray;
             });
         }
 
         if (!data.error && !multiple) {
-            setFiles([data]);
+            setFilesPreview([data]);
         }
     };
 
@@ -60,6 +94,7 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputI>((props: FileIn
                 return;
             }
 
+            const fileList = [] as { file: File; id: string; error: boolean }[];
             files.forEach((file) => {
                 const id = `f${(~~(Math.random() * 1e8)).toString(16)}`;
 
@@ -71,16 +106,11 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputI>((props: FileIn
                     size: file.size,
                     url: "",
                     typeName: file.name.split(".").slice(-1)[0].toUpperCase(),
-                    file: file,
-                } as filesType;
+                } as filesPreviewType;
 
-                if (maxSizeImage && file.size > maxSizeImage && file.type.match("image")) {
-                    fileData.error = true;
-                }
+                fileData.error = !checkMaxSizeFiles(file);
 
-                if (maxSizeFile && file.size > maxSizeFile && !file.type.match("image")) {
-                    fileData.error = true;
-                }
+                fileList.push({ id: id, file, error: fileData.error });
 
                 if (!file.type.match("image")) {
                     fileData.type = "file";
@@ -93,11 +123,9 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputI>((props: FileIn
                     reader.readAsDataURL(file);
 
                     reader.onload = (event) => {
-                        if (event.target) {
-                            fileData.url = event.target.result?.toString() || "";
+                        fileData.url = event.target?.result?.toString() || "";
 
-                            saveFiles(fileData);
-                        }
+                        saveFiles(fileData);
                     };
 
                     reader.onerror = () => {
@@ -107,23 +135,42 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputI>((props: FileIn
                     };
                 }
             });
+
+            setFilesList((prevValue) => {
+                const newArr = [...prevValue];
+                fileList.slice(0, maxCountFiles).forEach((file) => {
+                    if (!file.error) {
+                        newArr.push({
+                            file: file.file,
+                            id: file.id,
+                        });
+                    }
+                });
+                return newArr;
+            });
+        }
+
+        // Предотвращает баг, повторной загрузки той же картинки
+        const inputFile = document.getElementById("input-file") as HTMLInputElement;
+        if (inputFile) {
+            inputFile.value = "";
         }
     };
 
     return (
-        <label className={styles.wrapperFile}>
+        <label className={cx("wrapperFile", { disabled })}>
             <input
-                ref={ref}
+                ref={fileRef}
                 type="file"
-                className={styles.disabled}
+                className={cx("hidden")}
                 multiple={multiple}
-                disabled={countFiles === maxCountFiles ? true : disabled}
-                onChange={(e) => changeHandlerFiles(e)}
+                disabled={disabled}
+                onChange={changeHandlerFiles}
+                id="input-file"
+                {...restRegister}
                 {...restProps}
             />
             {children}
         </label>
     );
-});
-
-FileInput.displayName = "FileInput";
+};

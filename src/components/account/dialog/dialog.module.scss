@@ -125,3 +125,22 @@
     padding: 16px;
     background: #fffaee;
 }
+
+.wrapperForm {
+    position: fixed;
+    bottom: 0;
+    left: 312px;
+    right: 0;
+    margin: 0 auto;
+    max-width: 908px;
+    width: 100%;
+    padding: 0 36px 36px 44px;
+    background-color: white;
+    border-radius: 0 0 18px 18px;
+    display: grid;
+    row-gap: 20px;
+}
+
+.disabled path {
+    stroke: #bcbcbc;
+}

@@ -43,7 +43,7 @@
     cursor: pointer;
 }
 
-.disabled {
+.hidden {
     opacity: 0;
     height: 0;
     width: 0;
@@ -93,4 +93,8 @@
         background-color: #1c1c1c;
         transform: rotate(-45deg);
     }
+}
+
+.disabled {
+    cursor: auto;
 }
