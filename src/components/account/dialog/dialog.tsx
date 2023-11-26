@@ -7,7 +7,7 @@ import styles from "./dialog.module.scss";
 import { openModal } from "@src/redux/slices/modal-slice";
 import { useAppDispatch } from "@src/redux/hooks";
 import { Button } from "@src/shared/ui/button";
-import ChatForm from "@src/components/account/dialog/chat-form";
+import Form from "@src/components/account/form";
 import Textarea from "@src/components/account/form/textarea";
 
 import { FileInput } from "@src/shared/ui/inputs/file/file";
@@ -175,7 +175,7 @@ const Dialog = () => {
             </div>
 
             <div className={styles.wrapperForm} ref={measuredRef}>
-                <ChatForm onSubmit={onSubmitHandler} filesList={filesList}>
+                <Form onSubmit={onSubmitHandler} filesList={filesList}>
                     <Textarea name="chat" />
 
                     <FileInput
@@ -194,7 +194,7 @@ const Dialog = () => {
                     <Button className={styles.buttonSubmit}>
                         <Icon glyph="paper_airplane" />
                     </Button>
-                </ChatForm>
+                </Form>
 
                 {filesPreview.length ? (
                     <PreviewFiles files={filesPreview} setFilesList={setFilesList} setFilesPreview={setFilesPreview} />

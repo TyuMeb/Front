@@ -1,3 +1,12 @@
+.wrapperForm {
+    display: grid;
+    row-gap: 20px;
+}
+
+.disabled path {
+    stroke: #bcbcbc;
+}
+
 .wrapper {
     padding: 24px 40px;
     border-radius: 18px;
