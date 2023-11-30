@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, Fragment } from "react";
+import React, { useState, useEffect, useMemo, Fragment, useId } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import styles from "@src/components/account/settings/settings.module.scss";
@@ -22,6 +22,7 @@ export interface TSettings {
     newPass: string;
     newPassRepeat: string;
     notice: boolean;
+    empty: string;
 }
 
 const Settings = () => {
@@ -43,7 +44,10 @@ const Settings = () => {
         newPass: "",
         newPassRepeat: "",
         notice: true,
+        empty: "",
     });
+    //Заглушка для выключения autoComplete
+    const id = useId();
 
     const {
         register,
@@ -52,6 +56,8 @@ const Settings = () => {
         resetField,
         getValues,
         getFieldState,
+        trigger,
+        watch,
         setError,
         clearErrors,
         formState: { errors, isDirty, dirtyFields },
@@ -85,14 +91,10 @@ const Settings = () => {
         reset(userData);
     }, [userData]);
 
-    //TODO: Изменение чекбокса подписки (недоделано)
-    const handleChangeNotice = () => {
-        setNoticeEmail(true);
-    };
-
-    //TODO: Изменение чекбокса подписки (недоделано)
-    const handleChangeNotNotice = () => {
-        setNoticeEmail(false);
+    //Тут должно быть обращение к API для изменения состояния подписки на значение notice
+    const handleChangeNotice = (notice: boolean) => {
+        setNoticeEmail(notice);
+        console.log(`Информирование ${notice ? "включено" : "выключено"}`);
     };
 
     //включение режима изменения данных
@@ -180,24 +182,6 @@ const Settings = () => {
         handleSaveModiifications();
     };
 
-    //валидатор связки полей смены пароля, старый пароль / новый пароль / повторение пароля
-    const handleNewPassChange = (flag: boolean) => {
-        //если режим изменения пароля и старый и новый пароли совпадают -> устанавливается ошибка
-        if (isPassModifyMode && getValues().currentPass === getValues().newPass) {
-            setError("newPass", { type: "custom", message: "новый пароль должен отличаться от существующего" });
-
-            //если пароли в инпутах новый пароль и повторить пароль не совпадают -> устанавливается ошибка
-        } else if (getValues().newPass !== getValues().newPassRepeat) {
-            setError("newPassRepeat", { type: "custom", message: "пароли не совпадают" });
-            return flag ? "Пароли не совпадают" : undefined;
-
-            //в противном случае ошибки сбрасываются
-        } else {
-            clearErrors("newPassRepeat");
-            clearErrors("newPass");
-        }
-    };
-
     return (
         <form onSubmit={handleSubmit(submit)}>
             <div className={styles.inputsRegistration}>
@@ -208,6 +192,7 @@ const Settings = () => {
                     placeholder="Введите свое имя"
                     disabled={isModifyMode ? false : true}
                     id="firstName"
+                    autoComplete="new-password"
                     error={errors.name ? true : false}
                     errorMessage={errors?.name ? errors.name.message : ""}
                     {...register("name", {
@@ -233,6 +218,7 @@ const Settings = () => {
                     placeholder="Введите свою фамилию"
                     disabled={isModifyMode ? false : true}
                     id="lastName"
+                    autoComplete="new-password"
                     error={errors.surname ? true : false}
                     errorMessage={errors?.surname ? errors.surname.message : ""}
                     {...register("surname", {
@@ -260,9 +246,9 @@ const Settings = () => {
                     placeholder="Введите номер телефона"
                     disabled={isModifyMode ? false : true}
                     id="phone"
+                    autoComplete="new-password"
                     error={errors.phone ? true : false}
                     errorMessage={errors?.phone ? errors.phone.message : ""}
-                    autoComplete="new-password"
                     {...register("phone", {
                         required: "Поле должно быть заполнено",
                         minLength: {
@@ -286,9 +272,9 @@ const Settings = () => {
                     placeholder="Введите свою почту"
                     disabled
                     id="email"
+                    autoComplete="Off"
                     error={errors.email ? true : false}
                     errorMessage={errors?.email ? errors.email.message : ""}
-                    autoComplete="new-password"
                     {...register("email", {
                         required: "Поле должно быть заполнено",
                         minLength: {
@@ -316,9 +302,9 @@ const Settings = () => {
                     label="Старый пароль"
                     placeholder="Введите свой пароль"
                     id="password"
+                    autoComplete={id}
                     error={errors.currentPass ? true : false}
                     errorMessage={errors?.currentPass ? errors.currentPass.message : ""}
-                    autoComplete="new-password"
                     disabled={isModifyMode ? false : true}
                     {...register("currentPass", {
                         minLength: {
@@ -330,10 +316,18 @@ const Settings = () => {
                             value: 64,
                         },
                         pattern: {
-                            message: "Указан некорректный пароль",
-                            value: RegExp(
-                                "^[a-zA-Z0-9~!?@#\\$\\%^\\&\\*\\_\\-\\+\\(\\)\\[\\]\\{\\}><\\/\\|\"\\']{8,64}$"
-                            ),
+                            message:
+                                "Указан некорректный пароль. Используйте: A-Z, a-z, 0-9, ~!?@#$%^&*_-+()[]{}></|\"'. Длина пароля: 8-64 символов.",
+                            value: RegExp("^[a-zA-Z0-9~!?@#\\$\\%^\\&\\*\\_\\-\\+\\(\\)\\[\\]\\{\\}><\\/\\|\"\\']*$"),
+                        },
+                        validate: (value) => {
+                            if (value === "") {
+                                resetField("newPass");
+                                resetField("newPassRepeat");
+                            } else if (isPassModifyMode && value === getValues().currentPass) {
+                                trigger("newPass");
+                            }
+                            return undefined;
                         },
                     })}
                 />
@@ -343,9 +337,9 @@ const Settings = () => {
                     label="Новый пароль"
                     placeholder="Введите новый пароль"
                     id="newPassword"
+                    autoComplete={id}
                     error={errors.newPass ? true : false}
                     errorMessage={errors?.newPass ? errors.newPass.message : ""}
-                    autoComplete="new-password"
                     disabled={isModifyMode && isPassModifyMode ? false : true}
                     {...register("newPass", {
                         required: isPassModifyMode ? "Поле должно быть заполнено" : false,
@@ -358,12 +352,16 @@ const Settings = () => {
                             value: 64,
                         },
                         pattern: {
-                            message: "Указан некорректный пароль",
-                            value: RegExp(
-                                "^[a-zA-Z0-9~!?@#\\$\\%^\\&\\*\\_\\-\\+\\(\\)\\[\\]\\{\\}><\\/\\|\"\\']{8,64}$"
-                            ),
+                            message:
+                                "Указан некорректный пароль. Используйте: A-Z, a-z, 0-9, ~!?@#$%^&*_-+()[]{}></|\"'. Длина пароля: 8-64 символов.",
+                            value: RegExp("^[a-zA-Z0-9~!?@#\\$\\%^\\&\\*\\_\\-\\+\\(\\)\\[\\]\\{\\}><\\/\\|\"\\']*$"),
                         },
-                        validate: () => handleNewPassChange(false),
+                        validate: (value) => {
+                            if (isPassModifyMode && value === getValues().currentPass) {
+                                trigger("newPassRepeat");
+                                return "Новый пароль должен отличаться";
+                            }
+                        },
                     })}
                 />
 
@@ -372,10 +370,10 @@ const Settings = () => {
                     label="Повторите пароль"
                     placeholder="Повторите новый пароль"
                     id="newPasswordRepeat"
+                    autoComplete={id}
                     error={errors.newPassRepeat ? true : false}
                     errorMessage={errors?.newPassRepeat ? errors.newPassRepeat.message : ""}
-                    autoComplete="new-password"
-                    disabled={isModifyMode && isPassModifyMode ? false : true}
+                    disabled={isModifyMode && isPassModifyMode && !errors.newPass && getValues().newPass ? false : true}
                     {...register("newPassRepeat", {
                         required: isPassModifyMode ? "Поле должно быть заполнено" : false,
                         minLength: {
@@ -387,14 +385,26 @@ const Settings = () => {
                             value: 64,
                         },
                         pattern: {
-                            message: "Указан некорректный пароль",
-                            value: RegExp(
-                                "^[a-zA-Z0-9~!?@#\\$\\%^\\&\\*\\_\\-\\+\\(\\)\\[\\]\\{\\}><\\/\\|\"\\']{8,64}$"
-                            ),
+                            message:
+                                "Указан некорректный пароль. Используйте: A-Z, a-z, 0-9, ~!?@#$%^&*_-+()[]{}></|\"'. Длина пароля: 8-64 символов.",
+                            value: RegExp("^[a-zA-Z0-9~!?@#\\$\\%^\\&\\*\\_\\-\\+\\(\\)\\[\\]\\{\\}><\\/\\|\"\\']*$"),
                         },
-                        validate: () => handleNewPassChange(true),
+                        validate: (value) => {
+                            if (isPassModifyMode && value !== getValues().newPass) {
+                                return "Пароли не совпадают";
+                            }
+                        },
                     })}
                 />
+                {
+                    <input
+                        type="password"
+                        style={{ display: "none" }}
+                        autoComplete="new-password"
+                        {...register("empty", {})}
+                        disabled
+                    />
+                }
             </div>
 
             <div className={styles.buttonsSection}>
@@ -439,16 +449,14 @@ const Settings = () => {
                         className={styles.checkbox}
                         textLabel="на e-mail"
                         checked={noticeEmail}
-                        onClick={handleChangeNotice}
-                        disabled={isModifyMode ? false : true}
+                        onClick={() => handleChangeNotice(true)}
                         {...register("notice")}
                     />
                     <CheckboxInput
                         className={styles.checkbox}
                         textLabel="не получать"
                         checked={!noticeEmail}
-                        onChange={handleChangeNotNotice}
-                        disabled={isModifyMode ? false : true}
+                        onChange={() => handleChangeNotice(false)}
                     />
                 </ul>
             </div>
