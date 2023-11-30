@@ -9,6 +9,7 @@ import { Input } from "@src/shared/ui/inputs";
 import { CheckboxInput } from "@src/shared/ui/inputs";
 import { PasswordInput } from "@src/shared/ui/inputs";
 // TODO: заменил PhoneInput на Input, из-за проблем с валидацией PhoneInput из-за некорректной работы. Нужно доработать маску.
+import { PhoneInputNew } from "@src/shared/ui/inputs/phone/phoneNew";
 //import { PhoneInput } from "@src/shared/ui/inputs";
 // Вместо хуков использования инпутов используется ReactHookForm
 //import { useInput } from "@src/hook/use-input";
@@ -240,7 +241,7 @@ const Settings = () => {
 
                 <p></p>
 
-                <Input
+                <PhoneInputNew
                     type="text"
                     label="Телефон"
                     placeholder="Введите номер телефона"
@@ -249,6 +250,7 @@ const Settings = () => {
                     autoComplete="new-password"
                     error={errors.phone ? true : false}
                     errorMessage={errors?.phone ? errors.phone.message : ""}
+                    value={getValues().phone}
                     {...register("phone", {
                         required: "Поле должно быть заполнено",
                         minLength: {
