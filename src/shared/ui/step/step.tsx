@@ -17,6 +17,7 @@ export const Step = ({ children, title, num, imgSrc, ...props }: StepProps) => {
                 className={styles.img}
                 style={{
                     background: `url(${imgSrc.src}) bottom no-repeat`,
+                    backgroundSize: "cover",
                 }}>
                 <div className={styles.num}>{num}</div>
             </div>

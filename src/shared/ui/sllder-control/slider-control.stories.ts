@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { Slider } from "./slider";
+import { SliderControl } from "./slider-control";
 
 const meta = {
-    title: "UI/Slider",
-    component: Slider,
+    title: "UI/SliderControl",
+    component: SliderControl,
     parameters: {
         layout: "padded",
     },
@@ -12,7 +12,7 @@ const meta = {
         disabled: {
             name: "disabled",
             type: { name: "boolean", required: false },
-            defaultValue: "false",
+            defaultValue: false,
             description: "Вариант disabled",
             table: {
                 type: { summary: "string" },
@@ -21,17 +21,13 @@ const meta = {
             options: ["false", "true"],
         },
     },
-} satisfies Meta<typeof Slider>;
+} satisfies Meta<typeof SliderControl>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-    args: {},
-};
-
-export const Disabled: Story = {
     args: {
-        disabled: true,
+        disabled: false,
     },
 };

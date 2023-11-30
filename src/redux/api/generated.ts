@@ -199,21 +199,49 @@ export interface SetPasswordRetype {
     current_password: string;
 }
 
+export interface Message {
+    /** ID */
+    id?: number;
+    /** Отправитель */
+    from_user: number;
+    /**
+     * Текст сообщения
+     * @minLength 1
+     */
+    text_content: string;
+    /**
+     * Время отправки
+     * @format date-time
+     */
+    timestamp?: string;
+}
+
+export interface Chat {
+    /** ID */
+    id?: number;
+    messages?: Message[];
+    /** @uniqueItems true */
+    participants: number[];
+}
+
 export interface CooperationOffer {
     /** Id */
     id?: number;
     /**
-     * Запрос от пользователя
-     * @maxLength 250
+     * Имя компании
+     * @maxLength 100
      */
-    text?: string | null;
+    name?: string | null;
+    /**
+     * Телефон
+     * @maxLength 12
+     */
+    telephone?: string | null;
     /**
      * Дата создания обращения
      * @format date-time
      */
     created?: string;
-    /** User account */
-    user_account?: number | null;
 }
 
 export interface ContactSupport {
@@ -271,7 +299,7 @@ export interface AllOrdersClient {
      */
     order_time: string;
     /** Статус */
-    state: "created" | "offer" | "auction" | "auction_expired_no_offers" | "auction_expired" | "selected" | "completed";
+    state: "draft" | "offer" | "selected" | "completed";
     /** Contractor */
     contractor?: string;
     /** Files */
@@ -336,4 +364,26 @@ export interface AnswerCreate {
     position?: string | null;
     /** Question */
     question: number;
+}
+
+export interface GalleryImages {
+    /**
+     * Slider number
+     * @minLength 1
+     */
+    slider_number: string;
+    /**
+     * Название для картинки
+     * @maxLength 120
+     */
+    name?: string | null;
+    /** Image url */
+    image_url?: string;
+    /**
+     * Цена за которую был выполнен заказ
+     * @maxLength 10
+     */
+    price?: string | null;
+    /** Место на макете - слева направо */
+    position?: "1" | "2" | "3" | "4";
 }
