@@ -16,12 +16,8 @@ const baseQuery = fetchBaseQuery({
     },
 });
 
-const baseQueryWithRefresh: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
-    args,
-    api,
-    extraOptions
-) => {
-    let result = await baseQuery(args, api, extraOptions);
+const baseQueryWithRefresh: BaseQueryFn<FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
+    let result = await baseQuery({ ...args, credentials: "include" }, api, extraOptions);
 
     if (result.error && result.error.status === 401) {
         removeCookie("access_token");
