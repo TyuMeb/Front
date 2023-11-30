@@ -1,5 +1,4 @@
-import React, { ChangeEvent, forwardRef, useState, useEffect } from "react";
-import { handlePhoneInput } from "@src/shared/lib/phoneMaskNew";
+import React, { ChangeEvent, forwardRef, useState } from "react";
 import { InputProps, Input } from "../input";
 
 const PATTERN = /\D/g;
@@ -49,11 +48,11 @@ export const PhoneInputNew = forwardRef<HTMLInputElement, InputProps>((props: In
             e.target.setSelectionRange(selStart, selStart);
             return;
         }
-
         setInputValue(eValue);
+        e.target.value = eValue;
     };
 
-    return <Input ref={ref} {...props} value={inputValue} onChange={handlePhoneInput} />;
+    return <Input ref={ref} {...props} value={inputValue} onInput={handlePhoneInput} />;
 });
 
 PhoneInputNew.displayName = "PhoneInputNew";

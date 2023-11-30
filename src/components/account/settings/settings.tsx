@@ -40,7 +40,7 @@ const Settings = () => {
         name: "John",
         surname: "Doe",
         email: "JohnDoe@yahoo.com",
-        phone: "+71234567890",
+        phone: "+7 (123) 456 78 90",
         currentPass: "",
         newPass: "",
         newPassRepeat: "",
@@ -58,9 +58,6 @@ const Settings = () => {
         getValues,
         getFieldState,
         trigger,
-        watch,
-        setError,
-        clearErrors,
         formState: { errors, isDirty, dirtyFields },
     } = useForm<TSettings>({
         defaultValues: useMemo(() => {
@@ -247,23 +244,23 @@ const Settings = () => {
                     placeholder="Введите номер телефона"
                     disabled={isModifyMode ? false : true}
                     id="phone"
+                    value={getValues().phone}
                     autoComplete="new-password"
                     error={errors.phone ? true : false}
                     errorMessage={errors?.phone ? errors.phone.message : ""}
-                    value={getValues().phone}
                     {...register("phone", {
                         required: "Поле должно быть заполнено",
                         minLength: {
                             message: "Номер должен начинаться с + и включать не менее 11 цифр",
-                            value: 12,
+                            value: 18,
                         },
                         maxLength: {
                             message: "Номер должен начинаться с + и включать не более 11 цифр",
-                            value: 12,
+                            value: 19,
                         },
                         pattern: {
                             message: "Может включать только префикс + и цифры",
-                            value: RegExp("^\\+[0-9]{11}$"),
+                            value: RegExp("^\\+7\\s{1}\\(\\d{3}\\)\\s{1}\\d{3}\\s{1}\\d{2}\\s{1}\\d{2,3}$"),
                         },
                     })}
                 />
