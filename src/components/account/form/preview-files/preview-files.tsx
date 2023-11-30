@@ -3,24 +3,19 @@ import Image from "next/image";
 
 import styles from "./preview-files.module.scss";
 import { Icon } from "@src/components/icon";
-import { filesPreviewType, filesListType } from "@src/components/account/form/formTypes";
+import { filesPreviewType } from "@src/components/account/form/formTypes";
 
 interface PreviewFilesI {
     files: filesPreviewType[];
     setFilesPreview: Dispatch<SetStateAction<filesPreviewType[] | []>>;
-    setFilesList: Dispatch<SetStateAction<filesListType[] | []>>;
 }
 
-const PreviewFiles = ({ files, setFilesPreview, setFilesList }: PreviewFilesI) => {
+const PreviewFiles = ({ files, setFilesPreview }: PreviewFilesI) => {
     const removeHandlerFile = (event: MouseEvent<HTMLSpanElement>, id: string) => {
         const target = event.target as HTMLDivElement;
         if (target) {
             setFilesPreview((prevValue: filesPreviewType[]) => {
                 const newArr = prevValue.filter((value) => value.id !== id);
-                return newArr;
-            });
-            setFilesList((prevValue: filesListType[]) => {
-                const newArr = [...prevValue].filter((file) => file.id !== id);
                 return newArr;
             });
         }

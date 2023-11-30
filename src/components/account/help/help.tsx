@@ -17,7 +17,6 @@ const cx = classNames.bind(styles);
 
 const Help = () => {
     const [filesPreview, setFilesPreview] = useState<filesPreviewType[] | []>([]);
-    const [filesList, setFilesList] = useState<filesListType[] | []>([]);
 
     const onSubmitHandler = (data: { chat: string; files: filesListType[] }) => {
         const formFiles = new FormData();
@@ -32,7 +31,7 @@ const Help = () => {
                 <h2 className={styles.header}>Чат с поддержкой (ответ может занимать до 24ч)</h2>
             </div>
             <div className={styles.wrapperForm}>
-                <Form onSubmit={onSubmitHandler} filesList={filesList}>
+                <Form onSubmit={onSubmitHandler} filesPreview={filesPreview}>
                     <Textarea name="chat" />
 
                     <FileInput
@@ -43,8 +42,7 @@ const Help = () => {
                         // accept=".png, .jpg, .jpeg"
                         disabled={filesPreview.length >= 6 && true}
                         multiple
-                        setFilesPreview={setFilesPreview}
-                        setFilesList={setFilesList}>
+                        setFilesPreview={setFilesPreview}>
                         <Paperclip className={cx({ disabled: filesPreview.length >= 6 && true })} />
                     </FileInput>
 
@@ -54,7 +52,7 @@ const Help = () => {
                 </Form>
 
                 {filesPreview.length ? (
-                    <PreviewFiles files={filesPreview} setFilesList={setFilesList} setFilesPreview={setFilesPreview} />
+                    <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} />
                 ) : undefined}
             </div>
         </div>

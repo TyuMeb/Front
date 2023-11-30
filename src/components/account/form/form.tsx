@@ -1,13 +1,13 @@
 import React, { createElement, useEffect, Children, ReactElement } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
-import { filesListType } from "@src/components/account/form/formTypes";
+import { filesPreviewType } from "@src/components/account/form/formTypes";
 
 import styles from "./form.module.scss";
 
 type ChatFormType<T> = {
-    filesList: filesListType[];
-    onSubmit: SubmitHandler<FormValuesType>;
+    filesPreview: filesPreviewType[];
+    onSubmit: (data: { chat: string; files: filesPreviewType[] }) => void;
     defaultValues?: T;
     children: ReactElement[];
     className?: string;
@@ -16,12 +16,12 @@ type ChatFormType<T> = {
 type FormValuesType = {
     chat: string;
     input: FileList;
-    files: filesListType[];
+    files: File[];
 };
 
 const Form = ({
     defaultValues,
-    filesList,
+    filesPreview,
     className,
     children,
     onSubmit,
@@ -30,8 +30,15 @@ const Form = ({
     const { register, handleSubmit, setValue } = useForm<FormValuesType>({ defaultValues });
 
     useEffect(() => {
-        setValue("files", filesList);
-    }, [filesList]);
+        // filesPreview.filter((file) => !file.error);
+        const newArr = [] as File[];
+        filesPreview.forEach((file) => {
+            if (!file.error) {
+                newArr.push(file.file);
+            }
+        });
+        setValue("files", newArr);
+    }, [filesPreview]);
 
     return (
         <div className={styles.wrapper}>

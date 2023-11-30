@@ -2,7 +2,7 @@ import React, { ChangeEvent, Dispatch, InputHTMLAttributes, SetStateAction, useR
 import classNames from "classnames/bind";
 
 import styles from "./file.module.scss";
-import { filesPreviewType, filesListType } from "@src/components/account/form/formTypes";
+import { filesPreviewType } from "@src/components/account/form/formTypes";
 
 const cx = classNames.bind(styles);
 
@@ -13,7 +13,6 @@ export type FileInputI = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     register?: any;
     setFilesPreview: Dispatch<SetStateAction<filesPreviewType[] | []>>;
-    setFilesList: Dispatch<SetStateAction<filesListType[] | []>>;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export const FileInput = (props: FileInputI) => {
@@ -25,7 +24,6 @@ export const FileInput = (props: FileInputI) => {
         maxSizeImage,
         maxSizeFile,
         setFilesPreview,
-        setFilesList,
         name,
         register,
         ...restProps
@@ -106,6 +104,7 @@ export const FileInput = (props: FileInputI) => {
                     size: file.size,
                     url: "",
                     typeName: file.name.split(".").slice(-1)[0].toUpperCase(),
+                    file: file,
                 } as filesPreviewType;
 
                 fileData.error = !checkMaxSizeFiles(file);
@@ -134,19 +133,6 @@ export const FileInput = (props: FileInputI) => {
                         saveFiles(fileData);
                     };
                 }
-            });
-
-            setFilesList((prevValue) => {
-                const newArr = [...prevValue];
-                fileList.slice(0, maxCountFiles).forEach((file) => {
-                    if (!file.error) {
-                        newArr.push({
-                            file: file.file,
-                            id: file.id,
-                        });
-                    }
-                });
-                return newArr;
             });
         }
 

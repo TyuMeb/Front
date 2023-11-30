@@ -14,7 +14,7 @@ import { FileInput } from "@src/shared/ui/inputs/file/file";
 import Paperclip from "@public/icons/paperclip.svg";
 import { Icon } from "@src/components/icon";
 import PreviewFiles from "@src/components/account/form/preview-files";
-import { filesPreviewType, filesListType } from "@src/components/account/form/formTypes";
+import { filesPreviewType } from "@src/components/account/form/formTypes";
 
 const cx = classNames.bind(styles);
 
@@ -35,9 +35,8 @@ const Dialog = () => {
     }, []);
 
     const [filesPreview, setFilesPreview] = useState<filesPreviewType[] | []>([]);
-    const [filesList, setFilesList] = useState<filesListType[] | []>([]);
 
-    const onSubmitHandler = (data: { chat: string; files: filesListType[] }) => {
+    const onSubmitHandler = (data: { chat: string; files: filesPreviewType[] }) => {
         const formFiles = new FormData();
         data.files.forEach((file) => formFiles.append(`file-${file.id}`, file.file));
 
@@ -175,7 +174,7 @@ const Dialog = () => {
             </div>
 
             <div className={styles.wrapperForm} ref={measuredRef}>
-                <Form onSubmit={onSubmitHandler} filesList={filesList}>
+                <Form onSubmit={onSubmitHandler} filesPreview={filesPreview}>
                     <Textarea name="chat" />
 
                     <FileInput
@@ -186,8 +185,7 @@ const Dialog = () => {
                         // accept=".png, .jpg, .jpeg"
                         disabled={filesPreview.length >= 6 && true}
                         multiple
-                        setFilesPreview={setFilesPreview}
-                        setFilesList={setFilesList}>
+                        setFilesPreview={setFilesPreview}>
                         <Paperclip className={cx({ disabled: filesPreview.length >= 6 && true })} />
                     </FileInput>
 
@@ -197,7 +195,7 @@ const Dialog = () => {
                 </Form>
 
                 {filesPreview.length ? (
-                    <PreviewFiles files={filesPreview} setFilesList={setFilesList} setFilesPreview={setFilesPreview} />
+                    <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} />
                 ) : undefined}
             </div>
         </article>

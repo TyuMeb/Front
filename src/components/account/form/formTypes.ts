@@ -6,6 +6,7 @@ export type filesPreviewType = {
     url: string;
     name: string;
     size: number;
+    file: File;
 };
 
 export type filesListType = {
