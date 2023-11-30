@@ -1,50 +1,63 @@
-import { ChangeEvent, useState, useEffect } from "react";
+import { ChangeEvent, useState } from "react";
 
-export function usePhoneMask(initialValue: string) {
-    const [inputValue, setInputValue] = useState<string>("+7");
+const PATTERN = /\D/g;
 
-    useEffect(() => {
-        setInputValue(checkPhoneMask("+7", initialValue));
-    }, []);
+export interface TUsePhoneMaskHook {
+    inputValue: string;
+    handlePhoneInput: (e: ChangeEvent<HTMLInputElement>) => void;
+}
 
-    function checkPhoneMask(prevVal: string, newVal: string) {
-        if (/^\+7/.test(prevVal) && !/^\+7/.test(newVal)) return prevVal;
+export function usePhoneMask(initialValue: string): TUsePhoneMaskHook {
+    const [inputValue, setInputValue] = useState<string>(initialValue);
 
-        const pr = prevVal.split(" ").join("").replace("+7", "").replace("(", "").replace(")", "");
-        const res = newVal.split(" ").join("").replace("+7", "").replace("(", "").replace(")", "");
-        console.log(`pr=${pr}, res=${res}`);
-
-        if (pr !== res) {
-            if (/^\d{0,10}$/.test(res)) {
-                let acc: string = "";
-                for (let i = 0; i < res.length; i++) {
-                    if (i === 0) acc += `+7 (${res[i]}`;
-                    else if (i === 3) acc += `) ${res[i]}`;
-                    else if (i === 6 || i === 8 || i === 10) acc += ` ${res[i]}`;
-                    else acc += res[i];
-                }
-                return acc;
+    const formatString = (s: string): string => {
+        let result: string = "+7 ";
+        for (let i = 0; i < s.length; i++) {
+            if (i === 0) {
+                result += `(${s[i]}`;
+            } else if (i === 2) {
+                result += `${s[i]}`;
+            } else if (i === 3) {
+                result += `) ${s[i]}`;
+            } else if (i === 6 || i == 8) {
+                result += ` ${s[i]}`;
+            } else {
+                result += `${s[i]}`;
             }
         }
-        return prevVal;
-    }
+        return result;
+    };
 
-    function onChange(e: ChangeEvent<HTMLInputElement>) {
-        console.log(e.target.selectionStart);
-        const carretPos: number = Number(e.target.selectionStart);
-        const temp = checkPhoneMask(inputValue, e.target.value);
+    const maskString = (newVal: string, prevVal: string): string => {
+        const newNums: string = newVal.replace("+7", "").replace(PATTERN, "").slice(0, 10);
+        const prevNums: string = prevVal.replace("+7", "").replace(PATTERN, "").slice(0, 10);
+        return newNums !== prevNums ? formatString(newNums) : formatString(prevNums);
+    };
 
-        console.log(`value = ${e.target.value} mask = ${temp}`);
+    const handlePhoneInput = (e: ChangeEvent<HTMLInputElement>) => {
+        const eValue: string = e.target.value.length > 18 ? e.target.value.slice(0, 18) : e.target.value;
 
-        if (temp === e.target.value) return;
+        let selStart: number = Number(e.target.selectionStart);
+        if (selStart < 4) {
+            e.target.setSelectionRange(5, 5);
+            return;
+        }
 
-        setInputValue(temp);
-        e.target.selectionStart = carretPos;
-        e.target.selectionEnd = carretPos;
-    }
+        if (e.target.value.length < 19) {
+            const newValue: string = maskString(e.target.value, inputValue);
+            setInputValue(newValue);
+            e.target.value = newValue;
+            const dif: number = newValue.length - inputValue.length;
+            if (dif > 0) selStart += dif + 1;
+            e.target.setSelectionRange(selStart, selStart);
+            return;
+        }
+        setInputValue(eValue);
+        e.target.value = eValue;
+    };
 
     return {
         inputValue,
-        onChange,
+        handlePhoneInput,
     };
 }
