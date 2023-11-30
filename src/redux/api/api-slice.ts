@@ -1,4 +1,11 @@
-import { BaseQueryFn, FetchArgs, FetchBaseQueryError, createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+    BaseQueryFn,
+    BaseQueryFn,
+    FetchArgs,
+    FetchBaseQueryError,
+    createApi,
+    fetchBaseQuery,
+} from "@reduxjs/toolkit/query/react";
 import { CONFIG } from "@src/shared/config";
 import { getCookie, removeCookie, setCookie } from "typescript-cookie";
 import { setUser } from "../slices/users-slice";
@@ -26,11 +33,18 @@ const baseQueryWithRefresh: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQu
     if (result.error && result.error.status === 401) {
         removeCookie("access_token");
 
+        const refresh = getCookie("refresh_token");
+
+        if (!refresh) {
+            api.dispatch(() => setUser(null));
+            return result;
+        }
+
         const { data } = await baseQuery(
             {
                 url: "/auth/jwt/refresh",
                 method: "POST",
-                body: { refresh: getCookie("refresh_token") },
+                body: { refresh },
             },
             api,
             extraOptions

@@ -90,3 +90,10 @@ h4 {
 .homePage {
     margin-top: 80px;
 }
+
+@media (max-width: 1024px) {
+    main {
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
+}
