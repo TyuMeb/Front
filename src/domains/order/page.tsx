@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { OrderForm } from "./ui/order-form";
 import { Categories } from "./ui/categories";
@@ -10,9 +11,7 @@ import { cn } from "@src/shared/lib/cn";
 
 type Step = "category" | "questionnaire-type" | "order-form";
 
-type Props = {};
-
-export const OrderPage = (props: Props) => {
+export const OrderPage = () => {
     const [categoryId, setCategoryId] = useState<number | null>(null);
     const [questionnaireTypeId, setQuestionnaireTypeId] = useState<number | null>(null);
 

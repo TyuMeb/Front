@@ -1,17 +1,18 @@
 "use client";
 
 import { FieldControl } from "@src/domains/order/ui/field-control";
-import { useQuestionnaireQuery } from "@src/redux/api/questionnaire-api-slice.1";
 import { Button } from "@src/shared/ui/button";
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { getCookieOrder, removeCookieOrder } from "../lib/order-storage";
 import { useOrderAnswersQuery } from "@src/redux/api/order-api-slice";
+import { useQuestionnaireQuery } from "@src/redux/api/questionnaire-api-slice";
 
 export function OrderForm() {
     const orderId = getCookieOrder();
 
     const order = useOrderAnswersQuery(orderId!);
+    console.log("🚀 ~ file: order-form.tsx:15 ~ OrderForm ~ order:", order);
 
     const { data } = useQuestionnaireQuery("2");
 
@@ -22,7 +23,7 @@ export function OrderForm() {
 
     const questions = chapters?.[chapter]?.questions ?? [];
 
-    const onSubmit = (data: any) => {
+    const onSubmit = (data: {}) => {
         console.log(data);
     };
 

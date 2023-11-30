@@ -1,4 +1,4 @@
-import { Question } from "@src/redux/api/category-api-slice";
+import { Question } from "@src/redux/api/generated";
 import { Input } from "@src/shared/ui/inputs";
 import React from "react";
 import { useFormContext } from "react-hook-form";
@@ -23,21 +23,22 @@ export const FieldControl = ({ order: order, question, ...props }: Props) => {
     }
 
     if (question.answer_type === "choice_field") {
-        const selected = question.options.find((option) => String(option.id) === value);
+        const selected = (question.options || []).find((option) => String(option.id) === value);
         content = (
             <>
                 <p>{label}</p>
                 <select placeholder={question.text} {...register(String(question.id))}>
-                    {question.options.map((option) => (
+                    {(question.options || []).map((option) => (
                         <option key={option.id} value={option.id}>
                             {option.text}
                         </option>
                     ))}
                 </select>
 
-                {selected?.questions && (
+                {selected?.questions?.length !== 0 && (
                     <>
-                        {selected.questions.map((subQuestion, subOrder) => (
+                        {/* @ts-ignore */}
+                        {(selected?.questions || []).map((subQuestion, subOrder) => (
                             <FieldControl
                                 style={{
                                     paddingLeft: Number(props.style?.paddingLeft || 0) + 16,

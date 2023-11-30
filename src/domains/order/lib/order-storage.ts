@@ -11,6 +11,8 @@ export const storeCookieOrder = (id: number) => {
 };
 
 export const getCookieOrder = () => {
+    if (typeof window === "undefined") return;
+
     const id = Cookies.get(KEY);
 
     if (id) return Number(id);

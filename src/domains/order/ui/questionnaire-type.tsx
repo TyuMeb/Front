@@ -9,6 +9,7 @@ type Props = {
 };
 
 export const QuestionaryType = ({ categoryId, questionnaireTypeId, setQuestionnaireTypeId, children }: Props) => {
+    console.log("🚀 ~ file: questionnaire-type.tsx:12 ~ QuestionaryType ~ questionnaireTypeId:", questionnaireTypeId);
     const { data } = useCategoryQuestionnairesQuery(categoryId);
 
     return (

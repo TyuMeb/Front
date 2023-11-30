@@ -1,11 +1,4 @@
-import {
-    BaseQueryFn,
-    BaseQueryFn,
-    FetchArgs,
-    FetchBaseQueryError,
-    createApi,
-    fetchBaseQuery,
-} from "@reduxjs/toolkit/query/react";
+import { BaseQueryFn, FetchArgs, FetchBaseQueryError, createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { CONFIG } from "@src/shared/config";
 import { getCookie, removeCookie, setCookie } from "typescript-cookie";
 import { setUser } from "../slices/users-slice";
