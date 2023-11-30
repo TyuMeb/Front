@@ -14,7 +14,7 @@ import { FileInput } from "@src/shared/ui/inputs/file/file";
 import Paperclip from "@public/icons/paperclip.svg";
 import { Icon } from "@src/components/icon";
 import PreviewFiles from "@src/components/account/form/preview-files";
-import { filesPreviewType } from "@src/components/account/form/formTypes";
+import { filesPreviewType, filesListType } from "@src/components/account/form/formTypes";
 
 const cx = classNames.bind(styles);
 
@@ -36,7 +36,7 @@ const Dialog = () => {
 
     const [filesPreview, setFilesPreview] = useState<filesPreviewType[] | []>([]);
 
-    const onSubmitHandler = (data: { chat: string; files: filesPreviewType[] }) => {
+    const onSubmitHandler = (data: { chat: string; files: filesListType[] }) => {
         const formFiles = new FormData();
         data.files.forEach((file) => formFiles.append(`file-${file.id}`, file.file));
 
