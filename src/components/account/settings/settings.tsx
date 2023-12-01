@@ -9,7 +9,7 @@ import { Input } from "@src/shared/ui/inputs";
 import { CheckboxInput } from "@src/shared/ui/inputs";
 import { PasswordInput } from "@src/shared/ui/inputs";
 // TODO: заменил PhoneInput на Input, из-за проблем с валидацией PhoneInput из-за некорректной работы. Нужно доработать маску.
-import { PhoneInputNew } from "@src/shared/ui/inputs/phone/phoneNew";
+import { PhoneInputNew } from "@src/shared/ui/inputs/phoneNew/phoneNew";
 //import { PhoneInput } from "@src/shared/ui/inputs";
 // Вместо хуков использования инпутов используется ReactHookForm
 //import { useInput } from "@src/hook/use-input";
