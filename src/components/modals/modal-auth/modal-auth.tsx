@@ -8,9 +8,9 @@ import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 
 const cx = classNames.bind(styles);
 
-interface IModalAuth extends HTMLAttributes<HTMLDivElement> {}
+type ModalAuthT = {} & HTMLAttributes<HTMLDivElement>;
 
-const ModalAuth = ({ children }: IModalAuth) => {
+const ModalAuth = ({ children }: ModalAuthT) => {
     const { typeModal } = useAppSelector((store) => store.modal);
     const dispatch = useAppDispatch();
 

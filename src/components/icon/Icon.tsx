@@ -2,15 +2,15 @@ import React, { SVGProps } from "react";
 
 import icons from "@public/icons";
 
-export type IconGlyph = keyof typeof icons;
+export type IconGlyphT = keyof typeof icons;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const iconTypes: IconGlyph[] = Object.keys(icons) as any[];
+export const iconTypes: IconGlyphT[] = Object.keys(icons) as any[];
 
-export interface IconProps extends SVGProps<SVGSVGElement> {
-    glyph: IconGlyph;
-}
+export type IconPropsT = {
+    glyph: IconGlyphT;
+} & SVGProps<SVGSVGElement>;
 
-const Icon = (props: IconProps) => {
+const Icon = (props: IconPropsT) => {
     const { glyph, fill = "currentColor", stroke = "currentStroke", ...restIconProps } = props;
 
     const IconComponent = icons[glyph];

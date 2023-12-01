@@ -12,7 +12,7 @@ import { UserCreate } from "@src/redux/api/generated";
 
 const cx = classNames.bind(styles);
 
-type Form = UserCreate & { confirm_password: string };
+type FormT = UserCreate & { confirm_password: string };
 
 const Registration = () => {
     const [checked, setChecked] = useState(false);
@@ -25,7 +25,7 @@ const Registration = () => {
         setError,
         reset,
         formState: { errors },
-    } = useForm<Form>({
+    } = useForm<FormT>({
         values: {
             email: "",
             name: "",
@@ -36,7 +36,7 @@ const Registration = () => {
         },
     });
 
-    const onSubmit = (data: Form) => {
+    const onSubmit = (data: FormT) => {
         const { confirm_password, person_telephone, ...rest } = data;
 
         registerUser({ ...rest, person_telephone: person_telephone?.replaceAll(" ", "") })
@@ -45,7 +45,7 @@ const Registration = () => {
                 reset();
             })
             .catch((error) => {
-                const keys = Object.keys(error?.data || {}) as unknown as Array<keyof Form>;
+                const keys = Object.keys(error?.data || {}) as unknown as Array<keyof FormT>;
 
                 keys.forEach((key) => {
                     setError(key, { message: error.data[key]?.join(", ") });

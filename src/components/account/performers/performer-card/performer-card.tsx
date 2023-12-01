@@ -10,12 +10,12 @@ import { Icon } from "src/components/icon";
 
 const cx = classNames.bind(styles);
 
-interface PerformerCardI {
+type PerformerCardT = {
     name: string;
     termOfExecution: string;
     cost: number;
     showGallery: boolean;
-}
+};
 
 // Пока как заглушка. Не приходит с бэка. Нужна реализация сокетов.
 const DESCRIPTION = `
@@ -32,7 +32,7 @@ const DESCRIPTION = `
     Продавец: Рад услужить! Будьте свободны вернуться, если у Вас поя
 `;
 
-const PerformerCard = ({ performer }: { performer: PerformerCardI }) => {
+const PerformerCard = ({ performer }: { performer: PerformerCardT }) => {
     const { name, termOfExecution, cost, showGallery } = performer;
 
     const [showText, setShowText] = useState(true);

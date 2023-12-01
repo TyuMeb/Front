@@ -35,9 +35,9 @@ const orders = [
     },
 ];
 
-interface MyOrdersI extends HTMLAttributes<HTMLDivElement> {}
+type MyOrdersT = {} & HTMLAttributes<HTMLDivElement>;
 
-const MyOrders = (props: MyOrdersI) => {
+const MyOrders = (props: MyOrdersT) => {
     const renderOrders = () => {
         return orders.map((order) => {
             return (

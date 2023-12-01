@@ -9,16 +9,16 @@ import PreviewFiles from "@src/components/account/form/preview-files";
 import Form from "@src/components/account/form";
 import classNames from "classnames/bind";
 
-import { filesPreviewType, filesListType } from "@src/components/account/form/formTypes";
+import { filesPreviewT, filesListT } from "@src/components/account/form/formTypes";
 
 import styles from "./help.module.scss";
 
 const cx = classNames.bind(styles);
 
 const Help = () => {
-    const [filesPreview, setFilesPreview] = useState<filesPreviewType[] | []>([]);
+    const [filesPreview, setFilesPreview] = useState<filesPreviewT[] | []>([]);
 
-    const onSubmitHandler = (data: { chat: string; files: filesListType[] }) => {
+    const onSubmitHandler = (data: { chat: string; files: filesListT[] }) => {
         const formFiles = new FormData();
         data.files.forEach((file) => formFiles.append(`file-${file.id}`, file.file));
 

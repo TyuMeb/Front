@@ -5,12 +5,12 @@ import styles from "./textarea.module.scss";
 
 const cx = classNames.bind(styles);
 
-export interface ITextareaProps extends InputHTMLAttributes<HTMLTextAreaElement> {
+export type TextareaT = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     register?: any;
-}
+} & InputHTMLAttributes<HTMLTextAreaElement>;
 
-const Textarea = (props: ITextareaProps) => {
+const Textarea = (props: TextareaT) => {
     const { disabled, className, register, name, ...restProps } = props;
 
     const setAutomaticHeight = (e: KeyboardEvent<HTMLTextAreaElement>) => {

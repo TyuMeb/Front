@@ -14,7 +14,7 @@ import { Icon } from "@src/components/icon";
 
 const cx = classNames.bind(styles);
 
-type Form = {
+type FormT = {
     new_password: string;
     confirm_password: string;
 };
@@ -30,7 +30,7 @@ export const ResetPasswordConfirm = () => {
         handleSubmit,
         watch,
         formState: { errors },
-    } = useForm<Form>({
+    } = useForm<FormT>({
         values: {
             new_password: "",
             confirm_password: "",

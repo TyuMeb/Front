@@ -1,18 +1,18 @@
-export interface ordersI {
+export type OrdersT = {
     id: number;
     name: string;
     order_time: string;
     state: stateOrders;
     countPerformers: number;
     files: string[];
-}
+};
 
-export interface performersI {
+export type PerformersT = {
     id: number;
     termOfExecution: string;
     cost: string;
     showGallery: true;
-}
+};
 
 enum stateOrders {
     draft = "draft",
@@ -38,7 +38,7 @@ export const orders = [
         countPerformers: 2,
         files: [],
     },
-] as ordersI[];
+] as OrdersT[];
 
 export const performers = [
     {
@@ -53,4 +53,4 @@ export const performers = [
         cost: "от 100000 руб",
         showGallery: true,
     },
-] as performersI[];
+] as PerformersT[];

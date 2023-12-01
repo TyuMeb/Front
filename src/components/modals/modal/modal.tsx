@@ -1,4 +1,4 @@
-import { FC, useEffect, ReactNode } from "react";
+import { useEffect, InputHTMLAttributes } from "react";
 import classNames from "classnames/bind";
 import * as Dialog from "@radix-ui/react-dialog";
 
@@ -8,12 +8,11 @@ import styles from "./modal.module.scss";
 
 const cx = classNames.bind(styles);
 
-interface IModal {
-    children: ReactNode;
+type ModalT = {
     isOpen: boolean;
-}
+} & InputHTMLAttributes<HTMLDivElement>;
 
-const Modal: FC<IModal> = ({ children, isOpen }) => {
+const Modal = ({ children, isOpen }: ModalT) => {
     const dispatch = useAppDispatch();
     const { typeModal } = useAppSelector((store) => store.modal);
 

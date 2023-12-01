@@ -15,16 +15,16 @@ const cx = classNames.bind(styles);
 
 const PAGE_LINK = "/account/";
 
-interface SidebarI extends HTMLAttributes<HTMLDivElement> {}
+type SidebarT = {} & HTMLAttributes<HTMLDivElement>;
 
-interface firstLevelMenuItemI {
+type firstLevelMenuItemT = {
     alias: string;
     name: string;
     icon?: JSX.Element;
     isOpened?: boolean;
-}
+};
 
-const firstLevelMenu: firstLevelMenuItemI[] = [
+const firstLevelMenu: firstLevelMenuItemT[] = [
     { alias: "my-orders", name: "Мои заказы", icon: <Icon className={cx("icon")} glyph="couch" /> },
     { alias: "chats", name: "Чаты", icon: <Icon className={cx("icon")} glyph="chats" /> },
     { alias: "archives", name: "Архивы", icon: <Icon className={cx("icon")} glyph="archives" /> },
@@ -33,7 +33,7 @@ const firstLevelMenu: firstLevelMenuItemI[] = [
     { alias: "help1", name: "Сделать заказ", icon: <Icon className={cx("icon")} glyph="add" /> },
 ];
 
-const Sidebar = ({ className }: SidebarI) => {
+const Sidebar = ({ className }: SidebarT) => {
     const pathname = usePathname();
 
     const onHandlerClick = () => {

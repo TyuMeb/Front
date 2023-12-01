@@ -3,18 +3,18 @@ import Image from "next/image";
 
 import styles from "./preview-files.module.scss";
 import { Icon } from "@src/components/icon";
-import { filesPreviewType } from "@src/components/account/form/formTypes";
+import { filesPreviewT } from "@src/components/account/form/formTypes";
 
-interface PreviewFilesI {
-    files: filesPreviewType[];
-    setFilesPreview: Dispatch<SetStateAction<filesPreviewType[] | []>>;
-}
+type PreviewFilesT = {
+    files: filesPreviewT[];
+    setFilesPreview: Dispatch<SetStateAction<filesPreviewT[] | []>>;
+};
 
-const PreviewFiles = ({ files, setFilesPreview }: PreviewFilesI) => {
+const PreviewFiles = ({ files, setFilesPreview }: PreviewFilesT) => {
     const removeHandlerFile = (event: MouseEvent<HTMLSpanElement>, id: string) => {
         const target = event.target as HTMLDivElement;
         if (target) {
-            setFilesPreview((prevValue: filesPreviewType[]) => {
+            setFilesPreview((prevValue: filesPreviewT[]) => {
                 const newArr = prevValue.filter((value) => value.id !== id);
                 return newArr;
             });
