@@ -2,7 +2,7 @@ import React, { ChangeEvent, Dispatch, InputHTMLAttributes, SetStateAction, useR
 import classNames from "classnames/bind";
 
 import styles from "./file.module.scss";
-import { filesPreviewType } from "@src/components/account/form/formTypes";
+import { filesPreviewT } from "@src/components/account/form/formTypes";
 
 const cx = classNames.bind(styles);
 
@@ -12,7 +12,7 @@ export type FileInputI = {
     maxCountFiles?: number;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     register?: any;
-    setFilesPreview: Dispatch<SetStateAction<filesPreviewType[] | []>>;
+    setFilesPreview: Dispatch<SetStateAction<filesPreviewT[] | []>>;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export const FileInput = (props: FileInputI) => {
@@ -31,7 +31,7 @@ export const FileInput = (props: FileInputI) => {
 
     const fileRef = useRef(null);
 
-    const checkMaxSizeFiles = (file: File | filesPreviewType) => {
+    const checkMaxSizeFiles = (file: File | filesPreviewT) => {
         if (maxSizeImage && file.size >= maxSizeImage && file.type.match("image")) {
             return false;
         }
@@ -44,7 +44,7 @@ export const FileInput = (props: FileInputI) => {
     };
 
     const { onChange, ...restRegister } = register(name, {
-        validate: (files: filesPreviewType[]) => {
+        validate: (files: filesPreviewT[]) => {
             const filesList = Array.from(files);
 
             filesList.forEach((file) => {
@@ -53,7 +53,7 @@ export const FileInput = (props: FileInputI) => {
         },
     });
 
-    const saveFiles = (data: filesPreviewType) => {
+    const saveFiles = (data: filesPreviewT) => {
         if (data.error) {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             setFilesPreview((prevValue) => {
@@ -105,7 +105,7 @@ export const FileInput = (props: FileInputI) => {
                     url: "",
                     typeName: file.name.split(".").slice(-1)[0].toUpperCase(),
                     file: file,
-                } as filesPreviewType;
+                } as filesPreviewT;
 
                 fileData.error = !checkMaxSizeFiles(file);
 

@@ -41,7 +41,7 @@ export const ResetPasswordConfirm = () => {
 
     const [resetPasswordConfirm, { isLoading, isSuccess }] = usePostUsersResetPasswordConfirmMutation();
 
-    const onSubmit = (data: Form) => {
+    const onSubmit = (data: FormT) => {
         setError("");
 
         resetPasswordConfirm({ ...data, uid: params.uid as string, token: params.token as string })
