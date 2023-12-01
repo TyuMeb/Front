@@ -22,12 +22,11 @@ export interface TSettings {
     currentPass: string;
     newPass: string;
     newPassRepeat: string;
-    notice: boolean;
     empty: string;
 }
 
 const Settings = () => {
-    //TODO: стейт чекбокса подписки (недоделано)
+    //стейт чекбокса подписки, должен приходить из API и устанавливаться в useState
     const [noticeEmail, setNoticeEmail] = useState(true);
     //Режим изменения данных (общий)
     const [isModifyMode, setIsModifyMode] = useState(false);
@@ -44,7 +43,6 @@ const Settings = () => {
         currentPass: "",
         newPass: "",
         newPassRepeat: "",
-        notice: true,
         empty: "",
     });
     //Заглушка для выключения autoComplete
@@ -375,14 +373,6 @@ const Settings = () => {
                     disabled={isModifyMode && isPassModifyMode && !errors.newPass && getValues().newPass ? false : true}
                     {...register("newPassRepeat", {
                         required: isPassModifyMode ? "Поле должно быть заполнено" : false,
-                        minLength: {
-                            message: "Длина пароля не менее 8 символов",
-                            value: 8,
-                        },
-                        maxLength: {
-                            message: "Длина пароля не более 64 символов",
-                            value: 64,
-                        },
                         pattern: {
                             message:
                                 "Указан некорректный пароль. Используйте: A-Z, a-z, 0-9, ~!?@#$%^&*_-+()[]{}></|\"'. Длина пароля: 8-64 символов.",
@@ -448,8 +438,7 @@ const Settings = () => {
                         className={styles.checkbox}
                         textLabel="на e-mail"
                         checked={noticeEmail}
-                        onClick={() => handleChangeNotice(true)}
-                        {...register("notice")}
+                        onChange={() => handleChangeNotice(true)}
                     />
                     <CheckboxInput
                         className={styles.checkbox}
