@@ -10,7 +10,7 @@ import { PasswordInput } from "@src/shared/ui/inputs";
 import { PhoneInput } from "@src/shared/ui/inputs";
 import { useInput } from "@src/hook/use-input";
 
-const Settings = () => {
+export const Settings = () => {
     const firstNameField = useInput("");
     const lastNameField = useInput("");
     const emailField = useInput("");
@@ -114,5 +114,3 @@ const Settings = () => {
         </form>
     );
 };
-
-export default Settings;

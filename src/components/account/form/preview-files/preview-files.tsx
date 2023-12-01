@@ -10,7 +10,7 @@ type PreviewFilesT = {
     setFilesPreview: Dispatch<SetStateAction<filesPreviewT[] | []>>;
 };
 
-const PreviewFiles = ({ files, setFilesPreview }: PreviewFilesT) => {
+export const PreviewFiles = ({ files, setFilesPreview }: PreviewFilesT) => {
     const removeHandlerFile = (event: MouseEvent<HTMLSpanElement>, id: string) => {
         const target = event.target as HTMLDivElement;
         if (target) {
@@ -76,5 +76,3 @@ const PreviewFiles = ({ files, setFilesPreview }: PreviewFilesT) => {
 
     return <ul className={styles.containerImages}>{files && renderImages()}</ul>;
 };
-
-export default PreviewFiles;

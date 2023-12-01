@@ -19,7 +19,7 @@ type FormValuesT = {
     files: filesListT[];
 };
 
-const Form = ({
+export const Form = ({
     defaultValues,
     filesPreview,
     className,
@@ -30,7 +30,6 @@ const Form = ({
     const { register, handleSubmit, setValue } = useForm<FormValuesT>({ defaultValues });
 
     useEffect(() => {
-        // filesPreview.filter((file) => !file.error);
         const newArr = [] as filesListT[];
         filesPreview.forEach((file) => {
             if (!file.error) {
@@ -58,5 +57,3 @@ const Form = ({
         </div>
     );
 };
-
-export default Form;

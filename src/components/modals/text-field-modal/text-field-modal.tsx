@@ -11,7 +11,7 @@ type TextFieldModalT = {
     labelText: string;
 } & HTMLAttributes<HTMLLabelElement>;
 
-const TextFieldModal = ({ isError, labelText, children }: TextFieldModalT) => {
+export const TextFieldModal = ({ isError, labelText, children }: TextFieldModalT) => {
     return (
         <label className={cx("label")}>
             {children}
@@ -23,5 +23,3 @@ const TextFieldModal = ({ isError, labelText, children }: TextFieldModalT) => {
         </label>
     );
 };
-
-export default TextFieldModal;

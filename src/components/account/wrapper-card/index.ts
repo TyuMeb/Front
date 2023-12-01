@@ -1,1 +1,1 @@
-export { default } from "./wrapper-card";
+export * from "./wrapper-card";

@@ -2,8 +2,8 @@
 
 import React, { HTMLAttributes } from "react";
 import styles from "./chats.module.scss";
-import PerformerCard from "@src/components/account/performers/performer-card";
-import NoOrdersCard from "@src/components/account/my-orders/no-orders-card";
+import { PerformerCard } from "@src/components/account/performers/performer-card";
+import { NoOrdersCard } from "@src/components/account/my-orders/no-orders-card";
 
 type ChatsT = {} & HTMLAttributes<HTMLUListElement>;
 
@@ -24,7 +24,7 @@ const performers = [
     },
 ];
 
-const Chats = (props: ChatsT) => {
+export const Chats = (props: ChatsT) => {
     const renderPerformers = () => {
         return performers.map((performer) => {
             return (
@@ -43,5 +43,3 @@ const Chats = (props: ChatsT) => {
         </section>
     );
 };
-
-export default Chats;

@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 
 type ModalAuthT = {} & HTMLAttributes<HTMLDivElement>;
 
-const ModalAuth = ({ children }: ModalAuthT) => {
+export const ModalAuth = ({ children }: ModalAuthT) => {
     const { typeModal } = useAppSelector((store) => store.modal);
     const dispatch = useAppDispatch();
 
@@ -54,5 +54,3 @@ const ModalAuth = ({ children }: ModalAuthT) => {
         </>
     );
 };
-
-export default ModalAuth;

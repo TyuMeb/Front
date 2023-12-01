@@ -8,7 +8,7 @@ import { closeModal } from "@src/redux/slices/modal-slice";
 
 const cx = classNames.bind(styles);
 
-const Confirm = () => {
+export const Confirm = () => {
     const dispatch = useAppDispatch();
 
     return (
@@ -23,5 +23,3 @@ const Confirm = () => {
         </div>
     );
 };
-
-export default Confirm;

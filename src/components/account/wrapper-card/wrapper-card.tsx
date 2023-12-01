@@ -6,10 +6,8 @@ import styles from "./wrapper-card.module.scss";
 
 type OrderT = {} & HTMLAttributes<HTMLDivElement>;
 
-const WrapperCard = ({ children, className, ...props }: OrderT) => (
+export const WrapperCard = ({ children, className, ...props }: OrderT) => (
     <article className={`${styles.card} ${className}`} {...props}>
         {children}
     </article>
 );
-
-export default WrapperCard;

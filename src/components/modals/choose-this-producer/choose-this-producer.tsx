@@ -8,7 +8,7 @@ import { closeModal, setTypeModal } from "@src/redux/slices/modal-slice";
 
 const cx = classNames.bind(styles);
 
-const ChooseThisProducer = () => {
+export const ChooseThisProducer = () => {
     const dispatch = useAppDispatch();
 
     return (
@@ -31,5 +31,3 @@ const ChooseThisProducer = () => {
         </div>
     );
 };
-
-export default ChooseThisProducer;

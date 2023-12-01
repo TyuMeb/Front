@@ -1,1 +1,1 @@
-export { default } from "./performer-card";
+export * from "./performer-card";

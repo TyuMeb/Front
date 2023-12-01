@@ -7,7 +7,7 @@ import image from "public/account/desk.jpg";
 import styles from "./order-card.module.scss";
 import { Button } from "@src/components/shared/ui/button/button";
 import { Icon } from "src/components/icon";
-import WrapperCard from "@src/components/account/wrapper-card";
+import { WrapperCard } from "@src/components/account/wrapper-card";
 
 type DescriptionT = {
     date: string;
@@ -21,7 +21,7 @@ type OrderT = {
     description: DescriptionT;
 } & HTMLAttributes<HTMLDivElement>;
 
-const OrderCard = ({ title, notOffer, description, ...props }: OrderT) => {
+export const OrderCard = ({ title, notOffer, description, ...props }: OrderT) => {
     const { date, status, countOffer } = description;
 
     return (
@@ -85,5 +85,3 @@ const OrderCard = ({ title, notOffer, description, ...props }: OrderT) => {
         </WrapperCard>
     );
 };
-
-export default OrderCard;

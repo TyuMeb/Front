@@ -4,9 +4,9 @@ import Paperclip from "@public/icons/paperclip.svg";
 import { Button } from "@src/shared/ui/button";
 import { Icon } from "@src/components/icon";
 import { FileInput } from "@src/shared/ui/inputs/file/file";
-import Textarea from "@src/components/account/form/textarea";
-import PreviewFiles from "@src/components/account/form/preview-files";
-import Form from "@src/components/account/form";
+import { Textarea } from "@src/components/account/form/textarea";
+import { PreviewFiles } from "@src/components/account/form/preview-files";
+import { Form } from "@src/components/account/form";
 import classNames from "classnames/bind";
 
 import { filesPreviewT, filesListT } from "@src/components/account/form/formTypes";
@@ -15,7 +15,7 @@ import styles from "./help.module.scss";
 
 const cx = classNames.bind(styles);
 
-const Help = () => {
+export const Help = () => {
     const [filesPreview, setFilesPreview] = useState<filesPreviewT[] | []>([]);
 
     const onSubmitHandler = (data: { chat: string; files: filesListT[] }) => {
@@ -58,5 +58,3 @@ const Help = () => {
         </div>
     );
 };
-
-export default Help;

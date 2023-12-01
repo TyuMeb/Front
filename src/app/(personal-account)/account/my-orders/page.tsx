@@ -1,7 +1,7 @@
 "use client";
 
-import MyOrders from "@src/components/account/my-orders";
+import { MyOrders } from "@src/components/account/my-orders";
 
-export default function OrdersPage() {
+export default function MyOrdersPage() {
     return <MyOrders />;
 }

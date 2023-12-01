@@ -3,7 +3,7 @@
 import styles from "./no-orders-card.module.scss";
 import { Button } from "@src/shared/ui/button";
 
-const NoOrdersCard = () => {
+export const NoOrdersCard = () => {
     return (
         <article className={styles.noOrders}>
             <p className={`${styles.text} ${styles.description}`}>
@@ -15,5 +15,3 @@ const NoOrdersCard = () => {
         </article>
     );
 };
-
-export default NoOrdersCard;

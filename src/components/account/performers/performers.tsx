@@ -2,11 +2,11 @@
 
 import React, { HTMLAttributes } from "react";
 import styles from "./performers.module.scss";
-import PerformerCard from "@src/components/account/performers/performer-card";
+import { PerformerCard } from "@src/components/account/performers/performer-card";
 
 type PerformersT = {} & HTMLAttributes<HTMLUListElement>;
 
-const performers = [
+export const performers = [
     {
         id: "1",
         name: "Schattdecor AG",
@@ -23,7 +23,7 @@ const performers = [
     },
 ];
 
-const Performers = (props: PerformersT) => {
+export const Performers = (props: PerformersT) => {
     const renderPerformers = () => {
         return performers.map((performer) => {
             return (
@@ -40,5 +40,3 @@ const Performers = (props: PerformersT) => {
         </ul>
     );
 };
-
-export default Performers;

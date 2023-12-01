@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import HomeLayout from "@src/components/layouts/home-layout";
+import { HomeLayout } from "@src/components/layouts/home-layout";
 
 const Layout = ({ children }: { children: ReactNode }) => <HomeLayout>{children}</HomeLayout>;
 

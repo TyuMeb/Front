@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import classNames from "classnames/bind";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
-import ModalAuth from "@src/components/modals/modal-auth";
+import { ModalAuth } from "@src/components/modals/modal-auth";
 import { Input, PasswordInput, PhoneInput } from "@src/shared/ui/inputs";
 import { CheckboxInput } from "@src/shared/ui/inputs/checkbox";
 import { Button } from "@src/shared/ui/button";
@@ -14,7 +14,7 @@ const cx = classNames.bind(styles);
 
 type FormT = UserCreate & { confirm_password: string };
 
-const Registration = () => {
+export const Registration = () => {
     const [checked, setChecked] = useState(false);
     const [registerUser, { isSuccess, isLoading }] = useRegisterUserMutation();
 
@@ -193,5 +193,3 @@ const Registration = () => {
         </ModalAuth>
     );
 };
-
-export default Registration;

@@ -21,7 +21,7 @@ const breadcrumbs = [
     { alias: "help1", title: "Сделать заказ" },
 ];
 
-const Breadcrumbs = () => {
+export const Breadcrumbs = () => {
     const pathname = usePathname();
 
     /**
@@ -111,5 +111,3 @@ const Breadcrumbs = () => {
         </ul>
     );
 };
-
-export default Breadcrumbs;

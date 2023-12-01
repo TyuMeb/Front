@@ -33,7 +33,7 @@ const firstLevelMenu: firstLevelMenuItemT[] = [
     { alias: "help1", name: "Сделать заказ", icon: <Icon className={cx("icon")} glyph="add" /> },
 ];
 
-const Sidebar = ({ className }: SidebarT) => {
+export const Sidebar = ({ className }: SidebarT) => {
     const pathname = usePathname();
 
     const onHandlerClick = () => {
@@ -136,5 +136,3 @@ const Sidebar = ({ className }: SidebarT) => {
         </aside>
     );
 };
-
-export default Sidebar;

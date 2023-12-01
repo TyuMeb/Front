@@ -6,11 +6,11 @@ import styles from "./header.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import avatar from "@public/account/photo.png";
-import Breadcrumbs from "./breadcrumbs";
+import { Breadcrumbs } from "./breadcrumbs";
 
 type HeaderT = {} & HTMLAttributes<HTMLDivElement>;
 
-const Header = ({ className, ...props }: HeaderT) => {
+export const Header = ({ className, ...props }: HeaderT) => {
     return (
         <header className={className} {...props}>
             <div className={styles.wrapper}>
@@ -27,5 +27,3 @@ const Header = ({ className, ...props }: HeaderT) => {
         </header>
     );
 };
-
-export default Header;

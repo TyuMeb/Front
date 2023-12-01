@@ -10,7 +10,7 @@ export type TextareaT = {
     register?: any;
 } & InputHTMLAttributes<HTMLTextAreaElement>;
 
-const Textarea = (props: TextareaT) => {
+export const Textarea = (props: TextareaT) => {
     const { disabled, className, register, name, ...restProps } = props;
 
     const setAutomaticHeight = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -38,5 +38,3 @@ const Textarea = (props: TextareaT) => {
         />
     );
 };
-
-export default Textarea;

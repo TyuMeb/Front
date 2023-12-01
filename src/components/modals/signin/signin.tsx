@@ -5,7 +5,7 @@ import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/slices/modal-slice";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
-import ModalAuth from "@src/components/modals/modal-auth";
+import { ModalAuth } from "@src/components/modals/modal-auth";
 import { Icon } from "@src/components/icon";
 
 import { Input, PasswordInput } from "@src/shared/ui/inputs";
@@ -20,7 +20,7 @@ import { useRouter, useParams } from "next/navigation";
 
 const cx = classNames.bind(styles);
 
-const SignIn = () => {
+export const SignIn = () => {
     const router = useRouter();
 
     const params = useParams();
@@ -122,5 +122,3 @@ const SignIn = () => {
         </ModalAuth>
     );
 };
-
-export default SignIn;

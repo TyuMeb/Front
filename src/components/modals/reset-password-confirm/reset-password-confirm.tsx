@@ -6,7 +6,7 @@ import { usePostUsersResetPasswordConfirmMutation } from "@src/redux/api/users-a
 import { useParams, useRouter } from "next/navigation";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
-import ModalAuth from "@src/components/modals/modal-auth";
+import { ModalAuth } from "@src/components/modals/modal-auth";
 import { PasswordInput } from "@src/shared/ui/inputs";
 import { Button } from "@src/shared/ui/button";
 import { useForm } from "react-hook-form";
@@ -121,5 +121,3 @@ export const ResetPasswordConfirm = () => {
         </ModalAuth>
     );
 };
-
-export default ResetPasswordConfirm;

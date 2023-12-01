@@ -12,7 +12,7 @@ type ModalT = {
     isOpen: boolean;
 } & InputHTMLAttributes<HTMLDivElement>;
 
-const Modal = ({ children, isOpen }: ModalT) => {
+export const Modal = ({ children, isOpen }: ModalT) => {
     const dispatch = useAppDispatch();
     const { typeModal } = useAppSelector((store) => store.modal);
 
@@ -48,5 +48,3 @@ const Modal = ({ children, isOpen }: ModalT) => {
         </Dialog.Root>
     );
 };
-
-export default Modal;

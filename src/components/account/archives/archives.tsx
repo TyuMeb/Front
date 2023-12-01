@@ -2,8 +2,8 @@
 
 import React, { HTMLAttributes } from "react";
 import styles from "./archives.module.scss";
-import OrderCard from "@src/components/account/my-orders/order-card";
-import NoOrdersCard from "@src/components/account/my-orders/no-orders-card";
+import { OrderCard } from "@src/components/account/my-orders/order-card";
+import { NoOrdersCard } from "@src/components/account/my-orders/no-orders-card";
 
 const orders = [
     {
@@ -35,9 +35,9 @@ const orders = [
     },
 ];
 
-type MyOrdersT = {} & HTMLAttributes<HTMLDivElement>;
+type ArchivesT = {} & HTMLAttributes<HTMLDivElement>;
 
-const MyOrders = (props: MyOrdersT) => {
+export const Archives = (props: ArchivesT) => {
     const renderOrders = () => {
         return orders.map((order) => {
             return (
@@ -56,5 +56,3 @@ const MyOrders = (props: MyOrdersT) => {
         </section>
     );
 };
-
-export default MyOrders;

@@ -7,18 +7,18 @@ import styles from "./dialog.module.scss";
 import { openModal } from "@src/redux/slices/modal-slice";
 import { useAppDispatch } from "@src/redux/hooks";
 import { Button } from "@src/shared/ui/button";
-import Form from "@src/components/account/form";
-import Textarea from "@src/components/account/form/textarea";
+import { Form } from "@src/components/account/form";
+import { Textarea } from "@src/components/account/form/textarea";
 
 import { FileInput } from "@src/shared/ui/inputs/file/file";
 import Paperclip from "@public/icons/paperclip.svg";
 import { Icon } from "@src/components/icon";
-import PreviewFiles from "@src/components/account/form/preview-files";
-import { filesPreviewType, filesListType } from "@src/components/account/form/formTypes";
+import { PreviewFiles } from "@src/components/account/form/preview-files";
+import { filesPreviewT, filesListT } from "@src/components/account/form/formTypes";
 
 const cx = classNames.bind(styles);
 
-const Dialog = () => {
+export const Dialog = () => {
     const [formHeight, setFormHeight] = useState<number>(0);
     const dispatch = useAppDispatch();
 
@@ -34,9 +34,9 @@ const Dialog = () => {
         resizeObserver.observe(node);
     }, []);
 
-    const [filesPreview, setFilesPreview] = useState<filesPreviewType[] | []>([]);
+    const [filesPreview, setFilesPreview] = useState<filesPreviewT[] | []>([]);
 
-    const onSubmitHandler = (data: { chat: string; files: filesListType[] }) => {
+    const onSubmitHandler = (data: { chat: string; files: filesListT[] }) => {
         const formFiles = new FormData();
         data.files.forEach((file) => formFiles.append(`file-${file.id}`, file.file));
 
@@ -201,5 +201,3 @@ const Dialog = () => {
         </article>
     );
 };
-
-export default Dialog;

@@ -2,8 +2,8 @@
 
 import React, { HTMLAttributes } from "react";
 import styles from "./my-orders.module.scss";
-import OrderCard from "@src/components/account/my-orders/order-card";
-import NoOrdersCard from "@src/components/account/my-orders/no-orders-card";
+import { OrderCard } from "@src/components/account/my-orders/order-card";
+import { NoOrdersCard } from "@src/components/account/my-orders/no-orders-card";
 
 const orders = [
     {
@@ -40,7 +40,7 @@ const orders = [
 
 type MyOrdersT = {} & HTMLAttributes<HTMLDivElement>;
 
-const MyOrders = (props: MyOrdersT) => {
+export const MyOrders = (props: MyOrdersT) => {
     const renderOrders = () => {
         return orders.map((order) => {
             return (
@@ -59,5 +59,3 @@ const MyOrders = (props: MyOrdersT) => {
         </section>
     );
 };
-
-export default MyOrders;

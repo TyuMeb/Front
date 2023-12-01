@@ -5,7 +5,7 @@ import classNames from "classnames/bind";
 import styles from "./performer-card.module.scss";
 import "src/components/account/wrapper-card/wrapper-card.module.scss";
 import { Button } from "src/shared/ui/button";
-import WrapperCard from "src/components/account/wrapper-card";
+import { WrapperCard } from "src/components/account/wrapper-card";
 import { Icon } from "src/components/icon";
 
 const cx = classNames.bind(styles);
@@ -32,7 +32,7 @@ const DESCRIPTION = `
     Продавец: Рад услужить! Будьте свободны вернуться, если у Вас поя
 `;
 
-const PerformerCard = ({ performer }: { performer: PerformerCardT }) => {
+export const PerformerCard = ({ performer }: { performer: PerformerCardT }) => {
     const { name, termOfExecution, cost, showGallery } = performer;
 
     const [showText, setShowText] = useState(true);
@@ -92,5 +92,3 @@ const PerformerCard = ({ performer }: { performer: PerformerCardT }) => {
         </WrapperCard>
     );
 };
-
-export default PerformerCard;

@@ -1,1 +1,1 @@
-export { default } from "./choose-this-producer";
+export * from "./choose-this-producer";
