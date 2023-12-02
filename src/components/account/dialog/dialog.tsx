@@ -43,6 +43,18 @@ export const Dialog = () => {
         console.log(data.files, data.chat, formFiles, filesPreview);
     };
 
+    const settingsInput = {
+        settings: {
+            name: "input",
+            maxSizeFile: 1000000,
+            maxSizeImage: 100000,
+            maxCountFiles: 6,
+            multiple: true,
+            // accept=".png, .jpg, .jpeg"},
+        },
+        disabled: (maxCountFiles: number) => filesPreview.length >= maxCountFiles,
+    };
+
     return (
         <article className={styles.dialog}>
             <div className={styles.wrapperHead}>
@@ -178,15 +190,12 @@ export const Dialog = () => {
                     <Textarea name="chat" />
 
                     <FileInput
-                        name="input"
-                        maxSizeFile={1000000}
-                        maxSizeImage={100000}
-                        maxCountFiles={6}
-                        // accept=".png, .jpg, .jpeg"
-                        disabled={filesPreview.length >= 6 && true}
-                        multiple
+                        disabled={settingsInput.disabled(settingsInput.settings.maxCountFiles)}
+                        {...settingsInput.settings}
                         setFilesPreview={setFilesPreview}>
-                        <Paperclip className={cx({ disabled: filesPreview.length >= 6 && true })} />
+                        <Paperclip
+                            className={cx({ disabled: filesPreview.length >= settingsInput.settings.maxCountFiles })}
+                        />
                     </FileInput>
 
                     <Button className={styles.buttonSubmit}>

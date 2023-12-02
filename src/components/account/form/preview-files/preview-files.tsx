@@ -5,12 +5,15 @@ import styles from "./preview-files.module.scss";
 import { Icon } from "@src/components/icon";
 import { filesPreviewT } from "@src/components/account/form/formTypes";
 
+type convertT = "MB";
+
 type PreviewFilesT = {
     files: filesPreviewT[];
+    convertType?: convertT;
     setFilesPreview: Dispatch<SetStateAction<filesPreviewT[] | []>>;
 };
 
-export const PreviewFiles = ({ files, setFilesPreview }: PreviewFilesT) => {
+export const PreviewFiles = ({ files, convertType = "MB", setFilesPreview }: PreviewFilesT) => {
     const removeHandlerFile = (event: MouseEvent<HTMLSpanElement>, id: string) => {
         const target = event.target as HTMLDivElement;
         if (target) {
@@ -21,7 +24,14 @@ export const PreviewFiles = ({ files, setFilesPreview }: PreviewFilesT) => {
         }
     };
 
-    const convertToMb = (size: number) => (size / 1000000).toFixed(3);
+    const converterValue = {
+        MB: { size: 1000000, symbol: "mb" },
+    };
+
+    const convertTo = (size: number, convertType: convertT) => {
+        const convertValue = (size / converterValue[convertType].size).toFixed(3);
+        return `${convertValue} ${converterValue[convertType].symbol}`;
+    };
 
     const renderImages = () =>
         files.map((file) => {
@@ -37,7 +47,7 @@ export const PreviewFiles = ({ files, setFilesPreview }: PreviewFilesT) => {
                     </div>
                     <div className={styles.descriptionImage}>
                         <p className={styles.textDesc}>{name}</p>
-                        <p className={`${styles.textDesc} ${styles.textColor}`}>{convertToMb(size)} mb</p>
+                        <p className={`${styles.textDesc} ${styles.textColor}`}>{convertTo(size, convertType)}</p>
                     </div>
                 </li>
             );
@@ -65,11 +75,11 @@ export const PreviewFiles = ({ files, setFilesPreview }: PreviewFilesT) => {
                 return filePreviewError;
             }
 
-            if (!error && type === "image") {
+            if (type === "image") {
                 return imagePreview;
             }
 
-            if (!error && type === "file") {
+            if (type === "file") {
                 return filePreview;
             }
         });
