@@ -10,8 +10,6 @@ export type FileInputI = {
     maxSizeImage?: number;
     maxSizeFile?: number;
     maxCountFiles?: number;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    register?: any;
     setFilesPreview: Dispatch<SetStateAction<filesPreviewT[] | []>>;
 } & InputHTMLAttributes<HTMLInputElement>;
 
@@ -25,7 +23,6 @@ export const FileInput = (props: FileInputI) => {
         maxSizeFile,
         setFilesPreview,
         name,
-        register,
         ...restProps
     } = props;
 
@@ -43,15 +40,15 @@ export const FileInput = (props: FileInputI) => {
         return true;
     };
 
-    const { onChange, ...restRegister } = register(name, {
-        validate: (files: filesPreviewT[]) => {
-            const filesList = Array.from(files);
+    // const { onChange, ...restRegister } = register(name, {
+    //     validate: (files: filesPreviewT[]) => {
+    //         const filesList = Array.from(files);
 
-            filesList.forEach((file) => {
-                return checkMaxSizeFiles(file);
-            });
-        },
-    });
+    //         filesList.forEach((file) => {
+    //             return checkMaxSizeFiles(file);
+    //         });
+    //     },
+    // });
 
     const saveFiles = (data: filesPreviewT) => {
         if (data.error) {
@@ -153,7 +150,6 @@ export const FileInput = (props: FileInputI) => {
                 disabled={disabled}
                 onChange={changeHandlerFiles}
                 id="input-file"
-                {...restRegister}
                 {...restProps}
             />
             {children}

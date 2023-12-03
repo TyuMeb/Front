@@ -15,16 +15,24 @@ import Paperclip from "@public/icons/paperclip.svg";
 import { Icon } from "@src/components/icon";
 import { PreviewFiles } from "@src/components/account/form/preview-files";
 import { filesPreviewT, filesListT } from "@src/components/account/form/formTypes";
+import { useForm } from "react-hook-form";
 
 const cx = classNames.bind(styles);
 
 export const Dialog = () => {
     const [formHeight, setFormHeight] = useState<number>(0);
+    const [filesPreview, setFilesPreview] = useState<filesPreviewT[] | []>([]);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         window.scrollTo(0, document.body.scrollHeight);
     }, [formHeight]);
+
+    const { handleSubmit, register } = useForm({
+        values: {
+            chat: "",
+        },
+    });
 
     const measuredRef = useCallback((node: HTMLDivElement) => {
         if (!node) return;
@@ -34,18 +42,29 @@ export const Dialog = () => {
         resizeObserver.observe(node);
     }, []);
 
-    const [filesPreview, setFilesPreview] = useState<filesPreviewT[] | []>([]);
+    const getFiles = (filesList: filesPreviewT[]) => {
+        const files = [] as filesListT[];
 
-    const onSubmitHandler = (data: { chat: string; files: filesListT[] }) => {
+        filesList.forEach((file) => {
+            if (!file.error) {
+                files.push({ id: file.id, file: file.file });
+            }
+        });
+
+        return files;
+    };
+
+    const onSubmitHandler = (data: { chat: string }) => {
+        const files = getFiles(filesPreview);
+
         const formFiles = new FormData();
-        data.files.forEach((file) => formFiles.append(`file-${file.id}`, file.file));
+        files.forEach((file) => formFiles.append(`file-${file.id}`, file.file));
 
-        console.log(data.files, data.chat, formFiles, filesPreview);
+        console.log({ files, text: data.chat, formData: formFiles, filesPreview });
     };
 
     const settingsInput = {
         settings: {
-            name: "input",
             maxSizeFile: 1000000,
             maxSizeImage: 100000,
             maxCountFiles: 6,
@@ -186,8 +205,12 @@ export const Dialog = () => {
             </div>
 
             <div className={styles.wrapperForm} ref={measuredRef}>
-                <Form onSubmit={onSubmitHandler} filesPreview={filesPreview}>
-                    <Textarea name="chat" />
+                <Form onSubmit={handleSubmit(onSubmitHandler)}>
+                    <Textarea
+                        {...register("chat", {
+                            required: true,
+                        })}
+                    />
 
                     <FileInput
                         disabled={settingsInput.disabled(settingsInput.settings.maxCountFiles)}
@@ -198,14 +221,12 @@ export const Dialog = () => {
                         />
                     </FileInput>
 
-                    <Button className={styles.buttonSubmit}>
+                    <Button className={styles.buttonSubmit} type="submit">
                         <Icon glyph="paper_airplane" />
                     </Button>
                 </Form>
 
-                {filesPreview.length ? (
-                    <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} />
-                ) : undefined}
+                {filesPreview.length ? <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} /> : <></>}
             </div>
         </article>
     );
