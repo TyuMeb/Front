@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, KeyboardEvent, forwardRef } from "react";
+import React, { InputHTMLAttributes, ChangeEvent, forwardRef } from "react";
 import classNames from "classnames/bind";
 
 import styles from "./textarea.module.scss";
@@ -8,20 +8,26 @@ const cx = classNames.bind(styles);
 export type TextareaT = {} & InputHTMLAttributes<HTMLTextAreaElement>;
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaT>(
-    ({ disabled = false, className, ...props }: TextareaT, ref) => {
-        const setAutomaticHeight = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-            const textarea = e.target as HTMLTextAreaElement;
+    ({ disabled, className, onChange, ...props }: TextareaT, ref) => {
+        const setAutomaticHeight = (element: HTMLTextAreaElement, maxHeight: number) => {
+            const height = element.style.height;
+            const scrollHeight = `${element.scrollHeight}px`;
 
-            if (e.key === "Backspace" && textarea.selectionStart === 0) {
-                textarea.style.height = "";
-            }
-
-            if (textarea && textarea.scrollHeight > 178) {
+            if (element.scrollHeight > maxHeight) {
                 return;
             }
 
-            textarea.style.height = "auto";
-            textarea.style.height = `${textarea.scrollHeight}px`;
+            if (height !== scrollHeight) {
+                element.style.height = "auto";
+                element.style.height = scrollHeight;
+            }
+        };
+
+        const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+            onChange && onChange(event);
+
+            const textarea = event.currentTarget;
+            setAutomaticHeight(textarea, 178);
         };
 
         return (
@@ -29,7 +35,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaT>(
                 ref={ref}
                 className={cx("textarea", "text", { disabled }, className)}
                 disabled={disabled}
-                onKeyUp={setAutomaticHeight}
+                onChange={onChangeHandler}
                 {...props}
             />
         );
