@@ -40,19 +40,8 @@ export const FileInput = (props: FileInputI) => {
         return true;
     };
 
-    // const { onChange, ...restRegister } = register(name, {
-    //     validate: (files: filesPreviewT[]) => {
-    //         const filesList = Array.from(files);
-
-    //         filesList.forEach((file) => {
-    //             return checkMaxSizeFiles(file);
-    //         });
-    //     },
-    // });
-
     const saveFiles = (data: filesPreviewT) => {
         if (data.error) {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             setFilesPreview((prevValue) => {
                 const newArray = [...prevValue];
                 newArray.push(data);
@@ -145,7 +134,7 @@ export const FileInput = (props: FileInputI) => {
             <input
                 ref={fileRef}
                 type="file"
-                className={cx("hidden")}
+                className={cx("inputFile")}
                 multiple={multiple}
                 disabled={disabled}
                 onChange={changeHandlerFiles}

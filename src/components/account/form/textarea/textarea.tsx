@@ -33,7 +33,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaT>(
         return (
             <textarea
                 ref={ref}
-                className={cx("textarea", "text", { disabled }, className)}
+                className={cx("textarea", "text", className)}
                 disabled={disabled}
                 onChange={onChangeHandler}
                 {...props}

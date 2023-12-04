@@ -216,9 +216,7 @@ export const Dialog = () => {
                         disabled={settingsInput.disabled(settingsInput.settings.maxCountFiles)}
                         {...settingsInput.settings}
                         setFilesPreview={setFilesPreview}>
-                        <Paperclip
-                            className={cx({ disabled: filesPreview.length >= settingsInput.settings.maxCountFiles })}
-                        />
+                        <Paperclip />
                     </FileInput>
 
                     <Button className={styles.buttonSubmit} type="submit">

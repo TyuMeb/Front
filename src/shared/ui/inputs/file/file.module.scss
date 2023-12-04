@@ -41,10 +41,14 @@
     cursor: pointer;
 }
 
-.hidden {
+.inputFile {
     opacity: 0;
     height: 0;
     width: 0;
+}
+
+.inputFile:disabled ~ svg path {
+    stroke: #bcbcbc;
 }
 
 .buttonSubmit {
