@@ -1,14 +1,17 @@
-@import "../../../styles/variables";
-
 .inner {
     display: flex;
     justify-content: space-between;
-    padding-bottom: 140px;
+    padding-top: 140px;
+    gap: 32px;
+
+    @media (max-width: 1024px) {
+        flex-direction: column;
+    }
 }
 
 .left__card {
-    max-width: 700px;
     min-height: 313px;
+    flex-grow: 1;
     flex: 1;
     padding: 44px 28px;
     background-color: $bg-accent-color;
@@ -24,7 +27,12 @@
 }
 
 .right__card {
-    max-width: 492px;
     max-height: 313px;
+
     border-radius: 45px;
+    object-fit: cover;
+
+    @media (max-width: 1024px) {
+        width: 100%;
+    }
 }

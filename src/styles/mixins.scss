@@ -1,0 +1,57 @@
+@mixin background {
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@mixin beforeOrAfter {
+    content: "";
+    position: absolute;
+}
+
+@mixin reset-button {
+    border: none;
+    cursor: pointer;
+}
+
+@mixin headline {
+    font-family: "Raleway", Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    color: $black;
+}
+
+@mixin headline2 {
+    font-size: 30px;
+    line-height: 130%;
+}
+
+@mixin text {
+    font-family: "Open Sans", Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+}
+
+@mixin textSmall {
+    font-size: 16px;
+    line-height: 24px;
+}
+
+@mixin textTiny {
+    font-size: 14px;
+    line-height: 21px;
+}
+
+@mixin subtitle1 {
+    font-family: "Open Sans", Arial, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+}
+
+@mixin textPriceItem {
+    font-family: "Source Sans Pro", Arial, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

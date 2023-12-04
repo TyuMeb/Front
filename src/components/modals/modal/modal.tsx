@@ -1,9 +1,8 @@
-"use client";
-
-import { FC, useEffect, MouseEvent, ReactNode } from "react";
-import styles from "./modal.module.css";
+import { FC, useEffect, ReactNode } from "react";
+import styles from "./modal.module.scss";
 import { useAppDispatch } from "@src/redux/hooks";
 import { closeModal } from "@src/redux/slices/modal-slice";
+import * as Dialog from "@radix-ui/react-dialog";
 
 interface IModal {
     children: ReactNode;
@@ -24,20 +23,21 @@ const Modal: FC<IModal> = ({ children, isOpen }) => {
         return () => document.removeEventListener("keydown", closeByEscape);
     }, [isOpen, dispatch]);
 
-    const handleOverlay = (e: MouseEvent) => {
-        if (e.target === e.currentTarget) {
-            dispatch(closeModal());
-        }
-    };
-
     return (
-        <>
-            {isOpen && (
-                <div onClick={handleOverlay} className={styles.overlay}>
-                    <div className={styles.modal}>{children}</div>
-                </div>
-            )}
-        </>
+        <Dialog.Root
+            open={isOpen}
+            onOpenChange={() => {
+                dispatch(closeModal());
+            }}>
+            <Dialog.Portal>
+                <Dialog.Overlay className={styles.overlay}>
+                    <Dialog.Content className={styles.modal}>
+                        <button type="button" className={styles.closeModal} onMouseUp={() => dispatch(closeModal())} />
+                        {children}
+                    </Dialog.Content>
+                </Dialog.Overlay>
+            </Dialog.Portal>
+        </Dialog.Root>
     );
 };
 
