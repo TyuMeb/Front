@@ -1,17 +1,16 @@
 import { HTMLAttributes, type DetailedHTMLProps } from "react";
 import styles from "./slider-control.module.scss";
 import { Button } from "../button";
-import { ArrowLeftIcon } from "../icons/arrow-left-icon";
-import { ArrowRightIcon } from "../icons/arrow-right-icon";
+import { Icon } from "@src/components/icon";
 import { cn } from "@src/shared/lib/cn";
 
-export type SliderControlProps = {
+export type SliderControlT = {
     onRightArrowClick: () => void;
     onLeftArrowClick: () => void;
     disabled?: boolean;
 } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
-const SliderControl = ({ disabled, onRightArrowClick, onLeftArrowClick, ...props }: SliderControlProps) => {
+const SliderControl = ({ disabled, onRightArrowClick, onLeftArrowClick, ...props }: SliderControlT) => {
     return (
         <>
             <input className={styles.sliderControlHide} />
@@ -19,14 +18,14 @@ const SliderControl = ({ disabled, onRightArrowClick, onLeftArrowClick, ...props
                 <Button
                     disabled={disabled}
                     type="button"
-                    icon={<ArrowLeftIcon />}
+                    icon={<Icon glyph="arrowRight" transform="rotate(180)" />}
                     variant={"slider"}
                     onClick={onLeftArrowClick}
                 />
                 <Button
                     disabled={disabled}
                     type="button"
-                    icon={<ArrowRightIcon />}
+                    icon={<Icon glyph="arrowRight" />}
                     variant={"slider"}
                     onClick={onRightArrowClick}
                 />

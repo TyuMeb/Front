@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 
 import { Button } from "@src/shared/ui/button";
 import { Icon } from "@src/components/icon";
-import { orders, performers } from "@src/data/account";
+import { orders, performers } from "@src/shared/data/account";
 
 import styles from "./sidebar.module.scss";
 

@@ -6,7 +6,7 @@ import classNames from "classnames/bind";
 import styles from "./breadcrumbs.module.scss";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { orders } from "@src/data/account";
+import { orders } from "@src/shared/data/account";
 
 const cx = classNames.bind(styles);
 

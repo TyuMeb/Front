@@ -8,7 +8,7 @@ import { Input } from "@src/shared/ui/inputs";
 import { CheckboxInput } from "@src/shared/ui/inputs";
 import { PasswordInput } from "@src/shared/ui/inputs";
 import { PhoneInput } from "@src/shared/ui/inputs";
-import { useInput } from "@src/hook/use-input";
+import { useInput } from "@src/hooks/use-input";
 
 export const Settings = () => {
     const firstNameField = useInput("");
@@ -92,13 +92,13 @@ export const Settings = () => {
                         className={styles.checkbox}
                         textLabel="на e-mail"
                         checked={noticeEmail}
-                        onClick={handleChangeNoticeEmail}
+                        onChange={handleChangeNoticeEmail}
                     />
                     <CheckboxInput
                         className={styles.checkbox}
                         textLabel="не получать"
                         checked={notNotice}
-                        onClick={handleChangeNotNotice}
+                        onChange={handleChangeNotNotice}
                     />
                 </ul>
             </div>

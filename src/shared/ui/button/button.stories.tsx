@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./button";
-import { ExitIcon } from "@src/shared/ui/icons/exit-icon";
-import { CheckedIcon } from "../icons/checked-icon";
+import { Icon } from "@src/components/icon";
 
 const meta = {
     title: "UI/Button",
@@ -60,9 +59,9 @@ const meta = {
                 defaultValue: { summary: "ExitIcon" },
             },
             control: {
-                type: [<ExitIcon key="1" />, <CheckedIcon key="2" />],
+                type: [<Icon glyph="exit" key="1" />, <Icon glyph="checked" key="2" />],
             },
-            options: [<ExitIcon key="1" />, <CheckedIcon key="2" />],
+            options: [<Icon glyph="exit" key="1" />, <Icon glyph="checked" key="2" />],
         },
         children: {
             name: "children",
@@ -114,6 +113,6 @@ export const Exit: Story = {
         children: "Выйти",
         disabled: false,
         variant: "exit",
-        icon: <ExitIcon />,
+        icon: <Icon glyph="exit" />,
     },
 };

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useCallback, useEffect } from "react";
-import classNames from "classnames/bind";
 
 import styles from "./dialog.module.scss";
 import { openModal } from "@src/redux/slices/modal-slice";
@@ -16,8 +15,6 @@ import { Icon } from "@src/components/icon";
 import { PreviewFiles } from "@src/components/account/form/preview-files";
 import { filesPreviewT, filesListT } from "@src/components/account/form/formTypes";
 import { useForm } from "react-hook-form";
-
-const cx = classNames.bind(styles);
 
 export const Dialog = () => {
     const [formHeight, setFormHeight] = useState<number>(0);

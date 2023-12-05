@@ -3,15 +3,15 @@ import "keen-slider/keen-slider.min.css";
 import { useSlider } from "@src/hooks/use-slider";
 import styles from "./slider-example.module.scss";
 import { cn } from "@src/shared/lib/cn";
-import { CardExample, CardExampleProps } from "@src/shared/ui/card-example/card-example";
-import { SliderControl } from "../sllder-control/slider-control";
+import { CardExample, CardExampleProps } from "@src/shared/ui/card-example";
+import { SliderControl } from "@src/shared/ui/slider-control";
 
-export type SlideItem = {
+export type SlideItemT = {
     items: Required<Array<CardExampleProps>>;
 };
 
 type SliderProps = {
-    slides: Required<Array<SlideItem>>;
+    slides: Required<Array<SlideItemT>>;
     disabled?: boolean;
     delay?: number;
     slideRight?: boolean;

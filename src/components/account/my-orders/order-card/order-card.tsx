@@ -5,7 +5,7 @@ import Image from "next/image";
 import image from "public/account/desk.jpg";
 
 import styles from "./order-card.module.scss";
-import { Button } from "@src/components/shared/ui/button/button";
+import { Button } from "@src/shared/ui/button";
 import { Icon } from "src/components/icon";
 import { WrapperCard } from "@src/components/account/wrapper-card";
 

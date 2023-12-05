@@ -6,13 +6,13 @@ import { cn } from "@src/shared/lib/cn";
 import { useSlider } from "@src/hooks/use-slider";
 import { Icon } from "@src/components/icon";
 
-type UserSliderProps = {
+type UserSliderT = {
     slides: Required<Array<ReactNode>>;
     itemsToShow?: number;
     variant?: "small" | "big";
 };
 
-export const SliderUser: FC<UserSliderProps> = ({ slides, itemsToShow = 1, variant = "big" }) => {
+export const SliderUser: FC<UserSliderT> = ({ slides, itemsToShow = 1, variant = "big" }) => {
     const [isVisible, setIsVisible] = useState(false);
 
     const { sliderRef, instanceRef, loaded } = useSlider({
