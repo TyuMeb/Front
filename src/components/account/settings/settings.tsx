@@ -85,7 +85,7 @@ export const Settings = () => {
             </Button>
 
             <div className={styles.wrapperCheckbox}>
-                <h2 className={styles.title}>Получать уведомления</h2>
+                <h2 className="subtitle2">Получать уведомления</h2>
 
                 <ul className={styles.list}>
                     <CheckboxInput
@@ -104,8 +104,8 @@ export const Settings = () => {
             </div>
 
             <div className={styles.row}>
-                <h2 className={styles.title}>Удаление профиля</h2>
-                <p className={styles.text}>
+                <h2 className="subtitle2">Удаление профиля</h2>
+                <p className="text-medium">
                     Если вы хотите удалить профиль, пожалуйста, <br />
                     свяжитесь с нашей технической поддержкой на <br />
                     вкладке «помощь»

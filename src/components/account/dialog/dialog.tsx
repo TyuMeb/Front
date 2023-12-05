@@ -78,18 +78,18 @@ export const Dialog = () => {
                     <div className={styles.info}>
                         <div className={styles.infoPerformer}>
                             <span className={styles.userIcon}></span>
-                            <h2 className={styles.header}>
+                            <h2 className="subtitle2">
                                 Чат с <span className={styles.fontWeight}>Исполнителем 1</span>
                             </h2>
                         </div>
                         <div className={styles.infoOrder}>
-                            <p className={`${styles.text} ${styles.textBold}`}>Полка настенная</p>
-                            <p className={`${styles.text} ${styles.textBold}`}>Срок исполнения: 45-50 дней</p>
-                            <p className={`${styles.text} ${styles.textBold}`}>Стоимость: от 100 000 руб</p>
+                            <p className="text-small-semibold">Полка настенная</p>
+                            <p className="text-small-semibold">Срок исполнения: 45-50 дней</p>
+                            <p className="text-small-semibold">Стоимость: от 100 000 руб</p>
                         </div>
                     </div>
                     <Button onClick={() => dispatch(openModal("chooseThisProducer"))}>
-                        <p className={styles.textButton}>Выбрать этого исполнителя</p>
+                        <p className="text-medium">Выбрать этого исполнителя</p>
                     </Button>
                 </div>
             </div>
@@ -99,7 +99,7 @@ export const Dialog = () => {
                     <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
 
                     <div className={`${styles.messageExecutor} ${styles.wrapperMessage}`}>
-                        <div className={`${styles.text} ${styles.widthText}`}>
+                        <div className={`text-small ${styles.widthText}`}>
                             Добрый день! Присылаю варианты и фотографии. Если есть...Добрый день! Присылаю варианты и
                             hjgfkdgndgfnk...
                         </div>
@@ -117,19 +117,18 @@ export const Dialog = () => {
                     <time className={styles.timeText}>23:12</time>
 
                     <div className={`${styles.messageClient} ${styles.wrapperMessage}`}>
-                        <div className={`${styles.text} ${styles.widthText}`}>
+                        <div className={`text-small ${styles.widthText}`}>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                             labore et dolore magna aliqua. Ut enim ad minim
                         </div>
                     </div>
                     <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
                 </div>
-
                 <div className={`${styles.chat} ${styles.positionLeft}`}>
                     <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
 
                     <div className={`${styles.messageExecutor} ${styles.wrapperMessage}`}>
-                        <div className={`${styles.text} ${styles.widthText}`}>
+                        <div className={`text-small ${styles.widthText}`}>
                             Добрый день! Присылаю варианты и фотографии. Если есть...Добрый день! Присылаю варианты и
                             hjgfkdgndgfnk...
                         </div>
@@ -142,57 +141,46 @@ export const Dialog = () => {
                     </div>
                     <time className={styles.timeText}>23:12</time>
                 </div>
-
                 <div className={`${styles.chat} ${styles.positionLeft}`}>
                     <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
 
                     <div className={`${styles.messageExecutor} ${styles.wrapperMessage}`}>
-                        <div className={`${styles.text} ${styles.widthText}`}>
-                            Lorem ipsum dolor sit amet, consectetur
-                        </div>
+                        <div className={`text-small ${styles.widthText}`}>Lorem ipsum dolor sit amet, consectetur</div>
                     </div>
                     <time className={styles.timeText}>23:12</time>
                 </div>
-
                 <div className={`${styles.chat} ${styles.positionRight}`}>
                     <time className={styles.timeText}>23:12</time>
 
                     <div className={`${styles.messageClient} ${styles.wrapperMessage}`}>
-                        <div className={`${styles.text} ${styles.widthText}`}>
+                        <div className={`text-small ${styles.widthText}`}>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                             labore et dolore magna aliqua. Ut enim ad minim
                         </div>
                     </div>
                     <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
                 </div>
-
                 <div className={`${styles.chat} ${styles.positionLeft}`}>
                     <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
 
                     <div className={`${styles.messageExecutor} ${styles.wrapperMessage}`}>
-                        <div className={`${styles.text} ${styles.widthText}`}>
-                            Lorem ipsum dolor sit amet, consectetur
-                        </div>
+                        <div className={`text-small ${styles.widthText}`}>Lorem ipsum dolor sit amet, consectetur</div>
                     </div>
                     <time className={styles.timeText}>23:12</time>
                 </div>
-
                 <div className={`${styles.chat} ${styles.positionLeft}`}>
                     <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
 
                     <div className={`${styles.messageExecutor} ${styles.wrapperMessage}`}>
-                        <div className={`${styles.text} ${styles.widthText}`}>
-                            Lorem ipsum dolor sit amet, consectetur
-                        </div>
+                        <div className={`text-small ${styles.widthText}`}>Lorem ipsum dolor sit amet, consectetur</div>
                     </div>
                     <time className={styles.timeText}>23:12</time>
                 </div>
-
                 <div className={`${styles.chat} ${styles.positionRight}`}>
                     <time className={styles.timeText}>23:12</time>
 
                     <div className={`${styles.messageClient} ${styles.wrapperMessage}`}>
-                        <div className={`${styles.text} ${styles.widthText}`}>
+                        <div className={`text-small ${styles.widthText}`}>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                             labore et dolore magna aliqua. Ut enim ad minim
                         </div>

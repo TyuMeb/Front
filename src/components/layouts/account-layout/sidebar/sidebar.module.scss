@@ -35,10 +35,6 @@
     margin-right: 5px;
 }
 
-.text {
-    @include font-source-sans(14px, $graphite-black, 600, 21px);
-}
-
 .secondLevelMenu {
     display: grid;
     row-gap: 12px;
@@ -91,8 +87,4 @@
 .activatedSubmenu {
     background-color: #fffaee;
     border-left: 4px solid $mustard;
-}
-
-.thirdLevelText {
-    @include font-source-sans(14px, $graphite-black, 400, 21px);
 }

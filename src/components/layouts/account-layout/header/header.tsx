@@ -15,7 +15,7 @@ export const Header = ({ className, ...props }: HeaderT) => {
         <header className={className} {...props}>
             <div className={styles.wrapper}>
                 <nav className={styles.navigation}>
-                    <Link className={styles.logo} href="/">
+                    <Link className={`subtitle1 ${styles.logo}`} href="/">
                         ВайВи
                     </Link>
                     <Breadcrumbs />

@@ -60,7 +60,7 @@ export const Help = () => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.wrapperText}>
-                <h2 className={styles.header}>Чат с поддержкой (ответ может занимать до 24ч)</h2>
+                <h2 className="subtitle2">Чат с поддержкой (ответ может занимать до 24ч)</h2>
             </div>
             <div className={styles.wrapperForm}>
                 <Form onSubmit={handleSubmit(onSubmitHandler)}>

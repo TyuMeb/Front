@@ -41,22 +41,22 @@ export const PerformerCard = ({ performer }: { performer: PerformerCardT }) => {
 
     return (
         <WrapperCard>
-            <div className={styles.wrapperText}>
+            <div className="wrapperText">
                 <div className={styles.workerInfo}>
                     <span className={styles.avatar} />
-                    <h2 className={styles.header}>{name}</h2>
+                    <h2 className="subtitle2">{name}</h2>
                     <button className={styles.wrapperDots}>
                         <span className={styles.buttonDots} />
                     </button>
                 </div>
 
                 <div className={styles.orderInfo}>
-                    <p className={`${styles.text} ${styles.fontWeightBold}`}>
+                    <p className="text-small-semibold">
                         Срок исполнения: &nbsp;
                         {termOfExecution}
                         &nbsp; дней
                     </p>
-                    <p className={`${styles.text} ${styles.fontWeightBold}`}>
+                    <p className="text-small-semibold">
                         Стоимость: от &nbsp;
                         {cost}
                         &nbsp; руб
@@ -65,10 +65,10 @@ export const PerformerCard = ({ performer }: { performer: PerformerCardT }) => {
             </div>
 
             <div className={cx("wrapperDialog", { wrapperGrid: !showGallery })}>
-                <p className={cx("text", "textPosition", { hiddenText: showText })}>{DESCRIPTION}</p>
+                <p className={cx("text-small", "textPosition", { hiddenText: showText })}>{DESCRIPTION}</p>
 
                 <button className={cx("buttonExpand", { removeMargins: !showGallery })} onClick={showTextHandler}>
-                    <p className={`${styles.text} ${styles.fontWeightBold}`}>посмотреть весь текст</p>
+                    <p className="text-small-semibold">посмотреть весь текст</p>
                 </button>
 
                 {showGallery && (
@@ -86,7 +86,7 @@ export const PerformerCard = ({ performer }: { performer: PerformerCardT }) => {
                 )}
 
                 <Button className={cx("button", { addMargins: !showGallery })}>
-                    <p className={cx("text")}>Перейти в чат</p>
+                    <p className="text-small">Перейти в чат</p>
                 </Button>
             </div>
         </WrapperCard>

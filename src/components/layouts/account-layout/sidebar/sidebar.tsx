@@ -57,7 +57,7 @@ export const Sidebar = ({ className }: SidebarT) => {
                         <li key={menu.alias}>
                             <Link className={cx("firstLevelLink", activatedMenu)} href={currentPathname}>
                                 {menu.icon}
-                                <p className={cx("text")}>
+                                <p className={cx("text-small-semibold")}>
                                     {menu.name}
                                     &nbsp;
                                     {orders.length && i === 0 && `(${orders.length})`}
@@ -83,7 +83,7 @@ export const Sidebar = ({ className }: SidebarT) => {
                                 <Link
                                     className={cx("secondLevelLink", { openedSubmenu: pathname === currentPathname })}
                                     href={currentPathname}>
-                                    <p className={cx("text")}>
+                                    <p className={cx("text-small-semibold")}>
                                         {order.name}
                                         &nbsp;
                                         {order.countPerformers && `(${order.countPerformers})`}
@@ -112,7 +112,7 @@ export const Sidebar = ({ className }: SidebarT) => {
                                     className={cx("thirdLevelLink", {
                                         activatedSubmenu: pathname === currentPathname,
                                     })}>
-                                    <p className={cx("thirdLevelText")}>Исполнитель {i + 1}</p>
+                                    <p className="text-small">Исполнитель {i + 1}</p>
                                 </Link>
                             </li>
                         );
@@ -129,7 +129,7 @@ export const Sidebar = ({ className }: SidebarT) => {
 
                 <Link href="/">
                     <Button icon={<Icon glyph="exit" />} variant="exit" onClick={onHandlerClick}>
-                        <p className={styles.text}>Выйти</p>
+                        <p className="text-small-semibold">Выйти</p>
                     </Button>
                 </Link>
             </nav>

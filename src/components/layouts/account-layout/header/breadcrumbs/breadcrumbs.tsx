@@ -102,7 +102,7 @@ export const Breadcrumbs = () => {
 
                 return (
                     <li className={styles.item} key={i}>
-                        <Link className={cx("link", { active: pathname === item.href })} href={item.href}>
+                        <Link className={cx("text-medium", { active: pathname === item.href })} href={item.href}>
                             {item.title}
                         </Link>
                     </li>

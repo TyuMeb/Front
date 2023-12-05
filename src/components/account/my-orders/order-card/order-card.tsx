@@ -26,10 +26,10 @@ export const OrderCard = ({ title, notOffer, description, ...props }: OrderT) =>
 
     return (
         <WrapperCard {...props}>
-            <div className={styles.wrapperText}>
-                <h2 className={styles.header}>{title}</h2>
+            <div className="wrapperText">
+                <h2 className="subtitle2">{title}</h2>
                 {notOffer && (
-                    <p className={`${styles.text} ${styles.colorPink} ${styles.textBold}`}>
+                    <p className={`text-small-semibold ${styles.colorPink}`}>
                         К сожалению, никто не выбрал ваш заказ. Попробуйте его изменить и создать заново.
                     </p>
                 )}
@@ -38,22 +38,22 @@ export const OrderCard = ({ title, notOffer, description, ...props }: OrderT) =>
             <div className={styles.wrapper}>
                 <ul className={styles.list}>
                     <li className={styles.item}>
-                        <p className={styles.text}>
+                        <p className="text-small">
                             <span className={styles.decor}>Дата заказа:</span>
                         </p>
-                        <time className={styles.text}>{date}</time>
+                        <time className="text-small">{date}</time>
                     </li>
                     <li className={styles.item}>
-                        <p className={styles.text}>
+                        <p className="text-small">
                             <span className={styles.decor}>Статус заказа:</span>
                         </p>
-                        <p className={styles.text}>{status}</p>
+                        <p className="text-small">{status}</p>
                     </li>
                     <li className={styles.item}>
-                        <p className={styles.text}>
+                        <p className="text-small">
                             <span className={styles.decor}>Предложения:</span>
                         </p>
-                        <p className={`${styles.text} ${styles.textBold}`}>
+                        <p className="text-small-semibold">
                             {countOffer} {!notOffer && `предложения`}
                         </p>
                     </li>

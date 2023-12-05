@@ -53,9 +53,9 @@ export const MyOrders = (props: MyOrdersT) => {
 
     return (
         <section className={styles.wrapperOrders} {...props}>
-            {!orders.length ? <NoOrdersCard /> : undefined}
+            {orders.length ? <NoOrdersCard /> : <></>}
 
-            {orders.length ? <ul className={styles.wrapperOrders}>{renderOrders()}</ul> : undefined}
+            {orders.length ? <ul className={styles.wrapperOrders}>{renderOrders()}</ul> : <></>}
         </section>
     );
 };
