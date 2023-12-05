@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Paperclip from "@public/icons/paperclip.svg";
 import { Button } from "@src/shared/ui/button";
 import { Icon } from "@src/components/icon";
-import { FileInput } from "@src/shared/ui/inputs/file/file";
+import { InputPreviewFiles } from "@src/components/account/form/input-preview-files";
 import { Textarea } from "@src/components/account/form/textarea";
 import { PreviewFiles } from "@src/components/account/form/preview-files";
 import { Form } from "@src/components/account/form";
@@ -70,14 +70,14 @@ export const Help = () => {
                         })}
                     />
 
-                    <FileInput
+                    <InputPreviewFiles
                         disabled={settingsInput.disabled(settingsInput.settings.maxCountFiles)}
                         {...settingsInput.settings}
                         setFilesPreview={setFilesPreview}>
                         <Paperclip
                             className={cx({ disabled: filesPreview.length >= settingsInput.settings.maxCountFiles })}
                         />
-                    </FileInput>
+                    </InputPreviewFiles>
 
                     <Button className={styles.buttonSubmit} type="submit">
                         <Icon glyph="paper_airplane" />
