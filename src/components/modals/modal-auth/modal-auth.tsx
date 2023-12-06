@@ -8,9 +8,9 @@ import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
 
 const cx = classNames.bind(styles);
 
-type ModalAuthT = {} & HTMLAttributes<HTMLDivElement>;
+type ModalAuthProps = {} & HTMLAttributes<HTMLDivElement>;
 
-export const ModalAuth = ({ children }: ModalAuthT) => {
+export const ModalAuth = ({ children }: ModalAuthProps) => {
     const { typeModal } = useAppSelector((store) => store.modal);
     const dispatch = useAppDispatch();
 

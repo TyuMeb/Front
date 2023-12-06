@@ -4,7 +4,7 @@ import React, { HTMLAttributes } from "react";
 import styles from "./performers.module.scss";
 import { PerformerCard } from "@src/components/account/performers/performer-card";
 
-type PerformersT = {} & HTMLAttributes<HTMLUListElement>;
+type PerformersProps = {} & HTMLAttributes<HTMLUListElement>;
 
 export const performers = [
     {
@@ -23,7 +23,7 @@ export const performers = [
     },
 ];
 
-export const Performers = (props: PerformersT) => {
+export const Performers = (props: PerformersProps) => {
     const renderPerformers = () => {
         return performers.map((performer) => {
             return (

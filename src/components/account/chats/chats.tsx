@@ -5,7 +5,7 @@ import styles from "./chats.module.scss";
 import { PerformerCard } from "@src/components/account/performers/performer-card";
 import { NoOrdersCard } from "@src/components/account/my-orders/no-orders-card";
 
-type ChatsT = {} & HTMLAttributes<HTMLUListElement>;
+type ChatsProps = {} & HTMLAttributes<HTMLUListElement>;
 
 const performers = [
     {
@@ -24,7 +24,7 @@ const performers = [
     },
 ];
 
-export const Chats = (props: ChatsT) => {
+export const Chats = (props: ChatsProps) => {
     const renderPerformers = () => {
         return performers.map((performer) => {
             return (

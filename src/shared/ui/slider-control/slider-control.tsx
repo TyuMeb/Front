@@ -4,13 +4,13 @@ import { Button } from "../button";
 import { Icon } from "@src/components/icon";
 import { cn } from "@src/shared/lib/cn";
 
-export type SliderControlT = {
+export type SliderControlProps = {
     onRightArrowClick: () => void;
     onLeftArrowClick: () => void;
     disabled?: boolean;
 } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
-const SliderControl = ({ disabled, onRightArrowClick, onLeftArrowClick, ...props }: SliderControlT) => {
+const SliderControl = ({ disabled, onRightArrowClick, onLeftArrowClick, ...props }: SliderControlProps) => {
     return (
         <>
             <input className={styles.sliderControlHide} />

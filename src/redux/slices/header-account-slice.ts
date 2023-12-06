@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type HeaderAccountStateT = {
+type HeaderAccountStateProps = {
     contentBlock: string | undefined;
 };
 
-const initialState: HeaderAccountStateT = {
+const initialState: HeaderAccountStateProps = {
     contentBlock: undefined,
 };
 

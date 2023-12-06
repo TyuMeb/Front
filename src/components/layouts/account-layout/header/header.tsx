@@ -8,9 +8,9 @@ import Image from "next/image";
 import avatar from "@public/account/photo.png";
 import { Breadcrumbs } from "./breadcrumbs";
 
-type HeaderT = {} & HTMLAttributes<HTMLDivElement>;
+type HeaderProps = {} & HTMLAttributes<HTMLDivElement>;
 
-export const Header = ({ className, ...props }: HeaderT) => {
+export const Header = ({ className, ...props }: HeaderProps) => {
     return (
         <header className={className} {...props}>
             <div className={styles.wrapper}>

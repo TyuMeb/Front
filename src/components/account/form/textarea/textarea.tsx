@@ -5,10 +5,10 @@ import styles from "./textarea.module.scss";
 
 const cx = classNames.bind(styles);
 
-export type TextareaT = {} & InputHTMLAttributes<HTMLTextAreaElement>;
+export type TextareaProps = {} & InputHTMLAttributes<HTMLTextAreaElement>;
 
-export const Textarea = forwardRef<HTMLTextAreaElement, TextareaT>(
-    ({ disabled, className, onChange, ...props }: TextareaT, ref) => {
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
+    ({ disabled, className, onChange, ...props }: TextareaProps, ref) => {
         const setAutomaticHeight = (element: HTMLTextAreaElement, maxHeight: number) => {
             const height = element.style.height;
             const scrollHeight = `${element.scrollHeight}px`;

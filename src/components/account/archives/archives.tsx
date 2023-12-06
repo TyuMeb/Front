@@ -35,9 +35,9 @@ const orders = [
     },
 ];
 
-type ArchivesT = {} & HTMLAttributes<HTMLDivElement>;
+type ArchivesProps = {} & HTMLAttributes<HTMLDivElement>;
 
-export const Archives = (props: ArchivesT) => {
+export const Archives = (props: ArchivesProps) => {
     const renderOrders = () => {
         return orders.map((order) => {
             return (

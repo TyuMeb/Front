@@ -2,7 +2,7 @@
 
 import styles from "./examples.module.scss";
 import cn from "classnames";
-import { SlideItemT, SliderExample } from "@src/shared/ui/slider-example";
+import { SlideItemProps, SliderExample } from "@src/shared/ui/slider-example";
 import { useGalleryQuery } from "@src/redux/api/content-api-slice.1";
 
 export const Examples = () => {
@@ -19,7 +19,7 @@ export const Examples = () => {
         }
 
         return acc;
-    }, [] as SlideItemT[]);
+    }, [] as SlideItemProps[]);
 
     return slides.length ? (
         <div id="examples" className={styles.inner} key={slides.length}>

@@ -9,19 +9,19 @@ import { Button } from "@src/shared/ui/button";
 import { Icon } from "src/components/icon";
 import { WrapperCard } from "@src/components/account/wrapper-card";
 
-type DescriptionT = {
+type DescriptionProps = {
     date: string;
     status: string;
     countOffer: number;
 };
 
-type OrderT = {
+type OrderProps = {
     title: string;
     notOffer?: boolean;
-    description: DescriptionT;
+    description: DescriptionProps;
 } & HTMLAttributes<HTMLDivElement>;
 
-export const OrderCard = ({ title, notOffer, description, ...props }: OrderT) => {
+export const OrderCard = ({ title, notOffer, description, ...props }: OrderProps) => {
     const { date, status, countOffer } = description;
 
     return (

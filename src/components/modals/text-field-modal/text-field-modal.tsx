@@ -6,12 +6,12 @@ import styles from "@src/components/shared/ui/fields/fields.module.scss";
 
 const cx = classNames.bind(styles);
 
-type TextFieldModalT = {
+type TextFieldModalProps = {
     isError: boolean;
     labelText: string;
 } & HTMLAttributes<HTMLLabelElement>;
 
-export const TextFieldModal = ({ isError, labelText, children }: TextFieldModalT) => {
+export const TextFieldModal = ({ isError, labelText, children }: TextFieldModalProps) => {
     return (
         <label className={cx("label")}>
             {children}

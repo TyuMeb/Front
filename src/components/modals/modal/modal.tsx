@@ -8,11 +8,11 @@ import styles from "./modal.module.scss";
 
 const cx = classNames.bind(styles);
 
-type ModalT = {
+type ModalProps = {
     isOpen: boolean;
 } & InputHTMLAttributes<HTMLDivElement>;
 
-export const Modal = ({ children, isOpen }: ModalT) => {
+export const Modal = ({ children, isOpen }: ModalProps) => {
     const dispatch = useAppDispatch();
     const { typeModal } = useAppSelector((store) => store.modal);
 

@@ -1,9 +1,9 @@
 import React, { HTMLAttributes } from "react";
 import styles from "./form.module.scss";
 
-type ChatFormT = {} & HTMLAttributes<HTMLFormElement>;
+type ChatFormProps = {} & HTMLAttributes<HTMLFormElement>;
 
-export const Form = ({ className, children, ...props }: ChatFormT) => {
+export const Form = ({ className, children, ...props }: ChatFormProps) => {
     return (
         <div className={styles.wrapper}>
             <form className={`${styles.formChat} ${className}`} {...props}>

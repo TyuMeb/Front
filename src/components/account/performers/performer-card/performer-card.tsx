@@ -10,7 +10,7 @@ import { Icon } from "src/components/icon";
 
 const cx = classNames.bind(styles);
 
-type PerformerCardT = {
+type PerformerCardProps = {
     name: string;
     termOfExecution: string;
     cost: number;
@@ -32,7 +32,7 @@ const DESCRIPTION = `
     Продавец: Рад услужить! Будьте свободны вернуться, если у Вас поя
 `;
 
-export const PerformerCard = ({ performer }: { performer: PerformerCardT }) => {
+export const PerformerCard = ({ performer }: { performer: PerformerCardProps }) => {
     const { name, termOfExecution, cost, showGallery } = performer;
 
     const [showText, setShowText] = useState(true);

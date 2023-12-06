@@ -10,14 +10,14 @@ import { Form } from "@src/components/account/form";
 import classNames from "classnames/bind";
 import { useForm } from "react-hook-form";
 
-import { filesPreviewT, filesListT } from "@src/components/account/form/formTypes";
+import { filesPreviewProps, filesListProps } from "@src/components/account/form/formTypes";
 
 import styles from "./help.module.scss";
 
 const cx = classNames.bind(styles);
 
 export const Help = () => {
-    const [filesPreview, setFilesPreview] = useState<filesPreviewT[] | []>([]);
+    const [filesPreview, setFilesPreview] = useState<filesPreviewProps[] | []>([]);
 
     const { handleSubmit, register } = useForm({
         values: {
@@ -25,8 +25,8 @@ export const Help = () => {
         },
     });
 
-    const getFiles = (filesList: filesPreviewT[]) => {
-        const files = [] as filesListT[];
+    const getFiles = (filesList: filesPreviewProps[]) => {
+        const files = [] as filesListProps[];
 
         filesList.forEach((file) => {
             if (!file.error) {

@@ -14,7 +14,7 @@ import { Icon } from "@src/components/icon";
 
 const cx = classNames.bind(styles);
 
-type FormT = {
+type FormProps = {
     new_password: string;
     confirm_password: string;
 };
@@ -30,7 +30,7 @@ export const ResetPasswordConfirm = () => {
         handleSubmit,
         watch,
         formState: { errors },
-    } = useForm<FormT>({
+    } = useForm<FormProps>({
         values: {
             new_password: "",
             confirm_password: "",
@@ -41,7 +41,7 @@ export const ResetPasswordConfirm = () => {
 
     const [resetPasswordConfirm, { isLoading, isSuccess }] = usePostUsersResetPasswordConfirmMutation();
 
-    const onSubmit = (data: FormT) => {
+    const onSubmit = (data: FormProps) => {
         setError("");
 
         resetPasswordConfirm({ ...data, uid: params.uid as string, token: params.token as string })

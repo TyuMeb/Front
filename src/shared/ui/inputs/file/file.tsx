@@ -5,9 +5,9 @@ import styles from "./file.module.scss";
 
 const cx = classNames.bind(styles);
 
-export type FileInputI = {} & InputHTMLAttributes<HTMLInputElement>;
+export type FileInputProps = {} & InputHTMLAttributes<HTMLInputElement>;
 
-export const FileInput = ({ disabled, children, ...props }: FileInputI) => {
+export const FileInput = ({ disabled, children, ...props }: FileInputProps) => {
     return (
         <label className={cx("wrapperFile", { disabled })}>
             <input type="file" className={cx("inputFile")} disabled={disabled} {...props} />

@@ -1,4 +1,4 @@
-export type OrdersT = {
+export type OrdersProps = {
     id: number;
     name: string;
     order_time: string;
@@ -7,7 +7,7 @@ export type OrdersT = {
     files: string[];
 };
 
-export type PerformersT = {
+export type PerformersProps = {
     id: number;
     termOfExecution: string;
     cost: string;
@@ -38,7 +38,7 @@ export const orders = [
         countPerformers: 2,
         files: [],
     },
-] as OrdersT[];
+] as OrdersProps[];
 
 export const performers = [
     {
@@ -53,4 +53,4 @@ export const performers = [
         cost: "от 100000 руб",
         showGallery: true,
     },
-] as PerformersT[];
+] as PerformersProps[];

@@ -13,12 +13,12 @@ import { InputPreviewFiles } from "@src/components/account/form/input-preview-fi
 import Paperclip from "@public/icons/paperclip.svg";
 import { Icon } from "@src/components/icon";
 import { PreviewFiles } from "@src/components/account/form/preview-files";
-import { filesPreviewT, filesListT } from "@src/components/account/form/formTypes";
+import { filesPreviewProps, filesListProps } from "@src/components/account/form/formTypes";
 import { useForm } from "react-hook-form";
 
 export const Dialog = () => {
     const [formHeight, setFormHeight] = useState<number>(0);
-    const [filesPreview, setFilesPreview] = useState<filesPreviewT[] | []>([]);
+    const [filesPreview, setFilesPreview] = useState<filesPreviewProps[] | []>([]);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -39,8 +39,8 @@ export const Dialog = () => {
         resizeObserver.observe(node);
     }, []);
 
-    const getFiles = (filesList: filesPreviewT[]) => {
-        const files = [] as filesListT[];
+    const getFiles = (filesList: filesPreviewProps[]) => {
+        const files = [] as filesListProps[];
 
         filesList.forEach((file) => {
             if (!file.error) {

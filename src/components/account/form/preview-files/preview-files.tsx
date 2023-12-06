@@ -3,21 +3,21 @@ import Image from "next/image";
 
 import styles from "./preview-files.module.scss";
 import { Icon } from "@src/components/icon";
-import { filesPreviewT } from "@src/components/account/form/formTypes";
+import { filesPreviewProps } from "@src/components/account/form/formTypes";
 
-type convertT = "MB";
+type convertProps = "MB";
 
 type PreviewFilesT = {
-    files: filesPreviewT[];
-    convertType?: convertT;
-    setFilesPreview: Dispatch<SetStateAction<filesPreviewT[] | []>>;
+    files: filesPreviewProps[];
+    convertType?: convertProps;
+    setFilesPreview: Dispatch<SetStateAction<filesPreviewProps[] | []>>;
 };
 
 export const PreviewFiles = ({ files, convertType = "MB", setFilesPreview }: PreviewFilesT) => {
     const removeHandlerFile = (event: MouseEvent<HTMLSpanElement>, id: string) => {
         const target = event.target as HTMLDivElement;
         if (target) {
-            setFilesPreview((prevValue: filesPreviewT[]) => {
+            setFilesPreview((prevValue: filesPreviewProps[]) => {
                 const newArr = prevValue.filter((value) => value.id !== id);
                 return newArr;
             });
@@ -28,7 +28,7 @@ export const PreviewFiles = ({ files, convertType = "MB", setFilesPreview }: Pre
         MB: { size: 1000000, symbol: "mb" },
     };
 
-    const convertTo = (size: number, convertType: convertT) => {
+    const convertTo = (size: number, convertType: convertProps) => {
         const convertValue = (size / converterValue[convertType].size).toFixed(3);
         return `${convertValue} ${converterValue[convertType].symbol}`;
     };

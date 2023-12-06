@@ -1,16 +1,16 @@
 import React, { ChangeEvent, Dispatch, InputHTMLAttributes, SetStateAction } from "react";
 
-import { filesPreviewT } from "@src/components/account/form/formTypes";
+import { filesPreviewProps } from "@src/components/account/form/formTypes";
 import { FileInput } from "@src/shared/ui/inputs";
 
-export type FileInputI = {
+export type FileInputProps = {
     maxSizeImage?: number;
     maxSizeFile?: number;
     maxCountFiles?: number;
-    setFilesPreview: Dispatch<SetStateAction<filesPreviewT[] | []>>;
+    setFilesPreview: Dispatch<SetStateAction<filesPreviewProps[] | []>>;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-export const InputPreviewFiles = (props: FileInputI) => {
+export const InputPreviewFiles = (props: FileInputProps) => {
     const {
         children,
         multiple = false,
@@ -23,7 +23,7 @@ export const InputPreviewFiles = (props: FileInputI) => {
         ...restProps
     } = props;
 
-    const checkMaxSizeFiles = (file: File | filesPreviewT) => {
+    const checkMaxSizeFiles = (file: File | filesPreviewProps) => {
         if (maxSizeImage && file.size >= maxSizeImage && file.type.match("image")) {
             return false;
         }
@@ -35,7 +35,7 @@ export const InputPreviewFiles = (props: FileInputI) => {
         return true;
     };
 
-    const saveFiles = (data: filesPreviewT) => {
+    const saveFiles = (data: filesPreviewProps) => {
         if (data.error) {
             setFilesPreview((prevValue) => {
                 const newArray = [...prevValue];
@@ -86,7 +86,7 @@ export const InputPreviewFiles = (props: FileInputI) => {
                     url: "",
                     typeName: file.name.split(".").slice(-1)[0].toUpperCase(),
                     file: file,
-                } as filesPreviewT;
+                } as filesPreviewProps;
 
                 fileData.error = !checkMaxSizeFiles(file);
 

@@ -38,9 +38,9 @@ const orders = [
     },
 ];
 
-type MyOrdersT = {} & HTMLAttributes<HTMLDivElement>;
+type MyOrdersProps = {} & HTMLAttributes<HTMLDivElement>;
 
-export const MyOrders = (props: MyOrdersT) => {
+export const MyOrders = (props: MyOrdersProps) => {
     const renderOrders = () => {
         return orders.map((order) => {
             return (

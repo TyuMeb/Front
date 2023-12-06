@@ -6,12 +6,12 @@ import { cn } from "@src/shared/lib/cn";
 import { CardExample, CardExampleProps } from "@src/shared/ui/card-example";
 import { SliderControl } from "@src/shared/ui/slider-control";
 
-export type SlideItemT = {
+export type SlideItemProps = {
     items: Required<Array<CardExampleProps>>;
 };
 
 type SliderProps = {
-    slides: Required<Array<SlideItemT>>;
+    slides: Required<Array<SlideItemProps>>;
     disabled?: boolean;
     delay?: number;
     slideRight?: boolean;
