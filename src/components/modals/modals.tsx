@@ -1,15 +1,17 @@
 "use client";
 
-import { useAppSelector } from "@src/redux/hooks";
-import Modal from "@src/components/modals/modal/modal";
-
-import SignIn from "@src/components/modals/signin";
-import Registration from "@src/components/modals/registration";
 import React, { useEffect } from "react";
-import ResetPasswordConfirm from "@src/components/modals/reset-password-confirm";
-import { ResetPassword } from "./reset-password";
+import { useAppSelector } from "@src/redux/hooks";
 
-const Modals = () => {
+import { Modal } from "@src/components/modals/modal";
+import { SignIn } from "@src/components/modals/signin";
+import { Registration } from "@src/components/modals/registration";
+import { ResetPasswordConfirm } from "@src/components/modals/reset-password-confirm";
+import { ChooseThisProducer } from "@src/components/modals/choose-this-producer";
+import { ResetPassword } from "@src/components/modals/reset-password";
+import { Confirm } from "@src/components/modals/confirm";
+
+export const Modals = () => {
     const { modal, typeModal } = useAppSelector((store) => store.modal);
 
     useEffect(() => {
@@ -34,6 +36,10 @@ const Modals = () => {
                 return <ResetPassword />;
             case "resetPasswordConfirm":
                 return <ResetPasswordConfirm />;
+            case "chooseThisProducer":
+                return <ChooseThisProducer />;
+            case "confirm":
+                return <Confirm />;
             default:
                 return <></>;
         }
@@ -45,5 +51,3 @@ const Modals = () => {
         </>
     );
 };
-
-export default Modals;

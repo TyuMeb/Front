@@ -1,16 +1,20 @@
-import { FC, useEffect, ReactNode } from "react";
-import styles from "./modal.module.scss";
-import { useAppDispatch } from "@src/redux/hooks";
-import { closeModal } from "@src/redux/slices/modal-slice";
+import { useEffect, InputHTMLAttributes } from "react";
+import classNames from "classnames/bind";
 import * as Dialog from "@radix-ui/react-dialog";
 
-interface IModal {
-    children: ReactNode;
-    isOpen: boolean;
-}
+import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
+import { closeModal } from "@src/redux/slices/modal-slice";
+import styles from "./modal.module.scss";
 
-const Modal: FC<IModal> = ({ children, isOpen }) => {
+const cx = classNames.bind(styles);
+
+type ModalProps = {
+    isOpen: boolean;
+} & InputHTMLAttributes<HTMLDivElement>;
+
+export const Modal = ({ children, isOpen }: ModalProps) => {
     const dispatch = useAppDispatch();
+    const { typeModal } = useAppSelector((store) => store.modal);
 
     useEffect(() => {
         const closeByEscape = (e: KeyboardEvent) => {
@@ -30,7 +34,11 @@ const Modal: FC<IModal> = ({ children, isOpen }) => {
                 dispatch(closeModal());
             }}>
             <Dialog.Portal>
-                <Dialog.Overlay className={styles.overlay}>
+                <Dialog.Overlay
+                    className={cx("overlay", {
+                        overlayDark: typeModal === "chooseThisProducer",
+                        overlayNone: typeModal === "confirm",
+                    })}>
                     <Dialog.Content className={styles.modal}>
                         <button type="button" className={styles.closeModal} onMouseUp={() => dispatch(closeModal())} />
                         {children}
@@ -40,5 +48,3 @@ const Modal: FC<IModal> = ({ children, isOpen }) => {
         </Dialog.Root>
     );
 };
-
-export default Modal;

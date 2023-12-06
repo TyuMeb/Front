@@ -1,4 +1,4 @@
-const USER_SLIDER_TEST_DATA2 = [
+export const USER_SLIDER_TEST_DATA = [
     <img
         key={111}
         style={{ objectFit: "cover", width: "100%", height: "100%" }}
@@ -30,5 +30,3 @@ const USER_SLIDER_TEST_DATA2 = [
         alt="logo-nightstand5"
     />,
 ];
-
-export { USER_SLIDER_TEST_DATA2 };

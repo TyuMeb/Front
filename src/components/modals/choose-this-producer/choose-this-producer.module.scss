@@ -1,0 +1,31 @@
+.window {
+    display: flex;
+    flex-direction: column;
+    padding: 68px 270px;
+    max-width: 1220px;
+    background-color: #fffaee;
+    border-radius: 45px;
+    row-gap: 36px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.marginBottom {
+    margin-bottom: 20px;
+}
+
+.fontWeightBold {
+    font-weight: 700;
+}
+
+.wrapperButton {
+    display: flex;
+    column-gap: 36px;
+}
+
+.wrapperButton .buttonClose {
+    border-radius: 0;
+    padding: 12px 40px;
+}

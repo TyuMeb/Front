@@ -1,7 +1,5 @@
-import { PasswordInput } from "./password";
-import { PhoneInput } from "./phone";
-
-export { CheckboxInput } from "./checkbox";
-export { PasswordInput, PhoneInput };
-export { Input } from "./input";
-export type { InputProps } from "./input";
+export * from "./checkbox";
+export * from "./file";
+export * from "./input";
+export * from "./password";
+export * from "./phone";

@@ -5,7 +5,7 @@ import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/slices/modal-slice";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
-import ModalAuth from "@src/components/modals/modal-auth";
+import { ModalAuth } from "@src/components/modals/modal-auth";
 import { Icon } from "@src/components/icon";
 
 import { Input, PasswordInput } from "@src/shared/ui/inputs";
@@ -16,12 +16,11 @@ import { useCreateTokenMutation } from "@src/redux/api/jwt-api-slice";
 import { setCookie, removeCookie } from "typescript-cookie";
 import { useLazyGetUserQuery, useVerifyUserQuery } from "@src/redux/api/auth-api-slice";
 import { setUser } from "@src/redux/slices/users-slice";
-import { useRouter } from "next/navigation";
-import { useParams } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 
 const cx = classNames.bind(styles);
 
-const SignIn = () => {
+export const SignIn = () => {
     const router = useRouter();
 
     const params = useParams();
@@ -123,5 +122,3 @@ const SignIn = () => {
         </ModalAuth>
     );
 };
-
-export default SignIn;
