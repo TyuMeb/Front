@@ -1,14 +1,14 @@
 .text {
     @include textSmall;
-    @include text;
 
     color: $black;
     cursor: text;
 }
 
 .label {
-    margin: 0 0 8px 16px;
+    margin: 0 0 8px;
     display: flex;
+    font-weight: 600;
     align-items: center;
 }
 

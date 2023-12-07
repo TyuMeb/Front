@@ -203,7 +203,9 @@ export interface Category {
     /** Id */
     id?: number;
     /** Тип - кухня, шкафы, кровати */
-    name?: "bedside_table" | "table" | "kitchen" | null;
+    name?: "bedside_table" | "kitchen" | "table" | null;
+    /** Активная категория */
+    active?: boolean;
 }
 
 export interface QuestionnaireShortType {
@@ -221,6 +223,8 @@ export interface QuestionnaireShortType {
      * @maxLength 500
      */
     description?: string | null;
+    /** Активная анкета */
+    active?: boolean;
 }
 
 export interface Message {
@@ -352,6 +356,18 @@ export interface QuestionnaireResponse {
     response?: string | null;
 }
 
+export interface OrderFull {
+    /**
+     * Название заказа
+     * @minLength 1
+     * @maxLength 150
+     */
+    name?: string | null;
+    /** Questionnaire type id */
+    questionnaire_type_id?: number;
+    answers: QuestionnaireResponse[];
+}
+
 export interface Option {
     /** Id */
     id?: number;
@@ -362,7 +378,7 @@ export interface Option {
      */
     text: string;
     /** Тип опции */
-    option_type: "answer" | "sub_questions";
+    option_type: "sub_questions" | "answer";
     /** Questions */
     questions?: string;
 }
@@ -377,9 +393,11 @@ export interface Question {
      */
     text: string;
     /** Тип ответа */
-    answer_type: "text_field" | "choice_field" | "answer_not_required";
+    answer_type: "answer_not_required" | "choice_field" | "text_field";
     /** File required */
     file_required?: boolean;
+    /** Answer required */
+    answer_required?: boolean;
     options?: Option[];
 }
 

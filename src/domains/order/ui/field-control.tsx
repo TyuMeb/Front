@@ -1,5 +1,6 @@
 import { Question } from "@src/redux/api/generated";
 import { Input } from "@src/shared/ui/inputs";
+import { Select } from "@src/shared/ui/select";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 
@@ -9,37 +10,47 @@ type Props = {
 } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 export const FieldControl = ({ order: order, question, ...props }: Props) => {
-    console.log("🚀 ~ file: field-control.tsx:11 ~ FieldControl ~ props:", props);
-    const { register, watch } = useFormContext();
+    const { register, watch, setValue } = useFormContext();
 
     const value = watch(String(question.id));
 
     let content = null;
 
-    const label = `${order}.${question.text}`;
+    const label = `${order}.${question.answer_required ? "* " : ""} ${question.text}`;
 
     if (question.answer_type === "text_field") {
         content = <Input {...register(String(question.id))} label={label} />;
     }
 
     if (question.answer_type === "choice_field") {
-        const selected = (question.options || []).find((option) => String(option.id) === value);
+        const selected = (question.options || []).find((option) => String(option.text) === value);
+
         content = (
             <>
-                <p>{label}</p>
-                <select placeholder={question.text} {...register(String(question.id))}>
-                    {(question.options || []).map((option) => (
-                        <option key={option.id} value={option.id}>
-                            {option.text}
-                        </option>
-                    ))}
-                </select>
+                <Select
+                    {...register(String(question.id))}
+                    className="mb-4"
+                    label={label}
+                    onValueChange={(value) => {
+                        const found = question.options?.find((option) => option.text === value);
+
+                        setValue(String(question.id), found?.text || "");
+                    }}
+                    value={selected?.text}
+                    placeholder={question.text}
+                    items={
+                        question.options?.map((option) => ({
+                            id: option.text!,
+                            name: option.text,
+                        })) || []
+                    }></Select>
 
                 {selected?.questions?.length !== 0 && (
                     <>
                         {/* @ts-ignore */}
                         {(selected?.questions || []).map((subQuestion, subOrder) => (
                             <FieldControl
+                                {...props}
                                 style={{
                                     paddingLeft: Number(props.style?.paddingLeft || 0) + 16,
                                 }}
@@ -53,6 +64,7 @@ export const FieldControl = ({ order: order, question, ...props }: Props) => {
             </>
         );
     }
+
     return (
         <div
             {...props}

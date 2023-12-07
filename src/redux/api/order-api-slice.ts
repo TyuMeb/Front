@@ -1,6 +1,12 @@
 import { apiSlice } from "./api-slice";
 import { QuestionnaireResponse } from "./generated";
 
+export type OrderDetail = {
+    name: string;
+    questionnaire_type_id: number;
+    answers: QuestionnaireResponse[];
+};
+
 const orderApi = apiSlice.injectEndpoints({
     endpoints: (build) => ({
         createOrder: build.mutation<{ order_id: number }, { questionnaire_type_id: number }>({
@@ -10,15 +16,15 @@ const orderApi = apiSlice.injectEndpoints({
                 body,
             }),
         }),
-        orderAnswers: build.query<QuestionnaireResponse[], number>({
+        orderAnswers: build.query<OrderDetail, number>({
             query: (id) => ({
-                url: `/order/${id}/get_answers/`,
+                url: `/order/${id}/`,
             }),
         }),
-        orderCreateAnswers: build.mutation<QuestionnaireResponse[], { id: number; answers: QuestionnaireResponse[] }>({
-            query: ({ id, ...body }) => ({
+        orderCreateAnswers: build.mutation<QuestionnaireResponse[], { id: number; body: QuestionnaireResponse[] }>({
+            query: ({ id, body }) => ({
                 url: `/order/${id}/answers/`,
-                body,
+                body: body,
                 method: "POST",
             }),
         }),

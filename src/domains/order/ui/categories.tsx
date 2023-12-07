@@ -1,4 +1,5 @@
 import { useCategoriesQuery } from "@src/redux/api/category-api-slice";
+import { cn } from "@src/shared/lib/cn";
 
 import React from "react";
 
@@ -8,31 +9,38 @@ type Props = {
     setCategoryId: (value: number) => void;
 };
 
-export const Categories = ({ setCategoryId, children }: Props) => {
+export const Categories = ({ setCategoryId, children, categoryId }: Props) => {
     const { data } = useCategoriesQuery();
 
     return (
-        <div>
-            <h1>Выберите тип мебели</h1>
-
-            <hr />
-
-            <div>
+        <>
+            <div className="flex items-center gap-2 pb-4 mb-10 border-b-2 border-yellow-400">
+                <h1 className="mr-auto text-xl font-semibold">Выберите тип мебели</h1>
+            </div>
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
                 {data?.map((category) => (
-                    <button type="button" onClick={() => setCategoryId(category.id!)} key={category.id}>
+                    <button
+                        className={cn("flex flex-col text-left", !category.active && "opacity-70 pointer-events-none")}
+                        type="button"
+                        onClick={() => setCategoryId(category.id!)}
+                        key={category.id}>
                         <img
                             src="https://pro-dachnikov.com/uploads/posts/2023-01/1673662393_pro-dachnikov-com-p-krasivo-sdelat-foto-mebeli-59.jpg"
                             alt={category.name || ""}
+                            className={cn(
+                                "border-2 border-transparent rounded-lg mb-4",
+                                category.id === categoryId && "border-yellow-400"
+                            )}
                         />
 
-                        <p>{category.name}</p>
+                        <p className="font-semibold">{category.name}</p>
 
-                        {category.name !== "kitchen" && <p>Временно недоступно</p>}
+                        {!category.active && <p>Временно недоступно</p>}
                     </button>
                 ))}
             </div>
 
             {children}
-        </div>
+        </>
     );
 };

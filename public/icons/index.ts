@@ -6,6 +6,7 @@ import eye from './eye.svg';
 import open_eye from './open_eye.svg';
 import vk from './vk.svg';
 import exit from './exit.svg';
+import chevronDown from './chevron-down.svg';
 
 import arrowRight from './home/arrow-right.svg';
 import clock from './home/clock.svg';
@@ -16,6 +17,7 @@ import settings from './home/settings.svg';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
+	chevronDown,
 	resetPassword,
 	signin,
 	warning,

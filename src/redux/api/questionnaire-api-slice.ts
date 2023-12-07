@@ -3,9 +3,9 @@ import { QuestionnaireType } from "./generated";
 
 const questionnaireApi = apiSlice.injectEndpoints({
     endpoints: (build) => ({
-        questionnaire: build.query<QuestionnaireType, string>({
-            query: (id: string) => ({
-                url: `/questionnaire/${id}`,
+        questionnaire: build.query<QuestionnaireType, number>({
+            query: (id: number) => ({
+                url: `/questionnaire/${id}/`,
             }),
         }),
     }),

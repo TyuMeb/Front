@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
     --text-main-color: #1c1c1c;
     --accent-color: #fccf55;
@@ -76,15 +80,6 @@ h4 {
     font-size: 1.125rem;
     line-height: 130%;
     font-weight: 600;
-}
-
-.container {
-    max-width: calc(1220px + 32px);
-
-    margin: 0 auto;
-
-    padding-left: 16px;
-    padding-right: 16px;
 }
 
 .homePage {
