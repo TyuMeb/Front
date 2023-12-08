@@ -11,7 +11,14 @@ type AddFilesProps = {
     onChangeHandler: (data: filesListProps[]) => void;
 } & HTMLAttributes<HTMLInputElement>;
 
-export const AddFiles = ({ children, maxSizeImage, maxSizeFile, onChangeHandler, ...props }: AddFilesProps) => {
+export const AddFiles = ({
+    children,
+    maxSizeImage,
+    maxSizeFile,
+    maxCountFiles,
+    onChangeHandler,
+    ...props
+}: AddFilesProps) => {
     const changeHandlerFiles = (event: ChangeEvent<HTMLInputElement>) => {
         const target = event.target;
 
@@ -22,8 +29,12 @@ export const AddFiles = ({ children, maxSizeImage, maxSizeFile, onChangeHandler,
                 return;
             }
 
-            const fileList = [] as { file: File; id: string; error: boolean }[];
-            files.forEach((file) => {
+            const fileList = [] as filesListProps[];
+            files.forEach((file, i) => {
+                if (maxCountFiles && i >= maxCountFiles) {
+                    return;
+                }
+
                 const id = `f${(~~(Math.random() * 1e8)).toString(16)}`;
 
                 fileList.push({ id: id, file, error: !checkMaxSizeFiles({ file, maxSizeImage, maxSizeFile }) });
