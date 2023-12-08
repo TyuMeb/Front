@@ -41,6 +41,6 @@ export const Default: Story = {
     args: {
         itemsToShow: 3,
         variant: "small",
-        slides: USER_SLIDER_TEST_DATA,
+        children: USER_SLIDER_TEST_DATA,
     },
 };

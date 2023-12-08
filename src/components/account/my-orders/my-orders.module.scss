@@ -11,6 +11,10 @@
     column-gap: 8px;
 }
 
+.wrapperSlider {
+    max-width: 368px;
+}
+
 .addPhoto {
     width: 288px;
     height: 148px;
@@ -33,4 +37,10 @@
 
 .borderRadius {
     border-radius: 20px;
+}
+
+.image {
+    object-fit: fill;
+    width: 288px;
+    height: 148px;
 }

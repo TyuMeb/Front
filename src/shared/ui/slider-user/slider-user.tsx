@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, ReactNode } from "react";
+import React, { FC, useState, useEffect, HTMLAttributes, Children, ReactElement, cloneElement } from "react";
 import "keen-slider/keen-slider.min.css";
 import { Button } from "../button";
 import styles from "./slider-user.module.scss";
@@ -7,17 +7,23 @@ import { useSlider } from "@src/hooks/use-slider";
 import { Icon } from "@src/components/icon";
 
 type UserSliderProps = {
-    slides: Required<Array<ReactNode>>;
     itemsToShow?: number;
     variant?: "small" | "big";
-};
+    children: ReactElement[];
+} & HTMLAttributes<HTMLDivElement>;
 
-export const SliderUser: FC<UserSliderProps> = ({ slides, itemsToShow = 1, variant = "big" }) => {
+export const SliderUser: FC<UserSliderProps> = ({
+    itemsToShow = 1,
+    variant = "big",
+    children,
+    className,
+    ...props
+}) => {
     const [isVisible, setIsVisible] = useState(false);
 
     const { sliderRef, instanceRef, loaded } = useSlider({
         perView: itemsToShow,
-        spacing: variant === "small" ? 20 : 8,
+        spacing: variant === "small" ? 18 : 8,
     });
 
     useEffect(() => {
@@ -33,9 +39,9 @@ export const SliderUser: FC<UserSliderProps> = ({ slides, itemsToShow = 1, varia
     }
 
     return (
-        <section className={cn(styles.slider, isVisible ? styles.slider_visible : null)}>
+        <section className={cn(styles.slider, isVisible ? styles.slider_visible : null, className)} {...props}>
             <div className={cn(styles.slider__content, variant === "small" && styles.slider__content_photo)}>
-                {loaded && slides.length > itemsToShow && (
+                {loaded && children.length > itemsToShow && (
                     <Button
                         type="button"
                         icon={
@@ -57,21 +63,23 @@ export const SliderUser: FC<UserSliderProps> = ({ slides, itemsToShow = 1, varia
                     <div
                         ref={sliderRef}
                         className={cn("keen-slider", variant !== "small" && styles.slider__slider_wrapper)}>
-                        {slides.map((item, i) => (
-                            <div
-                                className={cn(
-                                    "keen-slider__slide",
-                                    styles.slider__slide,
-                                    variant === "small" && styles.slider__slide_photo
-                                )}
-                                key={i}>
-                                {item}
-                            </div>
-                        ))}
+                        {Children.map(children, (child, i) => {
+                            return cloneElement(
+                                <div
+                                    className={cn(
+                                        "keen-slider__slide",
+                                        styles.slider__slide,
+                                        variant === "small" && styles.slider__slide_photo
+                                    )}
+                                    key={i}>
+                                    {child}
+                                </div>
+                            );
+                        })}
                     </div>
                 }
 
-                {loaded && slides.length > itemsToShow && (
+                {loaded && children.length > itemsToShow && (
                     <Button
                         type="button"
                         icon={<Icon glyph={"arrowRight"} width={7} height={15} viewBox="0 0 16 30" />}

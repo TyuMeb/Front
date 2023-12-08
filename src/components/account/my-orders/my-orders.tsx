@@ -1,7 +1,7 @@
 "use client";
 
 import React, { HTMLAttributes } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 import styles from "./my-orders.module.scss";
 import { OrderCard } from "@src/components/account/my-orders/order-card";
@@ -11,13 +11,15 @@ import { Icon } from "src/components/icon";
 import { getFiles } from "@src/helpers";
 import { filesListProps } from "@src/components/account/form/formTypes";
 import desk from "@public/account/desk.jpg";
+import slide from "@public/home/s_slide00.jpg";
+import { SliderUser } from "@src/shared/ui/slider-user";
 
 const orders = [
     {
         id: "1",
         title: "Полка настенная",
         notOffer: false,
-        images: [desk],
+        images: [desk, desk, slide],
         description: {
             date: "24.04.2024",
             status: "сбор предложений окончен",
@@ -75,23 +77,7 @@ export const MyOrders = (props: MyOrdersProps) => {
                 <li key={order.id}>
                     <OrderCard title={order.title} notOffer={order.notOffer} description={order.description}>
                         {order.images.length ? (
-                            <div className={styles.wrapperGallery}>
-                                <button className={styles.button}>
-                                    <Icon glyph="arrowLeft" />
-                                </button>
-                                <Image
-                                    className={styles.borderRadius}
-                                    src={order.images[0]}
-                                    width={288}
-                                    height={148}
-                                    loading="lazy"
-                                    quality={100}
-                                    alt="Картинка"
-                                />
-                                <button className={styles.button}>
-                                    <Icon glyph="arrowLeft" transform="rotate(180)" />
-                                </button>
-                            </div>
+                            <div className={styles.wrapperSlider}>{renderSlider(order.images, order.title)}</div>
                         ) : (
                             <AddFiles {...settingsInput} onChangeHandler={onChangeHandler}>
                                 <div className={styles.addPhoto}>
@@ -104,6 +90,17 @@ export const MyOrders = (props: MyOrdersProps) => {
                 </li>
             );
         });
+    };
+
+    const renderSlider = (images: StaticImageData[], alt: string) => {
+        return (
+            <SliderUser>
+                {images.map((image) => {
+                    const id = `f${(~~(Math.random() * 1e8)).toString(16)}`;
+                    return <Image key={id} src={image} alt={alt} className={styles.image} />;
+                })}
+            </SliderUser>
+        );
     };
 
     return (
