@@ -2,6 +2,7 @@ import React, { ChangeEvent, Dispatch, InputHTMLAttributes, SetStateAction } fro
 
 import { filesPreviewProps } from "@src/components/account/form/formTypes";
 import { FileInput } from "@src/shared/ui/inputs";
+import { checkMaxSizeFiles } from "@src/helpers";
 
 export type FileInputProps = {
     maxSizeImage?: number;
@@ -22,18 +23,6 @@ export const InputPreviewFiles = (props: FileInputProps) => {
         name,
         ...restProps
     } = props;
-
-    const checkMaxSizeFiles = (file: File | filesPreviewProps) => {
-        if (maxSizeImage && file.size >= maxSizeImage && file.type.match("image")) {
-            return false;
-        }
-
-        if (maxSizeFile && file.size >= maxSizeFile && !file.type.match("image")) {
-            return false;
-        }
-
-        return true;
-    };
 
     const saveFiles = (data: filesPreviewProps) => {
         if (data.error) {
@@ -88,7 +77,7 @@ export const InputPreviewFiles = (props: FileInputProps) => {
                     file: file,
                 } as filesPreviewProps;
 
-                fileData.error = !checkMaxSizeFiles(file);
+                fileData.error = !checkMaxSizeFiles({ file, maxSizeImage, maxSizeFile });
 
                 fileList.push({ id: id, file, error: fileData.error });
 

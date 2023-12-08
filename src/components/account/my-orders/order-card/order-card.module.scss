@@ -27,25 +27,6 @@
     border-bottom: 1px dotted #9ca2bd;
 }
 
-.wrapperGallery {
-    display: grid;
-    align-items: center;
-    grid-auto-flow: column;
-    column-gap: 8px;
-}
-
-.button {
-    width: 32px;
-    height: 32px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-.borderRadius {
-    border-radius: 20px;
-}
-
 .wrapperButton {
     margin-right: auto;
 }
