@@ -1,13 +1,29 @@
+"use client";
+
 import React, { HTMLAttributes } from "react";
-import classNames from "classnames/bind";
 
 import styles from "./header.module.scss";
-const cx = classNames.bind(styles);
+import Link from "next/link";
+import Image from "next/image";
+import avatar from "@public/account/photo.png";
+import { Breadcrumbs } from "./breadcrumbs";
 
-interface IHeader extends HTMLAttributes<HTMLDivElement> {}
+type HeaderProps = {} & HTMLAttributes<HTMLDivElement>;
 
-const Header = ({ className }: IHeader) => {
-    return <div className={cx("header", className)}>Header</div>;
+export const Header = ({ className, ...props }: HeaderProps) => {
+    return (
+        <header className={className} {...props}>
+            <div className={styles.wrapper}>
+                <nav className={styles.navigation}>
+                    <Link className={`subtitle1 ${styles.logo}`} href="/">
+                        ВайВи
+                    </Link>
+                    <Breadcrumbs />
+                    <Link className={styles.avatar} href="#">
+                        <Image priority={true} src={avatar} alt="Фото"></Image>
+                    </Link>
+                </nav>
+            </div>
+        </header>
+    );
 };
-
-export default Header;

@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface IHeaderState {
+type HeaderStateProps = {
     contentBlock: string | undefined;
-}
+};
 
-const initialState: IHeaderState = {
+const initialState: HeaderStateProps = {
     contentBlock: undefined,
 };
 

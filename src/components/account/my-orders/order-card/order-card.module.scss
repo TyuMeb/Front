@@ -1,0 +1,51 @@
+.colorPink {
+    color: #ff6894;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.list {
+    max-width: 420px;
+    width: 100%;
+    margin-right: 12px;
+    display: grid;
+    row-gap: 16px;
+}
+
+.item {
+    display: grid;
+    align-items: center;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eae5e1;
+    grid-template-columns: 1fr 2fr;
+}
+
+.decor {
+    border-bottom: 1px dotted #9ca2bd;
+}
+
+.wrapperGallery {
+    display: grid;
+    align-items: center;
+    grid-auto-flow: column;
+    column-gap: 8px;
+}
+
+.button {
+    width: 32px;
+    height: 32px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.borderRadius {
+    border-radius: 20px;
+}
+
+.wrapperButton {
+    margin-right: auto;
+}

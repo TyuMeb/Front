@@ -1,9 +1,21 @@
 import React, { ReactNode } from "react";
 import { Providers } from "@src/redux/provider";
-import { Open_Sans } from "next/font/google";
+import { Open_Sans, Raleway } from "next/font/google";
 import "@src/styles/global.css";
 
-const openSans = Open_Sans({ subsets: ["cyrillic"] });
+const openSans = Open_Sans({
+    subsets: ["cyrillic"],
+    variable: "--font-open-sans",
+    weight: ["400", "600", "700", "800"],
+    style: ["normal"],
+});
+
+const raleway = Raleway({
+    subsets: ["cyrillic"],
+    variable: "--font-raleway",
+    weight: ["400"],
+    style: ["normal"],
+});
 
 export const metadata = {
     title: "Marketplace Why We",
@@ -14,7 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="ru">
             <Providers>
-                <body className={openSans.className}>{children}</body>
+                <body className={`${openSans.variable} ${raleway.variable}`}>{children}</body>
             </Providers>
         </html>
     );

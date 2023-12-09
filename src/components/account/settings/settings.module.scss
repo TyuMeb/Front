@@ -1,0 +1,42 @@
+@import "~/src/styles/variables";
+
+.inputsRegistration {
+    display: grid;
+    grid-template-columns: [startline] repeat(2, minmax(296px, max-content)) [endline];
+    gap: 28px;
+    margin-bottom: 44px;
+}
+
+.marginButton {
+    margin-bottom: 64px;
+}
+
+.wrapperCheckbox {
+    gap: 44px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 64px;
+}
+
+.title {
+    @include font-source-sans(16px, $graphite-black, 600, 160%);
+}
+
+.list {
+    display: flex;
+    column-gap: 28px;
+}
+
+.checkbox {
+    column-gap: 8px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    column-gap: 80px;
+}
+
+.text {
+    @include font-source-sans(16px, $graphite-black, 400, 150%);
+}

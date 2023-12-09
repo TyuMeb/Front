@@ -3,7 +3,6 @@ import classNames from "classnames/bind";
 
 import styles from "./checkbox.module.scss";
 import { Icon } from "@src/components/icon";
-import { cn } from "@src/shared/lib/cn";
 
 const cx = classNames.bind(styles);
 
@@ -21,7 +20,7 @@ export const CheckboxInput = forwardRef<HTMLInputElement, CheckboxInputProps>(
     ({ textLabel, error, errorMessage, checked, disabled, ...props }, ref) => {
         return (
             <>
-                <label htmlFor={props.id} className={cn(styles.container, props.className)}>
+                <label htmlFor={props.id} className={cx(styles.container, props.className)}>
                     <input {...props} checked={checked} type="checkbox" className={cx("checkboxFieldHide")} ref={ref} />
 
                     <span className={cx("checkboxField", { checked, disabled, error: error && !disabled && !checked })}>

@@ -1,3 +1,4 @@
+import { Textarea } from "@src/components/account/form/textarea";
 import { Question } from "@src/redux/api/generated";
 import { Input } from "@src/shared/ui/inputs";
 import { Select } from "@src/shared/ui/select";
@@ -19,7 +20,12 @@ export const FieldControl = ({ order: order, question, ...props }: Props) => {
     const label = `${order}.${question.answer_required ? "* " : ""} ${question.text}`;
 
     if (question.answer_type === "text_field") {
-        content = <Input {...register(String(question.id))} label={label} />;
+        content = (
+            <>
+                <p className="mb-3 font-semibold">{label}</p>
+                <Textarea {...register(String(question.id))} autoHeight rows={5} placeholder={question.text} />
+            </>
+        );
     }
 
     if (question.answer_type === "choice_field") {

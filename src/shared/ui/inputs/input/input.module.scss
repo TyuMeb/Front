@@ -1,7 +1,6 @@
 .text {
     @include textSmall;
 
-    color: $black;
     cursor: text;
 }
 
@@ -48,8 +47,7 @@
 }
 
 .message {
-    @include textTiny;
-    @include text;
+    @include font-source-sans(14px, $black, 400, 21px);
 
     display: inline-block;
     margin-top: 4px;

@@ -34,11 +34,11 @@ type SelectProps = {
 export const Select = React.forwardRef<HTMLSpanElement, SelectProps>(
     ({ label, placeholder, items, className, ...props }, ref) => (
         <RadixSelect.Root {...props}>
-            <span className="mb-1 font-semibold">{label}</span>
+            <p className="mb-3 font-semibold">{label}</p>
 
             <RadixSelect.Trigger className={cn(styles.select, className)}>
                 <RadixSelect.Value ref={ref} placeholder={placeholder} />
-                <RadixSelect.Icon className="text-violet11">
+                <RadixSelect.Icon>
                     <Icon width={14} height={14} glyph="chevronDown" />
                 </RadixSelect.Icon>
             </RadixSelect.Trigger>

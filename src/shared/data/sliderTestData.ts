@@ -1,4 +1,4 @@
-const SLIDER_TEST_DATA = [
+export const SLIDER_TEST_DATA = [
     {
         items: [
             {
@@ -129,5 +129,3 @@ const SLIDER_TEST_DATA = [
         ],
     },
 ];
-
-export { SLIDER_TEST_DATA };

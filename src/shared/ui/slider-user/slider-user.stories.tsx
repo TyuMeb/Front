@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { SliderUser } from "./slider-user";
-import { USER_SLIDER_TEST_DATA2 } from "@src/shared/data/userSliderTestData2";
+import { USER_SLIDER_TEST_DATA } from "@src/shared/data/userSliderTestData2";
 
 const meta = {
     title: "UI/SliderUser",
@@ -41,6 +41,6 @@ export const Default: Story = {
     args: {
         itemsToShow: 3,
         variant: "small",
-        slides: USER_SLIDER_TEST_DATA2,
+        slides: USER_SLIDER_TEST_DATA,
     },
 };
