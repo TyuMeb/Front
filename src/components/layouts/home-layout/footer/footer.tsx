@@ -53,7 +53,7 @@ export const Footer = () => {
                         </li>
                     </ul>
 
-                    <ul className={styles.list}>
+                    {/* <ul className={styles.list}>
                         <li className={styles.link}>Контакты</li>
                         <li className={styles.link}>+79999999999</li>
                         <li className={styles.link}>fbdjkfаsdjo.com</li>
@@ -66,7 +66,7 @@ export const Footer = () => {
                         <li className={styles.link}>политика конфиденциальности</li>
                         <li className={styles.link}>что-g. еще</li>
                         <li className={styles.link}>и еще?</li>
-                    </ul>
+                    </ul> */}
                 </div>
             </div>
         </footer>
