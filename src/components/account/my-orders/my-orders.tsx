@@ -1,6 +1,6 @@
 "use client";
 
-import React, { HTMLAttributes } from "react";
+import React, { HTMLAttributes, useId } from "react";
 import Image, { StaticImageData } from "next/image";
 
 import styles from "./my-orders.module.scss";
@@ -53,6 +53,8 @@ const orders = [
 type MyOrdersProps = {} & HTMLAttributes<HTMLDivElement>;
 
 export const MyOrders = (props: MyOrdersProps) => {
+    const id = useId();
+
     const settingsInput = {
         maxSizeFile: 1000000,
         maxSizeImage: 100000,
@@ -98,10 +100,9 @@ export const MyOrders = (props: MyOrdersProps) => {
     const renderSlider = (images: StaticImageData[], alt: string) => {
         return (
             <SliderUser className={styles.slider}>
-                {images.map((image) => {
-                    const id = `f${(~~(Math.random() * 1e8)).toString(16)}`;
+                {images.map((image, i) => {
                     return (
-                        <div key={id} className="keen-slider__slide">
+                        <div key={`${id}-${i}`} className="keen-slider__slide">
                             <div className={styles.wrapper}>
                                 <Image src={image} alt={alt} className={styles.sliderImage} />
                             </div>

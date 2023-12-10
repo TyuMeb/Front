@@ -3,6 +3,7 @@ import React, { ChangeEvent, HTMLAttributes } from "react";
 import { FileInput } from "@src/shared/ui/inputs/file";
 import { checkMaxSizeFiles } from "@src/helpers";
 import { filesListProps } from "@src/components/account/form/formTypes";
+import { getRandomKey } from "@src/helpers/getRandomKey";
 
 type AddFilesProps = {
     maxSizeImage?: number;
@@ -35,9 +36,11 @@ export const AddFiles = ({
                     return;
                 }
 
-                const id = `f${(~~(Math.random() * 1e8)).toString(16)}`;
-
-                fileList.push({ id: id, file, error: !checkMaxSizeFiles({ file, maxSizeImage, maxSizeFile }) });
+                fileList.push({
+                    id: getRandomKey(),
+                    file,
+                    error: !checkMaxSizeFiles({ file, maxSizeImage, maxSizeFile }),
+                });
             });
 
             onChangeHandler(fileList);

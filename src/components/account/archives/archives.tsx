@@ -1,6 +1,6 @@
 "use client";
 
-import React, { HTMLAttributes } from "react";
+import React, { HTMLAttributes, useId } from "react";
 import styles from "./archives.module.scss";
 import { OrderCard } from "@src/components/account/my-orders/order-card";
 import { NoOrdersCard } from "@src/components/account/my-orders/no-orders-card";
@@ -52,6 +52,8 @@ const orders = [
 type ArchivesProps = {} & HTMLAttributes<HTMLDivElement>;
 
 export const Archives = (props: ArchivesProps) => {
+    const id = useId();
+
     const settingsInput = {
         maxSizeFile: 1000000,
         maxSizeImage: 100000,
@@ -101,10 +103,9 @@ export const Archives = (props: ArchivesProps) => {
     const renderSlider = (images: StaticImageData[], alt: string) => {
         return (
             <SliderUser className={styles.slider}>
-                {images.map((image) => {
-                    const id = `f${(~~(Math.random() * 1e8)).toString(16)}`;
+                {images.map((image, i) => {
                     return (
-                        <div key={id} className="keen-slider__slide">
+                        <div key={`${id}-${i}`} className="keen-slider__slide">
                             <div className={styles.wrapper}>
                                 <Image src={image} alt={alt} className={styles.sliderImage} />
                             </div>

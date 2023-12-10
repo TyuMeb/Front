@@ -4,14 +4,20 @@ type CheckMaxSizeFiles = {
     maxSizeFile?: number;
 };
 
-export const checkMaxSizeFiles = ({ file, maxSizeImage, maxSizeFile }: CheckMaxSizeFiles) => {
-    if (maxSizeImage && file.size >= maxSizeImage && file.type.match("image")) {
-        return false;
-    }
-
-    if (maxSizeFile && file.size >= maxSizeFile && !file.type.match("image")) {
+const checkMaxSizeFile = (file: File, maxSize: number) => {
+    if (file.size >= maxSize) {
         return false;
     }
 
     return true;
+};
+
+export const checkMaxSizeFiles = ({ file, maxSizeImage, maxSizeFile }: CheckMaxSizeFiles) => {
+    if (file.type.match("image") && maxSizeFile) {
+        return checkMaxSizeFile(file, maxSizeFile);
+    }
+
+    if (!file.type.match("image") && maxSizeImage) {
+        return checkMaxSizeFile(file, maxSizeImage);
+    }
 };
