@@ -9,8 +9,9 @@ import { PreviewFiles } from "@src/components/account/form/preview-files";
 import { Form } from "@src/components/account/form";
 import classNames from "classnames/bind";
 import { useForm } from "react-hook-form";
+import { getFiles } from "@src/helpers/getFiles";
 
-import { filesPreviewProps, filesListProps } from "@src/components/account/form/formTypes";
+import { filesPreviewProps } from "@src/components/account/form/formTypes";
 
 import styles from "./help.module.scss";
 
@@ -24,18 +25,6 @@ export const Help = () => {
             chat: "",
         },
     });
-
-    const getFiles = (filesList: filesPreviewProps[]) => {
-        const files = [] as filesListProps[];
-
-        filesList.forEach((file) => {
-            if (!file.error) {
-                files.push({ id: file.id, file: file.file });
-            }
-        });
-
-        return files;
-    };
 
     const onSubmitHandler = (data: { chat: string }) => {
         const files = getFiles(filesPreview);

@@ -4,7 +4,7 @@ import { useKeenSlider } from "keen-slider/react";
 type UseSlider = { disabled?: boolean; rtl?: boolean; perView?: number; spacing?: number };
 
 export const useSlider = (options: UseSlider) => {
-    const [, setCurrentSlide] = useState(0);
+    const [currentSlide, setCurrentSlide] = useState(0);
     const [isOver, setIsOver] = useState(false);
     const [loaded, setLoaded] = useState(false);
 
@@ -39,5 +39,5 @@ export const useSlider = (options: UseSlider) => {
         ]
     );
 
-    return { sliderRef, instanceRef, isOver, loaded };
+    return { sliderRef, instanceRef, isOver, loaded, currentSlide };
 };

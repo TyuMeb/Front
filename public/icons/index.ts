@@ -21,6 +21,7 @@ import arrowRight from './home/arrow-right.svg';
 import clock from './home/clock.svg';
 import dollar from './home/dollar.svg';
 import person from './home/person.svg';
+import plus from './plus.svg';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -47,4 +48,5 @@ export default {
 	clock,
 	dollar,
 	person,
+	plus
 };

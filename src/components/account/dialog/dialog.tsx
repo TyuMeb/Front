@@ -13,8 +13,9 @@ import { InputPreviewFiles } from "@src/components/account/form/input-preview-fi
 import Paperclip from "@public/icons/paperclip.svg";
 import { Icon } from "@src/components/icon";
 import { PreviewFiles } from "@src/components/account/form/preview-files";
-import { filesPreviewProps, filesListProps } from "@src/components/account/form/formTypes";
+import { filesPreviewProps } from "@src/components/account/form/formTypes";
 import { useForm } from "react-hook-form";
+import { getFiles } from "@src/helpers/getFiles";
 
 export const Dialog = () => {
     const [formHeight, setFormHeight] = useState<number>(0);
@@ -38,18 +39,6 @@ export const Dialog = () => {
         });
         resizeObserver.observe(node);
     }, []);
-
-    const getFiles = (filesList: filesPreviewProps[]) => {
-        const files = [] as filesListProps[];
-
-        filesList.forEach((file) => {
-            if (!file.error) {
-                files.push({ id: file.id, file: file.file });
-            }
-        });
-
-        return files;
-    };
 
     const onSubmitHandler = (data: { chat: string }) => {
         const files = getFiles(filesPreview);
