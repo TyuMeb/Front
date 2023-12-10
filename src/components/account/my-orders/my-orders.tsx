@@ -53,6 +53,14 @@ const orders = [
 type MyOrdersProps = {} & HTMLAttributes<HTMLDivElement>;
 
 export const MyOrders = (props: MyOrdersProps) => {
+    const settingsInput = {
+        maxSizeFile: 1000000,
+        maxSizeImage: 100000,
+        maxCountFiles: 6,
+        multiple: true,
+        accept: ".png, .jpg, .jpeg",
+    };
+
     const onChangeHandler = (data: filesListProps[]) => {
         // TODO отправка на сервер изображения
         const files = getFiles(data);
@@ -63,23 +71,18 @@ export const MyOrders = (props: MyOrdersProps) => {
         console.log({ files, formData: formFiles });
     };
 
-    const settingsInput = {
-        maxSizeFile: 1000000,
-        maxSizeImage: 100000,
-        maxCountFiles: 6,
-        multiple: true,
-        // accept=".png, .jpg, .jpeg"},
-    };
-
     const renderOrders = () => {
         return orders.map((order) => {
             return (
                 <li key={order.id}>
                     <OrderCard title={order.title} notOffer={order.notOffer} description={order.description}>
                         {order.images.length ? (
-                            <div className={styles.wrapperSlider}>{renderSlider(order.images, order.title)}</div>
+                            renderSlider(order.images, order.title)
                         ) : (
-                            <AddFiles {...settingsInput} onChangeHandler={onChangeHandler}>
+                            <AddFiles
+                                className={styles.marginCenter}
+                                {...settingsInput}
+                                onChangeHandler={onChangeHandler}>
                                 <div className={styles.addPhoto}>
                                     <Icon width={30} height={30} glyph={"plus"} />
                                     <p className="text-small-semibold">Добавить фото</p>
@@ -94,10 +97,16 @@ export const MyOrders = (props: MyOrdersProps) => {
 
     const renderSlider = (images: StaticImageData[], alt: string) => {
         return (
-            <SliderUser>
+            <SliderUser className={styles.slider}>
                 {images.map((image) => {
                     const id = `f${(~~(Math.random() * 1e8)).toString(16)}`;
-                    return <Image key={id} src={image} alt={alt} className={styles.image} />;
+                    return (
+                        <div key={id} className="keen-slider__slide">
+                            <div className={styles.wrapper}>
+                                <Image src={image} alt={alt} className={styles.sliderImage} />
+                            </div>
+                        </div>
+                    );
                 })}
             </SliderUser>
         );

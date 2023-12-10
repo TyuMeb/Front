@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import { Providers } from "@src/redux/provider";
 import { Open_Sans, Raleway } from "next/font/google";
 import "@src/styles/global.css";
+import "keen-slider/keen-slider.min.css";
 
 const openSans = Open_Sans({
     subsets: ["cyrillic"],
