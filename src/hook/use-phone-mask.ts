@@ -35,7 +35,14 @@ export function usePhoneMask(initialValue: string): TUsePhoneMaskHook {
     };
 
     const handlePhoneInput = (e: ChangeEvent<HTMLInputElement>) => {
-        const eValue: string = e.target.value.length > 18 ? e.target.value.slice(0, 18) : e.target.value;
+        let eValue: string = e.target.value.length > 18 ? e.target.value.slice(0, 18) : e.target.value;
+
+        if (e.target.value.length < 4) {
+            setInputValue("+7 ");
+            eValue = "+7 ";
+            e.target.value = eValue;
+            return;
+        }
 
         let selStart: number = Number(e.target.selectionStart);
         if (selStart < 4) {
