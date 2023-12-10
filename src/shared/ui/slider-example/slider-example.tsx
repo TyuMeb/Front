@@ -1,5 +1,4 @@
 import React, { FC, useEffect } from "react";
-import "keen-slider/keen-slider.min.css";
 import { useSlider } from "@src/hooks/use-slider";
 import styles from "./slider-example.module.scss";
 import { cn } from "@src/shared/lib/cn";

@@ -1,7 +1,9 @@
 import React, { ChangeEvent, Dispatch, InputHTMLAttributes, SetStateAction } from "react";
 
-import { filesPreviewProps } from "@src/components/account/form/formTypes";
+import { filesListProps, filesPreviewProps } from "@src/components/account/form/formTypes";
 import { FileInput } from "@src/shared/ui/inputs";
+import { checkMaxSizeFiles } from "@src/helpers";
+import { getRandomKey } from "@src/helpers/getRandomKey";
 
 export type FileInputProps = {
     maxSizeImage?: number;
@@ -22,18 +24,6 @@ export const InputPreviewFiles = (props: FileInputProps) => {
         name,
         ...restProps
     } = props;
-
-    const checkMaxSizeFiles = (file: File | filesPreviewProps) => {
-        if (maxSizeImage && file.size >= maxSizeImage && file.type.match("image")) {
-            return false;
-        }
-
-        if (maxSizeFile && file.size >= maxSizeFile && !file.type.match("image")) {
-            return false;
-        }
-
-        return true;
-    };
 
     const saveFiles = (data: filesPreviewProps) => {
         if (data.error) {
@@ -73,12 +63,10 @@ export const InputPreviewFiles = (props: FileInputProps) => {
                 return;
             }
 
-            const fileList = [] as { file: File; id: string; error: boolean }[];
+            const fileList = [] as filesListProps[];
             files.forEach((file) => {
-                const id = `f${(~~(Math.random() * 1e8)).toString(16)}`;
-
                 const fileData = {
-                    id: id,
+                    id: getRandomKey(),
                     error: false,
                     type: "image",
                     name: file.name.split(".")[0].toUpperCase(),
@@ -88,9 +76,9 @@ export const InputPreviewFiles = (props: FileInputProps) => {
                     file: file,
                 } as filesPreviewProps;
 
-                fileData.error = !checkMaxSizeFiles(file);
+                fileData.error = !checkMaxSizeFiles({ file, maxSizeImage, maxSizeFile });
 
-                fileList.push({ id: id, file, error: fileData.error });
+                fileList.push({ id: fileData.id, file, error: fileData.error });
 
                 if (!file.type.match("image")) {
                     fileData.type = "file";
@@ -115,17 +103,14 @@ export const InputPreviewFiles = (props: FileInputProps) => {
                     };
                 }
             });
-        }
 
-        // Предотвращает баг, повторной загрузки той же картинки
-        const inputFile = document.getElementById("input-file") as HTMLInputElement;
-        if (inputFile) {
-            inputFile.value = "";
+            // Предотвращает баг, повторной загрузки той же картинки
+            target.value = "";
         }
     };
 
     return (
-        <FileInput disabled={disabled} multiple={multiple} onChange={changeHandlerFiles} id="input-file" {...restProps}>
+        <FileInput disabled={disabled} multiple={multiple} onChange={changeHandlerFiles} {...restProps}>
             {children}
         </FileInput>
     );

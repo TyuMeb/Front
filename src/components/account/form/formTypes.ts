@@ -12,4 +12,5 @@ export type filesPreviewProps = {
 export type filesListProps = {
     file: File;
     id: string;
+    error: boolean;
 };
