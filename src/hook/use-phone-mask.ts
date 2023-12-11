@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from "react";
 
 const PATTERN = /\D/g;
+const MAX_PHONE_LENGTH = 18;
 
 export interface TUsePhoneMaskHook {
     inputValue: string;
@@ -37,7 +38,7 @@ export function usePhoneMask(initialValue: string): TUsePhoneMaskHook {
     const handlePhoneInput = (e: ChangeEvent<HTMLInputElement>) => {
         let selStart: number = Number(e.target.selectionStart);
 
-        if (e.target.value.length > 18) {
+        if (e.target.value.length > MAX_PHONE_LENGTH) {
             e.target.value = inputValue;
             e.target.setSelectionRange(selStart - 1, selStart - 1);
             return;
@@ -54,7 +55,6 @@ export function usePhoneMask(initialValue: string): TUsePhoneMaskHook {
             if (e.target.value[1] !== "7") e.target.value.replace("+", "+7");
             if (inputValue === maskString(e.target.value, inputValue)) {
                 e.target.value = inputValue;
-                console.log("here");
                 if (selStart < 4) e.target.setSelectionRange(4, 4);
                 else e.target.setSelectionRange(selStart + 1, selStart + 1);
                 return;
@@ -73,7 +73,7 @@ export function usePhoneMask(initialValue: string): TUsePhoneMaskHook {
             return;
         }
 
-        if (e.target.value.length < 19) {
+        if (e.target.value.length <= MAX_PHONE_LENGTH) {
             const newValue: string = maskString(e.target.value, inputValue);
             setInputValue(newValue);
             e.target.value = newValue;
