@@ -20,7 +20,7 @@ export interface TSettings {
     empty: string;
 }
 
-const Settings = () => {
+export const Settings = () => {
     //стейт чекбокса подписки, должен приходить из API и устанавливаться в useState
     const [noticeEmail, setNoticeEmail] = useState(true);
     //Режим изменения данных (общий)
