@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, InputEvent, useState } from "react";
 
 const PATTERN = /\D/g;
 
@@ -29,22 +29,45 @@ export function usePhoneMask(initialValue: string): TUsePhoneMaskHook {
     };
 
     const maskString = (newVal: string, prevVal: string): string => {
-        const newNums: string = newVal.replace("+7", "").replace(PATTERN, "").slice(0, 10);
+        const newNums: string = newVal.slice(0, 18).replace("+7", "").replace(PATTERN, "").slice(0, 10);
         const prevNums: string = prevVal.replace("+7", "").replace(PATTERN, "").slice(0, 10);
         return newNums !== prevNums ? formatString(newNums) : formatString(prevNums);
     };
 
-    const handlePhoneInput = (e: ChangeEvent<HTMLInputElement>) => {
-        let eValue: string = e.target.value.length > 18 ? e.target.value.slice(0, 18) : e.target.value;
+    const handlePhoneInput = (e: InputEvent<HTMLInputElement>) => {
+        let selStart: number = Number(e.target.selectionStart);
 
-        if (e.target.value.length < 4) {
-            setInputValue("+7 ");
-            eValue = "+7 ";
-            e.target.value = eValue;
+        if (e.target.value.length > 18) {
+            e.target.value = inputValue;
+            e.target.setSelectionRange(selStart - 1, selStart - 1);
             return;
         }
 
-        let selStart: number = Number(e.target.selectionStart);
+        if (e.target.value.length > inputValue.length && inputValue === maskString(e.target.value, inputValue)) {
+            e.target.value = inputValue;
+            e.target.setSelectionRange(selStart - 1, selStart - 1);
+            return;
+        }
+
+        if (e.target.value.length < inputValue.length) {
+            if (e.target.value[0] !== "+") e.target.value = `+${e.target.value}`;
+            if (e.target.value[1] !== "7") e.target.value.replace("+", "+7");
+            if (inputValue === maskString(e.target.value, inputValue)) {
+                e.target.value = inputValue;
+                console.log("here");
+                if (selStart < 4) e.target.setSelectionRange(4, 4);
+                else e.target.setSelectionRange(selStart + 1, selStart + 1);
+                return;
+            }
+        }
+
+        if (e.target.value.length < 4) {
+            setInputValue("+7 ");
+            e.target.value = "+7 ";
+            e.target.setSelectionRange(4, 4);
+            return;
+        }
+
         if (selStart < 4) {
             e.target.setSelectionRange(5, 5);
             return;
@@ -55,12 +78,19 @@ export function usePhoneMask(initialValue: string): TUsePhoneMaskHook {
             setInputValue(newValue);
             e.target.value = newValue;
             const dif: number = newValue.length - inputValue.length;
-            if (dif > 0) selStart += dif + 1;
+            if (dif > 0) {
+                if (selStart != newValue.length - 1) {
+                    if (selStart === 8) selStart += dif + 2;
+                    if (selStart === 7 || selStart === 12 || selStart === 15) selStart += dif;
+                    if (selStart === 17) selStart;
+                } else {
+                    if (selStart === 17) selStart;
+                    else selStart += dif + 1;
+                }
+            }
             e.target.setSelectionRange(selStart, selStart);
             return;
         }
-        setInputValue(eValue);
-        e.target.value = eValue;
     };
 
     return {
