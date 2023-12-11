@@ -6,7 +6,7 @@ import classNames from "classnames/bind";
 import styles from "./breadcrumbs.module.scss";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { orders } from "@src/data/account";
+import { orders } from "@src/shared/data/account";
 
 const cx = classNames.bind(styles);
 
@@ -21,7 +21,7 @@ const breadcrumbs = [
     { alias: "help1", title: "Сделать заказ" },
 ];
 
-const Breadcrumbs = () => {
+export const Breadcrumbs = () => {
     const pathname = usePathname();
 
     /**
@@ -102,7 +102,7 @@ const Breadcrumbs = () => {
 
                 return (
                     <li className={styles.item} key={i}>
-                        <Link className={cx("link", { active: pathname === item.href })} href={item.href}>
+                        <Link className={cx("text-medium", { active: pathname === item.href })} href={item.href}>
                             {item.title}
                         </Link>
                     </li>
@@ -111,5 +111,3 @@ const Breadcrumbs = () => {
         </ul>
     );
 };
-
-export default Breadcrumbs;

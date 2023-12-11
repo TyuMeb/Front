@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import classNames from "classnames/bind";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
-import ModalAuth from "@src/components/modals/modal-auth";
+import { ModalAuth } from "@src/components/modals/modal-auth";
 import { Input, PasswordInput, PhoneInput } from "@src/shared/ui/inputs";
 import { CheckboxInput } from "@src/shared/ui/inputs/checkbox";
 import { Button } from "@src/shared/ui/button";
@@ -12,9 +12,9 @@ import { UserCreate } from "@src/redux/api/generated";
 
 const cx = classNames.bind(styles);
 
-type Form = UserCreate & { confirm_password: string };
+type FormProps = UserCreate & { confirm_password: string };
 
-const Registration = () => {
+export const Registration = () => {
     const [checked, setChecked] = useState(false);
     const [registerUser, { isSuccess, isLoading }] = useRegisterUserMutation();
 
@@ -25,7 +25,7 @@ const Registration = () => {
         setError,
         reset,
         formState: { errors },
-    } = useForm<Form>({
+    } = useForm<FormProps>({
         values: {
             email: "",
             name: "",
@@ -36,7 +36,7 @@ const Registration = () => {
         },
     });
 
-    const onSubmit = (data: Form) => {
+    const onSubmit = (data: FormProps) => {
         const { confirm_password, person_telephone, ...rest } = data;
 
         registerUser({ ...rest, person_telephone: person_telephone?.replaceAll(" ", "") })
@@ -45,7 +45,7 @@ const Registration = () => {
                 reset();
             })
             .catch((error) => {
-                const keys = Object.keys(error?.data || {}) as unknown as Array<keyof Form>;
+                const keys = Object.keys(error?.data || {}) as unknown as Array<keyof FormProps>;
 
                 keys.forEach((key) => {
                     setError(key, { message: error.data[key]?.join(", ") });
@@ -193,5 +193,3 @@ const Registration = () => {
         </ModalAuth>
     );
 };
-
-export default Registration;

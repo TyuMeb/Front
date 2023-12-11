@@ -6,7 +6,7 @@ import { setTypeModal } from "@src/redux/slices/modal-slice";
 import { usePostUsersResetPasswordMutation } from "@src/redux/api/users-api-slice";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
-import ModalAuth from "@src/components/modals/modal-auth";
+import { ModalAuth } from "@src/components/modals/modal-auth";
 import { Icon } from "@src/components/icon";
 import { Input } from "@src/shared/ui/inputs";
 import { Button } from "@src/shared/ui/button";
@@ -15,7 +15,7 @@ import { SendEmailReset } from "@src/redux/api/generated";
 
 const cx = classNames.bind(styles);
 
-const ResetPassword = () => {
+export const ResetPassword = () => {
     const dispatch = useAppDispatch();
 
     const {
@@ -83,5 +83,3 @@ const ResetPassword = () => {
         </ModalAuth>
     );
 };
-
-export default ResetPassword;

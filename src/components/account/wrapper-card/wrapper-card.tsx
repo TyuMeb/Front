@@ -4,12 +4,10 @@ import React, { HTMLAttributes } from "react";
 
 import styles from "./wrapper-card.module.scss";
 
-type OrderType = {} & HTMLAttributes<HTMLDivElement>;
+type OrderProps = {} & HTMLAttributes<HTMLDivElement>;
 
-const WrapperCard = ({ children, className, ...props }: OrderType) => (
+export const WrapperCard = ({ children, className, ...props }: OrderProps) => (
     <article className={`${styles.card} ${className}`} {...props}>
         {children}
     </article>
 );
-
-export default WrapperCard;

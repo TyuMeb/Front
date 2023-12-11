@@ -1,41 +1,45 @@
-import React, { InputHTMLAttributes, KeyboardEvent, forwardRef } from "react";
+import React, { InputHTMLAttributes, ChangeEvent, forwardRef } from "react";
 import classNames from "classnames/bind";
 
 import styles from "./textarea.module.scss";
 
 const cx = classNames.bind(styles);
 
-export interface ITextareaProps extends InputHTMLAttributes<HTMLTextAreaElement> {}
+export type TextareaProps = {} & InputHTMLAttributes<HTMLTextAreaElement>;
 
-const Textarea = forwardRef<HTMLTextAreaElement, ITextareaProps>((props: ITextareaProps, ref) => {
-    const { disabled, className, ...restProps } = props;
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
+    ({ disabled, className, onChange, ...props }: TextareaProps, ref) => {
+        const setAutomaticHeight = (element: HTMLTextAreaElement, maxHeight: number) => {
+            const height = element.style.height;
+            const scrollHeight = `${element.scrollHeight}px`;
 
-    const setAutomaticHeight = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-        const textarea = e.target as HTMLTextAreaElement;
+            if (element.scrollHeight > maxHeight) {
+                return;
+            }
 
-        if (e.key === "Backspace" && textarea.selectionStart === 0) {
-            textarea.style.height = "";
-        }
+            if (height !== scrollHeight) {
+                element.style.height = "auto";
+                element.style.height = scrollHeight;
+            }
+        };
 
-        if (textarea && textarea.scrollHeight > 178) {
-            return;
-        }
+        const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+            onChange && onChange(event);
 
-        textarea.style.height = "auto";
-        textarea.style.height = `${textarea.scrollHeight}px`;
-    };
+            const textarea = event.currentTarget;
+            setAutomaticHeight(textarea, 178);
+        };
 
-    return (
-        <textarea
-            ref={ref}
-            className={cx("textarea", "text", { disabled }, className)}
-            disabled={disabled}
-            onKeyUp={setAutomaticHeight}
-            {...restProps}
-        />
-    );
-});
+        return (
+            <textarea
+                ref={ref}
+                className={cx("textarea", "text", className)}
+                disabled={disabled}
+                onChange={onChangeHandler}
+                {...props}
+            />
+        );
+    }
+);
 
 Textarea.displayName = "Textarea";
-
-export default Textarea;

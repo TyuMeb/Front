@@ -1,5 +1,6 @@
-import { FC, useEffect, MouseEvent, ReactNode } from "react";
+import { useEffect, InputHTMLAttributes } from "react";
 import classNames from "classnames/bind";
+import * as Dialog from "@radix-ui/react-dialog";
 
 import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 import { closeModal } from "@src/redux/slices/modal-slice";
@@ -7,12 +8,11 @@ import styles from "./modal.module.scss";
 
 const cx = classNames.bind(styles);
 
-interface IModal {
-    children: ReactNode;
+type ModalProps = {
     isOpen: boolean;
-}
+} & InputHTMLAttributes<HTMLDivElement>;
 
-const Modal: FC<IModal> = ({ children, isOpen }) => {
+export const Modal = ({ children, isOpen }: ModalProps) => {
     const dispatch = useAppDispatch();
     const { typeModal } = useAppSelector((store) => store.modal);
 
@@ -27,29 +27,24 @@ const Modal: FC<IModal> = ({ children, isOpen }) => {
         return () => document.removeEventListener("keydown", closeByEscape);
     }, [isOpen, dispatch]);
 
-    const handleOverlay = (e: MouseEvent) => {
-        if (e.target === e.currentTarget) {
-            dispatch(closeModal());
-        }
-    };
-
     return (
-        <>
-            {isOpen && (
-                <div
-                    onMouseDown={handleOverlay}
-                    className={cx("wrapper", "overlayBlur", {
+        <Dialog.Root
+            open={isOpen}
+            onOpenChange={() => {
+                dispatch(closeModal());
+            }}>
+            <Dialog.Portal>
+                <Dialog.Overlay
+                    className={cx("overlay", {
                         overlayDark: typeModal === "chooseThisProducer",
                         overlayNone: typeModal === "confirm",
                     })}>
-                    <div className={styles.modal}>
-                        <button className={styles.closeModal} onMouseUp={() => dispatch(closeModal())} />
+                    <Dialog.Content className={styles.modal}>
+                        <button type="button" className={styles.closeModal} onMouseUp={() => dispatch(closeModal())} />
                         {children}
-                    </div>
-                </div>
-            )}
-        </>
+                    </Dialog.Content>
+                </Dialog.Overlay>
+            </Dialog.Portal>
+        </Dialog.Root>
     );
 };
-
-export default Modal;

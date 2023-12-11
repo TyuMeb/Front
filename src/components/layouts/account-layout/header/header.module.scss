@@ -1,5 +1,3 @@
-@import "~/src/styles/variables";
-
 .nav {
     margin-right: auto;
 }
@@ -20,8 +18,6 @@
 }
 
 .logo {
-    @include font-source-sans(20px, $graphite-black, 600, 160%);
-
     margin-right: 40px;
 }
 

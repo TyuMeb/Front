@@ -1,12 +1,5 @@
-@import "~src/styles/index.scss";
-@import "~/src/components/account/wrapper-card/wrapper-card.module.scss";
-
 .colorPink {
     color: #ff6894;
-}
-
-.textBold {
-    font-weight: 600;
 }
 
 .wrapper {
@@ -32,25 +25,6 @@
 
 .decor {
     border-bottom: 1px dotted #9ca2bd;
-}
-
-.wrapperGallery {
-    display: grid;
-    align-items: center;
-    grid-auto-flow: column;
-    column-gap: 8px;
-}
-
-.button {
-    width: 32px;
-    height: 32px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-.borderRadius {
-    border-radius: 20px;
 }
 
 .wrapperButton {

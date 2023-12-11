@@ -2,10 +2,10 @@
 
 import React, { HTMLAttributes } from "react";
 import styles from "./chats.module.scss";
-import PerformerCard from "@src/components/account/performers/performer-card";
-import NoOrdersCard from "@src/components/account/my-orders/no-orders-card";
+import { PerformerCard } from "@src/components/account/performers/performer-card";
+import { NoOrdersCard } from "@src/components/account/my-orders/no-orders-card";
 
-type ChatsType = {} & HTMLAttributes<HTMLUListElement>;
+type ChatsProps = {} & HTMLAttributes<HTMLUListElement>;
 
 const performers = [
     {
@@ -24,7 +24,7 @@ const performers = [
     },
 ];
 
-const Chats = (props: ChatsType) => {
+export const Chats = (props: ChatsProps) => {
     const renderPerformers = () => {
         return performers.map((performer) => {
             return (
@@ -43,5 +43,3 @@ const Chats = (props: ChatsType) => {
         </section>
     );
 };
-
-export default Chats;

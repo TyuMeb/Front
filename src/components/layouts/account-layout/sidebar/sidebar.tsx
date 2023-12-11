@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 
 import { Button } from "@src/shared/ui/button";
 import { Icon } from "@src/components/icon";
-import { orders, performers } from "@src/data/account";
+import { orders, performers } from "@src/shared/data/account";
 
 import styles from "./sidebar.module.scss";
 
@@ -15,16 +15,16 @@ const cx = classNames.bind(styles);
 
 const PAGE_LINK = "/account/";
 
-interface SidebarI extends HTMLAttributes<HTMLDivElement> {}
+type SidebarProps = {} & HTMLAttributes<HTMLDivElement>;
 
-interface firstLevelMenuItemI {
+type firstLevelMenuItemProps = {
     alias: string;
     name: string;
     icon?: JSX.Element;
     isOpened?: boolean;
-}
+};
 
-const firstLevelMenu: firstLevelMenuItemI[] = [
+const firstLevelMenu: firstLevelMenuItemProps[] = [
     { alias: "my-orders", name: "Мои заказы", icon: <Icon className={cx("icon")} glyph="couch" /> },
     { alias: "chats", name: "Чаты", icon: <Icon className={cx("icon")} glyph="chats" /> },
     { alias: "archives", name: "Архивы", icon: <Icon className={cx("icon")} glyph="archives" /> },
@@ -33,7 +33,7 @@ const firstLevelMenu: firstLevelMenuItemI[] = [
     { alias: "help1", name: "Сделать заказ", icon: <Icon className={cx("icon")} glyph="add" /> },
 ];
 
-const Sidebar = ({ className }: SidebarI) => {
+export const Sidebar = ({ className }: SidebarProps) => {
     const pathname = usePathname();
 
     const onHandlerClick = () => {
@@ -57,7 +57,7 @@ const Sidebar = ({ className }: SidebarI) => {
                         <li key={menu.alias}>
                             <Link className={cx("firstLevelLink", activatedMenu)} href={currentPathname}>
                                 {menu.icon}
-                                <p className={cx("text")}>
+                                <p className={cx("text-small-semibold")}>
                                     {menu.name}
                                     &nbsp;
                                     {orders.length && i === 0 && `(${orders.length})`}
@@ -83,7 +83,7 @@ const Sidebar = ({ className }: SidebarI) => {
                                 <Link
                                     className={cx("secondLevelLink", { openedSubmenu: pathname === currentPathname })}
                                     href={currentPathname}>
-                                    <p className={cx("text")}>
+                                    <p className={cx("text-small-semibold")}>
                                         {order.name}
                                         &nbsp;
                                         {order.countPerformers && `(${order.countPerformers})`}
@@ -112,7 +112,7 @@ const Sidebar = ({ className }: SidebarI) => {
                                     className={cx("thirdLevelLink", {
                                         activatedSubmenu: pathname === currentPathname,
                                     })}>
-                                    <p className={cx("thirdLevelText")}>Исполнитель {i + 1}</p>
+                                    <p className="text-small">Исполнитель {i + 1}</p>
                                 </Link>
                             </li>
                         );
@@ -129,12 +129,10 @@ const Sidebar = ({ className }: SidebarI) => {
 
                 <Link href="/">
                     <Button icon={<Icon glyph="exit" />} variant="exit" onClick={onHandlerClick}>
-                        <p className={styles.text}>Выйти</p>
+                        <p className="text-small-semibold">Выйти</p>
                     </Button>
                 </Link>
             </nav>
         </aside>
     );
 };
-
-export default Sidebar;

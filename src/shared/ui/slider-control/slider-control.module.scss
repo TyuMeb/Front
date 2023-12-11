@@ -1,0 +1,36 @@
+.sliderControl {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 90px;
+    background-color: $accent-color;
+    border-radius: 40px;
+    padding: 0 28px;
+    box-sizing: border-box;
+
+    &_disabled {
+        background-color: $disabled-color;
+        pointer-events: none;
+    }
+
+    &_true {
+        background-color: $disabled-color;
+        pointer-events: none;
+    }
+
+    &:hover {
+        border: 0;
+        background-color: $btn-hover-color;
+        outline: none;
+    }
+}
+
+.sliderControlHide {
+    display: none;
+}
+
+.disabled {
+    background-color: $disabled-color;
+    pointer-events: none;
+}

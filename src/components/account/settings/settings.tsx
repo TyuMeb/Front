@@ -2,17 +2,12 @@
 
 import React, { useState, useEffect, useMemo, Fragment, useId } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-
 import styles from "@src/components/account/settings/settings.module.scss";
 import { Button } from "@src/shared/ui/button";
 import { Input } from "@src/shared/ui/inputs";
 import { CheckboxInput } from "@src/shared/ui/inputs";
 import { PasswordInput } from "@src/shared/ui/inputs";
-// TODO: заменил PhoneInput на Input, из-за проблем с валидацией PhoneInput из-за некорректной работы. Нужно доработать маску.
 import { PhoneInputNew } from "@src/shared/ui/inputs/phoneNew/phoneNew";
-//import { PhoneInput } from "@src/shared/ui/inputs";
-// Вместо хуков использования инпутов используется ReactHookForm
-//import { useInput } from "@src/hook/use-input";
 
 export interface TSettings {
     name: string;
@@ -431,7 +426,7 @@ const Settings = () => {
             </div>
 
             <div className={styles.wrapperCheckbox}>
-                <h2 className={styles.title}>Получать уведомления</h2>
+                <h2 className="subtitle2">Получать уведомления</h2>
 
                 <ul className={styles.list}>
                     <CheckboxInput
@@ -450,8 +445,8 @@ const Settings = () => {
             </div>
 
             <div className={styles.row}>
-                <h2 className={styles.title}>Удаление профиля</h2>
-                <p className={styles.text}>
+                <h2 className="subtitle2">Удаление профиля</h2>
+                <p className="text-medium">
                     Если вы хотите удалить профиль, пожалуйста, <br />
                     свяжитесь с нашей технической поддержкой на <br />
                     вкладке «помощь»
@@ -460,5 +455,3 @@ const Settings = () => {
         </form>
     );
 };
-
-export default Settings;

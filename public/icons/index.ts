@@ -17,6 +17,11 @@ import paperclip from './paperclip.svg';
 import paper_airplane from './paper_airplane.svg';
 import file from './file.svg';
 import exclamation from './exclamation.svg';
+import arrowRight from './home/arrow-right.svg';
+import clock from './home/clock.svg';
+import dollar from './home/dollar.svg';
+import person from './home/person.svg';
+import plus from './plus.svg';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -38,5 +43,10 @@ export default {
 	paperclip,
 	paper_airplane,
 	file,
-	exclamation
+	exclamation,
+	arrowRight,
+	clock,
+	dollar,
+	person,
+	plus
 };

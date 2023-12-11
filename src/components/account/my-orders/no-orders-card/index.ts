@@ -1,1 +1,1 @@
-export { default } from "./no-orders-card";
+export * from "./no-orders-card";

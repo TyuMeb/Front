@@ -5,9 +5,7 @@
     border-radius: 45px;
 }
 
-.text {
-    @include font-source-sans(16px, $graphite-black, 400, 150%);
-
+.text-center {
     text-align: center;
 }
 

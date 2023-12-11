@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 import { openModal } from "@src/redux/slices/modal-slice";
 import { cn } from "@src/shared/lib/cn";
 
-const Header = () => {
+export const Header = () => {
     const dispatch = useAppDispatch();
     const [current, setCurrent] = useState<string | undefined>(undefined);
     const { contentBlock } = useAppSelector((store) => store.header);
@@ -61,5 +61,3 @@ const Header = () => {
         </header>
     );
 };
-
-export default Header;

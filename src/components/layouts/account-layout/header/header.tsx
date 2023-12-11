@@ -6,16 +6,16 @@ import styles from "./header.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import avatar from "@public/account/photo.png";
-import Breadcrumbs from "./breadcrumbs";
+import { Breadcrumbs } from "./breadcrumbs";
 
-interface HeaderI extends HTMLAttributes<HTMLDivElement> {}
+type HeaderProps = {} & HTMLAttributes<HTMLDivElement>;
 
-const Header = ({ className, ...props }: HeaderI) => {
+export const Header = ({ className, ...props }: HeaderProps) => {
     return (
         <header className={className} {...props}>
             <div className={styles.wrapper}>
                 <nav className={styles.navigation}>
-                    <Link className={styles.logo} href="/">
+                    <Link className={`subtitle1 ${styles.logo}`} href="/">
                         ВайВи
                     </Link>
                     <Breadcrumbs />
@@ -27,5 +27,3 @@ const Header = ({ className, ...props }: HeaderI) => {
         </header>
     );
 };
-
-export default Header;

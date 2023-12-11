@@ -6,12 +6,12 @@ import styles from "@src/components/shared/ui/fields/fields.module.scss";
 
 const cx = classNames.bind(styles);
 
-interface ITextFieldModal extends HTMLAttributes<HTMLLabelElement> {
+type TextFieldModalProps = {
     isError: boolean;
     labelText: string;
-}
+} & HTMLAttributes<HTMLLabelElement>;
 
-const TextFieldModal = ({ isError, labelText, children }: ITextFieldModal) => {
+export const TextFieldModal = ({ isError, labelText, children }: TextFieldModalProps) => {
     return (
         <label className={cx("label")}>
             {children}
@@ -23,5 +23,3 @@ const TextFieldModal = ({ isError, labelText, children }: ITextFieldModal) => {
         </label>
     );
 };
-
-export default TextFieldModal;

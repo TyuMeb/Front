@@ -1,4 +1,5 @@
 .textarea {
+    overflow-x: scroll;
     display: block;
     width: 100%;
     border: none;
@@ -24,6 +25,10 @@
         background-color: #d9d9d9;
         border-radius: 20px;
     }
+}
+
+.textarea::-webkit-scrollbar {
+    width: 0;
 }
 
 .text {

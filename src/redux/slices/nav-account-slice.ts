@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface INavAccountState {
+type NavAccountStateProps = {
     contentBlock: string | undefined;
-}
+};
 
-const initialState: INavAccountState = {
+const initialState: NavAccountStateProps = {
     contentBlock: undefined,
 };
 
