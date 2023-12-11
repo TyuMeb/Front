@@ -1,4 +1,4 @@
-import { ChangeEvent, InputEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 const PATTERN = /\D/g;
 
@@ -34,7 +34,7 @@ export function usePhoneMask(initialValue: string): TUsePhoneMaskHook {
         return newNums !== prevNums ? formatString(newNums) : formatString(prevNums);
     };
 
-    const handlePhoneInput = (e: InputEvent<HTMLInputElement>) => {
+    const handlePhoneInput = (e: ChangeEvent<HTMLInputElement>) => {
         let selStart: number = Number(e.target.selectionStart);
 
         if (e.target.value.length > 18) {
