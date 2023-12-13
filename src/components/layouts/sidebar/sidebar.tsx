@@ -4,36 +4,32 @@ import React, { HTMLAttributes } from "react";
 import classNames from "classnames/bind";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import { OrdersProps, PerformersProps } from "@src/shared/data/account";
 import { Button } from "@src/shared/ui/button";
-import { Icon } from "@src/components/icon";
-import { orders, performers } from "@src/shared/data/account";
 
 import styles from "./sidebar.module.scss";
+import { Icon, IconGlyphProps } from "@src/components/icon";
 
 const cx = classNames.bind(styles);
 
-const PAGE_LINK = "/account/";
-
-type SidebarProps = {} & HTMLAttributes<HTMLDivElement>;
-
-type firstLevelMenuItemProps = {
+export type firstLevelMenuItemProps = {
     alias: string;
     name: string;
-    icon?: JSX.Element;
-    isOpened?: boolean;
+    iconGlyph?: IconGlyphProps;
 };
 
-const firstLevelMenu: firstLevelMenuItemProps[] = [
-    { alias: "my-orders", name: "Мои заказы", icon: <Icon className={cx("icon")} glyph="couch" /> },
-    { alias: "chats", name: "Чаты", icon: <Icon className={cx("icon")} glyph="chats" /> },
-    { alias: "archives", name: "Архивы", icon: <Icon className={cx("icon")} glyph="archives" /> },
-    { alias: "settings", name: "Настройки", icon: <Icon className={cx("icon")} glyph="settings" /> },
-    { alias: "help", name: "Помощь", icon: <Icon className={cx("icon")} glyph="help" /> },
-    { alias: "help1", name: "Сделать заказ", icon: <Icon className={cx("icon")} glyph="add" /> },
-];
+type MenuProps<T> = {
+    menuItems: T;
+    alias: string;
+};
 
-export const Sidebar = ({ className }: SidebarProps) => {
+type SidebarProps = {
+    firstLevelMenu: MenuProps<firstLevelMenuItemProps[]>;
+    secondLevelMenu: MenuProps<OrdersProps[]>;
+    thirdLevelMenu: MenuProps<PerformersProps[]>;
+} & HTMLAttributes<HTMLDivElement>;
+
+export const Sidebar = ({ firstLevelMenu, secondLevelMenu, thirdLevelMenu, className }: SidebarProps) => {
     const pathname = usePathname();
 
     const onHandlerClick = () => {
@@ -44,11 +40,11 @@ export const Sidebar = ({ className }: SidebarProps) => {
     const buildFirstLevel = (): JSX.Element => {
         return (
             <ul className={cx("firstLevelMenu")}>
-                {firstLevelMenu.map((menu, i) => {
-                    let currentPathname = PAGE_LINK + menu.alias;
+                {firstLevelMenu.menuItems.map((menu, i) => {
+                    let currentPathname = `/${firstLevelMenu.alias}/${menu.alias}`;
                     let activatedMenu = { activatedMenu: pathname === currentPathname };
 
-                    if (i === firstLevelMenu.length - 1) {
+                    if (i === firstLevelMenu.menuItems.length - 1) {
                         currentPathname = "/";
                         activatedMenu = { activatedMenu: false };
                     }
@@ -56,11 +52,13 @@ export const Sidebar = ({ className }: SidebarProps) => {
                     return (
                         <li key={menu.alias}>
                             <Link className={cx("firstLevelLink", activatedMenu)} href={currentPathname}>
-                                {menu.icon}
+                                {menu.iconGlyph && <Icon className={cx("icon")} glyph={menu.iconGlyph} />}
                                 <p className={cx("text-small-semibold")}>
                                     {menu.name}
                                     &nbsp;
-                                    {orders.length && i === 0 && `(${orders.length})`}
+                                    {secondLevelMenu.menuItems.length &&
+                                        i === 0 &&
+                                        `(${secondLevelMenu.menuItems.length})`}
                                 </p>
                             </Link>
                             {i === 0 && buildSecondLevel(currentPathname)}
@@ -73,20 +71,20 @@ export const Sidebar = ({ className }: SidebarProps) => {
 
     const buildSecondLevel = (route: string): JSX.Element | undefined => {
         return (
-            orders && (
+            secondLevelMenu.menuItems && (
                 <ul className={cx("secondLevelMenu")}>
-                    {orders.map((order) => {
-                        const currentPathname = `${route}/order-${order.id}`;
+                    {secondLevelMenu.menuItems.map((menu) => {
+                        const currentPathname = `${route}/${secondLevelMenu.alias}-${menu.id}`;
 
                         return (
-                            <li key={order.id}>
+                            <li key={menu.id}>
                                 <Link
                                     className={cx("secondLevelLink", { openedSubmenu: pathname === currentPathname })}
                                     href={currentPathname}>
                                     <p className={cx("text-small-semibold")}>
-                                        {order.name}
+                                        {menu.name}
                                         &nbsp;
-                                        {order.countPerformers && `(${order.countPerformers})`}
+                                        {menu.countPerformers && `(${menu.countPerformers})`}
                                     </p>
                                 </Link>
                                 {buildThirdLevel(currentPathname)}
@@ -100,13 +98,13 @@ export const Sidebar = ({ className }: SidebarProps) => {
 
     const buildThirdLevel = (route: string): JSX.Element | undefined => {
         return (
-            performers && (
+            thirdLevelMenu.menuItems && (
                 <ul className={cx("thirdLevelMenu")}>
-                    {performers.map((executor, i) => {
-                        const currentPathname = `${route}/executor-${executor.id}`;
+                    {thirdLevelMenu.menuItems.map((menu, i) => {
+                        const currentPathname = `${route}/${thirdLevelMenu.alias}-${menu.id}`;
 
                         return (
-                            <li key={executor.id} className={cx("thirdLevelItem")}>
+                            <li key={menu.id} className={cx("thirdLevelItem")}>
                                 <Link
                                     href={currentPathname}
                                     className={cx("thirdLevelLink", {

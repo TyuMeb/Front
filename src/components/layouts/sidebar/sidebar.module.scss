@@ -1,5 +1,3 @@
-@import "~/src/styles/index";
-
 .menu {
     background-color: $white;
 }
@@ -29,10 +27,6 @@
 
 .activatedMenu {
     border-left: 4px solid $mustard;
-}
-
-.icon {
-    margin-right: 5px;
 }
 
 .secondLevelMenu {
@@ -87,4 +81,8 @@
 .activatedSubmenu {
     background-color: #fffaee;
     border-left: 4px solid $mustard;
+}
+
+.icon {
+    margin-right: 8px;
 }

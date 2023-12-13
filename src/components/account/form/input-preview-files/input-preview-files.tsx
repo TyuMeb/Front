@@ -3,7 +3,7 @@ import React, { ChangeEvent, Dispatch, InputHTMLAttributes, SetStateAction } fro
 import { filesListProps, filesPreviewProps } from "@src/components/account/form/formTypes";
 import { FileInput } from "@src/shared/ui/inputs";
 import { checkMaxSizeFiles } from "@src/helpers";
-import { getRandomKey } from "@src/helpers/getRandomKey";
+import { getRandomKey } from "@src/helpers";
 
 export type FileInputProps = {
     maxSizeImage?: number;
