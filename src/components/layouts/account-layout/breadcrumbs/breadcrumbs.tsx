@@ -1,58 +1,28 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React, { HTMLAttributes, useCallback } from "react";
 import classNames from "classnames/bind";
 
 import styles from "./breadcrumbs.module.scss";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { orders } from "@src/shared/data/account";
+import { getPathNestedRoutes } from "@src/helpers/getPathNestedRoutes";
 
 const cx = classNames.bind(styles);
 
-const PAGE_LINK = "/account/";
+export type BreadcrumbsItem = {
+    alias: string;
+    name: string;
+};
 
-const breadcrumbs = [
-    { alias: "my-orders", title: "Мои заказы" },
-    { alias: "chats", title: "Чаты" },
-    { alias: "archives", title: "Архивы" },
-    { alias: "settings", title: "Настройки" },
-    { alias: "help", title: "Помощь" },
-    { alias: "help1", title: "Сделать заказ" },
-];
+type BreadcrumbsProps = {
+    breadcrumbs: BreadcrumbsItem[];
+    pageLink: string;
+} & HTMLAttributes<HTMLUListElement>;
 
-export const Breadcrumbs = () => {
+export const Breadcrumbs = ({ breadcrumbs, pageLink, className, ...props }: BreadcrumbsProps) => {
     const pathname = usePathname();
-
-    /**
-     * Разбивает строку путей, на подпути
-     * @example getPathNestedRoutes('/path1/path2/path3?...');
-     * @returns {string[]} Returns ['path1', 'path2', 'path3', ...]
-     */
-    const getPathNestedRoutes = (path: string): string[] => {
-        const pathNestedRoutes = [];
-        let count = -1;
-
-        for (let i = 0; i < path.length; i++) {
-            if (path[i] === "?") {
-                break;
-            }
-
-            if (path[i] === "/") {
-                count++;
-                continue;
-            }
-
-            if (!pathNestedRoutes[count]) {
-                pathNestedRoutes.push(path[i]);
-                continue;
-            }
-
-            pathNestedRoutes[count] += path[i];
-        }
-
-        return pathNestedRoutes;
-    };
 
     const generateBreadcrumbs = useCallback(() => {
         const pathNestedRoutes = getPathNestedRoutes(pathname);
@@ -64,26 +34,23 @@ export const Breadcrumbs = () => {
             const subpath = pathNestedRoutes[i];
 
             let title = "";
+            const id = Number(subpath.slice(-1));
 
             breadcrumbs.forEach((item) => {
-                const currentPathname = PAGE_LINK + item.alias;
+                const currentPathname = `/${pageLink}/${item.alias}`;
 
                 if (href === currentPathname) {
-                    title = item.title;
+                    title = item.name;
                 }
             });
 
             if (i === 2) {
-                const id = Number(subpath.slice(-1));
-
                 const ell = orders.find((item) => item.id === id);
 
                 title = ell?.name.toLocaleLowerCase() || "";
             }
 
             if (i === 3) {
-                const id = Number(subpath.slice(-1));
-
                 title = `чат с исполнителем ${id}`;
             }
 
@@ -94,7 +61,7 @@ export const Breadcrumbs = () => {
     }, [orders, pathname]);
 
     return (
-        <ul className={styles.menu}>
+        <ul className={`${styles.menu} ${className}`} {...props}>
             {generateBreadcrumbs().map((item, i) => {
                 if (i === 0) {
                     return;

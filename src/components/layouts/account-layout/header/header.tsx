@@ -6,11 +6,10 @@ import styles from "./header.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import avatar from "@public/account/photo.png";
-import { Breadcrumbs } from "./breadcrumbs";
 
 type HeaderProps = {} & HTMLAttributes<HTMLDivElement>;
 
-export const Header = ({ className, ...props }: HeaderProps) => {
+export const Header = ({ className, children, ...props }: HeaderProps) => {
     return (
         <header className={className} {...props}>
             <div className={styles.wrapper}>
@@ -18,7 +17,9 @@ export const Header = ({ className, ...props }: HeaderProps) => {
                     <Link className={`subtitle1 ${styles.logo}`} href="/">
                         ВайВи
                     </Link>
-                    <Breadcrumbs />
+
+                    {children}
+
                     <Link className={styles.avatar} href="#">
                         <Image priority={true} src={avatar} alt="Фото"></Image>
                     </Link>
