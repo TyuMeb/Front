@@ -2,7 +2,7 @@
 
 import React, { HTMLAttributes } from "react";
 import styles from "./performers.module.scss";
-import { PerformerCard } from "@src/components/account/performers/performer-card";
+import { PerformerCard } from "@src/shared/ui/performer-card";
 
 type PerformersProps = {} & HTMLAttributes<HTMLUListElement>;
 

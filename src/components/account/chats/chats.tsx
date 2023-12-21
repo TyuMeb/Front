@@ -2,7 +2,7 @@
 
 import React, { HTMLAttributes } from "react";
 import styles from "./chats.module.scss";
-import { PerformerCard } from "@src/components/account/performers/performer-card";
+import { PerformerCard } from "@src/shared/ui/performer-card";
 import { NoOrdersCard } from "@src/components/account/my-orders/no-orders-card";
 
 type ChatsProps = {} & HTMLAttributes<HTMLUListElement>;
