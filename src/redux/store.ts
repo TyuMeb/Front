@@ -5,6 +5,7 @@ import modalReducer from "./slices/modal-slice";
 import headerReducer from "./slices/header-slice";
 import navAccountReducer from "./slices/nav-account-slice";
 import headerAccountReducer from "./slices/header-account-slice";
+import chatReducer from "./slices/chat-slice";
 import { setupListeners } from "@reduxjs/toolkit/query/react";
 import { apiSlice } from "@src/redux/api/api-slice";
 
@@ -14,6 +15,7 @@ export const store = configureStore({
         header: headerReducer,
         headeraccount: headerAccountReducer,
         nav: navAccountReducer,
+        chats: chatReducer,
         [apiSlice.reducerPath]: apiSlice.reducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),

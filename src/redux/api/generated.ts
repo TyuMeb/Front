@@ -387,3 +387,11 @@ export interface GalleryImages {
     /** Место на макете - слева направо */
     position?: "1" | "2" | "3" | "4";
 }
+
+export interface Chat {
+    /** Id */
+    id?: number;
+    messages?: Message[] | undefined;
+    /** @uniqueItems true */
+    participants: number[];
+}
