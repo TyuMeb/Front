@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { SliderUser } from "./slider-user";
-import { USER_SLIDER_TEST_DATA2 } from "@src/shared/data/userSliderTestData2";
+import { USER_SLIDER_TEST_DATA } from "@src/shared/data/userSliderTestData2";
+import "keen-slider/keen-slider.min.css";
 
 const meta = {
     title: "UI/SliderUser",
@@ -10,14 +11,14 @@ const meta = {
     },
     tags: ["autodocs"],
     argTypes: {
-        variant: {
-            name: "variant",
-            type: { name: "enum", value: ["small", "big"] },
-            defaultValue: "small",
-            description: "Вариант слайдера (small - для фото / big - для продукта)",
+        spacing: {
+            name: "spacing",
+            type: { name: "number", required: false },
+            defaultValue: 18,
+            description: "Отступы от каждой картинки. Используется вместо gap.",
             table: {
-                type: { summary: "variant" },
-                defaultValue: { summary: "small" },
+                type: { summary: "number" },
+                defaultValue: { summary: 18 },
             },
             options: ["small", "big"],
         },
@@ -40,7 +41,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
     args: {
         itemsToShow: 3,
-        variant: "small",
-        slides: USER_SLIDER_TEST_DATA2,
+        spacing: 18,
+        children: USER_SLIDER_TEST_DATA,
     },
 };

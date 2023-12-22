@@ -1,7 +1,6 @@
-@import "~/src/styles/index.scss";
-
 .container {
     display: flex;
+    column-gap: 20px;
     cursor: pointer;
     position: relative;
 }
@@ -24,6 +23,7 @@
     box-sizing: border-box;
     user-select: none;
     transition: 0.2s ease-out;
+    cursor: pointer;
 }
 
 .checkboxField:hover {
@@ -66,7 +66,6 @@
     @include textSmall;
     @include text;
 
-    margin-left: 20px;
     color: $black;
 }
 

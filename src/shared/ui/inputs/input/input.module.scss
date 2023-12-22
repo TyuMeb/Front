@@ -1,8 +1,10 @@
-.text {
-    @include textSmall;
-    @include text;
+.container {
+    max-width: 100%;
+}
 
-    color: $black;
+.text {
+    @include font-source-sans(16px, $black, 400, 24px);
+
     cursor: text;
 }
 
@@ -48,9 +50,9 @@
 }
 
 .message {
-    @include textTiny;
-    @include text;
-
+    @include font-source-sans(14px, $black, 400, 21px);
+    width: 100%;
+    word-break: break-word;
     display: inline-block;
     margin-top: 4px;
     color: $error-accent-color;

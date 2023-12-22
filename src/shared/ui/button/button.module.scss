@@ -29,6 +29,7 @@
     }
 
     &:disabled {
+        cursor: auto;
         background-color: $disabled-color;
         & svg > path {
             fill: $disabled-color;
@@ -64,7 +65,7 @@
 
     &_exit {
         padding: 12px 20px;
-        border-radius: 0px 4px 4px 0px;
+        border-radius: 0px 10px 10px 0px;
         background-color: $light-latte-color;
         min-width: 224px;
 

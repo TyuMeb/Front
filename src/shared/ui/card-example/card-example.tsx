@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styles from "./card-example.module.scss";
-import { PriceItem } from "../price-item/price-item";
+import { PriceItem } from "@src/shared/ui/price-item";
 
 export type CardExampleProps = {
     id?: number;

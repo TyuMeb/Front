@@ -6,7 +6,7 @@ import { usePostUsersResetPasswordConfirmMutation } from "@src/redux/api/users-a
 import { useParams, useRouter } from "next/navigation";
 
 import styles from "@src/components/modals/modal-auth/modal-auth.module.scss";
-import ModalAuth from "@src/components/modals/modal-auth";
+import { ModalAuth } from "@src/components/modals/modal-auth";
 import { PasswordInput } from "@src/shared/ui/inputs";
 import { Button } from "@src/shared/ui/button";
 import { useForm } from "react-hook-form";
@@ -14,7 +14,7 @@ import { Icon } from "@src/components/icon";
 
 const cx = classNames.bind(styles);
 
-type Form = {
+type FormProps = {
     new_password: string;
     confirm_password: string;
 };
@@ -30,7 +30,7 @@ export const ResetPasswordConfirm = () => {
         handleSubmit,
         watch,
         formState: { errors },
-    } = useForm<Form>({
+    } = useForm<FormProps>({
         values: {
             new_password: "",
             confirm_password: "",
@@ -41,7 +41,7 @@ export const ResetPasswordConfirm = () => {
 
     const [resetPasswordConfirm, { isLoading, isSuccess }] = usePostUsersResetPasswordConfirmMutation();
 
-    const onSubmit = (data: Form) => {
+    const onSubmit = (data: FormProps) => {
         setError("");
 
         resetPasswordConfirm({ ...data, uid: params.uid as string, token: params.token as string })
@@ -121,5 +121,3 @@ export const ResetPasswordConfirm = () => {
         </ModalAuth>
     );
 };
-
-export default ResetPasswordConfirm;

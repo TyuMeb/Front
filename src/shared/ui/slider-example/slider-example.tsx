@@ -1,17 +1,16 @@
 import React, { FC, useEffect } from "react";
-import "keen-slider/keen-slider.min.css";
 import { useSlider } from "@src/hooks/use-slider";
 import styles from "./slider-example.module.scss";
 import { cn } from "@src/shared/lib/cn";
-import { CardExample, CardExampleProps } from "@src/shared/ui/card-example/card-example";
-import { SliderControl } from "../sllder-control/slider-control";
+import { CardExample, CardExampleProps } from "@src/shared/ui/card-example";
+import { SliderControl } from "@src/shared/ui/slider-control";
 
-export type SlideItem = {
+export type SlideItemProps = {
     items: Required<Array<CardExampleProps>>;
 };
 
 type SliderProps = {
-    slides: Required<Array<SlideItem>>;
+    slides: Required<Array<SlideItemProps>>;
     disabled?: boolean;
     delay?: number;
     slideRight?: boolean;
@@ -45,18 +44,18 @@ export const SliderExample: FC<SliderProps> = ({
     });
 
     function slideForward() {
-        if (slides && !disabled) {
+        if (!disabled) {
             sliders.forEach((slider) => slider.instanceRef.current?.next());
         }
     }
 
     function slideBackward() {
-        if (slides && !disabled) {
+        if (!disabled) {
             sliders.forEach((slider) => slider.instanceRef.current?.prev());
         }
     }
 
-    return (
+    return slides.length ? (
         <main className={cn(styles.slider, styles.slider_visible)}>
             <div className={styles.slider__content}>
                 {sliders.map((slideItem, index) => (
@@ -83,5 +82,7 @@ export const SliderExample: FC<SliderProps> = ({
                 </div>
             </div>
         </main>
+    ) : (
+        <></>
     );
 };

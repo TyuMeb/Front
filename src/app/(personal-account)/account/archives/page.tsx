@@ -1,5 +1,7 @@
 "use client";
 
+import { Archives } from "@src/components/account/archives";
+
 export default function ArchivesPage() {
-    return <h2>Archives</h2>;
+    return <Archives />;
 }

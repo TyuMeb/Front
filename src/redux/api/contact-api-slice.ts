@@ -1,5 +1,5 @@
 import { apiSlice } from "./api-slice";
-import { CooperationOffer } from "./generated";
+import { CooperationOffer, ContactData } from "./generated";
 
 const contactApi = apiSlice.injectEndpoints({
     endpoints: (build) => ({
@@ -10,7 +10,15 @@ const contactApi = apiSlice.injectEndpoints({
                 body,
             }),
         }),
+        getContact: build.mutation({
+            query: (body: ContactData) => ({
+                // TODO: УКАЗАТЬ ПРАВИЛЬНЫЙ ЭНДПОИНТ
+                url: "/contact/cooperation/",
+                method: "POST",
+                body,
+            }),
+        }),
     }),
 });
 
-export const { useCooperateMutation } = contactApi;
+export const { useCooperateMutation, useGetContactMutation } = contactApi;
