@@ -3,6 +3,8 @@
 import React, { HTMLAttributes } from "react";
 import styles from "./performers.module.scss";
 import { PerformerCard } from "@src/components/account/performers/performer-card";
+import desk from "@public/account/desk.jpg";
+import slide from "@public/home/s_slide00.jpg";
 
 type PerformersProps = {} & HTMLAttributes<HTMLUListElement>;
 
@@ -11,15 +13,15 @@ export const performers = [
         id: "1",
         name: "Schattdecor AG",
         termOfExecution: "45-50",
+        images: [desk, desk, slide],
         cost: 120000,
-        showGallery: true,
     },
     {
         id: "2",
         name: "Мебельная фабрика Три Бобра",
         termOfExecution: "70",
+        images: [],
         cost: 100000,
-        showGallery: false,
     },
 ];
 

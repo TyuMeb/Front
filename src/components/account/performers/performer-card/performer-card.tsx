@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
+import Image, { StaticImageData } from "next/image";
+
 import classNames from "classnames/bind";
 import styles from "./performer-card.module.scss";
 import "src/components/account/wrapper-card/wrapper-card.module.scss";
 import { Button } from "src/shared/ui/button";
 import { WrapperCard } from "src/components/account/wrapper-card";
-import { Icon } from "src/components/icon";
+import { SliderUser } from "@src/shared/ui/slider-user";
 
 const cx = classNames.bind(styles);
 
@@ -14,10 +16,9 @@ type PerformerCardProps = {
     name: string;
     termOfExecution: string;
     cost: number;
-    showGallery: boolean;
+    images: StaticImageData[];
 };
 
-// Пока как заглушка. Не приходит с бэка. Нужна реализация сокетов.
 const DESCRIPTION = `
     Продавец: Здравствуйте! Как я могу Вам помочь?
     Покупатель: Добрый день! Я хочу купить новую мебель для своей квартиры.
@@ -33,11 +34,26 @@ const DESCRIPTION = `
 `;
 
 export const PerformerCard = ({ performer }: { performer: PerformerCardProps }) => {
-    const { name, termOfExecution, cost, showGallery } = performer;
+    const { name, termOfExecution, cost, images } = performer;
+
+    const id = useId();
 
     const [showText, setShowText] = useState(true);
-
     const showTextHandler = () => setShowText(!showText);
+
+    const renderSlider = (images: StaticImageData[], alt: string) => {
+        return (
+            <SliderUser className={styles.slider} spacing={8} itemsToShow={3}>
+                {images.map((image, i) => {
+                    return (
+                        <div key={`${id}-${i}`} className="keen-slider__slide">
+                            <Image src={image} alt={alt} className={styles.sliderImage} />
+                        </div>
+                    );
+                })}
+            </SliderUser>
+        );
+    };
 
     return (
         <WrapperCard>
@@ -64,28 +80,16 @@ export const PerformerCard = ({ performer }: { performer: PerformerCardProps }) 
                 </div>
             </div>
 
-            <div className={cx("wrapperDialog", { wrapperGrid: !showGallery })}>
+            <div className={cx("wrapperDialog", { wrapperGrid: !images.length })}>
                 <p className={cx("text-small", "textPosition", { hiddenText: showText })}>{DESCRIPTION}</p>
 
-                <button className={cx("buttonExpand", { removeMargins: !showGallery })} onClick={showTextHandler}>
+                <button className={cx("buttonExpand", { removeMargins: !images.length })} onClick={showTextHandler}>
                     <p className="text-small-semibold">посмотреть весь текст</p>
                 </button>
 
-                {showGallery && (
-                    <ul className={styles.gallery}>
-                        <button className={styles.buttonSwitch}>
-                            <Icon glyph="arrowLeft" />
-                        </button>
-                        <li className={styles.item}></li>
-                        <li className={styles.item}></li>
-                        <li className={styles.item}></li>
-                        <button className={styles.buttonSwitch}>
-                            <Icon glyph="arrowLeft" transform="rotate(180)" />
-                        </button>
-                    </ul>
-                )}
+                {images.length ? renderSlider(images, name) : <></>}
 
-                <Button className={cx("button", { addMargins: !showGallery })}>
+                <Button className={cx("button", { addMargins: !images.length })}>
                     <p className="text-small">Перейти в чат</p>
                 </Button>
             </div>

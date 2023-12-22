@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import styles from "./dialog.module.scss";
 import { openModal } from "@src/redux/slices/modal-slice";
-import { useAppDispatch } from "@src/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 import { Button } from "@src/shared/ui/button";
 import { Form } from "@src/components/account/form";
 import { Textarea } from "@src/components/account/form/textarea";
@@ -15,30 +15,26 @@ import { Icon } from "@src/components/icon";
 import { PreviewFiles } from "@src/components/account/form/preview-files";
 import { filesPreviewProps } from "@src/components/account/form/formTypes";
 import { useForm } from "react-hook-form";
+import { useMeasuredRef } from "@src/hooks/use-measured-ref";
 import { getFiles } from "@src/helpers/getFiles";
 
 export const Dialog = () => {
-    const [formHeight, setFormHeight] = useState<number>(0);
+    const measuredForm = useMeasuredRef();
+    const measuredDialog = useMeasuredRef();
+
     const [filesPreview, setFilesPreview] = useState<filesPreviewProps[] | []>([]);
     const dispatch = useAppDispatch();
+    const { selectedPerformer } = useAppSelector((store) => store.account);
 
     useEffect(() => {
         window.scrollTo(0, document.body.scrollHeight);
-    }, [formHeight]);
+    }, [measuredForm.elementHeight]);
 
     const { handleSubmit, register } = useForm({
         values: {
             chat: "",
         },
     });
-
-    const measuredRef = useCallback((node: HTMLDivElement) => {
-        if (!node) return;
-        const resizeObserver = new ResizeObserver(() => {
-            setFormHeight(node.getBoundingClientRect().height);
-        });
-        resizeObserver.observe(node);
-    }, []);
 
     const onSubmitHandler = (data: { chat: string }) => {
         const files = getFiles(filesPreview);
@@ -55,35 +51,73 @@ export const Dialog = () => {
             maxSizeImage: 100000,
             maxCountFiles: 6,
             multiple: true,
-            // accept=".png, .jpg, .jpeg"},
         },
         disabled: (maxCountFiles: number) => filesPreview.length >= maxCountFiles,
     };
 
+    const performers = {
+        id: "1",
+        index: 1,
+        orderName: "Полка настенная",
+        termOfExecution: "70",
+        cost: 100000,
+    };
+
     return (
         <article className={styles.dialog}>
-            <div className={styles.wrapperHead}>
+            <div className={styles.wrapperHead} ref={measuredDialog.getObserver}>
                 <div className={styles.line}>
                     <div className={styles.info}>
                         <div className={styles.infoPerformer}>
                             <span className={styles.userIcon}></span>
                             <h2 className="subtitle2">
-                                Чат с <span className={styles.fontWeight}>Исполнителем 1</span>
+                                Чат с <span className={styles.fontWeight}>Исполнителем {performers.index}</span>
                             </h2>
                         </div>
                         <div className={styles.infoOrder}>
-                            <p className="text-small-semibold">Полка настенная</p>
-                            <p className="text-small-semibold">Срок исполнения: 45-50 дней</p>
-                            <p className="text-small-semibold">Стоимость: от 100 000 руб</p>
+                            <p className="text-small-semibold">{performers.orderName}</p>
+                            <p className="text-small-semibold">
+                                Срок исполнения: &nbsp;
+                                {performers.termOfExecution}
+                                &nbsp; дней
+                            </p>
+                            <p className="text-small-semibold">
+                                Стоимость: от &nbsp;
+                                {performers.cost}
+                                &nbsp; руб
+                            </p>
                         </div>
                     </div>
-                    <Button onClick={() => dispatch(openModal("chooseThisProducer"))}>
-                        <p className="text-medium">Выбрать этого исполнителя</p>
-                    </Button>
+                    {!selectedPerformer ? (
+                        <Button onClick={() => dispatch(openModal("chooseThisProducer"))}>
+                            <p className="text-medium">Выбрать этого исполнителя</p>
+                        </Button>
+                    ) : (
+                        <div className={styles.wrapperSelectedPerformer}>
+                            <ul className={styles.list}>
+                                <li className={styles.itemSelectedPerformer}>
+                                    <p className="text-medium-semibold">E-mail: example@yandex.ru</p>
+                                </li>
+
+                                <li>
+                                    <p className="text-medium-semibold">Телефон: +79025062076</p>
+                                </li>
+
+                                <li className={styles.itemSelectedPerformer}>
+                                    <p className="text-medium-semibold">ИП Зверев Илья Владимирович</p>
+                                </li>
+                            </ul>
+                        </div>
+                    )}
                 </div>
             </div>
 
-            <div style={{ marginBottom: `${formHeight + 28}px` }} className={styles.wrapper}>
+            <div
+                style={{
+                    marginBottom: `${measuredForm.elementHeight + 28}px`,
+                    marginTop: `${measuredDialog.elementHeight}px`,
+                }}
+                className={styles.wrapper}>
                 <div className={`${styles.chat} ${styles.positionLeft}`}>
                     <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
 
@@ -178,7 +212,7 @@ export const Dialog = () => {
                 </div>
             </div>
 
-            <div className={styles.wrapperForm} ref={measuredRef}>
+            <div className={styles.wrapperForm} ref={measuredForm.getObserver}>
                 <Form onSubmit={handleSubmit(onSubmitHandler)}>
                     <Textarea
                         {...register("chat", {
