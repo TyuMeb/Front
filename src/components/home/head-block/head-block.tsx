@@ -3,8 +3,12 @@
 import Link from "next/link";
 import styles from "./head-block.module.scss";
 import { Button } from "@src/shared/ui/button";
+import { useAppDispatch } from "@src/redux/hooks";
+import { openModal } from "@src/redux/slices/modal-slice";
 
 export const HeadBlock = () => {
+    const dispatch = useAppDispatch();
+
     return (
         <>
             <div>
@@ -14,8 +18,8 @@ export const HeadBlock = () => {
                         <p className={styles.description}>
                             Сделайте заказ прямо сейчас, и мы подберём вам лучшие предложения за 24 часа
                         </p>
-                        <Link href="/order">
-                            <Button>Сделать заказ</Button>
+                        <Link href="/">
+                            <Button onClick={() => dispatch(openModal("getContact"))}>Сделать заказ</Button>
                         </Link>{" "}
                     </div>
                 </div>

@@ -10,6 +10,7 @@ import { ResetPasswordConfirm } from "@src/components/modals/reset-password-conf
 import { ChooseThisProducer } from "@src/components/modals/choose-this-producer";
 import { ResetPassword } from "@src/components/modals/reset-password";
 import { Confirm } from "@src/components/modals/confirm";
+import { ModalGetContact } from "./modal-get-contact/modal-get-contact";
 
 export const Modals = () => {
     const { modal, typeModal } = useAppSelector((store) => store.modal);
@@ -40,6 +41,8 @@ export const Modals = () => {
                 return <ChooseThisProducer />;
             case "confirm":
                 return <Confirm />;
+            case "getContact":
+                return <ModalGetContact />;
             default:
                 return <></>;
         }

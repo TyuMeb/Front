@@ -244,6 +244,26 @@ export interface CooperationOffer {
     created?: string;
 }
 
+export interface ContactData {
+    /** Id */
+    id?: number;
+    /**
+     * Имя компании
+     * @maxLength 100
+     */
+    name?: string | null;
+    /**
+     * Почта
+     * @maxLength 60
+     */
+    email?: string | null;
+    /**
+     * Дата создания обращения
+     * @format date-time
+     */
+    created?: string;
+}
+
 export interface ContactSupport {
     /** ID */
     id?: number;
