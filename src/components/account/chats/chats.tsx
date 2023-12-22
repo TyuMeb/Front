@@ -11,16 +11,20 @@ const performers = [
     {
         id: "1",
         name: "Schattdecor AG",
+        product: "Полка настенная",
         termOfExecution: "45-50",
         cost: 120000,
-        showGallery: true,
+        disabled: false,
+        //showGallery: true,
     },
     {
         id: "2",
         name: "Мебельная фабрика Три Бобра",
+        product: "Полка настенная 2",
         termOfExecution: "70",
         cost: 100000,
-        showGallery: false,
+        disabled: true,
+        //showGallery: false,
     },
 ];
 
@@ -29,7 +33,13 @@ export const Chats = (props: ChatsProps) => {
         return performers.map((performer) => {
             return (
                 <li key={performer.id}>
-                    <PerformerCard performer={performer} />
+                    <PerformerCard
+                        disabled={performer.disabled}
+                        name={performer.name}
+                        product={performer.product}
+                        termOfExecution={performer.termOfExecution}
+                        cost={performer.cost}
+                    />
                 </li>
             );
         });
