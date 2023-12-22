@@ -13,7 +13,7 @@ const contactApi = apiSlice.injectEndpoints({
         getContact: build.mutation({
             query: (body: ContactData) => ({
                 // TODO: УКАЗАТЬ ПРАВИЛЬНЫЙ ЭНДПОИНТ
-                url: "/contact/getcontact/",
+                url: "/contact/cooperation/",
                 method: "POST",
                 body,
             }),

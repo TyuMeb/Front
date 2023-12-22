@@ -34,7 +34,7 @@ export const ModalGetContact = () => {
                         <Input placeholder="E-mail" type="email" required {...register("email")} />
                     </div>
                     <Button type="submit" isLoading={isLoading}>
-                        Связаться
+                        Подписаться
                     </Button>
                 </form>
             )}
