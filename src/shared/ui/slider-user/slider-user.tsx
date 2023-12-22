@@ -32,7 +32,7 @@ export const SliderUser: FC<UserSliderProps> = ({ itemsToShow = 1, children, cla
     }
 
     return (
-        <section className={cn(styles.slider, isVisible ? styles.slider_visible : null, className)} {...props}>
+        <div className={cn(styles.slider, isVisible ? styles.slider_visible : null, className)} {...props}>
             {loaded && instanceRef.current && instanceRef.current.track.details.slides.length > itemsToShow && (
                 <Button
                     type="button"
@@ -58,6 +58,6 @@ export const SliderUser: FC<UserSliderProps> = ({ itemsToShow = 1, children, cla
                     className={styles.slider__btn}
                 />
             )}
-        </section>
+        </div>
     );
 };

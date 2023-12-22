@@ -1,0 +1,23 @@
+.item {
+    display: grid;
+    align-items: center;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eae5e1;
+    grid-template-columns: 125px auto;
+    column-gap: 16px;
+}
+
+.decor {
+    border-bottom: 1px dotted #9ca2bd;
+}
+
+.wrapperFiles {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.itemFiles {
+    display: flex;
+    column-gap: 8px;
+}

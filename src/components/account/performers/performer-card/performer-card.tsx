@@ -5,7 +5,7 @@ import classNames from "classnames/bind";
 import styles from "./performer-card.module.scss";
 import "src/components/account/wrapper-card/wrapper-card.module.scss";
 import { Button } from "src/shared/ui/button";
-import { WrapperCard } from "src/components/account/wrapper-card";
+import { Card } from "@src/components/account/card";
 import { Icon } from "src/components/icon";
 
 const cx = classNames.bind(styles);
@@ -40,8 +40,8 @@ export const PerformerCard = ({ performer }: { performer: PerformerCardProps }) 
     const showTextHandler = () => setShowText(!showText);
 
     return (
-        <WrapperCard>
-            <div className="wrapperText">
+        <Card>
+            <div className="wrapperHead">
                 <div className={styles.workerInfo}>
                     <span className={styles.avatar} />
                     <h2 className="subtitle2">{name}</h2>
@@ -89,6 +89,6 @@ export const PerformerCard = ({ performer }: { performer: PerformerCardProps }) 
                     <p className="text-small">Перейти в чат</p>
                 </Button>
             </div>
-        </WrapperCard>
+        </Card>
     );
 };
