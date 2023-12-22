@@ -1,3 +1,3 @@
-import { getRandomKey } from "@src/helpers";
-
-export const createFilePdf = () => new File(["Hello, World!"], `${getRandomKey()}.pdf`, { type: "application/pdf" });
+export const createFilePdf = () => {
+    return new Blob(["Hello, World!"], { type: "application/pdf" });
+};

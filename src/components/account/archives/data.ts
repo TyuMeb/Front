@@ -1,6 +1,5 @@
 import desk from "@public/account/desk.jpg";
 import slide from "@public/home/s_slide00.jpg";
-import { createFilePdf } from "@src/helpers/createFilePdf";
 import { StaticImageData } from "next/image";
 
 export type Status = "processing" | "notReviewed" | "notSelected";
@@ -36,6 +35,5 @@ export const orders = [
             date: "24.04.2024",
             countOffer: "4",
         },
-        files: [createFilePdf(), createFilePdf()],
     },
 ] as Orders[];
