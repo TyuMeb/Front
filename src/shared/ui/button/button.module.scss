@@ -29,6 +29,7 @@
     }
 
     &:disabled {
+        cursor: auto;
         background-color: $disabled-color;
         & svg > path {
             fill: $disabled-color;
