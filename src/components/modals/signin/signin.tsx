@@ -61,7 +61,7 @@ export const SignIn = () => {
                     .unwrap()
                     .then((user) => {
                         dispatch(() => setUser(user));
-                        router.push("/personal-account");
+                        router.push("/account/chats");
                     });
             })
             .catch((error) => {

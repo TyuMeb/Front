@@ -1,5 +1,5 @@
 import { apiSlice } from "./api-slice";
-import { Option, Question, QuestionnaireResponse } from "./generated";
+import { AllOrdersClient, Option, Question, QuestionnaireResponse } from "./generated";
 
 export type OrderDetail = {
     name: string;
@@ -32,7 +32,13 @@ const orderApi = apiSlice.injectEndpoints({
                 method: "POST",
             }),
         }),
+        archiveOrders: build.query<AllOrdersClient[], void>({
+            query: () => ({
+                url: `/order/client/archive/`,
+            }),
+        }),
     }),
 });
 
-export const { useCreateOrderMutation, useOrderAnswersQuery, useOrderCreateAnswersMutation } = orderApi;
+export const { useCreateOrderMutation, useOrderAnswersQuery, useOrderCreateAnswersMutation, useArchiveOrdersQuery } =
+    orderApi;
