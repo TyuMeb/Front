@@ -1,3 +1,5 @@
+import { twMerge } from "tailwind-merge";
+
 export const cn = (...args: unknown[]) => {
-    return args.filter(Boolean).join(" ");
+    return twMerge(args.filter(Boolean).join(" "));
 };

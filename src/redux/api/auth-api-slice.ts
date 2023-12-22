@@ -11,7 +11,11 @@ const authApi = apiSlice.injectEndpoints({
             }),
         }),
         getUser: build.query<UserAccount, void>({
-            query: () => "/auth/users/me/",
+            query: () => {
+                return {
+                    url: "/auth/users/me/",
+                };
+            },
         }),
         verifyUser: build.query({
             query: (data: Activation) => ({
@@ -21,7 +25,11 @@ const authApi = apiSlice.injectEndpoints({
             }),
         }),
         verifyEmail: build.query({
-            query: ({ uid, token }) => `/activate${uid}/${token}/`,
+            query: ({ uid, token }) => {
+                return {
+                    url: `/activate${uid}/${token}/`,
+                };
+            },
         }),
     }),
 });
