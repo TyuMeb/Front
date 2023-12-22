@@ -3,7 +3,6 @@
 import React, { HTMLAttributes, ReactNode } from "react";
 import styles from "./list-item.module.scss";
 import { getIconFile } from "@src/helpers/getIconFile";
-import { getRandomKey } from "@src/helpers";
 
 type Description = {
     name: string;
@@ -23,7 +22,7 @@ const renderFiles = (files: File[]) => {
                 return (
                     <li key={i} className={styles.itemFiles}>
                         {getIconFile(file.type)}
-                        <p className="text-small">{getRandomKey()}.pdf</p>
+                        <p className="text-small">name-{i + 1}.pdf</p>
                     </li>
                 );
             })}

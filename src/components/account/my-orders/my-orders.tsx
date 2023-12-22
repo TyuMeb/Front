@@ -3,7 +3,7 @@
 import React, { HTMLAttributes } from "react";
 
 import styles from "./my-orders.module.scss";
-import { NoOrdersCard } from "@src/components/account/my-orders/no-orders-card";
+import { NoCard } from "@src/components/account/card/no-card";
 import { AddFiles } from "@src/components/account/my-orders/add-files";
 import { Icon } from "src/components/icon";
 import { getFiles } from "@src/helpers";
@@ -13,6 +13,7 @@ import { Button } from "@src/shared/ui/button";
 import { Card } from "@src/components/account/card";
 import { ListItem } from "../card/list-item/list-item";
 import { orders } from "./data";
+import Link from "next/link";
 
 type MyOrdersProps = {} & HTMLAttributes<HTMLDivElement>;
 
@@ -112,7 +113,13 @@ export const MyOrders = (props: MyOrdersProps) => {
 
     return (
         <section className={styles.wrapperOrders} {...props}>
-            {orders.length ? <NoOrdersCard /> : <></>}
+            {!orders.length ? (
+                <NoCard name="У вас пока нет заказов. Но вы всегда можете исправить это, создав его.">
+                    <Link href="/">Сделать заказ</Link>
+                </NoCard>
+            ) : (
+                <></>
+            )}
 
             {orders.length ? <ul className={styles.wrapperOrders}>{renderOrders()}</ul> : <></>}
         </section>

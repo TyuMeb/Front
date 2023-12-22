@@ -3,7 +3,8 @@
 import React, { HTMLAttributes } from "react";
 import styles from "./chats.module.scss";
 import { PerformerCard } from "@src/components/account/performers/performer-card";
-import { NoOrdersCard } from "@src/components/account/my-orders/no-orders-card";
+import { NoCard } from "@src/components/account/card/no-card";
+import Link from "next/link";
 
 type ChatsProps = {} & HTMLAttributes<HTMLUListElement>;
 
@@ -37,7 +38,13 @@ export const Chats = (props: ChatsProps) => {
 
     return (
         <section className={styles.wrapperPerformers} {...props}>
-            {!performers.length && <NoOrdersCard />}
+            {!performers.length ? (
+                <NoCard name="У вас пока нет заказов. Но вы всегда можете исправить это, создав его.">
+                    <Link href="/">Сделать заказ</Link>
+                </NoCard>
+            ) : (
+                <></>
+            )}
 
             {performers.length && <ul className={styles.wrapperPerformers}>{renderPerformers()}</ul>}
         </section>

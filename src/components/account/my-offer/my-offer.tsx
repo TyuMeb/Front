@@ -2,7 +2,7 @@
 
 import React, { HTMLAttributes } from "react";
 
-import { NoOrdersCard } from "@src/components/account/my-orders/no-orders-card";
+import { NoCard } from "@src/components/account/card/no-card";
 import { Button } from "@src/shared/ui/button";
 import { Card } from "@src/components/account/card";
 import { ListItem } from "@src/components/account/card/list-item";
@@ -133,7 +133,20 @@ export const MyOffer = (props: MyOfferProps) => {
 
     return (
         <section className={styles.wrapperOffer} {...props}>
-            {myOffers.length ? <NoOrdersCard /> : <></>}
+            {!myOffers.length ? (
+                <NoCard
+                    name={
+                        <>
+                            Вы пока не сделали ни одного предложения.
+                            <br />
+                            Но вы всегда можете исправить это, перейдя к заказам клиентов.
+                        </>
+                    }>
+                    <Link href="#">Перейти к заказам</Link>
+                </NoCard>
+            ) : (
+                <></>
+            )}
 
             {myOffers.length ? <ul className={styles.wrapperOffer}>{renderOrders()}</ul> : <></>}
         </section>
