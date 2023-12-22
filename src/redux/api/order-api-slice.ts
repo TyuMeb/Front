@@ -1,10 +1,14 @@
 import { apiSlice } from "./api-slice";
-import { QuestionnaireResponse } from "./generated";
+import { Option, Question, QuestionnaireResponse } from "./generated";
 
 export type OrderDetail = {
     name: string;
     questionnaire_type_id: number;
     answers: QuestionnaireResponse[];
+};
+
+export type QuestionType = Question & {
+    options?: Array<Omit<Option, "questions"> & { questions: QuestionType[] }>;
 };
 
 const orderApi = apiSlice.injectEndpoints({

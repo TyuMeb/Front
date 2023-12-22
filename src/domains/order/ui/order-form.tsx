@@ -5,7 +5,7 @@ import { Button } from "@src/shared/ui/button";
 import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { getCookieOrder, removeCookieOrder } from "../lib/order-storage";
-import { useOrderAnswersQuery, useOrderCreateAnswersMutation } from "@src/redux/api/order-api-slice";
+import { QuestionType, useOrderAnswersQuery, useOrderCreateAnswersMutation } from "@src/redux/api/order-api-slice";
 import { useQuestionnaireQuery } from "@src/redux/api/questionnaire-api-slice";
 import { toFlatQuestions } from "../lib/question";
 import { QuestionnaireResponse } from "@src/redux/api/generated";
@@ -34,7 +34,7 @@ export function OrderForm({ onBack, questionnaireTypeId }: Props) {
     useEffect(() => {
         if (order && chapters.length) {
             for (const [index, chapter] of Object.entries(chapters)) {
-                const questions = toFlatQuestions(chapter.questions || []);
+                const questions = toFlatQuestions((chapter.questions as QuestionType[]) || []);
 
                 for (const question of questions) {
                     if (!order.answers.some((answer) => answer.question_id === question.id)) {
@@ -54,10 +54,10 @@ export function OrderForm({ onBack, questionnaireTypeId }: Props) {
         }, {} as FormValues),
     });
 
-    const questions = chapters?.[chapterIndex]?.questions ?? [];
+    const questions = (chapters?.[chapterIndex]?.questions ?? []) as QuestionType[];
 
     const onSubmit = (data: FormValues) => {
-        const questions = toFlatQuestions(chapters[chapterIndex].questions || []);
+        const questions = toFlatQuestions((chapters[chapterIndex].questions as QuestionType[]) || []);
 
         const answers: QuestionnaireResponse[] = [];
 

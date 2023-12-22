@@ -1,12 +1,11 @@
 import { Textarea } from "@src/components/account/form/textarea";
-import { Question } from "@src/redux/api/generated";
-import { Input } from "@src/shared/ui/inputs";
+import { QuestionType } from "@src/redux/api/order-api-slice";
 import { Select } from "@src/shared/ui/select";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 
 type Props = {
-    question: Question;
+    question: QuestionType;
     order: string | number;
 } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
