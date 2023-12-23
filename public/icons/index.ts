@@ -23,6 +23,7 @@ import dollar from './home/dollar.svg';
 import person from './home/person.svg';
 import plus from './plus.svg';
 import pdfFileSvg from './pdf-file.svg';
+import customerOrders from './customer-orders.svg';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -50,5 +51,6 @@ export default {
 	dollar,
 	person,
 	plus,
-	pdfFileSvg
+	pdfFileSvg,
+	customerOrders
 };

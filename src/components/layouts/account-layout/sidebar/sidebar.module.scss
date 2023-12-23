@@ -29,7 +29,7 @@
     border-left: 4px solid $mustard;
 }
 
-.secondLevelMenu {
+.expandedMenu {
     display: grid;
     row-gap: 12px;
     margin-top: 16px;
@@ -61,7 +61,7 @@
     }
 }
 
-.thirdLevelMenu {
+.selectedMenu {
     margin-top: 12px;
 }
 

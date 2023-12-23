@@ -14,9 +14,10 @@ type Description = {
 };
 
 export type MyOffers = {
-    id: string;
-    title: string;
+    id: number;
+    name: string;
     offerType: OfferType;
+    unreadMessages?: number;
     images?: StaticImageData[];
     description: Description;
     files?: File[];
@@ -24,9 +25,10 @@ export type MyOffers = {
 
 export const myOffers = [
     {
-        id: "1",
-        title: "Полка настенная",
+        id: 1,
+        name: "Полка настенная",
         offerType: "processing",
+        unreadMessages: 1,
         images: [desk, desk, slide],
         description: {
             date: "24.04.2024",
@@ -38,8 +40,8 @@ export const myOffers = [
         files: [createFilePdf(), createFilePdf()],
     },
     {
-        id: "2",
-        title: "Полка c зеркалом",
+        id: 2,
+        name: "Полка c зеркалом",
         offerType: "notReviewed",
         description: {
             date: "24.04.2024",
@@ -51,8 +53,8 @@ export const myOffers = [
         files: [createFilePdf(), createFilePdf()],
     },
     {
-        id: "3",
-        title: "Комод",
+        id: 3,
+        name: "Комод",
         offerType: "notSelected",
         description: {
             date: "24.04.2024",

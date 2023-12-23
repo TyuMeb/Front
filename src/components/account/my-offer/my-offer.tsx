@@ -9,7 +9,7 @@ import { ListItem } from "@src/components/account/card/list-item";
 
 import styles from "./my-offer.module.scss";
 import Link from "next/link";
-import { myOffers, MyOffers, OfferType } from "./data";
+import { myOffers, MyOffers, OfferType } from "@src/shared/data/my-offer";
 import { Slider } from "@src/components/account/slider";
 
 type MyOfferProps = {} & HTMLAttributes<HTMLDivElement>;
@@ -81,7 +81,7 @@ export const MyOffer = (props: MyOfferProps) => {
                                     ${offer.offerType === "notReviewed" && styles.backgroundGreen}
                                     ${offer.offerType === "notSelected" && styles.backgroundPink}`}
                                 />
-                                <h2 className="subtitle2">{offer.title}</h2>
+                                <h2 className="subtitle2">{offer.name}</h2>
                             </div>
 
                             {offer.offerType && (
@@ -121,7 +121,7 @@ export const MyOffer = (props: MyOfferProps) => {
                                 })}
                             </ul>
 
-                            {offer.images?.length ? <Slider images={offer.images} alt={offer.title} /> : <></>}
+                            {offer.images?.length ? <Slider images={offer.images} alt={offer.name} /> : <></>}
                         </div>
 
                         <div className={styles.wrapperButton}>{renderButton(offer.offerType)}</div>
