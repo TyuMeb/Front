@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
     --text-main-color: #1c1c1c;
     --accent-color: #fccf55;
@@ -98,17 +102,15 @@ h4 {
     font-weight: 600;
 }
 
-.container {
-    max-width: calc(1220px + 32px);
-
-    margin: 0 auto;
-
-    padding-left: 16px;
-    padding-right: 16px;
-}
-
 .homePage {
     margin-top: 80px;
+}
+
+@media (max-width: 1024px) {
+    main {
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
 }
 
 .wrapperText {

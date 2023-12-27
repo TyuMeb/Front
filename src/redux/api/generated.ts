@@ -9,7 +9,7 @@
  * ---------------------------------------------------------------
  */
 
-export interface TokenObtain {
+export interface TokenObtainPair {
     /**
      * Email
      * @minLength 1
@@ -92,12 +92,6 @@ export interface UserCreate {
      */
     name: string;
     /**
-     * Password
-     * @minLength 1
-     * @maxLength 128
-     */
-    password: string;
-    /**
      * Номер телефона
      * @minLength 7
      * @maxLength 12
@@ -109,6 +103,12 @@ export interface UserCreate {
      * @maxLength 50
      */
     surname?: string | null;
+    /**
+     * Password
+     * @minLength 1
+     * @maxLength 128
+     */
+    password: string;
 }
 
 export interface Activation {
@@ -199,6 +199,34 @@ export interface SetPasswordRetype {
     current_password: string;
 }
 
+export interface Category {
+    /** Id */
+    id?: number;
+    /** Тип - кухня, шкафы, кровати */
+    name?: "bedside_table" | "kitchen" | "table" | null;
+    /** Активная категория */
+    active?: boolean;
+}
+
+export interface QuestionnaireShortType {
+    /** Id */
+    id?: number;
+    /**
+     * Тип анкеты - короткая, длинная
+     * @minLength 1
+     * @maxLength 100
+     */
+    type?: string | null;
+    /**
+     * Описание анкеты
+     * @minLength 1
+     * @maxLength 500
+     */
+    description?: string | null;
+    /** Активная анкета */
+    active?: boolean;
+}
+
 export interface Message {
     /** ID */
     id?: number;
@@ -281,6 +309,16 @@ export interface ContactSupport {
     resolved?: boolean;
 }
 
+export interface ContractorAgreement {
+    /** User account */
+    user_account: number;
+    /**
+     * Дата подписания соглашения
+     * @format date-time
+     */
+    created_date?: string;
+}
+
 export interface OrderOffer {
     /** Id */
     id?: number;
@@ -317,76 +355,105 @@ export interface AllOrdersClient {
      * Дата создания заказа
      * @format date-time
      */
-    order_time: string;
+    order_time?: string;
     /** Статус */
-    state: "draft" | "offer" | "selected" | "completed";
+    state?: "draft" | "offer" | "selected" | "completed";
     /** Contractor */
     contractor?: string;
     /** Files */
     files?: string;
 }
 
-export interface AnswerImage {
-    /** Response */
-    response: number;
-    /**
-     * Изображение
-     * @format uri
-     */
-    image?: string;
-}
-
-export interface CategoryModelSeializer {
+export interface QuestionnaireResponse {
     /** Id */
     id?: number;
-    /** @uniqueItems true */
-    card: number[];
-    /**
-     * Тип мебели - кровать, ящик...
-     * @minLength 1
-     * @maxLength 20
-     */
-    name?: string | null;
-}
-
-export interface QuestionModel {
-    /** Id */
-    id?: number;
-    /** Options */
-    options?: string;
-    /**
-     * Вопрос по заказу
-     * @maxLength 120
-     */
-    question?: string | null;
-    /**
-     * Номер вопроса по порядку
-     * @min -2147483648
-     * @max 2147483647
-     */
-    position?: number | null;
-    /** Изображение? */
-    is_image?: boolean;
-}
-
-export interface AnswerCreate {
-    /** Id */
-    id?: number;
+    /** Question id */
+    question_id: number;
     /**
      * Ответ по заказу
-     * @maxLength 120
+     * @maxLength 500
      */
     response?: string | null;
+}
+
+export interface OrderFull {
     /**
-     * Номер ответа по порядку
-     * @maxLength 10
+     * Название заказа
+     * @minLength 1
+     * @maxLength 150
      */
-    position?: string | null;
-    /** Question */
-    question: number;
+    name?: string | null;
+    /** Questionnaire type id */
+    questionnaire_type_id?: number;
+    answers: QuestionnaireResponse[];
+}
+
+export interface Option {
+    /** Id */
+    id?: number;
+    /**
+     * Вопрос
+     * @minLength 1
+     * @maxLength 200
+     */
+    text: string;
+    /** Тип опции */
+    option_type: "sub_questions" | "answer";
+    /** Questions */
+    questions?: string;
+}
+
+export interface Question {
+    /** Id */
+    id?: number;
+    /**
+     * Вопрос
+     * @minLength 1
+     * @maxLength 200
+     */
+    text: string;
+    /** Тип ответа */
+    answer_type: "answer_not_required" | "choice_field" | "text_field";
+    /** File required */
+    file_required?: boolean;
+    /** Answer required */
+    answer_required?: boolean;
+    options?: Option[];
+}
+
+export interface QuestionnaireChapter {
+    /** Id */
+    id?: number;
+    /**
+     * Раздел опросника
+     * @minLength 1
+     * @maxLength 200
+     */
+    name: string;
+    questions?: Question[];
+}
+
+export interface QuestionnaireType {
+    /** Id */
+    id?: number;
+    /**
+     * Тип анкеты - короткая, длинная
+     * @minLength 1
+     * @maxLength 100
+     */
+    type?: string | null;
+    /**
+     * Описание анкеты
+     * @minLength 1
+     * @maxLength 500
+     */
+    description?: string | null;
+    chapters?: QuestionnaireChapter[];
 }
 
 export interface GalleryImages {
+    /** Id */
+    id?: number;
     /**
      * Slider number
      * @minLength 1
