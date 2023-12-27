@@ -8,6 +8,7 @@ import vk from './vk.svg';
 import couch from './couch.svg';
 import chats from './chats.svg';
 import settings from './settings.svg';
+import settingsLanding from './settings-landing.svg';
 import help from './help.svg';
 import add from './add.svg';
 import archives from './archives.svg';
@@ -27,6 +28,7 @@ import plus from './plus.svg';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
+	settingsLanding,
 	chevronDown,
 	resetPassword,
 	signin,

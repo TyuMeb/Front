@@ -31,7 +31,7 @@ export const Header = () => {
             <nav className={cn(styles.nav, "container")}>
                 <ul className={styles.list}>
                     <li className={styles.logo}>
-                        <Link href="/">ВайВи</Link>
+                        <Link href="/#home">ВайВи</Link>
                     </li>
                     <li
                         className={current !== "about" ? styles.link : styles.active}

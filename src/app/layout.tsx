@@ -1,8 +1,10 @@
 import React, { ReactNode } from "react";
 import { Providers } from "@src/redux/provider";
 import { Open_Sans, Raleway } from "next/font/google";
+
 import "@src/styles/global.css";
 import "keen-slider/keen-slider.min.css";
+import { cn } from "@src/shared/lib/cn";
 
 const openSans = Open_Sans({
     subsets: ["cyrillic"],
@@ -27,7 +29,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="ru">
             <Providers>
-                <body className={`${openSans.variable} ${raleway.variable}`}>{children}</body>
+                <body className={cn(openSans.className, raleway.variable)}>{children}</body>
             </Providers>
         </html>
     );
