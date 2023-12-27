@@ -6,72 +6,120 @@ import classNames from "classnames/bind";
 import styles from "./breadcrumbs.module.scss";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { orders } from "@src/shared/data/account";
+import { orders } from "@src/shared/data/customer-account";
 import { getPathNestedRoutes } from "@src/helpers/getPathNestedRoutes";
 
 const cx = classNames.bind(styles);
 
-export type BreadcrumbsItem = {
+export type FirstBreadcrumbsItems = {
     alias: string;
     name: string;
+    secondBreadcrumbs?: SecondBreadcrumbsItems[];
 };
 
+export type NestedBreadcrumbsItems = {
+    id: number;
+    name: string;
+    attached?: string;
+};
+
+export type SecondBreadcrumbsItems = {
+    thirdBreadcrumbs?: ThirdBreadcrumbsItems[];
+} & NestedBreadcrumbsItems;
+
+export type ThirdBreadcrumbsItems = {} & NestedBreadcrumbsItems;
+
 type BreadcrumbsProps = {
-    breadcrumbs: BreadcrumbsItem[];
-    pageLink: string;
+    breadcrumbs: FirstBreadcrumbsItems[];
 } & HTMLAttributes<HTMLUListElement>;
 
-export const Breadcrumbs = ({ breadcrumbs, pageLink, className, ...props }: BreadcrumbsProps) => {
+export const Breadcrumbs = ({ breadcrumbs, className, ...props }: BreadcrumbsProps) => {
     const pathname = usePathname();
 
     const generateBreadcrumbs = useCallback(() => {
         const pathNestedRoutes = getPathNestedRoutes(pathname);
-
         const crumbList = [];
+        let attached = "";
 
-        for (let i = 0; i < pathNestedRoutes.length; i++) {
-            const href = `/${pathNestedRoutes.slice(0, i + 1).join("/")}`;
-            const subpath = pathNestedRoutes[i];
-
+        for (let step = 0; step < pathNestedRoutes.length; step++) {
+            const href = `/${pathNestedRoutes.slice(0, step + 1).join("/")}`;
             let title = "";
+
+            const subpath = pathNestedRoutes[step];
             const id = Number(subpath.slice(-1));
 
-            breadcrumbs.forEach((item) => {
-                const currentPathname = `/${pageLink}/${item.alias}`;
-
-                if (href === currentPathname) {
+            const generateNestedBreadcrumbs = (item: NestedBreadcrumbsItems) => {
+                if (item.id === id) {
                     title = item.name;
+
+                    if (item.attached) {
+                        attached = item.attached;
+                    }
+
+                    return;
+                }
+            };
+
+            breadcrumbs.forEach((firstMenuitem) => {
+                const currentPathname = firstMenuitem.alias;
+
+                if (currentPathname === href) {
+                    if (step === 1) {
+                        title = firstMenuitem.name;
+                    }
+                    return;
+                }
+
+                if (getPathNestedRoutes(currentPathname)[1] === pathNestedRoutes[1]) {
+                    firstMenuitem.secondBreadcrumbs?.forEach((secondMenuitem) => {
+                        if (step === 2) {
+                            generateNestedBreadcrumbs(secondMenuitem);
+                            return;
+                        }
+
+                        secondMenuitem.thirdBreadcrumbs?.forEach((thirdMenuitem) => {
+                            if (step === 3) {
+                                generateNestedBreadcrumbs(thirdMenuitem);
+                                return;
+                            }
+                        });
+                    });
+                    return;
                 }
             });
 
-            if (i === 2) {
-                const ell = orders.find((item) => item.id === id);
-
-                title = ell?.name.toLocaleLowerCase() || "";
-            }
-
-            if (i === 3) {
-                title = `чат с исполнителем ${id}`;
-            }
-
             crumbList.push({ href, title });
+
+            if (attached) {
+                crumbList.push({ title: attached });
+            }
         }
 
         return crumbList;
     }, [orders, pathname]);
 
+    const breadcrumbsItems = generateBreadcrumbs();
+
     return (
         <ul className={`${styles.menu} ${className}`} {...props}>
-            {generateBreadcrumbs().map((item, i) => {
+            {breadcrumbsItems.map((item, i) => {
                 if (i === 0) {
                     return;
                 }
 
                 return (
                     <li className={styles.item} key={i}>
-                        <Link className={cx("text-medium", { active: pathname === item.href })} href={item.href}>
-                            {item.title}
-                        </Link>
+                        {item.href ? (
+                            <Link
+                                className={cx("text-medium", { active: breadcrumbsItems.length === i + 1 })}
+                                href={item.href}>
+                                {item.title}
+                            </Link>
+                        ) : (
+                            <p className={cx("text-medium", { active: breadcrumbsItems.length === i + 1 })}>
+                                {item.title}
+                            </p>
+                        )}
                     </li>
                 );
             })}

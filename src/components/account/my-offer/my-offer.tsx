@@ -9,7 +9,7 @@ import { ListItem } from "@src/components/account/card/list-item";
 
 import styles from "./my-offer.module.scss";
 import Link from "next/link";
-import { myOffers, MyOffers, OfferType } from "@src/shared/data/my-offer";
+import { myOffers, MyOffers, OfferType } from "@src/shared/data/performer-account";
 import { Slider } from "@src/components/account/slider";
 
 type MyOfferProps = {} & HTMLAttributes<HTMLDivElement>;

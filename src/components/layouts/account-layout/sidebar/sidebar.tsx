@@ -11,40 +11,37 @@ import { Icon, IconGlyphProps } from "@src/components/icon";
 
 const cx = classNames.bind(styles);
 
-export type FirstLevelMenuItemProps = {
+export type FirstMenuItems = {
     alias: string;
     name: string;
     iconGlyph?: IconGlyphProps;
-    secondLevelMenu?: SecondLevelMenuItemProps;
+    secondLevelMenu?: SecondLevelMenu;
 };
 
-export type SecondLevelMenuItemProps = {
-    menuItems: {
-        id: number;
-        name: string;
-        count?: number;
-    }[];
+export type NestedMenuItems = {
+    id: number;
+    name: string;
+    count?: number;
+};
+
+export type SecondLevelMenu = {
+    menuItems: NestedMenuItems[];
     alias: string;
     type?: "expanded" | "selected";
-    thirdLevelMenu?: ThirdLevelMenuItemProps;
+    thirdLevelMenu?: ThirdLevelMenu;
 };
 
-export type ThirdLevelMenuItemProps = {
-    menuItems: {
-        id: number;
-        name: string;
-        count?: number;
-    }[];
+export type ThirdLevelMenu = {
+    menuItems: NestedMenuItems[];
     alias: string;
     type?: "expanded" | "selected";
 };
 
 type SidebarProps = {
-    menuItems: FirstLevelMenuItemProps[];
-    alias: string;
+    menuItems: FirstMenuItems[];
 } & HTMLAttributes<HTMLDivElement>;
 
-export const Sidebar = ({ menuItems, alias, className }: SidebarProps) => {
+export const Sidebar = ({ menuItems, className }: SidebarProps) => {
     const pathname = usePathname();
 
     const onHandlerClick = () => {
@@ -52,17 +49,12 @@ export const Sidebar = ({ menuItems, alias, className }: SidebarProps) => {
         console.log("Выход");
     };
 
-    const buildFMenu = (): JSX.Element => {
+    const buildMenu = (): JSX.Element => {
         return (
             <ul className={cx("firstLevelMenu")}>
                 {menuItems.map((menu, i) => {
-                    let currentPathname = `/${alias}/${menu.alias}`;
-                    let activatedMenu = { activatedMenu: pathname === currentPathname };
-
-                    if (i === menuItems.length - 1) {
-                        currentPathname = "/";
-                        activatedMenu = { activatedMenu: false };
-                    }
+                    const currentPathname = menu.alias;
+                    const activatedMenu = { activatedMenu: pathname === currentPathname };
 
                     return (
                         <li key={menu.alias}>
@@ -87,11 +79,7 @@ export const Sidebar = ({ menuItems, alias, className }: SidebarProps) => {
         );
     };
 
-    const buildNestedMenu = (
-        menuItems: SecondLevelMenuItemProps,
-        route: string,
-        nestedMenu?: ThirdLevelMenuItemProps
-    ) => {
+    const buildNestedMenu = (menuItems: SecondLevelMenu, route: string, nestedMenu?: ThirdLevelMenu) => {
         return (
             <ul
                 className={cx(
@@ -136,7 +124,7 @@ export const Sidebar = ({ menuItems, alias, className }: SidebarProps) => {
     return (
         <aside className={cx("menu", className)}>
             <nav className={cx("navigation")}>
-                {buildFMenu()}
+                {buildMenu()}
 
                 <Link href="/">
                     <Button icon={<Icon glyph="exit" />} variant="exit" onClick={onHandlerClick}>

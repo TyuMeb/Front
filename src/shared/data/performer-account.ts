@@ -16,6 +16,7 @@ type Description = {
 export type MyOffers = {
     id: number;
     name: string;
+    customer: string;
     offerType: OfferType;
     unreadMessages?: number;
     images?: StaticImageData[];
@@ -27,6 +28,7 @@ export const myOffers = [
     {
         id: 1,
         name: "Полка настенная",
+        customer: "Анна Ф.",
         offerType: "processing",
         unreadMessages: 1,
         images: [desk, desk, slide],
@@ -42,6 +44,7 @@ export const myOffers = [
     {
         id: 2,
         name: "Полка c зеркалом",
+        customer: "Вася Ф.",
         offerType: "notReviewed",
         description: {
             date: "24.04.2024",
@@ -55,6 +58,7 @@ export const myOffers = [
     {
         id: 3,
         name: "Комод",
+        customer: "Вася Ф.",
         offerType: "notSelected",
         description: {
             date: "24.04.2024",
@@ -65,3 +69,18 @@ export const myOffers = [
         },
     },
 ] as MyOffers[];
+
+export const customerOrders = [
+    {
+        id: 1,
+        name: "Полка настенная",
+    },
+    {
+        id: 2,
+        name: "Полка c зеркалом",
+    },
+    {
+        id: 3,
+        name: "Комод",
+    },
+];

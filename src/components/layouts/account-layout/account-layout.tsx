@@ -3,31 +3,27 @@ import classNames from "classnames/bind";
 import { Header } from "@src/components/layouts/account-layout/header";
 import { Sidebar } from "@src/components/layouts/account-layout/sidebar";
 import { Modals } from "@src/components/modals";
-import { Breadcrumbs } from "./breadcrumbs";
-import { FirstLevelMenuItemProps } from "@src/components/layouts/account-layout/sidebar";
+import { Breadcrumbs, FirstBreadcrumbsItems } from "@src/components/layouts/account-layout/breadcrumbs";
+import { FirstMenuItems } from "@src/components/layouts/account-layout/sidebar";
 
 import styles from "./account-layout.module.scss";
 
 const cx = classNames.bind(styles);
 
 type CustomerLayoutProps = {
-    menuItems: FirstLevelMenuItemProps[];
-    alias: string;
+    menuItems: FirstMenuItems[];
+    breadcrumbs: FirstBreadcrumbsItems[];
 } & HTMLAttributes<HTMLDivElement>;
 
-export const AccountLayout = ({ menuItems, alias, children, className, ...props }: CustomerLayoutProps) => {
-    const breadcrumbs = menuItems.map((item) => {
-        return { alias: item.alias, name: item.name };
-    });
-
+export const AccountLayout = ({ menuItems, breadcrumbs, children, className, ...props }: CustomerLayoutProps) => {
     return (
         <div className={cx("wrapper", className)} {...props}>
             <Header className={cx("header")}>
-                <Breadcrumbs breadcrumbs={breadcrumbs} pageLink={alias} />
+                <Breadcrumbs breadcrumbs={breadcrumbs} />
             </Header>
 
             <div className={cx("content")}>
-                <Sidebar menuItems={menuItems} alias={alias} className={cx("sidebar")} />
+                <Sidebar menuItems={menuItems} className={cx("sidebar")} />
                 <main className={cx("main")}>{children}</main>
                 <Modals />
             </div>
