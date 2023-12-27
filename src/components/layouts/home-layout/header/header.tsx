@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 import { openModal } from "@src/redux/slices/modal-slice";
 import { cn } from "@src/shared/lib/cn";
+import Link from "next/link";
 
 export const Header = () => {
     const dispatch = useAppDispatch();
@@ -29,7 +30,9 @@ export const Header = () => {
         <header className={styles.header}>
             <nav className={cn(styles.nav, "container")}>
                 <ul className={styles.list}>
-                    <li className={styles.logo}>ВайВи</li>
+                    <li className={styles.logo}>
+                        <Link href="/#home">ВайВи</Link>
+                    </li>
                     <li
                         className={current !== "about" ? styles.link : styles.active}
                         onClick={() => switchTab("about")}>

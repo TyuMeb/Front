@@ -36,7 +36,7 @@ export const SliderExample: FC<SliderProps> = ({
         if (!disabled && auto) {
             timer = window.setTimeout(() => {
                 sliders.forEach((slider) => !slider.isOver && slider.instanceRef.current?.next());
-            }, delay * 1000);
+            }, delay * 2000);
             return () => {
                 window.clearTimeout(timer);
             };
