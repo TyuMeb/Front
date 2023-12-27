@@ -4,10 +4,10 @@
 
 .container {
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-evenly;
     margin: 0 auto;
     padding: 44px 110px;
-    gap: 28px;
+    gap: 64px;
 
     @media (max-width: 1024px) {
         flex-direction: column;

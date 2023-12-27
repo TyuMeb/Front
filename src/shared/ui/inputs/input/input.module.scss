@@ -1,12 +1,17 @@
+.container {
+    max-width: 100%;
+}
+
 .text {
-    @include font-source-sans(16px, $black, 400, 24px);
+    @include textSmall;
 
     cursor: text;
 }
 
 .label {
-    margin: 0 0 8px 16px;
+    margin: 0 0 8px;
     display: flex;
+    font-weight: 600;
     align-items: center;
 }
 
@@ -47,7 +52,8 @@
 
 .message {
     @include font-source-sans(14px, $black, 400, 21px);
-
+    width: 100%;
+    word-break: break-word;
     display: inline-block;
     margin-top: 4px;
     color: $error-accent-color;

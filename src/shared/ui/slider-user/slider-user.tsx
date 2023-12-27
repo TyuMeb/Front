@@ -10,7 +10,6 @@ type UserSliderProps = {
     spacing?: number;
 } & HTMLAttributes<HTMLDivElement>;
 
-// spacing: variant === "small" ? 18 : 8
 export const SliderUser: FC<UserSliderProps> = ({ itemsToShow = 1, children, className, spacing = 18, ...props }) => {
     const [isVisible, setIsVisible] = useState(false);
 
@@ -33,7 +32,7 @@ export const SliderUser: FC<UserSliderProps> = ({ itemsToShow = 1, children, cla
 
     return (
         <div className={cn(styles.slider, isVisible ? styles.slider_visible : null, className)} {...props}>
-            {loaded && instanceRef.current && instanceRef.current.track.details.slides.length > itemsToShow && (
+            {loaded && instanceRef.current && (
                 <Button
                     type="button"
                     icon={
@@ -49,7 +48,7 @@ export const SliderUser: FC<UserSliderProps> = ({ itemsToShow = 1, children, cla
                 {children}
             </div>
 
-            {loaded && instanceRef.current && instanceRef.current.track.details.slides.length > itemsToShow && (
+            {loaded && instanceRef.current && (
                 <Button
                     type="button"
                     icon={<Icon glyph="arrowRight" width={7} height={15} viewBox="0 0 16 30" />}

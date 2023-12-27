@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 import { openModal } from "@src/redux/slices/modal-slice";
 import { cn } from "@src/shared/lib/cn";
+import Link from "next/link";
 
 export const Header = () => {
     const dispatch = useAppDispatch();
@@ -29,29 +30,31 @@ export const Header = () => {
         <header className={styles.header}>
             <nav className={cn(styles.nav, "container")}>
                 <ul className={styles.list}>
-                    <li className={styles.logo}>ВайВи</li>
+                    <li className={styles.logo}>
+                        <Link href="/#home">ВайВи</Link>
+                    </li>
                     <li
                         className={current !== "about" ? styles.link : styles.active}
                         onClick={() => switchTab("about")}>
-                        О проекте
+                        <Link href="/#about">О проекте</Link>
                     </li>
                     <li
                         className={current !== "howWorks" ? styles.link : styles.active}
                         onClick={() => switchTab("howWorks")}>
-                        Как это работает
+                        <Link href="/#howWorks">Как это работает</Link>
                     </li>
                     <li className={current !== "form" ? styles.link : styles.active} onClick={() => switchTab("form")}>
-                        Исполнителям
+                        <Link href="/#form">Исполнителям</Link>
                     </li>
                     <li
                         className={current !== "examples" ? styles.link : styles.active}
                         onClick={() => switchTab("examples")}>
-                        Примеры работ
+                        <Link href="/#examples">Примеры работ</Link>
                     </li>
                     <li
                         className={current !== "advantages" ? styles.link : styles.active}
                         onClick={() => switchTab("advantages")}>
-                        Преимущества
+                        <Link href="/#advantages">Преимущества</Link>
                     </li>
                     <li className={styles.link} onClick={() => dispatch(openModal())}>
                         Войти

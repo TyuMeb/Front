@@ -5,6 +5,8 @@ import styles from "./chats.module.scss";
 import { PerformerCard } from "@src/components/account/performers/performer-card";
 import { NoCard } from "@src/components/account/card/no-card";
 import Link from "next/link";
+import desk from "@public/account/desk.jpg";
+import slide from "@public/home/s_slide00.jpg";
 
 type ChatsProps = {} & HTMLAttributes<HTMLUListElement>;
 
@@ -13,15 +15,15 @@ const performers = [
         id: "1",
         name: "Schattdecor AG",
         termOfExecution: "45-50",
+        images: [desk, desk, slide],
         cost: 120000,
-        showGallery: true,
     },
     {
         id: "2",
         name: "Мебельная фабрика Три Бобра",
         termOfExecution: "70",
+        images: [],
         cost: 100000,
-        showGallery: false,
     },
 ];
 

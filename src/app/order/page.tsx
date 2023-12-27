@@ -1,11 +1,5 @@
 "use client";
 
-import React from "react";
+import { OrderPage } from "@src/domains/order/page";
 
-export default function OrderPage() {
-    return (
-        <div className="homePage container">
-            <h1>Order page</h1>
-        </div>
-    );
-}
+export default OrderPage;

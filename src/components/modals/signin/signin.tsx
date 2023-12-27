@@ -11,11 +11,11 @@ import { Icon } from "@src/components/icon";
 import { Input, PasswordInput } from "@src/shared/ui/inputs";
 import { Button } from "@src/shared/ui/button";
 import { useForm } from "react-hook-form";
-import { TokenObtain } from "@src/redux/api/generated";
 import { useCreateTokenMutation } from "@src/redux/api/jwt-api-slice";
 import { setCookie, removeCookie } from "typescript-cookie";
 import { useLazyGetUserQuery, useVerifyUserQuery } from "@src/redux/api/auth-api-slice";
 import { setUser } from "@src/redux/slices/users-slice";
+import { TokenObtainPair } from "@src/redux/api/generated";
 import { useRouter, useParams } from "next/navigation";
 
 const cx = classNames.bind(styles);
@@ -50,7 +50,7 @@ export const SignIn = () => {
 
     const dispatch = useAppDispatch();
 
-    const onSubmit = (data: TokenObtain) => {
+    const onSubmit = (data: TokenObtainPair) => {
         createToken(data)
             .unwrap()
             .then(({ access, refresh }) => {
