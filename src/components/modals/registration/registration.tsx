@@ -45,6 +45,7 @@ export const Registration = () => {
                 reset();
             })
             .catch((error) => {
+                console.log("🚀 ~ file: registration.tsx:48 ~ onSubmit ~ error:", error);
                 const keys = Object.keys(error?.data || {}) as unknown as Array<keyof FormProps>;
 
                 keys.forEach((key) => {
