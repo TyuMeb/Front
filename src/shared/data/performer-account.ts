@@ -5,7 +5,7 @@ import { StaticImageData } from "next/image";
 
 export type OfferType = "processing" | "notReviewed" | "notSelected";
 
-type Description = {
+type DescriptionOffer = {
     date: string;
     price: string;
     termOfExecution: string;
@@ -20,8 +20,22 @@ export type MyOffers = {
     offerType: OfferType;
     unreadMessages?: number;
     images?: StaticImageData[];
-    description: Description;
+    description: DescriptionOffer;
     files?: File[];
+};
+
+type DescriptionOrder = {
+    date: string;
+    countOffer: string;
+    task: string;
+};
+
+export type CustomerOrdersItems = {
+    id: number;
+    name: string;
+    offerType: OfferType;
+    images?: StaticImageData[];
+    description: DescriptionOrder;
 };
 
 export const myOffers = [
@@ -74,13 +88,22 @@ export const customerOrders = [
     {
         id: 1,
         name: "Полка настенная",
+        offerType: "processing",
+        images: [desk, desk, slide],
+        description: {
+            date: "24.04.2024",
+            countOffer: "22 заявки",
+            task: "Хочу сделать полку для спальни, дуб, лаковое покрытие, с креплениями, возможно в дальнейшем серию полок для всего дома",
+        },
     },
     {
         id: 2,
-        name: "Полка c зеркалом",
+        name: "Шкаф-купе",
+        offerType: "notReviewed",
+        description: {
+            date: "24.04.2024",
+            countOffer: "22 заявки",
+            task: "Хочу сделать полку для спальни, дуб, лаковое покрытие, с креплениями, возможно в дальнейшем серию полок для всего дома",
+        },
     },
-    {
-        id: 3,
-        name: "Комод",
-    },
-];
+] as CustomerOrdersItems[];
