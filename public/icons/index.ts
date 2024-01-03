@@ -15,7 +15,7 @@ import archives from './archives.svg';
 import arrowLeft from './arrow-left.svg';
 import exit from './exit.svg';
 import chevronDown from './chevron-down.svg';
-
+import chair from './chair.svg';
 import paperclip from './paperclip.svg';
 import paper_airplane from './paper_airplane.svg';
 import file from './file.svg';
@@ -53,5 +53,6 @@ export default {
 	clock,
 	dollar,
 	person,
-	plus
+	plus,
+	chair
 };
