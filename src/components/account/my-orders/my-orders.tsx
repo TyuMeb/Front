@@ -7,7 +7,7 @@ import { NoCard } from "@src/components/account/card/no-card";
 import { AddFiles } from "@src/components/account/my-orders/add-files";
 import { Icon } from "src/components/icon";
 import { getFiles } from "@src/helpers";
-import { filesListProps } from "@src/components/account/form/formTypes";
+import { FilesList } from "@src/components/account/wrapper-form";
 import { Slider } from "@src/components/account/slider";
 import { Button } from "@src/shared/ui/button";
 import { Card } from "@src/components/account/card";
@@ -26,7 +26,7 @@ export const MyOrders = (props: MyOrdersProps) => {
         accept: ".png, .jpg, .jpeg",
     };
 
-    const onChangeHandler = (data: filesListProps[]) => {
+    const onChangeHandler = (data: FilesList[]) => {
         // TODO отправка на сервер изображения
         const files = getFiles(data);
 

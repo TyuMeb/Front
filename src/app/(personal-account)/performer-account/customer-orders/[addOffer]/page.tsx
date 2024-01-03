@@ -1,5 +1,13 @@
 "use client";
 
-export default function AddOfferPage() {
-    return <h1>Добавить предложение</h1>;
+import { AddOffer } from "@src/components/account/addOffer";
+
+type AddOfferPageProps = {
+    params: {
+        addOffer: string;
+    };
+};
+
+export default function AddOfferPage({ params }: AddOfferPageProps) {
+    return <AddOffer alias={params.addOffer} />;
 }

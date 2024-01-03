@@ -1,6 +1,6 @@
 import React, { ChangeEvent, Dispatch, InputHTMLAttributes, SetStateAction } from "react";
 
-import { filesListProps, filesPreviewProps } from "@src/components/account/form/formTypes";
+import { FilesList, FilesPreview } from "@src/components/account/wrapper-form";
 import { FileInput } from "@src/shared/ui/inputs";
 import { checkMaxSizeFiles } from "@src/helpers";
 import { getRandomKey } from "@src/helpers";
@@ -9,7 +9,7 @@ export type FileInputProps = {
     maxSizeImage?: number;
     maxSizeFile?: number;
     maxCountFiles?: number;
-    setFilesPreview: Dispatch<SetStateAction<filesPreviewProps[] | []>>;
+    setFilesPreview: Dispatch<SetStateAction<FilesPreview[] | []>>;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export const InputPreviewFiles = (props: FileInputProps) => {
@@ -25,7 +25,7 @@ export const InputPreviewFiles = (props: FileInputProps) => {
         ...restProps
     } = props;
 
-    const saveFiles = (data: filesPreviewProps) => {
+    const saveFiles = (data: FilesPreview) => {
         if (data.error) {
             setFilesPreview((prevValue) => {
                 const newArray = [...prevValue];
@@ -63,7 +63,7 @@ export const InputPreviewFiles = (props: FileInputProps) => {
                 return;
             }
 
-            const fileList = [] as filesListProps[];
+            const fileList = [] as FilesList[];
             files.forEach((file) => {
                 const fileData = {
                     id: getRandomKey(),
@@ -74,7 +74,7 @@ export const InputPreviewFiles = (props: FileInputProps) => {
                     url: "",
                     typeName: file.name.split(".").slice(-1)[0].toUpperCase(),
                     file: file,
-                } as filesPreviewProps;
+                } as FilesPreview;
 
                 fileData.error = !checkMaxSizeFiles({ file, maxSizeImage, maxSizeFile });
 
@@ -104,7 +104,6 @@ export const InputPreviewFiles = (props: FileInputProps) => {
                 }
             });
 
-            // Предотвращает баг, повторной загрузки той же картинки
             target.value = "";
         }
     };

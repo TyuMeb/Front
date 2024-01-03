@@ -6,14 +6,11 @@ import styles from "./dialog.module.scss";
 import { openModal } from "@src/redux/slices/modal-slice";
 import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 import { Button } from "@src/shared/ui/button";
-import { Form } from "@src/components/account/form";
-import { Textarea } from "@src/components/account/form/textarea";
+import { WrapperForm, InputPreviewFiles, PreviewFiles, FilesPreview } from "@src/components/account/wrapper-form";
+import { Textarea } from "@src/shared/ui/inputs/textarea";
 
-import { InputPreviewFiles } from "@src/components/account/form/input-preview-files";
 import Paperclip from "@public/icons/paperclip.svg";
 import { Icon } from "@src/components/icon";
-import { PreviewFiles } from "@src/components/account/form/preview-files";
-import { filesPreviewProps } from "@src/components/account/form/formTypes";
 import { useForm } from "react-hook-form";
 import { useMeasuredRef } from "@src/hooks/use-measured-ref";
 import { getFiles } from "@src/helpers/getFiles";
@@ -22,7 +19,7 @@ export const Dialog = () => {
     const measuredForm = useMeasuredRef();
     const measuredDialog = useMeasuredRef();
 
-    const [filesPreview, setFilesPreview] = useState<filesPreviewProps[] | []>([]);
+    const [filesPreview, setFilesPreview] = useState<FilesPreview[] | []>([]);
     const dispatch = useAppDispatch();
     const { selectedPerformer } = useAppSelector((store) => store.account);
 
@@ -213,24 +210,27 @@ export const Dialog = () => {
             </div>
 
             <div className={styles.wrapperForm} ref={measuredForm.getObserver}>
-                <Form onSubmit={handleSubmit(onSubmitHandler)}>
-                    <Textarea
-                        {...register("chat", {
-                            required: true,
-                        })}
-                    />
+                <form onSubmit={handleSubmit(onSubmitHandler)}>
+                    <WrapperForm>
+                        <Textarea
+                            className={styles.textarea}
+                            {...register("chat", {
+                                required: true,
+                            })}
+                        />
 
-                    <InputPreviewFiles
-                        disabled={settingsInput.disabled(settingsInput.settings.maxCountFiles)}
-                        {...settingsInput.settings}
-                        setFilesPreview={setFilesPreview}>
-                        <Paperclip />
-                    </InputPreviewFiles>
+                        <InputPreviewFiles
+                            disabled={settingsInput.disabled(settingsInput.settings.maxCountFiles)}
+                            {...settingsInput.settings}
+                            setFilesPreview={setFilesPreview}>
+                            <Paperclip />
+                        </InputPreviewFiles>
 
-                    <Button className={styles.buttonSubmit} type="submit">
-                        <Icon glyph="paper_airplane" />
-                    </Button>
-                </Form>
+                        <Button className={styles.buttonSubmit} type="submit">
+                            <Icon glyph="paper_airplane" />
+                        </Button>
+                    </WrapperForm>
+                </form>
 
                 {filesPreview.length ? <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} /> : <></>}
             </div>

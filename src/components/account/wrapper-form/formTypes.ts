@@ -1,4 +1,4 @@
-export type filesPreviewProps = {
+export type FilesPreview = {
     id: string;
     error: boolean;
     type: "image" | "file";
@@ -9,7 +9,7 @@ export type filesPreviewProps = {
     file: File;
 };
 
-export type filesListProps = {
+export type FilesList = {
     file: File;
     id: string;
     error: boolean;

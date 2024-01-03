@@ -36,6 +36,7 @@ export type CustomerOrdersItems = {
     offerType: OfferType;
     images?: StaticImageData[];
     description: DescriptionOrder;
+    files?: File[];
 };
 
 export const myOffers = [
@@ -95,6 +96,7 @@ export const customerOrders = [
             countOffer: "22 заявки",
             task: "Хочу сделать полку для спальни, дуб, лаковое покрытие, с креплениями, возможно в дальнейшем серию полок для всего дома",
         },
+        files: [createFilePdf(), createFilePdf()],
     },
     {
         id: 2,
@@ -105,5 +107,6 @@ export const customerOrders = [
             countOffer: "22 заявки",
             task: "Хочу сделать полку для спальни, дуб, лаковое покрытие, с креплениями, возможно в дальнейшем серию полок для всего дома",
         },
+        files: [createFilePdf(), createFilePdf()],
     },
 ] as CustomerOrdersItems[];

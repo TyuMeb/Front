@@ -32,25 +32,25 @@ const cardList = (offer: CustomerOrdersItems) => {
 
 export const CustomerOrders = (props: MyOfferProps) => {
     const renderOrders = () => {
-        return customerOrders.map((offer) => {
+        return customerOrders.map((order) => {
             return (
-                <li key={offer.id}>
+                <li key={order.id}>
                     <Card>
                         <div className="wrapperHead">
                             <div className={styles.wrapperTitle}>
                                 <span
                                     className={`${styles.statusIcon}
-                                    ${offer.offerType === "processing" && styles.backgroundBrown}
-                                    ${offer.offerType === "notReviewed" && styles.backgroundGreen}
-                                    ${offer.offerType === "notSelected" && styles.backgroundPink}`}
+                                    ${order.offerType === "processing" && styles.backgroundBrown}
+                                    ${order.offerType === "notReviewed" && styles.backgroundGreen}
+                                    ${order.offerType === "notSelected" && styles.backgroundPink}`}
                                 />
-                                <h2 className="subtitle2">{offer.name}</h2>
+                                <h2 className="subtitle2">{order.name}</h2>
                             </div>
                         </div>
 
                         <div className="wrapperList">
                             <ul className="list">
-                                {cardList(offer).map((item, i) => {
+                                {cardList(order).map((item, i) => {
                                     return (
                                         <li key={i}>
                                             <ListItem description={item} />
@@ -59,10 +59,10 @@ export const CustomerOrders = (props: MyOfferProps) => {
                                 })}
                             </ul>
 
-                            {offer.images?.length ? <Slider images={offer.images} alt={offer.name} /> : <></>}
+                            {order.images?.length ? <Slider images={order.images} alt={order.name} /> : <></>}
                         </div>
 
-                        <Link href={`/performer-account/customer-orders/addOffer-${offer.id}`}>
+                        <Link href={`/performer-account/customer-orders/addOffer-${order.id}`}>
                             <Button className="text-small">Перейти к чату</Button>
                         </Link>
                     </Card>

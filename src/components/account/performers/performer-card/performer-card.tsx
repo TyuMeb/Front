@@ -5,7 +5,7 @@ import Image, { StaticImageData } from "next/image";
 
 import classNames from "classnames/bind";
 import styles from "./performer-card.module.scss";
-import "src/components/account/wrapper-card/wrapper-card.module.scss";
+import "./performer-card.module.scss";
 import { Button } from "src/shared/ui/button";
 import { Card } from "@src/components/account/card";
 import { SliderUser } from "@src/shared/ui/slider-user";

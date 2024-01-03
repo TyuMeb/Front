@@ -20,10 +20,14 @@ const renderFiles = (files: File[]) => {
         <ul className={styles.wrapperFiles}>
             {files?.map((file, i) => {
                 return (
-                    <li key={i} className={styles.itemFiles}>
+                    <a
+                        href={URL.createObjectURL(file)}
+                        download={`name-${i + 1}.pdf`}
+                        key={i}
+                        className={styles.itemFiles}>
                         {getIconFile(file.type)}
                         <p className="text-small">name-{i + 1}.pdf</p>
-                    </li>
+                    </a>
                 );
             })}
         </ul>

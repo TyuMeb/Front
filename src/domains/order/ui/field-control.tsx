@@ -1,4 +1,4 @@
-import { Textarea } from "@src/components/account/form/textarea";
+import { Textarea } from "@src/shared/ui/inputs/textarea";
 import { QuestionType } from "@src/redux/api/order-api-slice";
 import { Select } from "@src/shared/ui/select";
 import React from "react";
