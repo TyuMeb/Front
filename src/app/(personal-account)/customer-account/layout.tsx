@@ -4,7 +4,7 @@ import { CLIENT_ACCOUNT_MENU, getBreadcrumbs } from "@src/shared/constants/custo
 import "src/styles/account.css";
 
 const Layout = ({ children }: { children: ReactNode }) => (
-    <AccountLayout menuItems={CLIENT_ACCOUNT_MENU} breadcrumbs={getBreadcrumbs()}>
+    <AccountLayout menuItems={CLIENT_ACCOUNT_MENU} breadcrumbs={getBreadcrumbs()} countNestedRoute={2}>
         {children}
     </AccountLayout>
 );

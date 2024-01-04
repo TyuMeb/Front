@@ -31,55 +31,60 @@ export type ThirdBreadcrumbsItems = {} & NestedBreadcrumbsItems;
 
 type BreadcrumbsProps = {
     breadcrumbs: FirstBreadcrumbsItems[];
+    countNestedRoute: number;
 } & HTMLAttributes<HTMLUListElement>;
 
-export const Breadcrumbs = ({ breadcrumbs, className, ...props }: BreadcrumbsProps) => {
+export const Breadcrumbs = ({ breadcrumbs, countNestedRoute, className, ...props }: BreadcrumbsProps) => {
     const pathname = usePathname();
+    const pathNestedRoutes = getPathNestedRoutes(pathname);
 
     const generateBreadcrumbs = useCallback(() => {
-        const pathNestedRoutes = getPathNestedRoutes(pathname);
         const crumbList = [];
+
         let attached = "";
+        let title = "";
 
-        for (let step = 0; step < pathNestedRoutes.length; step++) {
-            const href = `/${pathNestedRoutes.slice(0, step + 1).join("/")}`;
-            let title = "";
+        const generateNestedBreadcrumbs = (item: NestedBreadcrumbsItems, id: number) => {
+            if (item.id === id) {
+                title = item.name;
 
-            const subpath = pathNestedRoutes[step];
+                if (item.attached) {
+                    attached = item.attached;
+                }
+
+                return;
+            }
+        };
+
+        for (let i = countNestedRoute - 1; i < pathNestedRoutes.length; i++) {
+            const href = `/${pathNestedRoutes.slice(0, i + 1).join("/")}`;
+
+            const subpath = pathNestedRoutes[i];
             const id = Number(subpath.slice(-1));
 
-            const generateNestedBreadcrumbs = (item: NestedBreadcrumbsItems) => {
-                if (item.id === id) {
-                    title = item.name;
-
-                    if (item.attached) {
-                        attached = item.attached;
-                    }
-
-                    return;
-                }
-            };
+            const step = countNestedRoute - 1;
 
             breadcrumbs.forEach((firstMenuitem) => {
                 const currentPathname = firstMenuitem.alias;
+                const currentNestedRoutes = getPathNestedRoutes(currentPathname);
 
                 if (currentPathname === href) {
-                    if (step === 1) {
+                    if (i === step) {
                         title = firstMenuitem.name;
                     }
                     return;
                 }
 
-                if (getPathNestedRoutes(currentPathname)[1] === pathNestedRoutes[1]) {
+                if (currentNestedRoutes[countNestedRoute - 1] === pathNestedRoutes[countNestedRoute - 1]) {
                     firstMenuitem.secondBreadcrumbs?.forEach((secondMenuitem) => {
-                        if (step === 2) {
-                            generateNestedBreadcrumbs(secondMenuitem);
+                        if (i === step + 1) {
+                            generateNestedBreadcrumbs(secondMenuitem, id);
                             return;
                         }
 
                         secondMenuitem.thirdBreadcrumbs?.forEach((thirdMenuitem) => {
-                            if (step === 3) {
-                                generateNestedBreadcrumbs(thirdMenuitem);
+                            if (i === step + 2) {
+                                generateNestedBreadcrumbs(thirdMenuitem, id);
                                 return;
                             }
                         });
@@ -103,10 +108,6 @@ export const Breadcrumbs = ({ breadcrumbs, className, ...props }: BreadcrumbsPro
     return (
         <ul className={`${styles.menu} ${className}`} {...props}>
             {breadcrumbsItems.map((item, i) => {
-                if (i === 0) {
-                    return;
-                }
-
                 return (
                     <li className={styles.item} key={i}>
                         {item.href ? (

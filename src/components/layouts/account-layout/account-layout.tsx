@@ -13,17 +13,25 @@ const cx = classNames.bind(styles);
 type CustomerLayoutProps = {
     menuItems: FirstMenuItems[];
     breadcrumbs: FirstBreadcrumbsItems[];
+    countNestedRoute?: number;
 } & HTMLAttributes<HTMLDivElement>;
 
-export const AccountLayout = ({ menuItems, breadcrumbs, children, className, ...props }: CustomerLayoutProps) => {
+export const AccountLayout = ({
+    menuItems,
+    breadcrumbs,
+    countNestedRoute = 1,
+    children,
+    className,
+    ...props
+}: CustomerLayoutProps) => {
     return (
         <div className={cx("wrapper", className)} {...props}>
             <Header className={cx("header")}>
-                <Breadcrumbs breadcrumbs={breadcrumbs} />
+                <Breadcrumbs breadcrumbs={breadcrumbs} countNestedRoute={countNestedRoute} />
             </Header>
 
             <div className={cx("content")}>
-                <Sidebar menuItems={menuItems} className={cx("sidebar")} />
+                <Sidebar menuItems={menuItems} countNestedRoute={countNestedRoute} className={cx("sidebar")} />
                 <main className={cx("main")}>{children}</main>
                 <Modals />
             </div>

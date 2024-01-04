@@ -63,7 +63,7 @@ export const CustomerOrders = (props: MyOfferProps) => {
                         </div>
 
                         <Link href={`/performer-account/customer-orders/addOffer-${order.id}`}>
-                            <Button className="text-small">Перейти к чату</Button>
+                            <Button className="text-small">Перейти к заявке</Button>
                         </Link>
                     </Card>
                 </li>

@@ -8,6 +8,7 @@ import { Button } from "@src/shared/ui/button";
 
 import styles from "./sidebar.module.scss";
 import { Icon, IconGlyphProps } from "@src/components/icon";
+import { getPathNestedRoutes } from "@src/helpers/getPathNestedRoutes";
 
 const cx = classNames.bind(styles);
 
@@ -39,10 +40,12 @@ export type ThirdLevelMenu = {
 
 type SidebarProps = {
     menuItems: FirstMenuItems[];
+    countNestedRoute: number;
 } & HTMLAttributes<HTMLDivElement>;
 
-export const Sidebar = ({ menuItems, className }: SidebarProps) => {
+export const Sidebar = ({ menuItems, countNestedRoute, className }: SidebarProps) => {
     const pathname = usePathname();
+    const pathNestedRoutes = getPathNestedRoutes(pathname);
 
     const onHandlerClick = () => {
         // TODO отправлять на сервер запрос на выход
@@ -54,7 +57,13 @@ export const Sidebar = ({ menuItems, className }: SidebarProps) => {
             <ul className={cx("firstLevelMenu")}>
                 {menuItems.map((menu, i) => {
                     const currentPathname = menu.alias;
-                    const activatedMenu = { activatedMenu: pathname === currentPathname };
+                    const currentNestedRoutes = getPathNestedRoutes(currentPathname);
+
+                    const step = countNestedRoute - 1;
+
+                    const activatedMenu = {
+                        activatedMenu: currentNestedRoutes[step] === pathNestedRoutes[step],
+                    };
 
                     return (
                         <li key={menu.alias}>
@@ -88,12 +97,16 @@ export const Sidebar = ({ menuItems, className }: SidebarProps) => {
                 )}>
                 {menuItems.menuItems.map((menu) => {
                     const currentPathname = `${route}/${menuItems.alias}-${menu.id}`;
+                    const currentNestedRoutes = getPathNestedRoutes(currentPathname);
 
                     return menuItems.type === "expanded" ? (
                         <li key={menu.id}>
                             <Link
                                 href={currentPathname}
-                                className={cx("secondLevelLink", { openedSubmenu: pathname === currentPathname })}>
+                                className={cx("secondLevelLink", {
+                                    openedSubmenu:
+                                        currentNestedRoutes[countNestedRoute] === pathNestedRoutes[countNestedRoute],
+                                })}>
                                 <p className={cx("text-small-semibold")}>
                                     {menu.name}
                                     {menu.count && ` (${menu.count})`}
