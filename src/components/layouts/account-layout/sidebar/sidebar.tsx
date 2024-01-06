@@ -115,7 +115,7 @@ export const Sidebar = ({ menuItems, countNestedRoute, className }: SidebarProps
                             {nestedMenu && buildNestedMenu(nestedMenu, currentPathname)}
                         </li>
                     ) : (
-                        <li key={menu.id} className={cx("thirdLevelItem")}>
+                        <li key={menu.id}>
                             <Link
                                 href={currentPathname}
                                 className={cx("thirdLevelLink", {

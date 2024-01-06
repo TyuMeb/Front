@@ -9,15 +9,10 @@ import "./performer-card.module.scss";
 import { Button } from "src/shared/ui/button";
 import { Card } from "@src/components/account/card";
 import { SliderUser } from "@src/shared/ui/slider-user";
+import { PerformersProps } from "@src/shared/data/customer-account";
+import Link from "next/link";
 
 const cx = classNames.bind(styles);
-
-type PerformerCardProps = {
-    name: string;
-    termOfExecution: string;
-    cost: number;
-    images: StaticImageData[];
-};
 
 const DESCRIPTION = `
     Продавец: Здравствуйте! Как я могу Вам помочь?
@@ -33,8 +28,8 @@ const DESCRIPTION = `
     Продавец: Рад услужить! Будьте свободны вернуться, если у Вас поя
 `;
 
-export const PerformerCard = ({ performer }: { performer: PerformerCardProps }) => {
-    const { name, termOfExecution, cost, images } = performer;
+export const PerformerCard = ({ performer }: { performer: PerformersProps }) => {
+    const { termOfExecution, price, images } = performer;
 
     const id = useId();
 
@@ -60,7 +55,7 @@ export const PerformerCard = ({ performer }: { performer: PerformerCardProps }) 
             <div className="wrapperHead">
                 <div className={styles.workerInfo}>
                     <span className={styles.avatar} />
-                    <h2 className="subtitle2">{name}</h2>
+                    <h2 className="subtitle2">Исполнитель {performer.id}</h2>
                     <button className={styles.wrapperDots}>
                         <span className={styles.buttonDots} />
                     </button>
@@ -74,7 +69,7 @@ export const PerformerCard = ({ performer }: { performer: PerformerCardProps }) 
                     </p>
                     <p className="text-small-semibold">
                         Стоимость: от &nbsp;
-                        {cost}
+                        {price}
                         &nbsp; руб
                     </p>
                 </div>
@@ -87,11 +82,11 @@ export const PerformerCard = ({ performer }: { performer: PerformerCardProps }) 
                     <p className="text-small-semibold">посмотреть весь текст</p>
                 </button>
 
-                {images.length ? renderSlider(images, name) : <></>}
+                {images.length ? renderSlider(images, `Исполнитель ${performer.id}`) : <></>}
 
-                <Button className={cx("button", { addMargins: !images.length })}>
-                    <p className="text-small">Перейти в чат</p>
-                </Button>
+                <Link href="#">
+                    <Button className="text-small">Перейти в чат</Button>
+                </Link>
             </div>
         </Card>
     );

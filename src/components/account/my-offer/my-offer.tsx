@@ -43,9 +43,9 @@ const cardList = (offer: MyOffers) => {
     ];
 };
 
-const renderButton = (offerType: OfferType) => {
+const renderButton = (offerType: OfferType, offerId: number) => {
     const linksEll = (
-        <Link href="#">
+        <Link href={`/performer-account/my-offer/order-${offerId}`}>
             <Button className="text-small">Перейти к чату</Button>
         </Link>
     );
@@ -124,7 +124,7 @@ export const MyOffer = (props: MyOfferProps) => {
                             {offer.images?.length ? <Slider images={offer.images} alt={offer.name} /> : <></>}
                         </div>
 
-                        <div className={styles.wrapperButton}>{renderButton(offer.offerType)}</div>
+                        <div className={styles.wrapperButton}>{renderButton(offer.offerType, offer.id)}</div>
                     </Card>
                 </li>
             );

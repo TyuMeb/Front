@@ -1,3 +1,7 @@
+import { StaticImageData } from "next/image";
+import desk from "@public/account/desk.jpg";
+import slide from "@public/home/s_slide00.jpg";
+
 export type OrdersProps = {
     id: number;
     name: string;
@@ -10,8 +14,10 @@ export type OrdersProps = {
 export type PerformersProps = {
     id: number;
     termOfExecution: string;
-    cost: string;
+    price: string;
     showGallery: true;
+    name: string;
+    images: StaticImageData[];
 };
 
 enum stateOrders {
@@ -43,14 +49,16 @@ export const orders = [
 export const performers = [
     {
         id: 1,
-        termOfExecution: "30 дней",
-        cost: "от 120000 руб",
-        showGallery: true,
+        termOfExecution: "45-50 дней",
+        images: [desk, desk, slide],
+        price: "от 120000 руб",
+        name: "Полка настенная",
     },
     {
         id: 2,
-        termOfExecution: "45-50 дней",
-        cost: "от 100000 руб",
-        showGallery: true,
+        termOfExecution: "70",
+        images: [],
+        price: "от 120000 руб",
+        name: "Комод",
     },
 ] as PerformersProps[];
