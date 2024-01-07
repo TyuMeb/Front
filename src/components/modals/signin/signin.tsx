@@ -39,6 +39,7 @@ export const SignIn = () => {
         formState: { errors },
         setError,
     } = useForm({
+        mode: "onBlur",
         values: {
             email: "",
             password: "",
@@ -87,7 +88,17 @@ export const SignIn = () => {
                             errorMessage={errors.email?.message}
                             id="email"
                             type="email"
-                            {...register("email")}
+                            {...register("email", {
+                                required: {
+                                    value: true,
+                                    message: "Данное поле обязательно",
+                                },
+                                validate: (value) => {
+                                    if (!value.includes("@")) {
+                                        return "Некорректная почта";
+                                    }
+                                },
+                            })}
                         />
                     </div>
 
@@ -98,7 +109,16 @@ export const SignIn = () => {
                             error={Boolean(errors.password?.message)}
                             errorMessage={errors.password?.message}
                             id="password"
-                            {...register("password")}
+                            {...register("password", {
+                                required: {
+                                    value: true,
+                                    message: "Данное поле обязательно",
+                                },
+                                minLength: {
+                                    value: 8,
+                                    message: "Минимальная длинна 8 символов",
+                                },
+                            })}
                         />
                     </div>
                 </div>
