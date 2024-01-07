@@ -29,7 +29,7 @@ export const Header = () => {
     return (
         <header className={styles.header}>
             <nav className={cn(styles.nav, "container")}>
-                <ul className={styles.list}>
+                <ul className={cn(styles.list, "whitespace-nowrap")}>
                     <li className={styles.logo}>
                         <Link href="/#home">ВайВи</Link>
                     </li>

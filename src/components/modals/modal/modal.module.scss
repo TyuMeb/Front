@@ -23,10 +23,15 @@
     display: flex;
     justify-content: center;
 
-    min-width: 300px;
+    width: 100%;
+    max-width: 860px;
     padding: 30px;
     border-radius: 4px;
     animation: show 150ms ease-in;
+
+    @media screen and (max-width: 1024px) {
+        padding: 16px;
+    }
 }
 
 .closeModal {
@@ -62,6 +67,11 @@
         height: 14px;
         background-color: $graphite-black;
         transform: rotateZ(-45deg);
+    }
+
+    @media screen and (max-width: 1024px) {
+        top: -24px;
+        right: 16px;
     }
 }
 

@@ -1,15 +1,11 @@
 .inner {
     display: flex;
-    padding: 72px 270px;
+    padding: 72px 28px;
     flex-direction: column;
     justify-content: center;
     text-align: center;
     background-color: $bg-secondary-color;
     border-radius: $border-radius-m;
-
-    @media (max-width: 1260px) {
-        padding: 72px 28px;
-    }
 }
 
 .description {
