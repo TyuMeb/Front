@@ -26,6 +26,7 @@ export const Registration = () => {
         reset,
         formState: { errors },
     } = useForm<FormProps>({
+        mode: "onBlur",
         values: {
             email: "",
             name: "",
@@ -102,6 +103,11 @@ export const Registration = () => {
                                 required: {
                                     value: true,
                                     message: "Данное поле обязательно",
+                                },
+                                validate: (value) => {
+                                    if (!value.includes("@")) {
+                                        return "Некорректная почта";
+                                    }
                                 },
                             })}
                             type="email"
