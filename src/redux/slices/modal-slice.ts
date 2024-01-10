@@ -6,7 +6,8 @@ type TypeModal =
     | "resetPassword"
     | "resetPasswordConfirm"
     | "chooseThisProducer"
-    | "confirm";
+    | "confirm"
+    | "getContact";
 
 type ModalState = {
     modal: boolean;

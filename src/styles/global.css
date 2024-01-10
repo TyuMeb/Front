@@ -1,3 +1,6 @@
+@tailwind components;
+@tailwind utilities;
+
 :root {
     --text-main-color: #1c1c1c;
     --accent-color: #fccf55;
@@ -56,6 +59,8 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+
+    scroll-behavior: smooth;
 }
 
 main {
@@ -94,15 +99,6 @@ h4 {
     font-size: 1.125rem;
     line-height: 130%;
     font-weight: 600;
-}
-
-.container {
-    max-width: calc(1220px + 32px);
-
-    margin: 0 auto;
-
-    padding-left: 16px;
-    padding-right: 16px;
 }
 
 .homePage {
@@ -164,4 +160,13 @@ h4 {
     font-size: 14px;
     line-height: 150%;
     font-weight: 600;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: --font-raleway, Arial, sans-serif;
 }

@@ -11,11 +11,11 @@ import { Icon } from "@src/components/icon";
 import { Input, PasswordInput } from "@src/shared/ui/inputs";
 import { Button } from "@src/shared/ui/button";
 import { useForm } from "react-hook-form";
-import { TokenObtain } from "@src/redux/api/generated";
 import { useCreateTokenMutation } from "@src/redux/api/jwt-api-slice";
 import { setCookie, removeCookie } from "typescript-cookie";
 import { useLazyGetUserQuery, useVerifyUserQuery } from "@src/redux/api/auth-api-slice";
 import { setUser } from "@src/redux/slices/users-slice";
+import { TokenObtainPair } from "@src/redux/api/generated";
 import { useRouter, useParams } from "next/navigation";
 
 const cx = classNames.bind(styles);
@@ -39,6 +39,7 @@ export const SignIn = () => {
         formState: { errors },
         setError,
     } = useForm({
+        mode: "onBlur",
         values: {
             email: "",
             password: "",
@@ -50,7 +51,7 @@ export const SignIn = () => {
 
     const dispatch = useAppDispatch();
 
-    const onSubmit = (data: TokenObtain) => {
+    const onSubmit = (data: TokenObtainPair) => {
         createToken(data)
             .unwrap()
             .then(({ access, refresh }) => {
@@ -87,7 +88,17 @@ export const SignIn = () => {
                             errorMessage={errors.email?.message}
                             id="email"
                             type="email"
-                            {...register("email")}
+                            {...register("email", {
+                                required: {
+                                    value: true,
+                                    message: "Данное поле обязательно",
+                                },
+                                validate: (value) => {
+                                    if (!value.includes("@")) {
+                                        return "Некорректная почта";
+                                    }
+                                },
+                            })}
                         />
                     </div>
 
@@ -98,7 +109,16 @@ export const SignIn = () => {
                             error={Boolean(errors.password?.message)}
                             errorMessage={errors.password?.message}
                             id="password"
-                            {...register("password")}
+                            {...register("password", {
+                                required: {
+                                    value: true,
+                                    message: "Данное поле обязательно",
+                                },
+                                minLength: {
+                                    value: 8,
+                                    message: "Минимальная длинна 8 символов",
+                                },
+                            })}
                         />
                     </div>
                 </div>

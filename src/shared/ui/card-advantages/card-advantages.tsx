@@ -5,7 +5,7 @@ type CardAdvantagesProps = {
     bgColor: string;
     title: string;
     paragraph: string;
-    glyphIcon: "clock" | "settings" | "dollar" | "person";
+    glyphIcon: "clock" | "settingsLanding" | "dollar" | "person";
 };
 
 export const CardAdvantages = ({ bgColor, title, paragraph, glyphIcon }: CardAdvantagesProps) => {
@@ -14,9 +14,9 @@ export const CardAdvantages = ({ bgColor, title, paragraph, glyphIcon }: CardAdv
             <div className={styles.inner}>
                 <div className={styles.text}>
                     <h4 className={styles.title}>{title}</h4>
-                    <p>{paragraph}</p>
+                    <Icon className={styles.img} glyph={glyphIcon} />
                 </div>
-                <Icon className={styles.img} glyph={glyphIcon} />
+                <p>{paragraph}</p>
             </div>
         </div>
     );

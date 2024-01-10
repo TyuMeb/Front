@@ -1,13 +1,14 @@
 .textarea {
-    overflow-x: scroll;
     display: block;
     width: 100%;
     border: none;
-    padding: 24px;
-    height: 82px;
+    padding: 24px 16px;
     box-sizing: border-box;
     border-radius: 18px 0 0 18px;
     resize: none;
+    border-radius: 12px;
+    border: 1px solid #b5b3b2;
+    max-height: 460px;
 
     &::placeholder {
         color: $asphalt;

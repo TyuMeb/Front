@@ -1,8 +1,5 @@
 "use client";
-
-import Image from "next/image";
 import styles from "./about.module.scss";
-import about from "@public/home/about.jpg";
 
 export const About = () => {
     return (
@@ -16,7 +13,7 @@ export const About = () => {
                     лично. Мы верим, что наш сервис поможет сделать ваш дом уютнее, а вас счастливее.
                 </p>
             </div>
-            <Image src={about} alt={"about-image"} className={styles.right__card} />
+            <img src={"/home/about.jpg"} alt={"about-image"} className={styles.right__card} />
         </section>
     );
 };

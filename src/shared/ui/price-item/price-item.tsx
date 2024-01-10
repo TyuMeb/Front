@@ -1,3 +1,4 @@
+import { priceFormat } from "@src/shared/lib/formatters/price";
 import styles from "./price-item.module.scss";
 
 type PriceItemProps = {
@@ -5,5 +6,9 @@ type PriceItemProps = {
 };
 
 export const PriceItem = ({ caption }: PriceItemProps) => {
-    return <span className={styles.priceItem}>{caption}</span>;
+    return (
+        <span className={styles.priceItem}>
+            {Number.isInteger(Number(caption)) ? `${priceFormat(caption)} р` : caption}
+        </span>
+    );
 };

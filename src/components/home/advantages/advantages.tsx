@@ -21,7 +21,7 @@ export const Advantages = () => {
                         title="Удобно"
                         bgColor="bgSand"
                         paragraph="Вы оставляете заявку и всё. Больше не надо посещать салоны, чтобы сравнить цены и дизайн-концепты"
-                        glyphIcon="settings"
+                        glyphIcon="settingsLanding"
                     />
                     <CardAdvantages
                         title="Бесплатно"

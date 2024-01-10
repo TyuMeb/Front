@@ -2,6 +2,7 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import modalReducer from "./slices/modal-slice";
+import accountReducer from "./slices/account-slice";
 import headerReducer from "./slices/header-slice";
 import navAccountReducer from "./slices/nav-account-slice";
 import headerAccountReducer from "./slices/header-account-slice";
@@ -16,6 +17,7 @@ export const store = configureStore({
         headeraccount: headerAccountReducer,
         nav: navAccountReducer,
         chats: chatReducer,
+        account: accountReducer,
         [apiSlice.reducerPath]: apiSlice.reducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),

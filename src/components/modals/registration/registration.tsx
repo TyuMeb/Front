@@ -26,6 +26,7 @@ export const Registration = () => {
         reset,
         formState: { errors },
     } = useForm<FormProps>({
+        mode: "onBlur",
         values: {
             email: "",
             name: "",
@@ -45,6 +46,7 @@ export const Registration = () => {
                 reset();
             })
             .catch((error) => {
+                console.log("🚀 ~ file: registration.tsx:48 ~ onSubmit ~ error:", error);
                 const keys = Object.keys(error?.data || {}) as unknown as Array<keyof FormProps>;
 
                 keys.forEach((key) => {
@@ -101,6 +103,11 @@ export const Registration = () => {
                                 required: {
                                     value: true,
                                     message: "Данное поле обязательно",
+                                },
+                                validate: (value) => {
+                                    if (!value.includes("@")) {
+                                        return "Некорректная почта";
+                                    }
                                 },
                             })}
                             type="email"
