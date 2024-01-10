@@ -1,22 +1,22 @@
 import { Button } from "@src/shared/ui/button";
 import styles from "./modal-get-contact.module.scss";
-import { Input } from "@src/shared/ui/inputs";
+import { Input, PhoneInput } from "@src/shared/ui/inputs";
 import { useForm } from "react-hook-form";
 import { useGetContactMutation } from "@src/redux/api/contact-api-slice";
-import { ContactData } from "@src/redux/api/generated";
+import { CooperationOffer } from "@src/redux/api/generated";
 
 export const ModalGetContact = () => {
     const { register, handleSubmit } = useForm({
         values: {
             name: "",
-            email: "",
+            telephone: "",
         },
     });
 
     const [getContact, { isLoading, isSuccess }] = useGetContactMutation();
 
-    const onSubmit = ({ name, email }: ContactData) => {
-        getContact({ name, email: email?.replaceAll(" ", "") });
+    const onSubmit = ({ name, telephone }: CooperationOffer) => {
+        getContact({ name, telephone: telephone?.replaceAll(" ", "") });
     };
 
     return (
@@ -31,7 +31,7 @@ export const ModalGetContact = () => {
                 <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                     <div className={styles.inputs}>
                         <Input placeholder="Имя" required {...register("name")} />
-                        <Input placeholder="E-mail" type="email" required {...register("email")} />
+                        <PhoneInput placeholder="Номер телефона" type="phone" required {...register("telephone")} />
                     </div>
                     <Button type="submit" isLoading={isLoading}>
                         Подписаться

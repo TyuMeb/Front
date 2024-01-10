@@ -1,9 +1,7 @@
 import React, { forwardRef, useState, useCallback } from "react";
-import classNames from "classnames/bind";
 
 import styles from "./textarea.module.scss";
-
-const cx = classNames.bind(styles);
+import { cn } from "@src/shared/lib/cn";
 
 export type TextareaProps = {
     autoHeight?: boolean;
@@ -56,7 +54,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         return (
             <textarea
                 ref={ref}
-                className={cx("textarea", "text", className)}
+                className={cn("border-asphalt border-solid border", styles.textarea, styles.text, className)}
                 rows={rows}
                 value={value}
                 onChange={onChange}

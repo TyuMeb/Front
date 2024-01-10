@@ -1,5 +1,5 @@
 "use client";
 
-import { OrderPage } from "@src/domains/order/page";
+import { OrderPage } from "@src/domains/create-order/page";
 
 export default OrderPage;

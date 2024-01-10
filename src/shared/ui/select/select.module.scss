@@ -12,6 +12,10 @@
     line-height: 150%;
     border-radius: 10px;
     border: 1px solid $asphalt;
+
+    span {
+        @apply whitespace-nowrap overflow-hidden text-ellipsis min-w-0;
+    }
 }
 
 .panel {
