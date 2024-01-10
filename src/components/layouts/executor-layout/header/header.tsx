@@ -4,9 +4,9 @@ import React, { HTMLAttributes } from "react";
 
 import styles from "./header.module.scss";
 import Link from "next/link";
-import Image from "next/image";
-import avatar from "@public/account/photo.png";
+
 import { Breadcrumbs } from "./breadcrumbs";
+import { HeaderAvatar } from "@src/domains/user/ui/header-avatar";
 
 type HeaderProps = {} & HTMLAttributes<HTMLDivElement>;
 
@@ -19,9 +19,7 @@ export const Header = ({ className, ...props }: HeaderProps) => {
                         ВайВи
                     </Link>
                     <Breadcrumbs />
-                    <Link className={styles.avatar} href="#">
-                        <Image priority={true} src={avatar} alt="Фото профиля"></Image>
-                    </Link>
+                    <HeaderAvatar className="ml-auto" />
                 </nav>
             </div>
         </header>
