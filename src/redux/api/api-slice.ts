@@ -25,7 +25,7 @@ const baseQueryWithRefresh: BaseQueryFn<FetchArgs, unknown, FetchBaseQueryError>
         const refresh = getCookie("refresh_token");
 
         if (!refresh) {
-            api.dispatch(() => setUser(null));
+            api.dispatch(setUser(null));
             return result;
         }
 
@@ -44,7 +44,7 @@ const baseQueryWithRefresh: BaseQueryFn<FetchArgs, unknown, FetchBaseQueryError>
             setCookie("access_token", access);
             result = await baseQuery(args, api, extraOptions);
         } else {
-            api.dispatch(() => setUser(null));
+            api.dispatch(setUser(null));
         }
     }
 
