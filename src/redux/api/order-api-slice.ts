@@ -1,5 +1,6 @@
+import { fillFormData } from "@src/shared/lib/form";
 import { apiSlice } from "./api-slice";
-import { Option, Question, QuestionnaireResponse } from "./generated";
+import { Option, OuterQuestion, QuestionnaireResponse } from "./generated";
 
 export type OrderDetail = {
     name: string;
@@ -7,7 +8,7 @@ export type OrderDetail = {
     answers: QuestionnaireResponse[];
 };
 
-export type QuestionType = Question & {
+export type QuestionType = OuterQuestion & {
     options?: Array<Omit<Option, "questions"> & { questions: QuestionType[] }>;
 };
 
@@ -32,7 +33,18 @@ const orderApi = apiSlice.injectEndpoints({
                 method: "POST",
             }),
         }),
+        // TODO need backend add swagger
+        uploadFile: build.mutation<unknown, { id: number; upload_file: File; question_id: number }>({
+            query: (body) => {
+                return {
+                    url: `/order/image_upload_order/`,
+                    method: "POST",
+                    body: fillFormData(body),
+                };
+            },
+        }),
     }),
 });
 
-export const { useCreateOrderMutation, useOrderAnswersQuery, useOrderCreateAnswersMutation } = orderApi;
+export const { useCreateOrderMutation, useOrderAnswersQuery, useOrderCreateAnswersMutation, useUploadFileMutation } =
+    orderApi;

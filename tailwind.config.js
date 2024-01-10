@@ -13,7 +13,13 @@ module.exports = {
             md: "1024px",
             lg: "1200px",
         },
-        extend: {},
+        extend: {
+            colors: {
+                yellow: "#FCCF55",
+                asphalt: "#B5B3B2",
+                pink: "#FF6894",
+            },
+        },
     },
     plugins: [],
 };
