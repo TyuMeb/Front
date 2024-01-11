@@ -231,6 +231,23 @@ export interface Message {
     /** ID */
     id?: number;
     /** Отправитель */
+    sender: string;
+    /**
+     * Текст сообщения
+     * @minLength 1
+     */
+    text: string;
+    /**
+     * Время отправки
+     * @format date-time
+     */
+    sent_at?: string;
+}
+
+export interface MessageOLD {
+    /** ID */
+    id?: number;
+    /** Отправитель */
     from_user: number;
     /**
      * Текст сообщения
@@ -245,6 +262,14 @@ export interface Message {
 }
 
 export interface Chat {
+    /** ID */
+    id?: number;
+    client?: string;
+    contractor?: string;
+    messages?: Message[];
+}
+
+export interface ChatOLD {
     /** ID */
     id?: number;
     messages?: Message[];

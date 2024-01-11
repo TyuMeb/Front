@@ -1,11 +1,12 @@
 "use client";
 
-import React, { HTMLAttributes } from "react";
+import React, { useEffect, HTMLAttributes } from "react";
 import styles from "./chats.module.scss";
 import { PerformerCard } from "@src/components/account/performers/performer-card";
 import { NoOrdersCard } from "@src/components/account/my-orders/no-orders-card";
 import desk from "@public/account/desk.jpg";
 import slide from "@public/home/s_slide00.jpg";
+import { useGetChatsQuery } from "@src/redux/api/chat-api-slice";
 
 type ChatsProps = {} & HTMLAttributes<HTMLUListElement>;
 
@@ -27,6 +28,8 @@ const performers = [
 ];
 
 export const Chats = (props: ChatsProps) => {
+    const { data } = useGetChatsQuery();
+
     const renderPerformers = () => {
         return performers.map((performer) => {
             return (

@@ -18,6 +18,13 @@ import { useForm } from "react-hook-form";
 import { useMeasuredRef } from "@src/hooks/use-measured-ref";
 import { getFiles } from "@src/helpers/getFiles";
 
+const ws = new WebSocket("wss://api.whywe.ru/ws/chat/2/", null, {
+    headers: {
+        Authorization:
+            "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA0OTk1MDkzLCJpYXQiOjE3MDQ5OTE0OTMsImp0aSI6ImMxNmQwNjFlNjM1MDQ1NWNhZGQ5OTgyYzk2NjYzZmQwIiwidXNlcl9pZCI6Nn0.J50Je0P7SGOHIboi5FkWOsfei7E114wFlxsaMub-xz8",
+    },
+});
+
 export const Dialog = () => {
     const measuredForm = useMeasuredRef();
     const measuredDialog = useMeasuredRef();

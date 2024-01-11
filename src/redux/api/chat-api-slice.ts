@@ -3,19 +3,19 @@ import { Chat } from "./generated";
 
 const chatApi = apiSlice.injectEndpoints({
     endpoints: (build) => ({
-        getChats: build.query<Chat[], {}>({
+        getChats: build.query<Chat[], void>({
             query: () => ({
-                url: "chats/",
+                url: "/chats/",
                 method: "GET",
             }),
         }),
         postChats: build.mutation({
             query: (body: Chat) => ({
-                url: "chats/",
+                url: "/chats/",
                 method: "POST",
                 body,
             }),
         }),
     }),
 });
-export const {} = chatApi;
+export const { useGetChatsQuery, usePostChatsMutation } = chatApi;
