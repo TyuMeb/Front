@@ -61,8 +61,8 @@ export const SignIn = () => {
                 getUser()
                     .unwrap()
                     .then((user) => {
-                        dispatch(() => setUser(user));
-                        router.push("/personal-account");
+                        dispatch(setUser(user));
+                        router.push("/account/chats");
                     });
             })
             .catch((error) => {
@@ -113,10 +113,6 @@ export const SignIn = () => {
                                 required: {
                                     value: true,
                                     message: "Данное поле обязательно",
-                                },
-                                minLength: {
-                                    value: 8,
-                                    message: "Минимальная длинна 8 символов",
                                 },
                             })}
                         />
