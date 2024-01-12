@@ -4,7 +4,7 @@ import { getCookie, removeCookie, setCookie } from "typescript-cookie";
 import { setUser } from "../slices/users-slice";
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: CONFIG.API_URL,
+    baseUrl: "https://api.whywe.ru", //CONFIG.API_URL,
     prepareHeaders: (headers) => {
         const token = getCookie("access_token");
 
