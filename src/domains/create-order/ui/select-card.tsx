@@ -22,7 +22,7 @@ const SelectCard = ({ active, selected, title, description, ...props }: Props) =
                 src="https://pro-dachnikov.com/uploads/posts/2023-01/1673662393_pro-dachnikov-com-p-krasivo-sdelat-foto-mebeli-59.jpg"
                 alt={description || ""}
                 className={cn(
-                    "mb-4 max-w-full border-2 border-solid border-transparent min-h-[380px] object-cover rounded-2xl",
+                    "mb-4 max-w-full border-4 border-solid border-transparent min-h-[380px] object-cover rounded-2xl",
                     selected && "border-yellow"
                 )}
             />

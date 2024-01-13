@@ -37,9 +37,13 @@ const orderApi = apiSlice.injectEndpoints({
         uploadFile: build.mutation<unknown, { id: number; upload_file: File; question_id: number }>({
             query: (body) => {
                 return {
-                    url: `/order/image_upload_order/`,
+                    url: `/order/${body.id}/files/`,
                     method: "POST",
+                    headers: {
+                        // "Content-Type": "multipart/form-data",
+                    },
                     body: fillFormData(body),
+                    formData: true,
                 };
             },
         }),

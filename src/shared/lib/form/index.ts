@@ -5,5 +5,5 @@ export const fillFormData = <T extends Record<string | number, number | string |
         body.append(key, typeof value === "number" ? String(value) : value);
     }
 
-    return data;
+    return body;
 };

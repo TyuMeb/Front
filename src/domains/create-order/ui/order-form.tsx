@@ -83,7 +83,7 @@ export function OrderForm({ onBack, questionnaireTypeId }: Props) {
             });
     };
 
-    const loading = isLoadingOrder || isLoading || isLoadingChapters;
+    const loading = isLoadingOrder || isLoadingChapters;
 
     if (loading) {
         return (
