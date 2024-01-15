@@ -73,6 +73,7 @@ export interface UserAccount {
     surname?: string | null;
     /** Роль */
     role?: "contractor" | "client";
+    notifications?: (email | tel)[] | null;
 }
 
 export interface UserCreate {
@@ -339,20 +340,6 @@ export interface AllOrdersClient {
     files?: string;
 }
 
-export interface QuestionResponse {
-    /** Id */
-    id?: number;
-    /** Question id */
-    question_id?: number;
-    /**
-     * Ответ по заказу
-     * @maxLength 500
-     */
-    response?: string | null;
-    /** Files */
-    files?: string;
-}
-
 export interface OrderFull {
     /**
      * Название заказа
@@ -362,7 +349,8 @@ export interface OrderFull {
     name?: string | null;
     /** Questionnaire type id */
     questionnaire_type_id?: number;
-    answers: QuestionResponse[];
+    /** Answers */
+    answers?: string;
 }
 
 export interface QuestionnaireResponse {
@@ -375,6 +363,21 @@ export interface QuestionnaireResponse {
      * @maxLength 500
      */
     response?: string | null;
+}
+
+export interface File {
+    /** ID */
+    id?: number;
+    /**
+     * Имя файла
+     * @minLength 1
+     * @maxLength 250
+     */
+    original_name: string;
+    /** File size */
+    file_size: number;
+    /** Preview url */
+    preview_url?: string;
 }
 
 export interface OrderModel {

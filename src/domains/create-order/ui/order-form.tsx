@@ -5,11 +5,13 @@ import { Button } from "@src/shared/ui/button";
 import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { getCookieOrder, removeCookieOrder } from "../lib/order-storage";
-import { QuestionType, useOrderAnswersQuery, useOrderCreateAnswersMutation } from "@src/redux/api/order-api-slice";
+import { QuestionType, useOrderCreateAnswersMutation } from "@src/redux/api/order-api-slice";
 import { useQuestionnaireQuery } from "@src/redux/api/questionnaire-api-slice";
 import { toFlatQuestions } from "../lib/question";
 import { QuestionnaireResponse } from "@src/redux/api/generated";
 import { Spinner } from "@src/shared/ui/spinner";
+import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
+import { createOrderSlice } from "@src/redux/slices/create-order-slice";
 
 type Props = {
     onBack: () => void;
@@ -19,9 +21,17 @@ type Props = {
 type FormValues = Record<string, QuestionnaireResponse["response"]>;
 
 export function OrderForm({ onBack, questionnaireTypeId }: Props) {
+    const dispatch = useAppDispatch();
     const orderId = getCookieOrder();
 
-    const { data: order, isLoading: isLoadingOrder } = useOrderAnswersQuery(orderId!);
+    const { order, loading: isLoadingOrder } = useAppSelector((store) => store.createOrder);
+    console.log("🚀 ~ OrderForm ~ order:", order);
+
+    useEffect(() => {
+        if (orderId) {
+            dispatch(createOrderSlice.actions.fetchTodo(orderId));
+        }
+    }, [orderId]);
     const [orderCreateAnswers, { isLoading }] = useOrderCreateAnswersMutation();
 
     const { data: { chapters = [] } = {}, isLoading: isLoadingChapters } = useQuestionnaireQuery(
@@ -33,17 +43,16 @@ export function OrderForm({ onBack, questionnaireTypeId }: Props) {
 
     const [chapterIndex, setChapterIndex] = useState(0);
 
-    // move to last step
     useEffect(() => {
-        if (order && chapters.length) {
-            for (const [index, chapter] of Object.entries(chapters)) {
-                const questions = toFlatQuestions((chapter.questions as QuestionType[]) || []);
+        if (!order || !chapters.length) return;
 
-                for (const question of questions) {
-                    if (!order.answers.some((answer) => answer.question_id === question.id)) {
-                        setChapterIndex(Number(index));
-                        return;
-                    }
+        for (const [index, chapter] of Object.entries(chapters)) {
+            const questions = toFlatQuestions((chapter.questions as QuestionType[]) || []);
+
+            for (const question of questions) {
+                if (!order.answers.some((answer) => answer.question_id === question.id)) {
+                    setChapterIndex(Number(index));
+                    return;
                 }
             }
         }
@@ -66,10 +75,12 @@ export function OrderForm({ onBack, questionnaireTypeId }: Props) {
         const answers: QuestionnaireResponse[] = [];
 
         questions.forEach((question) => {
-            if (question.id) {
+            const response = question?.id ? data[question.id] : undefined;
+
+            if (response !== undefined && question.id) {
                 answers.push({
                     question_id: question.id,
-                    response: data[question.id],
+                    response,
                 });
             }
         });

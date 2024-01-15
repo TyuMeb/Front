@@ -1,11 +1,11 @@
 import { fillFormData } from "@src/shared/lib/form";
 import { apiSlice } from "./api-slice";
-import { Option, OuterQuestion, QuestionnaireResponse } from "./generated";
+import { File, Option, OuterQuestion, QuestionnaireResponse } from "./generated";
 
 export type OrderDetail = {
     name: string;
     questionnaire_type_id: number;
-    answers: QuestionnaireResponse[];
+    answers: Array<QuestionnaireResponse & { files?: File[] }>;
 };
 
 export type QuestionType = OuterQuestion & {
@@ -52,3 +52,5 @@ const orderApi = apiSlice.injectEndpoints({
 
 export const { useCreateOrderMutation, useOrderAnswersQuery, useOrderCreateAnswersMutation, useUploadFileMutation } =
     orderApi;
+
+export { orderApi };

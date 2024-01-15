@@ -14,7 +14,6 @@ export const Header = () => {
     const dispatch = useAppDispatch();
 
     const user = useUser();
-    console.log("🚀 ~ Header ~ user:", user);
 
     const [current, setCurrent] = useState<string | undefined>(undefined);
     const { contentBlock } = useAppSelector((store) => store.header);
