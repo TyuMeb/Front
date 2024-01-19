@@ -25,7 +25,7 @@ const baseQueryWithRefresh: BaseQueryFn<FetchArgs, unknown, FetchBaseQueryError>
         const refresh = getCookie("refresh_token");
 
         if (!refresh) {
-            api.dispatch(() => setUser(null));
+            api.dispatch(setUser(null));
             return result;
         }
 
@@ -38,13 +38,20 @@ const baseQueryWithRefresh: BaseQueryFn<FetchArgs, unknown, FetchBaseQueryError>
             api,
             extraOptions
         );
+
+        if (!data) {
+            removeCookie("access_token");
+            removeCookie("refresh_token");
+            return result;
+        }
+
         const access = (data as { access?: string })?.access;
 
         if (access) {
             setCookie("access_token", access);
             result = await baseQuery(args, api, extraOptions);
         } else {
-            api.dispatch(() => setUser(null));
+            api.dispatch(setUser(null));
         }
     }
 

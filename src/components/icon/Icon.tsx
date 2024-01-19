@@ -11,11 +11,11 @@ export type IconProps = {
 } & SVGProps<SVGSVGElement>;
 
 const Icon = (props: IconProps) => {
-    const { glyph, fill = "currentColor", stroke = "currentStroke", ...restIconProps } = props;
+    const { glyph, ...restIconProps } = props;
 
     const IconComponent = icons[glyph];
 
-    return <IconComponent fill={fill} stroke={stroke} {...restIconProps} />;
+    return <IconComponent {...restIconProps} />;
 };
 
 export { Icon };

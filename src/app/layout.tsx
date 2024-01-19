@@ -5,6 +5,7 @@ import { Open_Sans, Raleway } from "next/font/google";
 import "@src/styles/global.css";
 import "keen-slider/keen-slider.min.css";
 import { cn } from "@src/shared/lib/cn";
+import { AppLayout } from "@src/components/layouts/app-layout";
 
 const openSans = Open_Sans({
     subsets: ["cyrillic"],
@@ -28,9 +29,11 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="ru">
-            <Providers>
-                <body className={cn(openSans.className, raleway.variable)}>{children}</body>
-            </Providers>
+            <body className={cn(openSans.className, raleway.variable)}>
+                <Providers>
+                    <AppLayout>{children}</AppLayout>
+                </Providers>
+            </body>
         </html>
     );
 }

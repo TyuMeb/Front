@@ -15,7 +15,7 @@ import archives from './archives.svg';
 import arrowLeft from './arrow-left.svg';
 import exit from './exit.svg';
 import chevronDown from './chevron-down.svg';
-
+import chair from './chair.svg';
 import paperclip from './paperclip.svg';
 import paper_airplane from './paper_airplane.svg';
 import file from './file.svg';
@@ -25,6 +25,7 @@ import clock from './home/clock.svg';
 import dollar from './home/dollar.svg';
 import person from './home/person.svg';
 import plus from './plus.svg';
+import mailFilled from './main-filled.svg';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -53,5 +54,7 @@ export default {
 	clock,
 	dollar,
 	person,
-	plus
+	plus,
+	chair,
+	mailFilled
 };

@@ -6,9 +6,16 @@ import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 import { openModal } from "@src/redux/slices/modal-slice";
 import { cn } from "@src/shared/lib/cn";
 import Link from "next/link";
+import { useUser } from "@src/redux/slices/users-slice";
+import { HeaderAvatar } from "@src/domains/user/ui/header-avatar";
+import { Icon } from "@src/components/icon";
 
 export const Header = () => {
     const dispatch = useAppDispatch();
+
+    const user = useUser();
+    console.log("🚀 ~ Header ~ user:", user);
+
     const [current, setCurrent] = useState<string | undefined>(undefined);
     const { contentBlock } = useAppSelector((store) => store.header);
 
@@ -56,9 +63,18 @@ export const Header = () => {
                         onClick={() => switchTab("advantages")}>
                         <Link href="/#advantages">Преимущества</Link>
                     </li>
-                    <li className={styles.link} onClick={() => dispatch(openModal())}>
-                        Войти
-                    </li>
+                    {user ? (
+                        <div className="flex items-center gap-4 ml-auto">
+                            <Link href="/account/chats">
+                                <Icon className="text-light" glyph="mailFilled" />
+                            </Link>
+                            <HeaderAvatar />
+                        </div>
+                    ) : (
+                        <li className={styles.link} onClick={() => dispatch(openModal())}>
+                            Войти
+                        </li>
+                    )}
                 </ul>
             </nav>
         </header>
