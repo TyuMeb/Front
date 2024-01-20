@@ -1,6 +1,6 @@
 import { fillFormData } from "@src/shared/lib/form";
 import { apiSlice } from "./api-slice";
-import { File, Option, OuterQuestion, QuestionnaireResponse } from "./generated";
+import { AllOrdersClient, File, Option, OuterQuestion, QuestionnaireResponse } from "./generated";
 
 export type OrderDetail = {
   name: string;
@@ -14,6 +14,11 @@ export type QuestionType = OuterQuestion & {
 
 const orderApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
+    archiveOrders: build.query<AllOrdersClient[], void>({
+      query: () => ({
+        url: `/order/client/archive/`,
+      }),
+    }),
     createOrder: build.mutation<{ order_id: number }, { questionnaire_type_id: number }>({
       query: (body) => ({
         url: `/order/create/`,
@@ -59,6 +64,7 @@ const orderApi = apiSlice.injectEndpoints({
 });
 
 export const {
+  useArchiveOrdersQuery,
   useCreateOrderMutation,
   useOrderQuery,
   useLazyOrderQuery,

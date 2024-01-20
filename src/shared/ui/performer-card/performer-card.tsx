@@ -7,13 +7,13 @@ import { Button } from "src/shared/ui/button";
 import { cn } from "@src/shared/lib/cn";
 
 export type PerformerCardProps = {
-    id?: number;
-    disabled?: boolean;
-    name: string;
-    product: string;
-    termOfExecution: string;
-    cost: number;
-    // showGallery: boolean;
+  id?: number;
+  disabled?: boolean;
+  name: string;
+  product: string;
+  termOfExecution: string;
+  cost: number;
+  // showGallery: boolean;
 };
 
 // Пока как заглушка. Не приходит с бэка. Нужна реализация сокетов.
@@ -39,36 +39,36 @@ const DESCRIPTION = `
 `;
 
 export const PerformerCard: FC<PerformerCardProps> = ({ disabled = false, name, product, termOfExecution, cost }) => {
-    const [showText, setShowText] = useState(false);
+  const [showText, setShowText] = useState(false);
 
-    const showTextHandler = () => setShowText(!showText);
+  const showTextHandler = () => setShowText(!showText);
 
-    return (
-        <section className={cn(styles.card, disabled && styles.card_disabled)}>
-            <div className={cn(styles.about, disabled && styles.about_disabled)}>
-                <div className={styles.workerInfo}>
-                    <span className={cn(styles.avatar, disabled && styles.avatar_disabled)} />
-                    <h2 className={styles.name}>{name}</h2>
-                    <button className={styles.wrapperDots}>
-                        <span className={styles.buttonDots} />
-                    </button>
-                </div>
-                <div className={styles.orderInfo}>
-                    <p>{product}</p>
-                    <p>Срок исполнения:&nbsp;{termOfExecution}&nbsp; дней</p>
-                    <p>Стоимость: от &nbsp;{cost.toLocaleString("ru-RU")}&nbsp;руб</p>
-                </div>
-            </div>
+  return (
+    <section className={cn(styles.card, disabled && styles.card_disabled)}>
+      <div className={cn(styles.about, disabled && styles.about_disabled)}>
+        <div className={styles.workerInfo}>
+          <span className={cn(styles.avatar, disabled && styles.avatar_disabled)} />
+          <h2 className={styles.name}>{name}</h2>
+          <button className={styles.wrapperDots}>
+            <span className={styles.buttonDots} />
+          </button>
+        </div>
+        <div className={styles.orderInfo}>
+          <p>{product}</p>
+          <p>Срок исполнения:&nbsp;{termOfExecution}&nbsp; дней</p>
+          <p>Стоимость: от &nbsp;{cost.toLocaleString("ru-RU")}&nbsp;руб</p>
+        </div>
+      </div>
 
-            <div className={styles.chat}>
-                <div className={showText === false ? styles.message_last : styles.message_last_open}>{DESCRIPTION}</div>
-                <button className={styles.buttonSwitch} onClick={showTextHandler}>
-                    посмотреть весь текст
-                </button>
-                <Button className={styles.button} disabled={disabled}>
-                    Перейти в чат
-                </Button>
-            </div>
-        </section>
-    );
+      <div className={styles.chat}>
+        <div className={showText === false ? styles.message_last : styles.message_last_open}>{DESCRIPTION}</div>
+        <button className={styles.buttonSwitch} onClick={showTextHandler}>
+          посмотреть весь текст
+        </button>
+        <Button className={styles.button} disabled={disabled}>
+          Перейти в чат
+        </Button>
+      </div>
+    </section>
+  );
 };
