@@ -1,21 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type ModalState = {
-    selectedPerformer: boolean;
+  selectedPerformer: boolean;
 };
 
 const initialState: ModalState = {
-    selectedPerformer: false,
+  selectedPerformer: false,
 };
 
 const modalSlice = createSlice({
-    name: "account",
-    initialState,
-    reducers: {
-        setSelectedPerformer: (state) => {
-            state.selectedPerformer = true;
-        },
+  name: "account",
+  initialState,
+  reducers: {
+    setSelectedPerformer: (state) => {
+      state.selectedPerformer = true;
     },
+  },
 });
 
 export const { setSelectedPerformer } = modalSlice.actions;

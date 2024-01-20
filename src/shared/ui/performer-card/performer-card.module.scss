@@ -1,0 +1,153 @@
+.card {
+  max-width: 908px;
+  padding: 24px 44px 36px 44px; //Катя отступ справа 36PX
+  border-radius: 18px;
+  box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.09);
+  display: grid;
+  row-gap: 28px;
+
+  &_disabled {
+    background-color: $light-latte-color; //#F5F3F1
+    pointer-events: none;
+  }
+
+  &:hover {
+    border: 0;
+    background-color: $bg-secondary-color;
+    outline: none;
+  }
+
+  &:active {
+    background-color: $bg-accent-color;
+    outline: none;
+  }
+}
+
+.about {
+  border-bottom: 2px solid $accent-color; //Катя цвет заменить
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-open-sans), Arial, sans-serif;
+  flex-wrap: wrap;
+
+  &_disabled {
+    border-bottom: 2px solid $disabled-color;
+  }
+}
+
+.name {
+  @include font-source-sans(16px, $text-main-color, 600, 25px);
+  margin: 0 16px;
+}
+
+.workerInfo {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  display: block;
+  width: 32px;
+  height: 32px;
+  background-color: $success-accent-color; //$error-accent-color; //Катя цвета или аватар?
+  border-radius: 50%;
+
+  &_disabled {
+    background-color: $disabled-color;
+  }
+}
+
+.wrapperDots {
+  width: 4px;
+  height: 20px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.buttonDots {
+  outline: 1px solid gren;
+  display: block;
+  width: 4px;
+  height: 4px;
+  background-color: #262a3d;
+  border-radius: 50%;
+
+  &::before {
+    content: "";
+    position: relative;
+    top: -8px;
+    left: 0px;
+    display: block;
+    width: 4px;
+    height: 4px;
+    background-color: #262a3d;
+    border-radius: 50%;
+  }
+
+  &::after {
+    content: "";
+    position: relative;
+    top: 4px;
+    left: 0px;
+    display: block;
+    width: 4px;
+    height: 4px;
+    background-color: #262a3d;
+    border-radius: 50%;
+  }
+}
+
+.orderInfo {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  @include font-source-sans(14px, $text-main-color, 600, 21px);
+}
+
+.chat {
+  display: grid;
+  grid-template-columns: 1fr, 178px;
+  grid-template-rows: 1fr 21px;
+  gap: 8px;
+  align-items: end;
+  justify-items: start;
+}
+
+.message_last {
+  font-family: var(--font-open-sans), Arial, sans-serif;
+  @include font-source-sans(14px, $text-main-color, 400, 22px);
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  transition: height 3s;
+}
+
+.message_last_open {
+  -webkit-line-clamp: none;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  transition: height 3s;
+}
+
+.buttonSwitch {
+  font-family: var(--font-open-sans), Arial, sans-serif;
+  @include font-source-sans(14px, $text-main-color, 600, 21px);
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+}
+
+.button {
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
+  height: 45px;
+}

@@ -1,161 +1,161 @@
 .workerInfo {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .avatar {
-    display: block;
-    width: 32px;
-    height: 32px;
-    background-color: var(--Pink-pig, #ff6894);
-    border-radius: 50%;
-    margin-right: 16px;
+  display: block;
+  width: 32px;
+  height: 32px;
+  background-color: var(--Pink-pig, #ff6894);
+  border-radius: 50%;
+  margin-right: 16px;
 }
 
 .wrapperDots {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
 }
 
 .buttonDots {
+  display: block;
+  width: 4px;
+  height: 4px;
+  background-color: #262a3d;
+  border-radius: 50%;
+
+  &::before {
+    content: "";
+    position: relative;
+    top: -8px;
+    left: 0px;
     display: block;
     width: 4px;
     height: 4px;
     background-color: #262a3d;
     border-radius: 50%;
+  }
 
-    &::before {
-        content: "";
-        position: relative;
-        top: -8px;
-        left: 0px;
-        display: block;
-        width: 4px;
-        height: 4px;
-        background-color: #262a3d;
-        border-radius: 50%;
-    }
-
-    &::after {
-        content: "";
-        position: relative;
-        top: 4px;
-        left: 0px;
-        display: block;
-        width: 4px;
-        height: 4px;
-        background-color: #262a3d;
-        border-radius: 50%;
-    }
+  &::after {
+    content: "";
+    position: relative;
+    top: 4px;
+    left: 0px;
+    display: block;
+    width: 4px;
+    height: 4px;
+    background-color: #262a3d;
+    border-radius: 50%;
+  }
 }
 
 .orderInfo {
-    display: flex;
-    align-items: baseline;
-    gap: 20px;
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
 }
 
 .fontWeightBold {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .wrapperDialog {
-    display: grid;
-    column-gap: 70px;
-    grid-template-areas:
-        "text text"
-        "buttonText buttonText"
-        "gallery button";
-    justify-content: space-between;
-    align-items: end;
+  display: grid;
+  column-gap: 70px;
+  grid-template-areas:
+    "text text"
+    "buttonText buttonText"
+    "gallery button";
+  justify-content: space-between;
+  align-items: end;
 }
 
 .wrapperGrid {
-    grid-template-areas:
-        "text button"
-        "buttonText button";
-    align-items: end;
+  grid-template-areas:
+    "text button"
+    "buttonText button";
+  align-items: end;
 }
 
 .textPosition {
-    grid-area: text;
+  grid-area: text;
 }
 
 .hiddenText {
-    position: relative;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    max-height: 66px;
+  position: relative;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  max-height: 66px;
 
-    &::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: 100%;
-        height: 60%;
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0), white 100%);
-    }
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), white 100%);
+  }
 }
 
 .buttonExpand {
-    text-align: start;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    padding: 8px 0;
-    margin-bottom: 20px;
-    grid-area: buttonText;
+  text-align: start;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 8px 0;
+  margin-bottom: 20px;
+  grid-area: buttonText;
 }
 
 .removeMargins {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .gallery {
-    display: flex;
-    max-width: 382px;
-    align-items: center;
-    gap: 20px;
-    grid-area: gallery;
+  display: flex;
+  max-width: 382px;
+  align-items: center;
+  gap: 20px;
+  grid-area: gallery;
 }
 
 .buttonSwitch {
-    width: 32px;
-    height: 32px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .slider {
-    column-gap: 20px;
-    max-width: 384px;
-    width: 100%;
-    height: 80px;
+  column-gap: 20px;
+  max-width: 384px;
+  width: 100%;
+  height: 80px;
 }
 
 .sliderImage {
-    max-width: 80px;
-    width: 100%;
-    height: 80px;
-    object-fit: cover;
-    display: block;
+  max-width: 80px;
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+  display: block;
 }
 
 .button {
-    margin-left: auto;
-    grid-area: button;
+  margin-left: auto;
+  grid-area: button;
 }
 
 .addMargins {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
