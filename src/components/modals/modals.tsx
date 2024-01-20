@@ -10,44 +10,47 @@ import { ResetPasswordConfirm } from "@src/components/modals/reset-password-conf
 import { ChooseThisProducer } from "@src/components/modals/choose-this-producer";
 import { ResetPassword } from "@src/components/modals/reset-password";
 import { Confirm } from "@src/components/modals/confirm";
+import { ModalGetContact } from "./modal-get-contact/modal-get-contact";
 
 export const Modals = () => {
-    const { modal, typeModal } = useAppSelector((store) => store.modal);
+  const { modal, typeModal } = useAppSelector((store) => store.modal);
 
-    useEffect(() => {
-        if (modal) {
-            const x = window.scrollX;
-            const y = window.scrollY;
-            window.onscroll = () => {
-                window.scrollTo(x, y);
-            };
-        } else {
-            window.onscroll = () => {};
-        }
-    }, [modal]);
+  useEffect(() => {
+    if (modal) {
+      const x = window.scrollX;
+      const y = window.scrollY;
+      window.onscroll = () => {
+        window.scrollTo(x, y);
+      };
+    } else {
+      window.onscroll = () => {};
+    }
+  }, [modal]);
 
-    const constructModal = () => {
-        switch (typeModal) {
-            case "signIn":
-                return <SignIn />;
-            case "registration":
-                return <Registration />;
-            case "resetPassword":
-                return <ResetPassword />;
-            case "resetPasswordConfirm":
-                return <ResetPasswordConfirm />;
-            case "chooseThisProducer":
-                return <ChooseThisProducer />;
-            case "confirm":
-                return <Confirm />;
-            default:
-                return <></>;
-        }
-    };
+  const constructModal = () => {
+    switch (typeModal) {
+      case "signIn":
+        return <SignIn />;
+      case "registration":
+        return <Registration />;
+      case "resetPassword":
+        return <ResetPassword />;
+      case "resetPasswordConfirm":
+        return <ResetPasswordConfirm />;
+      case "chooseThisProducer":
+        return <ChooseThisProducer />;
+      case "confirm":
+        return <Confirm />;
+      case "getContact":
+        return <ModalGetContact />;
+      default:
+        return <></>;
+    }
+  };
 
-    return (
-        <>
-            <Modal isOpen={modal}>{constructModal()}</Modal>
-        </>
-    );
+  return (
+    <>
+      <Modal isOpen={modal}>{constructModal()}</Modal>
+    </>
+  );
 };

@@ -1,47 +1,48 @@
 .header {
-    padding: $gap-default 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    margin: 0 auto;
-    background: $bg-main-color;
+  padding: $gap-default 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  margin: 0 auto;
+  background: $bg-main-color;
+  height: 80px;
 }
 
 .list {
-    display: flex;
-    max-width: 1220px;
-    margin: 0 auto;
-    justify-content: space-between;
-    gap: $gap-l;
+  display: flex;
+  max-width: 1220px;
+  margin: 0 auto;
+  justify-content: space-between;
+  gap: $gap-l;
 }
 
 .logo {
-    cursor: pointer;
-    font-weight: 600;
+  cursor: pointer;
+  font-weight: 600;
 }
 
 .link {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 160%;
-    cursor: pointer;
-    user-select: none;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 160%;
+  cursor: pointer;
 
-    &:last-child {
-        margin-left: auto;
-    }
-    &:hover {
-        text-decoration: underline;
-    }
-    &:active {
-        text-decoration: underline;
-        text-decoration-color: $accent-color;
-    }
+  &:last-child {
+    margin-left: auto;
+  }
+  &:hover {
+    text-decoration: underline;
+  }
+  &:active {
+    text-decoration: underline;
+    text-decoration-color: $accent-color;
+  }
 }
 
 .active {
-    text-decoration: underline;
-    text-decoration-color: $accent-color;
+  text-decoration: underline;
+  text-decoration-color: $accent-color;
 }

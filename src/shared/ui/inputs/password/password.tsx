@@ -8,25 +8,20 @@ import { InputProps, Input } from "../input";
 const cx = classNames.bind(styles);
 
 export const PasswordInput = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) => {
-    const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
-    return (
-        <div className={cx("container")}>
-            <Input ref={ref} {...props} type={showPassword ? "text" : "password"} />
+  return (
+    <div className={cx("container")}>
+      <Input ref={ref} {...props} type={showPassword ? "text" : "password"} />
 
-            <button
-                className={cx("buttonShowPassword")}
-                type="button"
-                onMouseDown={!props.disabled ? () => setShowPassword(true) : undefined}
-                onMouseUp={() => setShowPassword(false)}>
-                {showPassword ? (
-                    <Icon className={cx("icon")} glyph="open_eye" />
-                ) : (
-                    <Icon className={cx("icon")} glyph="eye" />
-                )}
-            </button>
-        </div>
-    );
+      <button
+        className={cx("buttonShowPassword")}
+        type="button"
+        onClick={!props.disabled ? () => setShowPassword(!showPassword) : undefined}>
+        {showPassword ? <Icon className={cx("icon")} glyph="open_eye" /> : <Icon className={cx("icon")} glyph="eye" />}
+      </button>
+    </div>
+  );
 });
 
 PasswordInput.displayName = "PasswordInput";

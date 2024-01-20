@@ -7,15 +7,15 @@ export type IconGlyphProps = keyof typeof icons;
 export const iconTypes: IconGlyphProps[] = Object.keys(icons) as any[];
 
 export type IconProps = {
-    glyph: IconGlyphProps;
+  glyph: IconGlyphProps;
 } & SVGProps<SVGSVGElement>;
 
 const Icon = (props: IconProps) => {
-    const { glyph, fill = "currentColor", stroke = "currentStroke", ...restIconProps } = props;
+  const { glyph, ...restIconProps } = props;
 
-    const IconComponent = icons[glyph];
+  const IconComponent = icons[glyph];
 
-    return <IconComponent fill={fill} stroke={stroke} {...restIconProps} />;
+  return <IconComponent {...restIconProps} />;
 };
 
 export { Icon };
