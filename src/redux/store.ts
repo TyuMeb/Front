@@ -12,17 +12,17 @@ import { userReducer } from "./slices/users-slice";
 import { createOrderSlice } from "./slices/create-order-slice";
 
 export const store = configureStore({
-    reducer: {
-        modal: modalReducer,
-        header: headerReducer,
-        headeraccount: headerAccountReducer,
-        nav: navAccountReducer,
-        account: accountReducer,
-        user: userReducer,
-        createOrder: createOrderSlice.reducer,
-        [apiSlice.reducerPath]: apiSlice.reducer,
-    },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
+  reducer: {
+    modal: modalReducer,
+    header: headerReducer,
+    headeraccount: headerAccountReducer,
+    nav: navAccountReducer,
+    account: accountReducer,
+    user: userReducer,
+    createOrder: createOrderSlice.reducer,
+    [apiSlice.reducerPath]: apiSlice.reducer,
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

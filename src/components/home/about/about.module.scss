@@ -1,35 +1,35 @@
 .inner {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 140px;
-    gap: 32px;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 140px;
+  gap: 32px;
 
-    @media (max-width: 1024px) {
-        flex-direction: column;
-    }
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
 }
 
 .left__card {
-    flex-grow: 1;
-    flex: 1;
-    padding: 44px 28px;
-    background-color: $bg-accent-color;
-    border-radius: 44px;
+  flex-grow: 1;
+  flex: 1;
+  padding: 44px 28px;
+  background-color: $bg-accent-color;
+  border-radius: 44px;
 
-    .title {
-        padding-bottom: 36px;
-    }
+  .title {
+    padding-bottom: 36px;
+  }
 
-    .description {
-        max-width: 570px;
-    }
+  .description {
+    max-width: 570px;
+  }
 }
 
 .right__card {
-    border-radius: 45px;
-    object-fit: cover;
+  border-radius: 45px;
+  object-fit: cover;
 
-    @media (max-width: 1024px) {
-        width: 100%;
-    }
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 }
