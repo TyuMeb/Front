@@ -4,7 +4,7 @@ export const toFlatQuestions = (questions: QuestionType[]): QuestionType[] => {
   return questions.reduce((acc, question) => {
     const nested =
       // @ts-ignore
-      question.options?.filter((q) => !q.questions).map((q) => toFlatQuestions(q?.questions || [])) || [];
+      question.options?.filter((q) => !q.options).map((q) => toFlatQuestions(q?.questions || [])) || [];
 
     return [...acc, question, ...nested.flat()];
   }, [] as QuestionType[]);

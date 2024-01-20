@@ -5,7 +5,12 @@ import { Button } from "@src/shared/ui/button";
 import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { getCookieOrder, removeCookieOrder } from "../lib/order-storage";
-import { QuestionType, useLazyOrderQuery, useOrderCreateAnswersMutation } from "@src/redux/api/order-api-slice";
+import {
+  QuestionType,
+  useFinishOrderMutation,
+  useLazyOrderQuery,
+  useOrderCreateAnswersMutation,
+} from "@src/redux/api/order-api-slice";
 import { useQuestionnaireQuery } from "@src/redux/api/questionnaire-api-slice";
 import { toFlatQuestions } from "../lib/question";
 import { QuestionnaireResponse } from "@src/redux/api/generated";
@@ -14,6 +19,7 @@ import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 import { createOrderSlice } from "@src/redux/slices/create-order-slice";
 import { useUser } from "@src/redux/slices/users-slice";
 import { setTypeModal } from "@src/redux/slices/modal-slice";
+import { useRouter } from "next/navigation";
 
 type Props = {
   onBack: () => void;
@@ -23,6 +29,7 @@ type Props = {
 type FormValues = Record<string, QuestionnaireResponse["response"]>;
 
 export function OrderForm({ onBack, questionnaireTypeId }: Props) {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const orderId = getCookieOrder();
   const user = useUser();
@@ -113,9 +120,17 @@ export function OrderForm({ onBack, questionnaireTypeId }: Props) {
       });
   };
 
+  const [finishOrder, { isLoading: isLoadingFinishOrder }] = useFinishOrderMutation();
   const handleFinishOrder = () => {
     if (user) {
-      // need create
+      // @ts-ignore
+      finishOrder(order?.id || orderId!)
+        .unwrap()
+        .then(() => {
+          removeCookieOrder();
+          router.push("/account/my-orders");
+        });
+
       return;
     }
     dispatch(setTypeModal("signIn"));
@@ -153,6 +168,7 @@ export function OrderForm({ onBack, questionnaireTypeId }: Props) {
           onClick={() => {
             if (isChecking) {
               setChapterIndex(chapters.length - 1);
+              setIsChecking(false);
               return;
             }
 
@@ -204,7 +220,7 @@ export function OrderForm({ onBack, questionnaireTypeId }: Props) {
                 <p className="mb-4 font-bold">
                   Вы завершили заполнение анкеты! Нажмите кнопку отправить и получите первые предложения через 24 часа.
                 </p>
-                <Button type="button" onClick={handleFinishOrder} className="mb-12">
+                <Button isLoading={isLoadingFinishOrder} type="button" onClick={handleFinishOrder} className="mb-12">
                   Отправить заявку
                 </Button>
               </>

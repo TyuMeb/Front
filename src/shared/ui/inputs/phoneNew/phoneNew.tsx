@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import { InputProps, Input } from "../input";
-import { usePhoneMask } from "@src/hook/use-phone-mask";
+import { usePhoneMask } from "@src/hooks/use-phone-mask";
 
 export const PhoneInputNew = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) => {
   const { inputValue, handlePhoneInput } = usePhoneMask(props.value ? String(props.value) : "");

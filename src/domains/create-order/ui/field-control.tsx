@@ -70,6 +70,7 @@ export const FieldControl = ({ positionOrder, question, readOnly, ...props }: Pr
                 message: "Поле не может быть пустым",
               },
             })}
+            value={value}
             className={cn(errors[question.id!] && "border-pink border placeholder:!text-pink")}
             autoHeight
             rows={5}

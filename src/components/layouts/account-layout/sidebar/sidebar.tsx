@@ -7,13 +7,14 @@ import { usePathname } from "next/navigation";
 
 import { Button } from "@src/shared/ui/button";
 import { Icon } from "@src/components/icon";
-import { orders, performers } from "@src/shared/data/account";
+import { performers } from "@src/shared/data/account";
 
 import styles from "./sidebar.module.scss";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@src/redux/hooks";
 import { setUser } from "@src/redux/slices/users-slice";
 import { removeCookie } from "typescript-cookie";
+import { useClientActiveOrdersQuery } from "@src/redux/api/order-api-slice";
 
 const cx = classNames.bind(styles);
 
@@ -38,6 +39,7 @@ const firstLevelMenu: firstLevelMenuItemProps[] = [
 ];
 
 export const Sidebar = ({ className }: SidebarProps) => {
+  const { data: orders = [] } = useClientActiveOrdersQuery();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const pathname = usePathname();
@@ -95,8 +97,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
                   href={currentPathname}>
                   <p className={cx("text-small-semibold")}>
                     {order.name}
-                    &nbsp;
-                    {order.countPerformers && `(${order.countPerformers})`}
+                    &nbsp; ({order.contractor})
                   </p>
                 </Link>
                 {buildThirdLevel(currentPathname)}

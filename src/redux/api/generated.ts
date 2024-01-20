@@ -73,7 +73,7 @@ export interface UserAccount {
   surname?: string | null;
   /** Роль */
   role?: "contractor" | "client";
-  notifications?: (email | tel)[] | null;
+  notifications?: ("email" | "tel")[] | null;
 }
 
 export interface UserCreate {
