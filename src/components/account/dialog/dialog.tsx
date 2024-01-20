@@ -17,13 +17,10 @@ import { filesPreviewProps } from "@src/components/account/form/formTypes";
 import { useForm } from "react-hook-form";
 import { useMeasuredRef } from "@src/hooks/use-measured-ref";
 import { getFiles } from "@src/helpers/getFiles";
+import { getCookie } from "typescript-cookie";
 
-const ws = new WebSocket("wss://api.whywe.ru/ws/chat/2/", null, {
-    headers: {
-        Authorization:
-            "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA0OTk1MDkzLCJpYXQiOjE3MDQ5OTE0OTMsImp0aSI6ImMxNmQwNjFlNjM1MDQ1NWNhZGQ5OTgyYzk2NjYzZmQwIiwidXNlcl9pZCI6Nn0.J50Je0P7SGOHIboi5FkWOsfei7E114wFlxsaMub-xz8",
-    },
-});
+const ws = new WebSocket("wss://api.whywe.ru/ws/chat/2/", getCookie("access_token"));
+console.log(ws);
 
 export const Dialog = () => {
     const measuredForm = useMeasuredRef();
@@ -32,6 +29,32 @@ export const Dialog = () => {
     const [filesPreview, setFilesPreview] = useState<filesPreviewProps[] | []>([]);
     const dispatch = useAppDispatch();
     const { selectedPerformer } = useAppSelector((store) => store.account);
+
+    const [messagesList, setMessagesList] = useState([]);
+
+    useEffect(() => {
+        const getMessages = () => {
+            ws.send(JSON.stringify({ command: "fetch_messages", message: "fetch" }));
+        };
+
+        const showData = (e: MessageEvent) => {
+            const { messages } = JSON.parse(e.data);
+            if (messages) {
+                setMessagesList(messages);
+                console.log(messages);
+            } else {
+                console.log(JSON.parse(e.data));
+            }
+        };
+
+        ws.addEventListener("open", getMessages);
+        ws.addEventListener("message", showData);
+
+        return () => {
+            ws.removeEventListener("open", getMessages);
+            ws.removeEventListener("message", showData);
+        };
+    }, []);
 
     useEffect(() => {
         window.scrollTo(0, document.body.scrollHeight);
@@ -236,6 +259,15 @@ export const Dialog = () => {
 
                     <Button className={styles.buttonSubmit} type="submit">
                         <Icon glyph="paper_airplane" />
+                    </Button>
+
+                    <Button
+                        className={styles.buttonSubmit}
+                        type="button"
+                        onClick={() => {
+                            ws.send(JSON.stringify({ command: "fetch_messages", message: "test11" }));
+                        }}>
+                        Новое
                     </Button>
                 </Form>
 
