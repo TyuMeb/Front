@@ -19,6 +19,16 @@ import { useMeasuredRef } from "@src/hooks/use-measured-ref";
 import { getFiles } from "@src/helpers/getFiles";
 import { getCookie } from "typescript-cookie";
 
+import { MessageItem } from "./message-item/message-item";
+
+type TMessage = {
+    id: number;
+    sent_at: string;
+    sender: string;
+    text: string;
+};
+
+const email = "user0@mail.ru";
 const ws = new WebSocket("wss://api.whywe.ru/ws/chat/2/", getCookie("access_token"));
 console.log(ws);
 
@@ -30,7 +40,7 @@ export const Dialog = () => {
     const dispatch = useAppDispatch();
     const { selectedPerformer } = useAppSelector((store) => store.account);
 
-    const [messagesList, setMessagesList] = useState([]);
+    const [messagesList, setMessagesList] = useState<TMessage[]>([]);
 
     useEffect(() => {
         const getMessages = () => {
@@ -40,13 +50,18 @@ export const Dialog = () => {
         const showData = (e: MessageEvent) => {
             const { messages } = JSON.parse(e.data);
             if (messages) {
-                setMessagesList(messages);
+                setMessagesList(
+                    messages.sort((a: TMessage, b: TMessage) => {
+                        if (new Date(a.sent_at) > new Date(b.sent_at)) return 1;
+                        else return -1;
+                    })
+                );
                 console.log(messages);
             } else {
+                // setMessagesList([...messagesList, e.data]);
                 console.log(JSON.parse(e.data));
             }
         };
-
         ws.addEventListener("open", getMessages);
         ws.addEventListener("message", showData);
 
@@ -73,6 +88,8 @@ export const Dialog = () => {
         files.forEach((file) => formFiles.append(`file-${file.id}`, file.file));
 
         console.log({ files, text: data.chat, formData: formFiles, filesPreview });
+
+        ws.send(JSON.stringify({ command: "new_message", message: data.chat }));
     };
 
     const settingsInput = {
@@ -148,98 +165,25 @@ export const Dialog = () => {
                     marginTop: `${measuredDialog.elementHeight}px`,
                 }}
                 className={styles.wrapper}>
-                <div className={`${styles.chat} ${styles.positionLeft}`}>
-                    <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
+                {messagesList.map((m, i) => (
+                    <MessageItem
+                        key={i}
+                        text={m.text}
+                        messageId={m.id}
+                        sent={m.sent_at}
+                        isMyMessage={email === m.sender}
+                    />
+                ))}
 
-                    <div className={`${styles.messageExecutor} ${styles.wrapperMessage}`}>
-                        <div className={`text-small ${styles.widthText}`}>
-                            Добрый день! Присылаю варианты и фотографии. Если есть...Добрый день! Присылаю варианты и
-                            hjgfkdgndgfnk...
-                        </div>
-
-                        <ul className={styles.gallery}>
-                            <li className={styles.item}></li>
-                            <li className={styles.item}></li>
-                            <li className={styles.item}></li>
-                        </ul>
-                    </div>
-                    <time className={styles.timeText}>23:12</time>
-                </div>
-
-                <div className={`${styles.chat} ${styles.positionRight}`}>
-                    <time className={styles.timeText}>23:12</time>
-
-                    <div className={`${styles.messageClient} ${styles.wrapperMessage}`}>
-                        <div className={`text-small ${styles.widthText}`}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim
-                        </div>
-                    </div>
-                    <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
-                </div>
-                <div className={`${styles.chat} ${styles.positionLeft}`}>
-                    <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
-
-                    <div className={`${styles.messageExecutor} ${styles.wrapperMessage}`}>
-                        <div className={`text-small ${styles.widthText}`}>
-                            Добрый день! Присылаю варианты и фотографии. Если есть...Добрый день! Присылаю варианты и
-                            hjgfkdgndgfnk...
-                        </div>
-
-                        <ul className={styles.gallery}>
-                            <li className={styles.item}></li>
-                            <li className={styles.item}></li>
-                            <li className={styles.item}></li>
-                        </ul>
-                    </div>
-                    <time className={styles.timeText}>23:12</time>
-                </div>
-                <div className={`${styles.chat} ${styles.positionLeft}`}>
-                    <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
-
-                    <div className={`${styles.messageExecutor} ${styles.wrapperMessage}`}>
-                        <div className={`text-small ${styles.widthText}`}>Lorem ipsum dolor sit amet, consectetur</div>
-                    </div>
-                    <time className={styles.timeText}>23:12</time>
-                </div>
-                <div className={`${styles.chat} ${styles.positionRight}`}>
-                    <time className={styles.timeText}>23:12</time>
-
-                    <div className={`${styles.messageClient} ${styles.wrapperMessage}`}>
-                        <div className={`text-small ${styles.widthText}`}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim
-                        </div>
-                    </div>
-                    <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
-                </div>
-                <div className={`${styles.chat} ${styles.positionLeft}`}>
-                    <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
-
-                    <div className={`${styles.messageExecutor} ${styles.wrapperMessage}`}>
-                        <div className={`text-small ${styles.widthText}`}>Lorem ipsum dolor sit amet, consectetur</div>
-                    </div>
-                    <time className={styles.timeText}>23:12</time>
-                </div>
-                <div className={`${styles.chat} ${styles.positionLeft}`}>
-                    <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
-
-                    <div className={`${styles.messageExecutor} ${styles.wrapperMessage}`}>
-                        <div className={`text-small ${styles.widthText}`}>Lorem ipsum dolor sit amet, consectetur</div>
-                    </div>
-                    <time className={styles.timeText}>23:12</time>
-                </div>
-                <div className={`${styles.chat} ${styles.positionRight}`}>
-                    <time className={styles.timeText}>23:12</time>
-
-                    <div className={`${styles.messageClient} ${styles.wrapperMessage}`}>
-                        <div className={`text-small ${styles.widthText}`}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim
-                        </div>
-                    </div>
-                    <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
-                </div>
+                {/* <MessageItem text="Какой-то текст" messageId={1} sent="вчера" sender="ЯЯЯ">
+                    <ul className={styles.gallery}>
+                        <li className={styles.item}></li>
+                        <li className={styles.item}></li>
+                        <li className={styles.item}></li>
+                    </ul>
+                </MessageItem>
+                <MessageItem text="Какой-то текст" messageId={2} sent="вчера" sender="ЯЯЯ" />
+                <MessageItem text="Какой-то текст" messageId={3} sent="вчера" sender="ЯЯЯ" /> */}
             </div>
 
             <div className={styles.wrapperForm} ref={measuredForm.getObserver}>
