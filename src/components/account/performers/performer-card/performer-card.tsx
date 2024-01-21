@@ -13,10 +13,10 @@ import { SliderUser } from "@src/shared/ui/slider-user";
 const cx = classNames.bind(styles);
 
 type PerformerCardProps = {
-    name: string;
-    termOfExecution: string;
-    cost: number;
-    images: StaticImageData[];
+  name: string;
+  termOfExecution: string;
+  cost: number;
+  images: StaticImageData[];
 };
 
 const DESCRIPTION = `
@@ -34,65 +34,65 @@ const DESCRIPTION = `
 `;
 
 export const PerformerCard = ({ performer }: { performer: PerformerCardProps }) => {
-    const { name, termOfExecution, cost, images } = performer;
+  const { name, termOfExecution, cost, images } = performer;
 
-    const id = useId();
+  const id = useId();
 
-    const [showText, setShowText] = useState(true);
-    const showTextHandler = () => setShowText(!showText);
+  const [showText, setShowText] = useState(true);
+  const showTextHandler = () => setShowText(!showText);
 
-    const renderSlider = (images: StaticImageData[], alt: string) => {
-        return (
-            <SliderUser className={styles.slider} spacing={8} itemsToShow={3}>
-                {images.map((image, i) => {
-                    return (
-                        <div key={`${id}-${i}`} className="keen-slider__slide">
-                            <Image src={image} alt={alt} className={styles.sliderImage} />
-                        </div>
-                    );
-                })}
-            </SliderUser>
-        );
-    };
-
+  const renderSlider = (images: StaticImageData[], alt: string) => {
     return (
-        <WrapperCard>
-            <div className="wrapperText">
-                <div className={styles.workerInfo}>
-                    <span className={styles.avatar} />
-                    <h2 className="subtitle2">{name}</h2>
-                    <button className={styles.wrapperDots}>
-                        <span className={styles.buttonDots} />
-                    </button>
-                </div>
-
-                <div className={styles.orderInfo}>
-                    <p className="text-small-semibold">
-                        Срок исполнения: &nbsp;
-                        {termOfExecution}
-                        &nbsp; дней
-                    </p>
-                    <p className="text-small-semibold">
-                        Стоимость: от &nbsp;
-                        {cost}
-                        &nbsp; руб
-                    </p>
-                </div>
+      <SliderUser className={styles.slider} spacing={8} itemsToShow={3}>
+        {images.map((image, i) => {
+          return (
+            <div key={`${id}-${i}`} className="keen-slider__slide">
+              <Image src={image} alt={alt} className={styles.sliderImage} />
             </div>
-
-            <div className={cx("wrapperDialog", { wrapperGrid: !images.length })}>
-                <p className={cx("text-small", "textPosition", { hiddenText: showText })}>{DESCRIPTION}</p>
-
-                <button className={cx("buttonExpand", { removeMargins: !images.length })} onClick={showTextHandler}>
-                    <p className="text-small-semibold">посмотреть весь текст</p>
-                </button>
-
-                {images.length ? renderSlider(images, name) : <></>}
-
-                <Button className={cx("button", { addMargins: !images.length })}>
-                    <p className="text-small">Перейти в чат</p>
-                </Button>
-            </div>
-        </WrapperCard>
+          );
+        })}
+      </SliderUser>
     );
+  };
+
+  return (
+    <WrapperCard>
+      <div className="wrapperText">
+        <div className={styles.workerInfo}>
+          <span className={styles.avatar} />
+          <h2 className="subtitle2">{name}</h2>
+          <button className={styles.wrapperDots}>
+            <span className={styles.buttonDots} />
+          </button>
+        </div>
+
+        <div className={styles.orderInfo}>
+          <p className="text-small-semibold">
+            Срок исполнения: &nbsp;
+            {termOfExecution}
+            &nbsp; дней
+          </p>
+          <p className="text-small-semibold">
+            Стоимость: от &nbsp;
+            {cost}
+            &nbsp; руб
+          </p>
+        </div>
+      </div>
+
+      <div className={cx("wrapperDialog", { wrapperGrid: !images.length })}>
+        <p className={cx("text-small", "textPosition", { hiddenText: showText })}>{DESCRIPTION}</p>
+
+        <button className={cx("buttonExpand", { removeMargins: !images.length })} onClick={showTextHandler}>
+          <p className="text-small-semibold">посмотреть весь текст</p>
+        </button>
+
+        {images.length ? renderSlider(images, name) : <></>}
+
+        <Button className={cx("button", { addMargins: !images.length })}>
+          <p className="text-small">Перейти в чат</p>
+        </Button>
+      </div>
+    </WrapperCard>
+  );
 };

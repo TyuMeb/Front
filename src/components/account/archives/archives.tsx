@@ -1,58 +1,21 @@
 "use client";
 
-import React, { HTMLAttributes, useId } from "react";
+import React, { HTMLAttributes } from "react";
 import styles from "./archives.module.scss";
 import { OrderCard } from "@src/components/account/my-orders/order-card";
 import { NoOrdersCard } from "@src/components/account/my-orders/no-orders-card";
 import { filesListProps } from "@src/components/account/form/formTypes";
-import desk from "@public/account/desk.jpg";
-import slide from "@public/home/s_slide00.jpg";
 import { getFiles } from "@src/helpers";
 import { SliderUser } from "@src/shared/ui/slider-user";
 import { AddFiles } from "@src/components/account/my-orders/add-files";
 import { Icon } from "src/components/icon";
-import Image, { StaticImageData } from "next/image";
-
-const orders = [
-    {
-        id: "1",
-        title: "Полка настенная",
-        notOffer: false,
-        images: [desk, desk, slide],
-        description: {
-            date: "24.04.2024",
-            status: "сбор предложений окончен",
-            countOffer: 4,
-        },
-    },
-    {
-        id: "2",
-        title: "Комод",
-        notOffer: true,
-        images: [],
-        description: {
-            date: "24.04.2024",
-            status: "сбор предложений окончен",
-            countOffer: 0,
-        },
-    },
-    {
-        id: "3",
-        title: "Комод",
-        notOffer: false,
-        images: [],
-        description: {
-            date: "24.04.2024",
-            status: "сбор предложений окончен",
-            countOffer: 0,
-        },
-    },
-];
+import Image from "next/image";
+import { useArchiveOrdersQuery } from "@src/redux/api/order-api-slice";
 
 type ArchivesProps = {} & HTMLAttributes<HTMLDivElement>;
 
 export const Archives = (props: ArchivesProps) => {
-    const id = useId();
+    const { data: orders = [] } = useArchiveOrdersQuery();
 
     const settingsInput = {
         maxSizeFile: 1000000,
@@ -78,11 +41,29 @@ export const Archives = (props: ArchivesProps) => {
                 <li key={order.id}>
                     <OrderCard
                         className={styles.backgroundColor}
-                        title={order.title}
-                        notOffer={order.notOffer}
-                        description={order.description}>
-                        {order.images.length ? (
-                            renderSlider(order.images, order.title)
+                        title={order.name!}
+                        notOffer={Math.random() > 0.5}
+                        description={{
+                            date: order.order_time!,
+                            countOffer: 1,
+                            status: order.state!,
+                        }}>
+                        {(order.files || []).length ? (
+                            <SliderUser className={styles.slider}>
+                                {((order.files || []) as string[]).map((file) => {
+                                    return (
+                                        <div key={file} className="keen-slider__slide">
+                                            <div className={styles.wrapper}>
+                                                <Image
+                                                    src={file}
+                                                    alt={order.name || ""}
+                                                    className={styles.sliderImage}
+                                                />
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </SliderUser>
                         ) : (
                             <AddFiles
                                 className={styles.marginCenter}
@@ -98,22 +79,6 @@ export const Archives = (props: ArchivesProps) => {
                 </li>
             );
         });
-    };
-
-    const renderSlider = (images: StaticImageData[], alt: string) => {
-        return (
-            <SliderUser className={styles.slider}>
-                {images.map((image, i) => {
-                    return (
-                        <div key={`${id}-${i}`} className="keen-slider__slide">
-                            <div className={styles.wrapper}>
-                                <Image src={image} alt={alt} className={styles.sliderImage} />
-                            </div>
-                        </div>
-                    );
-                })}
-            </SliderUser>
-        );
     };
 
     return (

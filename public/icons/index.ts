@@ -26,6 +26,7 @@ import dollar from './home/dollar.svg';
 import person from './home/person.svg';
 import plus from './plus.svg';
 import mailFilled from './main-filled.svg';
+import x from './x.svg';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -56,5 +57,6 @@ export default {
 	person,
 	plus,
 	chair,
-	mailFilled
+	mailFilled,
+	x
 };
