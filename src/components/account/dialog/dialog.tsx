@@ -18,8 +18,10 @@ import { useForm } from "react-hook-form";
 import { useMeasuredRef } from "@src/hooks/use-measured-ref";
 import { getFiles } from "@src/helpers/getFiles";
 import { getCookie } from "typescript-cookie";
+import { useUser } from "@src/redux/slices/users-slice";
 
 import { MessageItem } from "./message-item/message-item";
+import { UserAccount } from "@src/redux/api/generated";
 
 type TMessage = {
   id: number;
@@ -29,8 +31,21 @@ type TMessage = {
 };
 
 const email = "user0@mail.ru";
-const ws = new WebSocket("wss://api.whywe.ru/ws/chat/2/", getCookie("access_token"));
-console.log(ws);
+// const ws = new WebSocket("wss://api.whywe.ru/ws/chat/2/", getCookie("access_token"));
+// console.log(ws);
+
+const dateConverter = (d: string): string => {
+  const messageDate = new Date(d);
+  const currDate = new Date();
+  if (messageDate.getDate() !== currDate.getDate())
+    return `
+      ${messageDate.getDate().toLocaleString(undefined, { minimumIntegerDigits: 2 })}.
+      ${(messageDate.getMonth() + 1).toLocaleString(undefined, { minimumIntegerDigits: 2 })}.
+      ${messageDate.getFullYear()}`;
+  return `
+    ${messageDate.getHours().toLocaleString(undefined, { minimumIntegerDigits: 2 })}:
+    ${messageDate.getMinutes().toLocaleString(undefined, { minimumIntegerDigits: 2 })}`;
+};
 
 export const Dialog = () => {
   const measuredForm = useMeasuredRef();
@@ -40,9 +55,15 @@ export const Dialog = () => {
   const dispatch = useAppDispatch();
   const { selectedPerformer } = useAppSelector((store) => store.account);
 
+  const [ws, setWs] = useState<WebSocket>(new WebSocket("wss://api.whywe.ru/ws/chat/2/", getCookie("access_token")));
   const [messagesList, setMessagesList] = useState<TMessage[]>([]);
 
+  const ua: UserAccount = useUser();
+
   useEffect(() => {
+    console.log(ws);
+    console.log(ua.email);
+
     const getMessages = () => {
       ws.send(JSON.stringify({ command: "fetch_messages", message: "fetch" }));
     };
@@ -73,7 +94,7 @@ export const Dialog = () => {
 
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
-  }, [measuredForm.elementHeight]);
+  }, [measuredForm.elementHeight, messagesList]);
 
   const { handleSubmit, register } = useForm({
     values: {
@@ -166,7 +187,15 @@ export const Dialog = () => {
         }}
         className={styles.wrapper}>
         {messagesList.map((m, i) => (
-          <MessageItem key={i} text={m.text} messageId={m.id} sent={m.sent_at} isMyMessage={email === m.sender} />
+          <MessageItem
+            key={i}
+            text={m.text}
+            messageId={m.id}
+            sent={dateConverter(m.sent_at)}
+            unread={!!(i % 2)}
+            isMyMessage={email === m.sender}
+            avaColor="red"
+          />
         ))}
 
         {/* <MessageItem text="Какой-то текст" messageId={1} sent="вчера" sender="ЯЯЯ">
