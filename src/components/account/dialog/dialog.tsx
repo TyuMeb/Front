@@ -8,19 +8,13 @@ import { Textarea } from "@src/shared/ui/inputs/textarea";
 
 import Paperclip from "@public/icons/paperclip.svg";
 import { Icon } from "@src/components/icon";
-
-import { PreviewFiles } from "@src/components/account/form/preview-files";
-import { filesPreviewProps } from "@src/components/account/form/formTypes";
 import { useForm, Controller } from "react-hook-form";
 import { useMeasuredRef } from "@src/hooks/use-measured-ref";
 import { getFiles } from "@src/helpers/getFiles";
 import { WrapperInfo } from "./wrapper-info";
-import { Chat } from "./chat/chat";        
+import { Chat } from "./chat/chat";
 import { getCookie } from "typescript-cookie";
-// import { useUser } from "@src/redux/slices/users-slice";
-
 import { MessageItem } from "./message-item/message-item";
-// import { UserAccount } from "@src/redux/api/generated";
 
 type TMessage = {
   id: number;
@@ -45,7 +39,7 @@ const dateConverter = (d: string): string => {
     ${messageDate.getMinutes().toLocaleString(undefined, { minimumIntegerDigits: 2 })}`;
 };
 
- export type OrderInfo = {
+export type OrderInfo = {
   customer?: string;
   name: string;
   termOfExecution: string;
@@ -60,9 +54,9 @@ export type DialogProps = {
 export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
   const measuredForm = useMeasuredRef();
   const measuredDialog = useMeasuredRef();
-  const [filesPreview, setFilesPreview] = useState<filesPreviewProps[] | []>([]);
-  const dispatch = useAppDispatch();
-  const { selectedPerformer } = useAppSelector((store) => store.account);
+  const [filesPreview, setFilesPreview] = useState<FilesPreview[] | []>([]);
+  // const dispatch = useAppDispatch();
+  // const { selectedPerformer } = useAppSelector((store) => store.account);
   const ws = useRef<WebSocket | null>(null);
   const [messagesList, setMessagesList] = useState<TMessage[]>([]);
 
@@ -99,8 +93,6 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
       ws.current?.removeEventListener("message", showData);
     };
   }, []);
-
-  const [filesPreview, setFilesPreview] = useState<FilesPreview[] | []>([]);
 
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
@@ -158,7 +150,7 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
       </div>
 
       <Chat heightForm={measuredForm.elementHeight} heightDialog={measuredDialog.elementHeight} />
-        
+
       <div className={styles.wrapperForm} ref={measuredForm.getObserver}>
         <form onSubmit={handleSubmit(onSubmitHandler)}>
           <WrapperForm>
