@@ -1,4 +1,4 @@
-import React, { FC, HTMLAttributes } from "react";
+import React, { FC, HTMLAttributes, useEffect, useRef } from "react";
 import styles from "./message-item.module.scss";
 import { Icon } from "@src/components/icon";
 
@@ -11,16 +11,16 @@ type TMessageProps = {
   avaColor: string;
 } & HTMLAttributes<HTMLDivElement>;
 
-export const MessageItem: FC<TMessageProps> = ({
-  messageId,
-  text,
-  sent,
-  isMyMessage,
-  unread,
-  avaColor,
-  children,
-  ...rest
-}) => {
+export const MessageItem: FC<TMessageProps> = ({ text, sent, isMyMessage, unread, avaColor, children }) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (unread) {
+      console.log(window.scrollY);
+      console.log(ref.current?.getBoundingClientRect().top);
+    }
+  }, []);
+
   return isMyMessage ? (
     <div className={`${styles.chat} ${styles.positionRight}`}>
       {unread && <Icon glyph="checked" />}
@@ -35,7 +35,7 @@ export const MessageItem: FC<TMessageProps> = ({
       <span className={`${styles.userIcon} ${styles.userAvatarMessage}`} style={{ backgroundColor: avaColor }}></span>
     </div>
   ) : (
-    <div className={`${styles.chat} ${styles.positionLeft}`}>
+    <div className={`${styles.chat} ${styles.positionLeft}`} ref={ref}>
       <span className={`${styles.userIcon} ${styles.userAvatarMessage}`} style={{ backgroundColor: avaColor }}></span>
 
       <div className={`${styles.messageExecutor} ${styles.wrapperMessage}`}>

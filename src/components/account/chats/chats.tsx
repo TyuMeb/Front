@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useEffect, HTMLAttributes } from "react";
+import React, { HTMLAttributes } from "react";
 import styles from "./chats.module.scss";
 import { PerformerCard } from "@src/shared/ui/performer-card";
 import { NoOrdersCard } from "@src/components/account/my-orders/no-orders-card";
 import desk from "@public/account/desk.jpg";
 import slide from "@public/home/s_slide00.jpg";
-import { useGetChatsQuery } from "@src/redux/api/chat-api-slice";
+// import { useGetChatsQuery } from "@src/redux/api/chat-api-slice";
 
 type ChatsProps = {} & HTMLAttributes<HTMLUListElement>;
 

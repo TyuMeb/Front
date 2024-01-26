@@ -6,7 +6,7 @@ import accountReducer from "./slices/account-slice";
 import headerReducer from "./slices/header-slice";
 import navAccountReducer from "./slices/nav-account-slice";
 import headerAccountReducer from "./slices/header-account-slice";
-import chatReducer from "./slices/chat-slice";
+// import chatReducer from "./slices/chat-slice";
 import { setupListeners } from "@reduxjs/toolkit/query/react";
 import { apiSlice } from "@src/redux/api/api-slice";
 import { userReducer } from "./slices/users-slice";
