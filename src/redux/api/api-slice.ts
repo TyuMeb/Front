@@ -16,8 +16,16 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const baseQueryWithRefresh: BaseQueryFn<FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
-  let result = await baseQuery({ ...args, credentials: "include" }, api, extraOptions);
+const baseQueryWithRefresh: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
+  args,
+  api,
+  extraOptions
+) => {
+  let result = await baseQuery(
+    typeof args === "string" ? { url: args, credentials: "include" } : { ...args, credentials: "include" },
+    api,
+    extraOptions
+  );
 
   if (result.error && result.error.status === 401) {
     removeCookie("access_token");
@@ -31,7 +39,7 @@ const baseQueryWithRefresh: BaseQueryFn<FetchArgs, unknown, FetchBaseQueryError>
 
     const { data } = await baseQuery(
       {
-        url: "/auth/jwt/refresh",
+        url: "/auth/jwt/refresh/",
         method: "POST",
         body: { refresh },
       },

@@ -16,7 +16,7 @@
 
 .wrapperText {
     border-bottom: 2.5px solid #fccf55;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     padding-bottom: 8px;
 }
 
@@ -27,4 +27,8 @@
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+}
+
+.textarea {
+    max-height: 82px;
 }

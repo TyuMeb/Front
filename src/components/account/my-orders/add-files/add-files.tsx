@@ -2,14 +2,14 @@ import React, { ChangeEvent, HTMLAttributes } from "react";
 
 import { FileInput } from "@src/shared/ui/inputs/file";
 import { checkMaxSizeFiles } from "@src/helpers";
-import { filesListProps } from "@src/components/account/form/formTypes";
-import { getRandomKey } from "@src/helpers/getRandomKey";
+import { FilesList } from "@src/components/account/wrapper-form";
+import { getRandomKey } from "@src/helpers";
 
 type AddFilesProps = {
     maxSizeImage?: number;
     maxSizeFile?: number;
     maxCountFiles?: number;
-    onChangeHandler: (data: filesListProps[]) => void;
+    onChangeHandler: (data: FilesList[]) => void;
 } & HTMLAttributes<HTMLInputElement>;
 
 export const AddFiles = ({
@@ -30,7 +30,7 @@ export const AddFiles = ({
                 return;
             }
 
-            const fileList = [] as filesListProps[];
+            const fileList = [] as FilesList[];
             files.forEach((file, i) => {
                 if (maxCountFiles && i >= maxCountFiles) {
                     return;

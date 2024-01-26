@@ -1,9 +1,9 @@
-import { Textarea } from "@src/components/account/form/textarea";
 import { Icon } from "@src/components/icon";
 import { QuestionType, useDeleteFileMutation, useUploadFileMutation } from "@src/redux/api/order-api-slice";
 import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 import { createOrderSlice } from "@src/redux/slices/create-order-slice";
 import { cn } from "@src/shared/lib/cn";
+import { Textarea } from "@src/shared/ui/inputs/textarea";
 import { Select } from "@src/shared/ui/select";
 import React, { useRef } from "react";
 import { useFormContext } from "react-hook-form";
