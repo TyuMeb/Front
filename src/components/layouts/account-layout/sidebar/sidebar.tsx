@@ -5,146 +5,143 @@ import classNames from "classnames/bind";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@src/shared/ui/button";
+import { Icon } from "@src/components/icon";
 
 import styles from "./sidebar.module.scss";
-import { Icon, IconGlyphProps } from "@src/components/icon";
-import { getPathNestedRoutes } from "@src/helpers/getPathNestedRoutes";
+import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@src/redux/hooks";
+import { setUser } from "@src/redux/slices/users-slice";
+import { removeCookie } from "typescript-cookie";
+import { useClientActiveOrdersQuery } from "@src/redux/api/order-api-slice";
 
 const cx = classNames.bind(styles);
 
-export type FirstMenuItems = {
-    alias: string;
-    name: string;
-    iconGlyph?: IconGlyphProps;
-    secondLevelMenu?: SecondLevelMenu;
+const PAGE_LINK = "/account/";
+
+type SidebarProps = {} & HTMLAttributes<HTMLDivElement>;
+
+type firstLevelMenuItemProps = {
+  alias: string;
+  name: string;
+  icon?: JSX.Element;
+  isOpened?: boolean;
 };
 
-export type NestedMenuItems = {
-    id: number;
-    name: string;
-    count?: number;
-};
+const firstLevelMenu: firstLevelMenuItemProps[] = [
+  { alias: "my-orders", name: "Мои заказы", icon: <Icon className={cx("icon")} glyph="couch" /> },
+  { alias: "chats", name: "Чаты", icon: <Icon className={cx("icon")} glyph="chats" /> },
+  { alias: "archives", name: "Архивы", icon: <Icon className={cx("icon")} glyph="archives" /> },
+  { alias: "settings", name: "Настройки", icon: <Icon className={cx("icon")} glyph="settings" /> },
+  { alias: "help", name: "Помощь", icon: <Icon className={cx("icon")} glyph="help" /> },
+  { alias: "help1", name: "Сделать заказ", icon: <Icon className={cx("icon")} glyph="add" /> },
+];
 
-export type SecondLevelMenu = {
-    menuItems: NestedMenuItems[];
-    alias: string;
-    type?: "expanded" | "selected";
-    thirdLevelMenu?: ThirdLevelMenu;
-};
+export const Sidebar = ({ className }: SidebarProps) => {
+  const { data: orders = [] } = useClientActiveOrdersQuery();
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const pathname = usePathname();
 
-export type ThirdLevelMenu = {
-    menuItems: NestedMenuItems[];
-    alias: string;
-    type?: "expanded" | "selected";
-};
+  const onHandlerClick = () => {
+    router.push("/");
 
-type SidebarProps = {
-    menuItems: FirstMenuItems[];
-    countNestedRoute: number;
-} & HTMLAttributes<HTMLDivElement>;
+    removeCookie("access_token");
+    removeCookie("refresh_token");
 
-export const Sidebar = ({ menuItems, countNestedRoute, className }: SidebarProps) => {
-    const pathname = usePathname();
-    const pathNestedRoutes = getPathNestedRoutes(pathname);
+    dispatch(setUser(null));
+  };
 
-    const onHandlerClick = () => {
-        // TODO отправлять на сервер запрос на выход
-        console.log("Выход");
-    };
-
-    const buildMenu = (): JSX.Element => {
-        return (
-            <ul className={cx("firstLevelMenu")}>
-                {menuItems.map((menu, i) => {
-                    const currentPathname = menu.alias;
-                    const currentNestedRoutes = getPathNestedRoutes(currentPathname);
-
-                    const step = countNestedRoute - 1;
-
-                    const activatedMenu = {
-                        activatedMenu: currentNestedRoutes[step] === pathNestedRoutes[step],
-                    };
-
-                    return (
-                        <li key={menu.alias}>
-                            <Link className={cx("firstLevelLink", activatedMenu)} href={currentPathname}>
-                                {menu.iconGlyph && <Icon className={cx("icon")} glyph={menu.iconGlyph} />}
-                                <p className={cx("text-small-semibold")}>
-                                    {menu.name}
-                                    &nbsp;
-                                    {menu.secondLevelMenu && i === 0 && `(${menu.secondLevelMenu.menuItems.length})`}
-                                </p>
-                            </Link>
-                            {menu.secondLevelMenu &&
-                                buildNestedMenu(
-                                    menu.secondLevelMenu,
-                                    currentPathname,
-                                    menu.secondLevelMenu.thirdLevelMenu
-                                )}
-                        </li>
-                    );
-                })}
-            </ul>
-        );
-    };
-
-    const buildNestedMenu = (menuItems: SecondLevelMenu, route: string, nestedMenu?: ThirdLevelMenu) => {
-        return (
-            <ul
-                className={cx(
-                    { expandedMenu: menuItems.type === "expanded" },
-                    { selectedMenu: menuItems.type === "selected" }
-                )}>
-                {menuItems.menuItems.map((menu) => {
-                    const currentPathname = `${route}/${menuItems.alias}-${menu.id}`;
-                    const currentNestedRoutes = getPathNestedRoutes(currentPathname);
-
-                    return menuItems.type === "expanded" ? (
-                        <li key={menu.id}>
-                            <Link
-                                href={currentPathname}
-                                className={cx("secondLevelLink", {
-                                    openedSubmenu:
-                                        currentNestedRoutes[countNestedRoute] === pathNestedRoutes[countNestedRoute],
-                                })}>
-                                <p className={cx("text-small-semibold")}>
-                                    {menu.name}
-                                    {menu.count && ` (${menu.count})`}
-                                </p>
-                            </Link>
-                            {nestedMenu && buildNestedMenu(nestedMenu, currentPathname)}
-                        </li>
-                    ) : (
-                        <li key={menu.id}>
-                            <Link
-                                href={currentPathname}
-                                className={cx("thirdLevelLink", {
-                                    activatedSubmenu: pathname === currentPathname,
-                                })}>
-                                <p className="text-small">
-                                    {menu.name}
-                                    {menu.count && ` (${menu.count})`}
-                                </p>
-                            </Link>
-                            {nestedMenu && buildNestedMenu(nestedMenu, currentPathname)}
-                        </li>
-                    );
-                })}
-            </ul>
-        );
-    };
-
+  const buildFirstLevel = (): JSX.Element => {
     return (
-        <aside className={cx("menu", className)}>
-            <nav className={cx("navigation")}>
-                {buildMenu()}
+      <ul className={cx("firstLevelMenu")}>
+        {firstLevelMenu.map((menu, i) => {
+          let currentPathname = PAGE_LINK + menu.alias;
+          let activatedMenu = { activatedMenu: pathname === currentPathname };
 
-                <Link href="/">
-                    <Button icon={<Icon glyph="exit" />} variant="exit" onClick={onHandlerClick}>
-                        <p className="text-small-semibold">Выйти</p>
-                    </Button>
-                </Link>
-            </nav>
-        </aside>
+          if (i === firstLevelMenu.length - 1) {
+            currentPathname = "/";
+            activatedMenu = { activatedMenu: false };
+          }
+
+          return (
+            <li key={menu.alias}>
+              <Link className={cx("firstLevelLink", activatedMenu)} href={currentPathname}>
+                {menu.icon}
+                <p className={cx("text-small-semibold")}>
+                  {menu.name}
+                  &nbsp;
+                  {orders.length && i === 0 && `(${orders.length})`}
+                </p>
+              </Link>
+              {i === 0 && buildSecondLevel(currentPathname)}
+            </li>
+          );
+        })}
+      </ul>
     );
+  };
+
+  const buildSecondLevel = (route: string): JSX.Element | undefined => {
+    return (
+      orders && (
+        <ul className={cx("secondLevelMenu")}>
+          {orders.map((order) => {
+            const currentPathname = `${route}/order-${order.id}`;
+
+            return (
+              <li key={order.id}>
+                <Link
+                  className={cx("secondLevelLink", { openedSubmenu: pathname === currentPathname })}
+                  href={currentPathname}>
+                  <p className={cx("text-small-semibold")}>
+                    {order.name}
+                    &nbsp; ({order.contractor})
+                  </p>
+                </Link>
+                {buildThirdLevel(currentPathname)}
+              </li>
+            );
+          })}
+        </ul>
+      )
+    );
+  };
+
+  const buildThirdLevel = (route: string): JSX.Element | undefined => {
+    return (
+      orders && (
+        <ul className={cx("thirdLevelMenu")}>
+          {orders.map((executor, i) => {
+            const currentPathname = `${route}/executor-${executor.id}`;
+
+            return (
+              <li key={executor.id} className={cx("thirdLevelItem")}>
+                <Link
+                  href={currentPathname}
+                  className={cx("thirdLevelLink", {
+                    activatedSubmenu: pathname === currentPathname,
+                  })}>
+                  <p className="text-small">Исполнитель {i + 1}</p>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      )
+    );
+  };
+
+  return (
+    <aside className={cx("menu", className)}>
+      <nav className={cx("navigation")}>
+        {buildFirstLevel()}
+
+        <Link href="/">
+          <Button icon={<Icon glyph="exit" />} variant="exit" onClick={onHandlerClick}>
+            <p className="text-small-semibold">Выйти</p>
+          </Button>
+        </Link>
+      </nav>
+    </aside>
+  );
 };

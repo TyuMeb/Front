@@ -5,12 +5,12 @@ import { Modals } from "@src/components/modals";
 import { ReactNode } from "react";
 
 export const HomeLayout = ({ children }: { children: ReactNode }) => {
-    return (
-        <>
-            <Header />
-            <main>{children}</main>
-            <Footer />
-            <Modals />
-        </>
-    );
+  return (
+    <>
+      <Header />
+      <main>{children}</main>
+      <Footer />
+      <Modals />
+    </>
+  );
 };

@@ -1,37 +1,37 @@
 .card {
-    padding: 20px 28px 28px;
-    border-radius: 44px;
+  padding: 20px 28px 28px;
+  border-radius: 44px;
 }
 
 .inner {
-    position: relative;
+  position: relative;
 }
 
 .title {
-    font-size: 20px;
-    line-height: 160%;
+  font-size: 20px;
+  line-height: 160%;
 }
 
 .bgScramble {
-    background-color: $bg-secondary-color;
+  background-color: $bg-secondary-color;
 }
 
 .bgSand {
-    background-color: $bg-accent-color;
+  background-color: $bg-accent-color;
 }
 
 .bgLatte {
-    background-color: $latte-color;
+  background-color: $latte-color;
 }
 
 .bgLightLatte {
-    background-color: $light-latte-color;
+  background-color: $light-latte-color;
 }
 
 .text {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 80px;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 80px;
+  align-items: center;
 }

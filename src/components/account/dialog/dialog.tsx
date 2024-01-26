@@ -16,83 +16,83 @@ import { WrapperInfo } from "./wrapper-info";
 import { Chat } from "./chat/chat";
 
 export type OrderInfo = {
-    customer?: string;
-    name: string;
-    termOfExecution: string;
-    price: string;
-    index: number;
+  customer?: string;
+  name: string;
+  termOfExecution: string;
+  price: string;
+  index: number;
 };
 
 export type DialogProps = {
-    orderInfo: OrderInfo;
+  orderInfo: OrderInfo;
 } & HTMLAttributes<HTMLDivElement>;
 
 export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
-    const measuredForm = useMeasuredRef();
-    const measuredDialog = useMeasuredRef();
+  const measuredForm = useMeasuredRef();
+  const measuredDialog = useMeasuredRef();
 
-    const [filesPreview, setFilesPreview] = useState<FilesPreview[] | []>([]);
+  const [filesPreview, setFilesPreview] = useState<FilesPreview[] | []>([]);
 
-    useEffect(() => {
-        window.scrollTo(0, document.body.scrollHeight);
-    }, [measuredForm.elementHeight]);
+  useEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }, [measuredForm.elementHeight]);
 
-    const { handleSubmit, register } = useForm({
-        values: {
-            chat: "",
-        },
-    });
+  const { handleSubmit, register } = useForm({
+    values: {
+      chat: "",
+    },
+  });
 
-    const onSubmitHandler = (data: { chat: string }) => {
-        const files = getFiles(filesPreview);
+  const onSubmitHandler = (data: { chat: string }) => {
+    const files = getFiles(filesPreview);
 
-        const formFiles = new FormData();
-        files.forEach((file) => formFiles.append(`file-${file.id}`, file.file));
+    const formFiles = new FormData();
+    files.forEach((file) => formFiles.append(`file-${file.id}`, file.file));
 
-        console.log({ files, text: data.chat, formData: formFiles, filesPreview });
-    };
+    console.log({ files, text: data.chat, formData: formFiles, filesPreview });
+  };
 
-    const settingsInput = {
-        settings: {
-            maxSizeFile: 1000000,
-            maxSizeImage: 100000,
-            maxCountFiles: 6,
-            multiple: true,
-        },
-        disabled: (maxCountFiles: number) => filesPreview.length >= maxCountFiles,
-    };
+  const settingsInput = {
+    settings: {
+      maxSizeFile: 1000000,
+      maxSizeImage: 100000,
+      maxCountFiles: 6,
+      multiple: true,
+    },
+    disabled: (maxCountFiles: number) => filesPreview.length >= maxCountFiles,
+  };
 
-    return (
-        <article className={styles.dialog} {...props}>
-            <WrapperInfo orderInfo={orderInfo} getObserver={measuredDialog.getObserver} />
+  return (
+    <article className={styles.dialog} {...props}>
+      <WrapperInfo orderInfo={orderInfo} getObserver={measuredDialog.getObserver} />
 
-            <Chat heightForm={measuredForm.elementHeight} heightDialog={measuredDialog.elementHeight} />
+      <Chat heightForm={measuredForm.elementHeight} heightDialog={measuredDialog.elementHeight} />
 
-            <div className={styles.wrapperForm} ref={measuredForm.getObserver}>
-                <form onSubmit={handleSubmit(onSubmitHandler)}>
-                    <WrapperForm>
-                        <Textarea
-                            className={styles.textarea}
-                            {...register("chat", {
-                                required: true,
-                            })}
-                        />
+      <div className={styles.wrapperForm} ref={measuredForm.getObserver}>
+        <form onSubmit={handleSubmit(onSubmitHandler)}>
+          <WrapperForm>
+            <Textarea
+              className={styles.textarea}
+              {...register("chat", {
+                required: true,
+              })}
+            />
 
-                        <InputPreviewFiles
-                            disabled={settingsInput.disabled(settingsInput.settings.maxCountFiles)}
-                            {...settingsInput.settings}
-                            setFilesPreview={setFilesPreview}>
-                            <Paperclip />
-                        </InputPreviewFiles>
+            <InputPreviewFiles
+              disabled={settingsInput.disabled(settingsInput.settings.maxCountFiles)}
+              {...settingsInput.settings}
+              setFilesPreview={setFilesPreview}>
+              <Paperclip />
+            </InputPreviewFiles>
 
-                        <Button className={styles.buttonSubmit} type="submit">
-                            <Icon glyph="paper_airplane" />
-                        </Button>
-                    </WrapperForm>
-                </form>
+            <Button className={styles.buttonSubmit} type="submit">
+              <Icon glyph="paper_airplane" />
+            </Button>
+          </WrapperForm>
+        </form>
 
-                {filesPreview.length ? <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} /> : <></>}
-            </div>
-        </article>
-    );
+        {filesPreview.length ? <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} /> : <></>}
+      </div>
+    </article>
+  );
 };
