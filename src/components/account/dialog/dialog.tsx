@@ -1,22 +1,21 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-
+import React, { useState, useEffect, HTMLAttributes, useRef } from "react";
 import styles from "./dialog.module.scss";
-import { openModal } from "@src/redux/slices/modal-slice";
-import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 import { Button } from "@src/shared/ui/button";
-import { Form } from "@src/components/account/form";
-import { Textarea } from "@src/components/account/form/textarea";
+import { WrapperForm, InputPreviewFiles, PreviewFiles, FilesPreview } from "@src/components/account/wrapper-form";
+import { Textarea } from "@src/shared/ui/inputs/textarea";
 
-import { InputPreviewFiles } from "@src/components/account/form/input-preview-files";
 import Paperclip from "@public/icons/paperclip.svg";
 import { Icon } from "@src/components/icon";
+
 import { PreviewFiles } from "@src/components/account/form/preview-files";
 import { filesPreviewProps } from "@src/components/account/form/formTypes";
 import { useForm, Controller } from "react-hook-form";
 import { useMeasuredRef } from "@src/hooks/use-measured-ref";
 import { getFiles } from "@src/helpers/getFiles";
+import { WrapperInfo } from "./wrapper-info";
+import { Chat } from "./chat/chat";        
 import { getCookie } from "typescript-cookie";
 // import { useUser } from "@src/redux/slices/users-slice";
 
@@ -46,7 +45,19 @@ const dateConverter = (d: string): string => {
     ${messageDate.getMinutes().toLocaleString(undefined, { minimumIntegerDigits: 2 })}`;
 };
 
-export const Dialog = () => {
+ export type OrderInfo = {
+  customer?: string;
+  name: string;
+  termOfExecution: string;
+  price: string;
+  index: number;
+};
+
+export type DialogProps = {
+  orderInfo: OrderInfo;
+} & HTMLAttributes<HTMLDivElement>;
+
+export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
   const measuredForm = useMeasuredRef();
   const measuredDialog = useMeasuredRef();
   const [filesPreview, setFilesPreview] = useState<filesPreviewProps[] | []>([]);
@@ -89,6 +100,8 @@ export const Dialog = () => {
     };
   }, []);
 
+  const [filesPreview, setFilesPreview] = useState<FilesPreview[] | []>([]);
+
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
   }, [measuredForm.elementHeight, messagesList]);
@@ -121,62 +134,9 @@ export const Dialog = () => {
     disabled: (maxCountFiles: number) => filesPreview.length >= maxCountFiles,
   };
 
-  const performers = {
-    id: "1",
-    index: 1,
-    orderName: "Полка настенная",
-    termOfExecution: "70",
-    cost: 100000,
-  };
-
   return (
-    <article className={styles.dialog}>
-      <div className={styles.wrapperHead} ref={measuredDialog.getObserver}>
-        <div className={styles.line}>
-          <div className={styles.info}>
-            <div className={styles.infoPerformer}>
-              <span className={styles.userIcon}></span>
-              <h2 className="subtitle2">
-                Чат с <span className={styles.fontWeight}>Исполнителем {performers.index}</span>
-              </h2>
-            </div>
-            <div className={styles.infoOrder}>
-              <p className="text-small-semibold">{performers.orderName}</p>
-              <p className="text-small-semibold">
-                Срок исполнения: &nbsp;
-                {performers.termOfExecution}
-                &nbsp; дней
-              </p>
-              <p className="text-small-semibold">
-                Стоимость: от &nbsp;
-                {performers.cost}
-                &nbsp; руб
-              </p>
-            </div>
-          </div>
-          {!selectedPerformer ? (
-            <Button onClick={() => dispatch(openModal("chooseThisProducer"))}>
-              <p className="text-medium">Выбрать этого исполнителя</p>
-            </Button>
-          ) : (
-            <div className={styles.wrapperSelectedPerformer}>
-              <ul className={styles.list}>
-                <li className={styles.itemSelectedPerformer}>
-                  <p className="text-medium-semibold">E-mail: example@yandex.ru</p>
-                </li>
-
-                <li>
-                  <p className="text-medium-semibold">Телефон: +79025062076</p>
-                </li>
-
-                <li className={styles.itemSelectedPerformer}>
-                  <p className="text-medium-semibold">ИП Зверев Илья Владимирович</p>
-                </li>
-              </ul>
-            </div>
-          )}
-        </div>
-      </div>
+    <article className={styles.dialog} {...props}>
+      <WrapperInfo orderInfo={orderInfo} getObserver={measuredDialog.getObserver} />
 
       <div
         style={{
@@ -195,40 +155,33 @@ export const Dialog = () => {
             avaColor="red"
           />
         ))}
-
-        {/* <MessageItem text="Какой-то текст" messageId={1} sent="вчера" sender="ЯЯЯ">
-                    <ul className={styles.gallery}>
-                        <li className={styles.item}></li>
-                        <li className={styles.item}></li>
-                        <li className={styles.item}></li>
-                    </ul>
-                </MessageItem>
-                <MessageItem text="Какой-то текст" messageId={2} sent="вчера" sender="ЯЯЯ" />
-                <MessageItem text="Какой-то текст" messageId={3} sent="вчера" sender="ЯЯЯ" /> */}
       </div>
 
+      <Chat heightForm={measuredForm.elementHeight} heightDialog={measuredDialog.elementHeight} />
+        
       <div className={styles.wrapperForm} ref={measuredForm.getObserver}>
-        <Form onSubmit={handleSubmit(onSubmitHandler)}>
-          <Controller
-            control={control}
-            name="chat"
-            render={({ field: { onChange, value, ref } }) => (
-              <Textarea onChange={onChange} defaultValue="" value={value} ref={ref} />
-            )}
-          />
+        <form onSubmit={handleSubmit(onSubmitHandler)}>
+          <WrapperForm>
+            <Controller
+              control={control}
+              name="chat"
+              render={({ field: { onChange, value, ref } }) => (
+                <Textarea onChange={onChange} defaultValue="" value={value} ref={ref} />
+              )}
+            />
 
-          <InputPreviewFiles
-            disabled={settingsInput.disabled(settingsInput.settings.maxCountFiles)}
-            {...settingsInput.settings}
-            setFilesPreview={setFilesPreview}>
-            <Paperclip />
-          </InputPreviewFiles>
+            <InputPreviewFiles
+              disabled={settingsInput.disabled(settingsInput.settings.maxCountFiles)}
+              {...settingsInput.settings}
+              setFilesPreview={setFilesPreview}>
+              <Paperclip />
+            </InputPreviewFiles>
 
-          <Button className={styles.buttonSubmit} type="submit">
-            <Icon glyph="paper_airplane" />
-          </Button>
-        </Form>
-
+            <Button className={styles.buttonSubmit} type="submit">
+              <Icon glyph="paper_airplane" />
+            </Button>
+          </WrapperForm>
+        </form>
         {filesPreview.length ? <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} /> : <></>}
       </div>
     </article>

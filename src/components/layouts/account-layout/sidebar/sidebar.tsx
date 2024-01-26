@@ -4,10 +4,8 @@ import React, { HTMLAttributes } from "react";
 import classNames from "classnames/bind";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
 import { Button } from "@src/shared/ui/button";
 import { Icon } from "@src/components/icon";
-import { performers } from "@src/shared/data/account";
 
 import styles from "./sidebar.module.scss";
 import { useRouter } from "next/navigation";
@@ -113,9 +111,9 @@ export const Sidebar = ({ className }: SidebarProps) => {
 
   const buildThirdLevel = (route: string): JSX.Element | undefined => {
     return (
-      performers && (
+      orders && (
         <ul className={cx("thirdLevelMenu")}>
-          {performers.map((executor, i) => {
+          {orders.map((executor, i) => {
             const currentPathname = `${route}/executor-${executor.id}`;
 
             return (

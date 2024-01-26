@@ -25,6 +25,8 @@ import clock from './home/clock.svg';
 import dollar from './home/dollar.svg';
 import person from './home/person.svg';
 import plus from './plus.svg';
+import pdfFileSvg from './pdf-file.svg';
+import customerOrders from './customer-orders.svg';
 import mailFilled from './main-filled.svg';
 import x from './x.svg';
 
@@ -56,6 +58,8 @@ export default {
 	dollar,
 	person,
 	plus,
+	pdfFileSvg,
+	customerOrders,
 	chair,
 	mailFilled,
 	x
