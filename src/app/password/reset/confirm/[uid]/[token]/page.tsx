@@ -7,16 +7,16 @@ import { openModal, setTypeModal } from "@src/redux/slices/modal-slice";
 import { HomeLayout } from "@src/components/layouts/home-layout";
 
 export default function Page() {
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        dispatch(openModal());
-        dispatch(setTypeModal("resetPasswordConfirm"));
-    }, []);
+  useEffect(() => {
+    dispatch(openModal());
+    dispatch(setTypeModal("resetPasswordConfirm"));
+  }, []);
 
-    return (
-        <HomeLayout>
-            <Home />
-        </HomeLayout>
-    );
+  return (
+    <HomeLayout>
+      <Home />
+    </HomeLayout>
+  );
 }

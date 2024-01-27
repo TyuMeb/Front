@@ -92,7 +92,8 @@ export const Sidebar = ({ className }: SidebarProps) => {
               <li key={order.id}>
                 <Link
                   className={cx("secondLevelLink", { openedSubmenu: pathname === currentPathname })}
-                  href={currentPathname}>
+                  href={currentPathname}
+                >
                   <p className={cx("text-small-semibold")}>
                     {order.name}
                     &nbsp; ({order.contractor})
@@ -120,7 +121,8 @@ export const Sidebar = ({ className }: SidebarProps) => {
                   href={currentPathname}
                   className={cx("thirdLevelLink", {
                     activatedSubmenu: pathname === currentPathname,
-                  })}>
+                  })}
+                >
                   <p className="text-small">Исполнитель {i + 1}</p>
                 </Link>
               </li>

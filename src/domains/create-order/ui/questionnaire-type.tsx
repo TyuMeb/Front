@@ -36,7 +36,8 @@ export const QuestionaryType = ({
             title={category.type as string}
             description={category.description}
             onClick={() => setQuestionnaireTypeId(category.id!)}
-            key={category.id}></SelectCard>
+            key={category.id}
+          ></SelectCard>
         ))}
       </div>
 

@@ -6,12 +6,12 @@ import { useAppDispatch } from "@src/redux/hooks";
 import { openModal, setTypeModal } from "@src/redux/slices/modal-slice";
 
 export default function Page() {
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        dispatch(openModal());
-        dispatch(setTypeModal("signIn"));
-    }, []);
+  useEffect(() => {
+    dispatch(openModal());
+    dispatch(setTypeModal("signIn"));
+  }, []);
 
-    return <Home />;
+  return <Home />;
 }

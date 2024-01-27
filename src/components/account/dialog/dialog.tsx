@@ -81,7 +81,8 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
             <InputPreviewFiles
               disabled={settingsInput.disabled(settingsInput.settings.maxCountFiles)}
               {...settingsInput.settings}
-              setFilesPreview={setFilesPreview}>
+              setFilesPreview={setFilesPreview}
+            >
               <Paperclip />
             </InputPreviewFiles>
 

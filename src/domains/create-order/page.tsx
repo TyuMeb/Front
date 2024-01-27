@@ -49,13 +49,15 @@ export const OrderPage = () => {
           }}
           categoryId={categoryId}
           questionnaireTypeId={questionnaireTypeId}
-          setQuestionnaireTypeId={setQuestionnaireTypeId}>
+          setQuestionnaireTypeId={setQuestionnaireTypeId}
+        >
           {questionnaireTypeId && (
             <Button
               className="self-center mx-auto mt-12"
               isLoading={isLoading}
               type="button"
-              onClick={() => handleCreateOrder()}>
+              onClick={() => handleCreateOrder()}
+            >
               Далее
             </Button>
           )}

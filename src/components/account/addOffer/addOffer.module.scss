@@ -1,64 +1,64 @@
 .wrapperTitle {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .statusIcon {
-    display: block;
-    width: 21px;
-    height: 21px;
-    background-color: #7f3e3b;
-    border-radius: 50%;
-    margin-right: 24px;
+  display: block;
+  width: 21px;
+  height: 21px;
+  background-color: #7f3e3b;
+  border-radius: 50%;
+  margin-right: 24px;
 }
 
 .backgroundBrown {
-    background-color: #7f3e3b;
+  background-color: #7f3e3b;
 }
 
 .backgroundGreen {
-    background-color: #2fef4e;
+  background-color: #2fef4e;
 }
 
 .backgroundPink {
-    background-color: #ef2f80;
+  background-color: #ef2f80;
 }
 
 .wrapperCustomerOrders {
-    display: grid;
-    row-gap: 16px;
-    width: 100%;
+  display: grid;
+  row-gap: 16px;
+  width: 100%;
 }
 
 .button {
-    margin-right: auto;
+  margin-right: auto;
 }
 
 .buttonSubmit {
-    padding: 8px 24px;
-    border-radius: 2px;
+  padding: 8px 24px;
+  border-radius: 2px;
 }
 
 .wrapperMenu {
-    display: flex;
+  display: flex;
 }
 
 .form {
-    display: grid;
-    row-gap: 28px;
+  display: grid;
+  row-gap: 28px;
 }
 
 .inputs {
-    display: grid;
-    row-gap: 28px;
-    max-width: 388px;
+  display: grid;
+  row-gap: 28px;
+  max-width: 388px;
 }
 
 .textarea {
-    max-height: 82px;
+  max-height: 82px;
 }
 
 .wrapperForm {
-    border: 1px solid var(--Asphalt, #b5b3b2);
-    box-shadow: none;
+  border: 1px solid var(--Asphalt, #b5b3b2);
+  box-shadow: none;
 }

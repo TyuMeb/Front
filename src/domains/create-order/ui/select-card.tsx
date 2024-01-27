@@ -17,7 +17,8 @@ const SelectCard = ({ active, selected, title, description, ...props }: Props) =
         !active && "opacity-70 pointer-events-none",
         selected && "border-yellow-400"
       )}
-      type="button">
+      type="button"
+    >
       <img
         src="https://pro-dachnikov.com/uploads/posts/2023-01/1673662393_pro-dachnikov-com-p-krasivo-sdelat-foto-mebeli-59.jpg"
         alt={description || ""}

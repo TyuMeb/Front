@@ -17,7 +17,8 @@ export const PasswordInput = forwardRef<HTMLInputElement, InputProps>((props: In
       <button
         className={cx("buttonShowPassword")}
         type="button"
-        onClick={!props.disabled ? () => setShowPassword(!showPassword) : undefined}>
+        onClick={!props.disabled ? () => setShowPassword(!showPassword) : undefined}
+      >
         {showPassword ? <Icon className={cx("icon")} glyph="open_eye" /> : <Icon className={cx("icon")} glyph="eye" />}
       </button>
     </div>

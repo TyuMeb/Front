@@ -1,25 +1,25 @@
 .wrapperOrders {
-    display: grid;
-    row-gap: 16px;
-    width: 100%;
+  display: grid;
+  row-gap: 16px;
+  width: 100%;
 }
 
 .colorPink {
-    color: #ff6894;
+  color: #ff6894;
 }
 
 .marginCenter {
-    margin: 0 auto;
+  margin: 0 auto;
 }
 
 .addPhoto {
-    width: 288px;
-    height: 148px;
-    box-shadow: 0px 2px 8px 0px rgba(110, 116, 146, 0.2);
-    background-color: var(--Scramble, #fffaee);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    column-gap: 10px;
-    border-radius: 8px;
+  width: 288px;
+  height: 148px;
+  box-shadow: 0px 2px 8px 0px rgba(110, 116, 146, 0.2);
+  background-color: var(--Scramble, #fffaee);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 10px;
+  border-radius: 8px;
 }

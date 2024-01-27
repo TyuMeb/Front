@@ -1,21 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type HeaderAccountStateProps = {
-    contentBlock: string | undefined;
+  contentBlock: string | undefined;
 };
 
 const initialState: HeaderAccountStateProps = {
-    contentBlock: undefined,
+  contentBlock: undefined,
 };
 
 const headerAccountSlice = createSlice({
-    name: "header-account",
-    initialState,
-    reducers: {
-        setContentBlock: (state, action) => {
-            state.contentBlock = action.payload;
-        },
+  name: "header-account",
+  initialState,
+  reducers: {
+    setContentBlock: (state, action) => {
+      state.contentBlock = action.payload;
     },
+  },
 });
 
 export const { setContentBlock } = headerAccountSlice.actions;

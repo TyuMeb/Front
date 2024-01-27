@@ -1,61 +1,61 @@
 .wrapper {
-    display: grid;
-    row-gap: 28px;
-    margin-top: 152px;
+  display: grid;
+  row-gap: 28px;
+  margin-top: 152px;
 }
 
 .chat {
-    display: grid;
-    column-gap: 16px;
-    align-items: center;
-    grid-auto-flow: column;
+  display: grid;
+  column-gap: 16px;
+  align-items: center;
+  grid-auto-flow: column;
 }
 
 .positionLeft {
-    justify-content: start;
+  justify-content: start;
 }
 
 .userAvatarMessage {
-    width: 40px;
-    height: 40px;
-    margin-top: auto;
+  width: 40px;
+  height: 40px;
+  margin-top: auto;
 }
 
 .messageExecutor {
-    padding: 16px 166px 16px 16px;
-    background: #f5f3f1;
+  padding: 16px 166px 16px 16px;
+  background: #f5f3f1;
 }
 
 .wrapperMessage {
-    display: grid;
-    row-gap: 8px;
-    border-radius: 7px;
+  display: grid;
+  row-gap: 8px;
+  border-radius: 7px;
 }
 
 .widthText {
-    max-width: 510px;
+  max-width: 510px;
 }
 
 .gallery {
-    display: flex;
-    column-gap: 20px;
+  display: flex;
+  column-gap: 20px;
 }
 
 .item {
-    width: 80px;
-    height: 80px;
-    background-color: #d9d9d9;
+  width: 80px;
+  height: 80px;
+  background-color: #d9d9d9;
 }
 
 .timeText {
-    @include font-source-sans(12px, #7c7c7c, 600, 18px);
+  @include font-source-sans(12px, #7c7c7c, 600, 18px);
 }
 
 .positionRight {
-    justify-content: end;
+  justify-content: end;
 }
 
 .messageClient {
-    padding: 16px;
-    background: #fffaee;
+  padding: 16px;
+  background: #fffaee;
 }

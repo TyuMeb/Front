@@ -17,7 +17,8 @@ export const CreateOrder = () => {
         <Button
           onClick={() => {
             dispatch(openModal("getContact"));
-          }}>
+          }}
+        >
           Сделать заказ
         </Button>
       </Link>

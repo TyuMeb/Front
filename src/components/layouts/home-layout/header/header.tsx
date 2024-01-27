@@ -53,7 +53,8 @@ export const Header = () => {
           </li>
           <li
             className={current !== "advantages" ? styles.link : styles.active}
-            onClick={() => switchTab("advantages")}>
+            onClick={() => switchTab("advantages")}
+          >
             <Link href="/#advantages">Преимущества</Link>
           </li>
           {user ? (

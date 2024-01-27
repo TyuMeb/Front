@@ -180,7 +180,8 @@ export function OrderForm({ onBack, questionnaireTypeId }: Props) {
 
             setChapterIndex((prev) => prev - 1);
           }}
-          disabled={isLoading}>
+          disabled={isLoading}
+        >
           Назад
         </button>
       </div>

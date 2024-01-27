@@ -50,13 +50,15 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
         onOpenChange={(value) => {
           setOpen(value);
           props.onOpenChange?.(value);
-        }}>
+        }}
+      >
         <p className={cn("mb-3 font-semibold")}>{label}</p>
 
         <RadixSelect.Trigger
           disabled={readOnly}
           className={cn(styles.select, className, !props.value && "text-[#B5B3B2]", error && "!border-pink")}
-          ref={ref}>
+          ref={ref}
+        >
           <RadixSelect.Value ref={ref} placeholder={placeholder} />
           <RadixSelect.Icon className={cn("transition-all -rotate-90 shrink-0", open && "rotate-0")}>
             <Icon width={14} height={14} glyph="chevronDown" />
@@ -72,7 +74,8 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
             position="popper"
             sideOffset={6}
             className={styles.panel}
-            style={{ minWidth: width, maxWidth: width }}>
+            style={{ minWidth: width, maxWidth: width }}
+          >
             <RadixSelect.ScrollUpButton className="flex items-center justify-center h-[25px] cursor-default">
               <Icon glyph="arrowRight" />
             </RadixSelect.ScrollUpButton>
