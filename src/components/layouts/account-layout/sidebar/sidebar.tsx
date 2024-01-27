@@ -42,6 +42,8 @@ export const Sidebar = ({ className }: SidebarProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
+  console.log(orders);
+
   const onHandlerClick = () => {
     router.push("/");
 
