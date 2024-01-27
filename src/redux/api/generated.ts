@@ -231,7 +231,49 @@ export interface QuestionnaireShortType {
   active?: boolean;
 }
 
+export interface Message {
+  /** ID */
+  id?: number;
+  /** Отправитель */
+  sender: string;
+  /**
+   * Текст сообщения
+   * @minLength 1
+   */
+  text: string;
+  /**
+   * Время отправки
+   * @format date-time
+   */
+  sent_at?: string;
+}
+
+export interface MessageOLD {
+  /** ID */
+  id?: number;
+  /** Отправитель */
+  from_user: number;
+  /**
+   * Текст сообщения
+   * @minLength 1
+   */
+  text_content: string;
+  /**
+   * Время отправки
+   * @format date-time
+   */
+  timestamp?: string;
+}
+
 export interface Chat {
+  /** ID */
+  id?: number;
+  client?: string;
+  contractor?: string;
+  messages?: Message[];
+}
+
+export interface ChatOLD {
   /** ID */
   id?: number;
   /**
