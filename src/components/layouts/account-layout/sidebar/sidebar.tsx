@@ -4,10 +4,8 @@ import React, { HTMLAttributes } from "react";
 import classNames from "classnames/bind";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
 import { Button } from "@src/shared/ui/button";
 import { Icon } from "@src/components/icon";
-import { performers } from "@src/shared/data/account";
 
 import styles from "./sidebar.module.scss";
 import { useRouter } from "next/navigation";
@@ -43,6 +41,8 @@ export const Sidebar = ({ className }: SidebarProps) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const pathname = usePathname();
+
+  console.log(orders);
 
   const onHandlerClick = () => {
     router.push("/");
@@ -94,7 +94,8 @@ export const Sidebar = ({ className }: SidebarProps) => {
               <li key={order.id}>
                 <Link
                   className={cx("secondLevelLink", { openedSubmenu: pathname === currentPathname })}
-                  href={currentPathname}>
+                  href={currentPathname}
+                >
                   <p className={cx("text-small-semibold")}>
                     {order.name}
                     &nbsp; ({order.contractor})
@@ -111,9 +112,9 @@ export const Sidebar = ({ className }: SidebarProps) => {
 
   const buildThirdLevel = (route: string): JSX.Element | undefined => {
     return (
-      performers && (
+      orders && (
         <ul className={cx("thirdLevelMenu")}>
-          {performers.map((executor, i) => {
+          {orders.map((executor, i) => {
             const currentPathname = `${route}/executor-${executor.id}`;
 
             return (
@@ -122,7 +123,8 @@ export const Sidebar = ({ className }: SidebarProps) => {
                   href={currentPathname}
                   className={cx("thirdLevelLink", {
                     activatedSubmenu: pathname === currentPathname,
-                  })}>
+                  })}
+                >
                   <p className="text-small">Исполнитель {i + 1}</p>
                 </Link>
               </li>

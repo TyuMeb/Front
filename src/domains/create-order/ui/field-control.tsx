@@ -1,9 +1,9 @@
-import { Textarea } from "@src/components/account/form/textarea";
 import { Icon } from "@src/components/icon";
 import { QuestionType, useDeleteFileMutation, useUploadFileMutation } from "@src/redux/api/order-api-slice";
 import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 import { createOrderSlice } from "@src/redux/slices/create-order-slice";
 import { cn } from "@src/shared/lib/cn";
+import { Textarea } from "@src/shared/ui/inputs/textarea";
 import { Select } from "@src/shared/ui/select";
 import React, { useRef } from "react";
 import { useFormContext } from "react-hook-form";
@@ -90,7 +90,8 @@ export const FieldControl = ({ positionOrder, question, readOnly, ...props }: Pr
               <button
                 type="button"
                 onClick={() => inputRef.current?.click()}
-                className="flex items-center gap-2 px-4 py-2 border rounded-lg max-sm:mt-2 sm:absolute right-4 bottom-4 border-asphalt hover:bg-asphalt/30">
+                className="flex items-center gap-2 px-4 py-2 border rounded-lg max-sm:mt-2 sm:absolute right-4 bottom-4 border-asphalt hover:bg-asphalt/30"
+              >
                 Загрузите файл
                 <Icon className="text-inherit" glyph="paperclip" />
               </button>
@@ -104,14 +105,16 @@ export const FieldControl = ({ positionOrder, question, readOnly, ...props }: Pr
                 <a
                   href={file.preview_url}
                   target="_blank"
-                  className="relative max-w-[160px] border rounded-lg p-4 flex justify-center flex-col border-asphalt">
+                  className="relative max-w-[160px] border rounded-lg p-4 flex justify-center flex-col border-asphalt"
+                >
                   <Icon glyph="paperclip" className="mb-1" />
                   <span className="line-clamp-2">{file.original_name}</span>
                 </a>
                 <button
                   type="button"
                   onClick={() => handleDeleteFile(file.id!)}
-                  className="absolute bg-white -top-2 -right-2">
+                  className="absolute bg-white -top-2 -right-2"
+                >
                   <Icon glyph="x" />
                 </button>
               </div>
@@ -149,7 +152,8 @@ export const FieldControl = ({ positionOrder, question, readOnly, ...props }: Pr
               id: option.text!,
               name: option.text,
             })) || []
-          }></Select>
+          }
+        ></Select>
 
         {selected?.questions?.length !== 0 && (
           <>
@@ -177,7 +181,8 @@ export const FieldControl = ({ positionOrder, question, readOnly, ...props }: Pr
       style={{
         ...props.style,
         paddingLeft: props.style?.paddingLeft,
-      }}>
+      }}
+    >
       <p className={cn("mb-2 font-semibold")}>{label}</p>
       {content}
     </div>

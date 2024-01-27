@@ -1,21 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type NavAccountStateProps = {
-    contentBlock: string | undefined;
+  contentBlock: string | undefined;
 };
 
 const initialState: NavAccountStateProps = {
-    contentBlock: undefined,
+  contentBlock: undefined,
 };
 
 const navAccountSlice = createSlice({
-    name: "navAccount",
-    initialState,
-    reducers: {
-        setContentBlock: (state, action) => {
-            state.contentBlock = action.payload;
-        },
+  name: "navAccount",
+  initialState,
+  reducers: {
+    setContentBlock: (state, action) => {
+      state.contentBlock = action.payload;
     },
+  },
 });
 
 export const { setContentBlock } = navAccountSlice.actions;

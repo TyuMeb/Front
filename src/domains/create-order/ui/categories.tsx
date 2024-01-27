@@ -25,7 +25,8 @@ export const Categories = ({ setCategoryId, children, categoryId }: Props) => {
             title={category.name as string}
             description={category.active ? "" : "Временно недоступно"}
             onClick={() => setCategoryId(category.id!)}
-            key={category.id}></SelectCard>
+            key={category.id}
+          ></SelectCard>
         ))}
       </div>
 

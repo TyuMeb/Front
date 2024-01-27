@@ -106,6 +106,13 @@ h4 {
   margin-top: 80px;
 }
 
+@media (max-width: 1024px) {
+  main {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+}
+
 .wrapperText {
   display: grid;
   grid-template-columns: repeat(2, minmax(min-content, max-content));

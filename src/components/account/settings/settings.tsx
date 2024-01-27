@@ -415,7 +415,8 @@ export const Settings = () => {
                     getFieldState("surname").invalid ||
                     getFieldState("phone").invalid ||
                     getFieldState("email").invalid))
-              }>
+              }
+            >
               Сохранить
             </Button>
             <Button type="button" onClick={handleCancelModiifications}>

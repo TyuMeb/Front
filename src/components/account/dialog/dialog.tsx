@@ -1,37 +1,105 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-
+import React, { useState, useEffect, HTMLAttributes, useRef } from "react";
 import styles from "./dialog.module.scss";
-import { openModal } from "@src/redux/slices/modal-slice";
-import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 import { Button } from "@src/shared/ui/button";
-import { Form } from "@src/components/account/form";
-import { Textarea } from "@src/components/account/form/textarea";
+import { WrapperForm, InputPreviewFiles, PreviewFiles, FilesPreview } from "@src/components/account/wrapper-form";
+import { Textarea } from "@src/shared/ui/inputs/textarea";
 
-import { InputPreviewFiles } from "@src/components/account/form/input-preview-files";
 import Paperclip from "@public/icons/paperclip.svg";
 import { Icon } from "@src/components/icon";
-import { PreviewFiles } from "@src/components/account/form/preview-files";
-import { filesPreviewProps } from "@src/components/account/form/formTypes";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useMeasuredRef } from "@src/hooks/use-measured-ref";
 import { getFiles } from "@src/helpers/getFiles";
+import { WrapperInfo } from "./wrapper-info";
+import { Chat } from "./chat/chat";
+import { getCookie } from "typescript-cookie";
+import { MessageItem } from "./message-item/message-item";
 
-export const Dialog = () => {
+type TMessage = {
+  id: number;
+  sent_at: string;
+  sender: string;
+  text: string;
+  unread?: boolean;
+};
+
+const email = "user0@mail.ru";
+
+const dateConverter = (d: string): string => {
+  const messageDate = new Date(d);
+  const currDate = new Date();
+  if (messageDate.getDate() !== currDate.getDate())
+    return `
+      ${messageDate.getDate().toLocaleString(undefined, { minimumIntegerDigits: 2 })}.
+      ${(messageDate.getMonth() + 1).toLocaleString(undefined, { minimumIntegerDigits: 2 })}.
+      ${messageDate.getFullYear()}`;
+  return `
+    ${messageDate.getHours().toLocaleString(undefined, { minimumIntegerDigits: 2 })}:
+    ${messageDate.getMinutes().toLocaleString(undefined, { minimumIntegerDigits: 2 })}`;
+};
+
+export type OrderInfo = {
+  customer?: string;
+  name: string;
+  termOfExecution: string;
+  price: string;
+  index: number;
+};
+
+export type DialogProps = {
+  orderInfo: OrderInfo;
+} & HTMLAttributes<HTMLDivElement>;
+
+export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
   const measuredForm = useMeasuredRef();
   const measuredDialog = useMeasuredRef();
+  const [filesPreview, setFilesPreview] = useState<FilesPreview[] | []>([]);
+  // const dispatch = useAppDispatch();
+  // const { selectedPerformer } = useAppSelector((store) => store.account);
+  const ws = useRef<WebSocket | null>(null);
+  const [messagesList, setMessagesList] = useState<TMessage[]>([]);
 
-  const [filesPreview, setFilesPreview] = useState<filesPreviewProps[] | []>([]);
-  const dispatch = useAppDispatch();
-  const { selectedPerformer } = useAppSelector((store) => store.account);
+  useEffect(() => {
+    if (!ws.current) ws.current = new WebSocket("wss://api.whywe.ru/ws/chat/2/", getCookie("access_token"));
+
+    const getMessages = () => {
+      ws.current?.send(JSON.stringify({ command: "fetch_messages", message: "fetch" }));
+    };
+
+    const showData = (e: MessageEvent) => {
+      const { messages } = JSON.parse(e.data);
+      if (messages) {
+        setMessagesList(
+          messages.sort((a: TMessage, b: TMessage) => {
+            if (new Date(a.sent_at) > new Date(b.sent_at)) return 1;
+            else return -1;
+          })
+        );
+        console.log(messages);
+      } else {
+        const { message, sender } = JSON.parse(e.data);
+        setMessagesList((messages) => [
+          ...messages,
+          { id: 9999, sender: sender, text: message, sent_at: new Date().toString() },
+        ]);
+      }
+    };
+    ws.current?.addEventListener("open", getMessages);
+    ws.current?.addEventListener("message", showData);
+
+    return () => {
+      ws.current?.removeEventListener("open", getMessages);
+      ws.current?.removeEventListener("message", showData);
+    };
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
-  }, [measuredForm.elementHeight]);
+  }, [measuredForm.elementHeight, messagesList]);
 
-  const { handleSubmit, register } = useForm({
-    values: {
+  const { handleSubmit, resetField, control } = useForm({
+    defaultValues: {
       chat: "",
     },
   });
@@ -41,8 +109,11 @@ export const Dialog = () => {
 
     const formFiles = new FormData();
     files.forEach((file) => formFiles.append(`file-${file.id}`, file.file));
-
     console.log({ files, text: data.chat, formData: formFiles, filesPreview });
+    ws.current?.send(
+      JSON.stringify({ command: "new_message", message: { files, text: data.chat, formData: formFiles, filesPreview } })
+    );
+    resetField("chat");
   };
 
   const settingsInput = {
@@ -55,181 +126,56 @@ export const Dialog = () => {
     disabled: (maxCountFiles: number) => filesPreview.length >= maxCountFiles,
   };
 
-  const performers = {
-    id: "1",
-    index: 1,
-    orderName: "Полка настенная",
-    termOfExecution: "70",
-    cost: 100000,
-  };
-
   return (
-    <article className={styles.dialog}>
-      <div className={styles.wrapperHead} ref={measuredDialog.getObserver}>
-        <div className={styles.line}>
-          <div className={styles.info}>
-            <div className={styles.infoPerformer}>
-              <span className={styles.userIcon}></span>
-              <h2 className="subtitle2">
-                Чат с <span className={styles.fontWeight}>Исполнителем {performers.index}</span>
-              </h2>
-            </div>
-            <div className={styles.infoOrder}>
-              <p className="text-small-semibold">{performers.orderName}</p>
-              <p className="text-small-semibold">
-                Срок исполнения: &nbsp;
-                {performers.termOfExecution}
-                &nbsp; дней
-              </p>
-              <p className="text-small-semibold">
-                Стоимость: от &nbsp;
-                {performers.cost}
-                &nbsp; руб
-              </p>
-            </div>
-          </div>
-          {!selectedPerformer ? (
-            <Button onClick={() => dispatch(openModal("chooseThisProducer"))}>
-              <p className="text-medium">Выбрать этого исполнителя</p>
-            </Button>
-          ) : (
-            <div className={styles.wrapperSelectedPerformer}>
-              <ul className={styles.list}>
-                <li className={styles.itemSelectedPerformer}>
-                  <p className="text-medium-semibold">E-mail: example@yandex.ru</p>
-                </li>
-
-                <li>
-                  <p className="text-medium-semibold">Телефон: +79025062076</p>
-                </li>
-
-                <li className={styles.itemSelectedPerformer}>
-                  <p className="text-medium-semibold">ИП Зверев Илья Владимирович</p>
-                </li>
-              </ul>
-            </div>
-          )}
-        </div>
-      </div>
+    <article className={styles.dialog} {...props}>
+      <WrapperInfo orderInfo={orderInfo} getObserver={measuredDialog.getObserver} />
 
       <div
         style={{
           marginBottom: `${measuredForm.elementHeight + 28}px`,
           marginTop: `${measuredDialog.elementHeight}px`,
         }}
-        className={styles.wrapper}>
-        <div className={`${styles.chat} ${styles.positionLeft}`}>
-          <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
-
-          <div className={`${styles.messageExecutor} ${styles.wrapperMessage}`}>
-            <div className={`text-small ${styles.widthText}`}>
-              Добрый день! Присылаю варианты и фотографии. Если есть...Добрый день! Присылаю варианты и hjgfkdgndgfnk...
-            </div>
-
-            <ul className={styles.gallery}>
-              <li className={styles.item}></li>
-              <li className={styles.item}></li>
-              <li className={styles.item}></li>
-            </ul>
-          </div>
-          <time className={styles.timeText}>23:12</time>
-        </div>
-
-        <div className={`${styles.chat} ${styles.positionRight}`}>
-          <time className={styles.timeText}>23:12</time>
-
-          <div className={`${styles.messageClient} ${styles.wrapperMessage}`}>
-            <div className={`text-small ${styles.widthText}`}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim
-            </div>
-          </div>
-          <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
-        </div>
-        <div className={`${styles.chat} ${styles.positionLeft}`}>
-          <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
-
-          <div className={`${styles.messageExecutor} ${styles.wrapperMessage}`}>
-            <div className={`text-small ${styles.widthText}`}>
-              Добрый день! Присылаю варианты и фотографии. Если есть...Добрый день! Присылаю варианты и hjgfkdgndgfnk...
-            </div>
-
-            <ul className={styles.gallery}>
-              <li className={styles.item}></li>
-              <li className={styles.item}></li>
-              <li className={styles.item}></li>
-            </ul>
-          </div>
-          <time className={styles.timeText}>23:12</time>
-        </div>
-        <div className={`${styles.chat} ${styles.positionLeft}`}>
-          <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
-
-          <div className={`${styles.messageExecutor} ${styles.wrapperMessage}`}>
-            <div className={`text-small ${styles.widthText}`}>Lorem ipsum dolor sit amet, consectetur</div>
-          </div>
-          <time className={styles.timeText}>23:12</time>
-        </div>
-        <div className={`${styles.chat} ${styles.positionRight}`}>
-          <time className={styles.timeText}>23:12</time>
-
-          <div className={`${styles.messageClient} ${styles.wrapperMessage}`}>
-            <div className={`text-small ${styles.widthText}`}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim
-            </div>
-          </div>
-          <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
-        </div>
-        <div className={`${styles.chat} ${styles.positionLeft}`}>
-          <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
-
-          <div className={`${styles.messageExecutor} ${styles.wrapperMessage}`}>
-            <div className={`text-small ${styles.widthText}`}>Lorem ipsum dolor sit amet, consectetur</div>
-          </div>
-          <time className={styles.timeText}>23:12</time>
-        </div>
-        <div className={`${styles.chat} ${styles.positionLeft}`}>
-          <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
-
-          <div className={`${styles.messageExecutor} ${styles.wrapperMessage}`}>
-            <div className={`text-small ${styles.widthText}`}>Lorem ipsum dolor sit amet, consectetur</div>
-          </div>
-          <time className={styles.timeText}>23:12</time>
-        </div>
-        <div className={`${styles.chat} ${styles.positionRight}`}>
-          <time className={styles.timeText}>23:12</time>
-
-          <div className={`${styles.messageClient} ${styles.wrapperMessage}`}>
-            <div className={`text-small ${styles.widthText}`}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim
-            </div>
-          </div>
-          <span className={`${styles.userIcon} ${styles.userAvatarMessage}`}></span>
-        </div>
+        className={styles.wrapper}
+      >
+        {messagesList.map((m, i) => (
+          <MessageItem
+            key={i}
+            text={m.text}
+            messageId={m.id}
+            sent={dateConverter(m.sent_at)}
+            unread={!!(i % 2)}
+            isMyMessage={email === m.sender}
+            avaColor="red"
+          />
+        ))}
       </div>
 
+      <Chat heightForm={measuredForm.elementHeight} heightDialog={measuredDialog.elementHeight} />
+
       <div className={styles.wrapperForm} ref={measuredForm.getObserver}>
-        <Form onSubmit={handleSubmit(onSubmitHandler)}>
-          <Textarea
-            {...register("chat", {
-              required: true,
-            })}
-          />
+        <form onSubmit={handleSubmit(onSubmitHandler)}>
+          <WrapperForm>
+            <Controller
+              control={control}
+              name="chat"
+              render={({ field: { onChange, value, ref } }) => (
+                <Textarea onChange={onChange} defaultValue="" value={value} ref={ref} />
+              )}
+            />
 
-          <InputPreviewFiles
-            disabled={settingsInput.disabled(settingsInput.settings.maxCountFiles)}
-            {...settingsInput.settings}
-            setFilesPreview={setFilesPreview}>
-            <Paperclip />
-          </InputPreviewFiles>
+            <InputPreviewFiles
+              disabled={settingsInput.disabled(settingsInput.settings.maxCountFiles)}
+              {...settingsInput.settings}
+              setFilesPreview={setFilesPreview}
+            >
+              <Paperclip />
+            </InputPreviewFiles>
 
-          <Button className={styles.buttonSubmit} type="submit">
-            <Icon glyph="paper_airplane" />
-          </Button>
-        </Form>
-
+            <Button className={styles.buttonSubmit} type="submit">
+              <Icon glyph="paper_airplane" />
+            </Button>
+          </WrapperForm>
+        </form>
         {filesPreview.length ? <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} /> : <></>}
       </div>
     </article>

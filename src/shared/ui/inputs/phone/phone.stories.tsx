@@ -5,46 +5,46 @@ import { ChangeEvent } from "react";
 import { useArgs } from "@storybook/client-api";
 
 const meta = {
-    title: "UI/Inputs/InputPhone",
-    component: PhoneInput,
-    parameters: {
-        layout: "padded",
-    },
-    tags: ["autodocs"],
-    args: {
-        disabled: false,
-        autoFocus: true,
-        value: "",
-        onChange: () => {},
-    },
+  title: "UI/Inputs/InputPhone",
+  component: PhoneInput,
+  parameters: {
+    layout: "padded",
+  },
+  tags: ["autodocs"],
+  args: {
+    disabled: false,
+    autoFocus: true,
+    value: "",
+    onChange: () => {},
+  },
 } satisfies Meta<typeof PhoneInput>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 const TemplateInput = (args: InputProps): JSX.Element => {
-    const { ...restArgs } = args;
+  const { ...restArgs } = args;
 
-    const [{ value }, updateArgs] = useArgs();
+  const [{ value }, updateArgs] = useArgs();
 
-    const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => updateArgs({ value: e.target.value });
-    return (
-        <div style={{ width: "296px" }}>
-            <PhoneInput {...restArgs} value={value} onChange={handlePhoneChange} />
-        </div>
-    );
+  const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => updateArgs({ value: e.target.value });
+  return (
+    <div style={{ width: "296px" }}>
+      <PhoneInput {...restArgs} value={value} onChange={handlePhoneChange} />
+    </div>
+  );
 };
 
 export const Default: Story = {
-    args: {
-        id: "phone",
-        className: "",
-        disabled: false,
-        placeholder: "Введите ваш телефон",
-        label: "Телефон",
-        error: false,
-        errorMessage: "Неверный формат телефона",
-        value: "8922812222",
-    },
-    render: (args) => TemplateInput(args),
+  args: {
+    id: "phone",
+    className: "",
+    disabled: false,
+    placeholder: "Введите ваш телефон",
+    label: "Телефон",
+    error: false,
+    errorMessage: "Неверный формат телефона",
+    value: "8922812222",
+  },
+  render: (args) => TemplateInput(args),
 };

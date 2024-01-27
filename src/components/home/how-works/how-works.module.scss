@@ -1,21 +1,21 @@
 .inner {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    padding-top: 140px;
-    padding-bottom: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-top: 140px;
+  padding-bottom: 140px;
 }
 
 .title {
-    padding-left: 28px;
+  padding-left: 28px;
 }
 
 .steps {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
 
-    @media (max-width: 1024px) {
-        grid-template-columns: 1fr;
-    }
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
 }

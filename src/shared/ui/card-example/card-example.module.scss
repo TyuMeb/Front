@@ -1,16 +1,16 @@
 .inner {
-    position: relative;
-    display: flex;
-    overflow: hidden;
-    height: 100%;
-    width: 100%;
-    min-height: 300px;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  min-height: 300px;
 }
 
 .description {
-    display: flex;
-    gap: 20px;
-    position: absolute;
-    top: 28px;
-    left: 28px;
+  display: flex;
+  gap: 20px;
+  position: absolute;
+  top: 28px;
+  left: 28px;
 }

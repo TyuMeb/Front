@@ -1,0 +1,31 @@
+.wrapperTitle {
+  display: flex;
+  align-items: center;
+}
+
+.statusIcon {
+  display: block;
+  width: 21px;
+  height: 21px;
+  background-color: #7f3e3b;
+  border-radius: 50%;
+  margin-right: 24px;
+}
+
+.backgroundBrown {
+  background-color: #7f3e3b;
+}
+
+.backgroundGreen {
+  background-color: #2fef4e;
+}
+
+.backgroundPink {
+  background-color: #ef2f80;
+}
+
+.wrapperCustomerOrders {
+  display: grid;
+  row-gap: 16px;
+  width: 100%;
+}

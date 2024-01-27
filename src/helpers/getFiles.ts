@@ -1,13 +1,13 @@
-import { filesListProps } from "@src/components/account/form/formTypes";
+import { FilesList } from "@src/components/account/wrapper-form";
 
-export const getFiles = (filesList: filesListProps[]) => {
-    const files = [] as { id: string; file: File }[];
+export const getFiles = (filesList: FilesList[]) => {
+  const files = [] as { id: string; file: File }[];
 
-    filesList.forEach((file) => {
-        if (!file.error) {
-            files.push({ id: file.id, file: file.file });
-        }
-    });
+  filesList.forEach((file) => {
+    if (!file.error) {
+      files.push({ id: file.id, file: file.file });
+    }
+  });
 
-    return files;
+  return files;
 };

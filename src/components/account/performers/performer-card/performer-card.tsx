@@ -5,14 +5,13 @@ import Image, { StaticImageData } from "next/image";
 
 import classNames from "classnames/bind";
 import styles from "./performer-card.module.scss";
-import "src/components/account/wrapper-card/wrapper-card.module.scss";
+import "./performer-card.module.scss";
 import { Button } from "src/shared/ui/button";
-import { WrapperCard } from "src/components/account/wrapper-card";
 import { SliderUser } from "@src/shared/ui/slider-user";
 
 const cx = classNames.bind(styles);
 
-type PerformerCardProps = {
+export type PerformerCardProps = {
   name: string;
   termOfExecution: string;
   cost: number;
@@ -56,7 +55,7 @@ export const PerformerCard = ({ performer }: { performer: PerformerCardProps }) 
   };
 
   return (
-    <WrapperCard>
+    <div>
       <div className="wrapperText">
         <div className={styles.workerInfo}>
           <span className={styles.avatar} />
@@ -93,6 +92,6 @@ export const PerformerCard = ({ performer }: { performer: PerformerCardProps }) 
           <p className="text-small">Перейти в чат</p>
         </Button>
       </div>
-    </WrapperCard>
+    </div>
   );
 };

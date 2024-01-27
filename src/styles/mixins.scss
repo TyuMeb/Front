@@ -1,79 +1,79 @@
 @mixin background {
-    background-position: center;
-    background-repeat: no-repeat;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 @mixin beforeOrAfter {
-    content: "";
-    position: absolute;
+  content: "";
+  position: absolute;
 }
 
 @mixin reset-button {
-    border: none;
-    cursor: pointer;
+  border: none;
+  cursor: pointer;
 }
 
 @mixin headline {
-    font-family: "Raleway", Arial, sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    color: $black;
+  font-family: "Raleway", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  color: $black;
 }
 
 @mixin headline2 {
-    font-size: 30px;
-    line-height: 130%;
+  font-size: 30px;
+  line-height: 130%;
 }
 
 @mixin text {
-    font-family: "Open Sans", Arial, sans-serif;
-    font-style: normal;
-    font-weight: 400;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
 }
 
 @mixin textSmall {
-    font-size: 16px;
-    line-height: 24px;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 @mixin textTiny {
-    font-size: 14px;
-    line-height: 21px;
+  font-size: 14px;
+  line-height: 21px;
 }
 
 @mixin font-source-sans($size: false, $colour: false, $weight: false, $lh: false, $ff: var(--font-open-sans)) {
-    @if $size {
-        font-size: $size;
-    }
+  @if $size {
+    font-size: $size;
+  }
 
-    @if $colour {
-        color: $colour;
-    }
+  @if $colour {
+    color: $colour;
+  }
 
-    @if $weight {
-        font-weight: $weight;
-    }
+  @if $weight {
+    font-weight: $weight;
+  }
 
-    @if $lh {
-        line-height: $lh;
-    }
+  @if $lh {
+    line-height: $lh;
+  }
 
-    @if $ff {
-        font-family: $ff, sans-serif;
-    }
+  @if $ff {
+    font-family: $ff, sans-serif;
+  }
 }
 
 @mixin subtitle1 {
-    font-family: "Open Sans", Arial, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
 }
 
 @mixin textPriceItem {
-    font-family: "Source Sans Pro", Arial, sans-serif;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }

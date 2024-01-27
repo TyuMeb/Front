@@ -7,17 +7,17 @@ import { Advantages } from "@src/components/home/advantages/advantages";
 import { CreateOrder } from "@src/components/home/create-order/create-order";
 
 export const Home = () => {
-    return (
-        <>
-            <HeadBlock />
-            <div className="container">
-                <About />
-                <HowWorks />
-                <Form />
-                <Examples />
-                <Advantages />
-                <CreateOrder />
-            </div>
-        </>
-    );
+  return (
+    <>
+      <HeadBlock />
+      <div className="container">
+        <About />
+        <HowWorks />
+        <Form />
+        <Examples />
+        <Advantages />
+        <CreateOrder />
+      </div>
+    </>
+  );
 };
