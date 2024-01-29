@@ -18,6 +18,7 @@ import { MessageItem } from "./message-item/message-item";
 import { useUser } from "@src/redux/slices/users-slice";
 import { UserAccount } from "@src/redux/api/generated";
 import { useParams } from "next/navigation";
+import dayjs from "dayjs";
 
 const email = "user0@mail.ru";
 
@@ -27,19 +28,6 @@ type TMessage = {
   sender: string;
   text: string;
   unread?: boolean;
-};
-
-const dateConverter = (d: string): string => {
-  const messageDate = new Date(d);
-  const currDate = new Date();
-  if (messageDate.getDate() !== currDate.getDate())
-    return `
-      ${messageDate.getDate().toLocaleString(undefined, { minimumIntegerDigits: 2 })}.
-      ${(messageDate.getMonth() + 1).toLocaleString(undefined, { minimumIntegerDigits: 2 })}.
-      ${messageDate.getFullYear()}`;
-  return `
-    ${messageDate.getHours().toLocaleString(undefined, { minimumIntegerDigits: 2 })}:
-    ${messageDate.getMinutes().toLocaleString(undefined, { minimumIntegerDigits: 2 })}`;
 };
 
 export type OrderInfo = {
@@ -76,7 +64,7 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
       if (messages) {
         setMessagesList(
           messages.sort((a: TMessage, b: TMessage) => {
-            if (new Date(a.sent_at) > new Date(b.sent_at)) return 1;
+            if (dayjs(a.sent_at) > dayjs(b.sent_at)) return 1;
             else return -1;
           })
         );
@@ -141,7 +129,11 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
             key={i}
             text={m.text}
             messageId={m.id}
-            sent={dateConverter(m.sent_at)}
+            sent={
+              dayjs().format("DD.MM.YYYY") === dayjs(m.sent_at).format("DD.MM.YYYY")
+                ? dayjs(m.sent_at).format("HH:mm")
+                : dayjs(m.sent_at).format("DD.MM.YYYY")
+            }
             unread={!!(i % 2)}
             isMyMessage={email === m.sender}
             avaColor="red"
