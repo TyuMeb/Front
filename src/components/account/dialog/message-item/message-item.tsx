@@ -1,6 +1,7 @@
-import React, { FC, HTMLAttributes, useEffect, useRef } from "react";
+import React, { FC, HTMLAttributes, useState, useEffect } from "react";
 import styles from "./message-item.module.scss";
 import { Icon } from "@src/components/icon";
+import { useInView } from "react-intersection-observer";
 
 type TMessageProps = {
   messageId: number;
@@ -12,18 +13,22 @@ type TMessageProps = {
 } & HTMLAttributes<HTMLDivElement>;
 
 export const MessageItem: FC<TMessageProps> = ({ text, sent, isMyMessage, unread, avaColor, children }) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const [isUnread, setIsUnread] = useState(unread);
+  const { ref, inView } = useInView({
+    threshold: 1,
+  });
 
   useEffect(() => {
-    if (unread) {
-      console.log(window.scrollY);
-      console.log(ref.current?.getBoundingClientRect().top);
+    let t: number;
+    if (inView) {
+      //TODO: дёргаем ручку прочитанного сообщения
+      t = window.setTimeout(() => setIsUnread(false), 2000);
     }
-  }, []);
+    return () => window.clearTimeout(t);
+  }, [inView]);
 
   return isMyMessage ? (
     <div className={`${styles.chat} ${styles.positionRight}`}>
-      {unread && <Icon glyph="checked" />}
       <time className={styles.timeText}>{sent}</time>
 
       <div className={`${styles.messageClient} ${styles.wrapperMessage}`}>
@@ -35,7 +40,7 @@ export const MessageItem: FC<TMessageProps> = ({ text, sent, isMyMessage, unread
       <span className={`${styles.userIcon} ${styles.userAvatarMessage}`} style={{ backgroundColor: avaColor }}></span>
     </div>
   ) : (
-    <div className={`${styles.chat} ${styles.positionLeft}`} ref={ref}>
+    <div ref={ref} className={`${styles.chat} ${styles.positionLeft}`}>
       <span className={`${styles.userIcon} ${styles.userAvatarMessage}`} style={{ backgroundColor: avaColor }}></span>
 
       <div className={`${styles.messageExecutor} ${styles.wrapperMessage}`}>
@@ -45,7 +50,7 @@ export const MessageItem: FC<TMessageProps> = ({ text, sent, isMyMessage, unread
         </div>
       </div>
       <time className={styles.timeText}>{sent}</time>
-      {unread && <Icon glyph="checked" />}
+      {isUnread && <Icon glyph="checked" />}
     </div>
   );
 };

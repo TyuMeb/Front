@@ -15,6 +15,11 @@ import { WrapperInfo } from "./wrapper-info";
 import { Chat } from "./chat/chat";
 import { getCookie } from "typescript-cookie";
 import { MessageItem } from "./message-item/message-item";
+import { useUser } from "@src/redux/slices/users-slice";
+import { UserAccount } from "@src/redux/api/generated";
+import { useParams } from "next/navigation";
+
+const email = "user0@mail.ru";
 
 type TMessage = {
   id: number;
@@ -23,8 +28,6 @@ type TMessage = {
   text: string;
   unread?: boolean;
 };
-
-const email = "user0@mail.ru";
 
 const dateConverter = (d: string): string => {
   const messageDate = new Date(d);
@@ -55,13 +58,14 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
   const measuredForm = useMeasuredRef();
   const measuredDialog = useMeasuredRef();
   const [filesPreview, setFilesPreview] = useState<FilesPreview[] | []>([]);
-  // const dispatch = useAppDispatch();
-  // const { selectedPerformer } = useAppSelector((store) => store.account);
   const ws = useRef<WebSocket | null>(null);
   const [messagesList, setMessagesList] = useState<TMessage[]>([]);
+  const params = useParams();
+  // const ua: UserAccount | null = useUser();
 
   useEffect(() => {
-    if (!ws.current) ws.current = new WebSocket("wss://api.whywe.ru/ws/chat/2/", getCookie("access_token"));
+    if (!ws.current)
+      ws.current = new WebSocket(`wss://api.whywe.ru/ws/chat/${params.order}/`, getCookie("access_token"));
 
     const getMessages = () => {
       ws.current?.send(JSON.stringify({ command: "fetch_messages", message: "fetch" }));
@@ -109,10 +113,11 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
 
     const formFiles = new FormData();
     files.forEach((file) => formFiles.append(`file-${file.id}`, file.file));
-    console.log({ files, text: data.chat, formData: formFiles, filesPreview });
-    ws.current?.send(
-      JSON.stringify({ command: "new_message", message: { files, text: data.chat, formData: formFiles, filesPreview } })
-    );
+    // console.log({ files, text: data.chat, formData: formFiles, filesPreview });
+    // ws.current?.send(
+    //   JSON.stringify({ command: "new_message", message: { files, text: data.chat, formData: formFiles, filesPreview } })
+    // );
+    ws.current?.send(JSON.stringify({ command: "new_message", message: data.chat }));
     resetField("chat");
   };
 
@@ -130,13 +135,7 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
     <article className={styles.dialog} {...props}>
       <WrapperInfo orderInfo={orderInfo} getObserver={measuredDialog.getObserver} />
 
-      <div
-        style={{
-          marginBottom: `${measuredForm.elementHeight + 28}px`,
-          marginTop: `${measuredDialog.elementHeight}px`,
-        }}
-        className={styles.wrapper}
-      >
+      <Chat heightForm={measuredForm.elementHeight} heightDialog={measuredDialog.elementHeight}>
         {messagesList.map((m, i) => (
           <MessageItem
             key={i}
@@ -148,9 +147,7 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
             avaColor="red"
           />
         ))}
-      </div>
-
-      <Chat heightForm={measuredForm.elementHeight} heightDialog={measuredDialog.elementHeight} />
+      </Chat>
 
       <div className={styles.wrapperForm} ref={measuredForm.getObserver}>
         <form onSubmit={handleSubmit(onSubmitHandler)}>
@@ -159,7 +156,15 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
               control={control}
               name="chat"
               render={({ field: { onChange, value, ref } }) => (
-                <Textarea onChange={onChange} defaultValue="" value={value} ref={ref} />
+                <Textarea
+                  onChange={onChange}
+                  onKeyUp={(e) => {
+                    if (e.key == "Enter" && e.ctrlKey) handleSubmit(onSubmitHandler)();
+                  }}
+                  defaultValue=""
+                  value={value}
+                  ref={ref}
+                />
               )}
             />
 

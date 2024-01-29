@@ -42,8 +42,6 @@ export const Sidebar = ({ className }: SidebarProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  console.log(orders);
-
   const onHandlerClick = () => {
     router.push("/");
 
@@ -116,6 +114,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
         <ul className={cx("thirdLevelMenu")}>
           {orders.map((executor, i) => {
             const currentPathname = `${route}/executor-${executor.id}`;
+            console.log(currentPathname);
 
             return (
               <li key={executor.id} className={cx("thirdLevelItem")}>
