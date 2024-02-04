@@ -34,7 +34,9 @@ export type TMenuProps = {
   route: string;
 };
 
+// eslint-disable-next-line
 const parseOrdersToOrderItems = (arr: any): TMenuItem[] => {
+  // eslint-disable-next-line
   return arr.reduce((acc: TMenuItem[], order: any) => {
     return [
       ...acc,
@@ -45,7 +47,8 @@ const parseOrdersToOrderItems = (arr: any): TMenuItem[] => {
         contractor: Number(order.contractor),
         collapsible: !order.offers
           ? undefined
-          : order.offers.reduce((accum: TMenuItem[], offer: any) => {
+          : // eslint-disable-next-line
+            order.offers.reduce((accum: TMenuItem[], offer: any) => {
               return [...accum, { id: offer.id, alias: `/${offer.chat_id}`, contractor: offer.contactor_name }];
             }, []),
       },

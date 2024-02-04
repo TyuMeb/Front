@@ -15,8 +15,8 @@ import { WrapperInfo } from "./wrapper-info";
 import { Chat } from "./chat/chat";
 import { getCookie } from "typescript-cookie";
 import { MessageItem } from "./message-item/message-item";
-import { useUser } from "@src/redux/slices/users-slice";
-import { UserAccount } from "@src/redux/api/generated";
+// import { useUser } from "@src/redux/slices/users-slice";
+// import { UserAccount } from "@src/redux/api/generated";
 import { useParams } from "next/navigation";
 import dayjs from "dayjs";
 
