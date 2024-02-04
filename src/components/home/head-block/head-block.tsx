@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import styles from "./head-block.module.scss";
 import { Button } from "@src/shared/ui/button";
 import { useAppDispatch } from "@src/redux/hooks";
@@ -20,9 +19,7 @@ export const HeadBlock = () => {
             <p className={styles.description}>
               Сделайте заказ прямо сейчас, и мы подберём вам лучшие предложения за 24 часа
             </p>
-            <Link href="/">
-              <Button onClick={() => dispatch(openModal("getContact"))}>Сделать заказ</Button>
-            </Link>{" "}
+            <Button onClick={() => dispatch(openModal("getContact"))}>Сделать заказ</Button>
           </div>
         </div>
       </div>

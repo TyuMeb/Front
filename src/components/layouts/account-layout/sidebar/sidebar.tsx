@@ -33,7 +33,7 @@ const firstLevelMenu: firstLevelMenuItemProps[] = [
   { alias: "archives", name: "Архивы", icon: <Icon className={cx("icon")} glyph="archives" /> },
   { alias: "settings", name: "Настройки", icon: <Icon className={cx("icon")} glyph="settings" /> },
   { alias: "help", name: "Помощь", icon: <Icon className={cx("icon")} glyph="help" /> },
-  { alias: "help1", name: "Сделать заказ", icon: <Icon className={cx("icon")} glyph="add" /> },
+  { alias: "/order", name: "Сделать заказ", icon: <Icon className={cx("icon")} glyph="add" /> },
 ];
 
 export const Sidebar = ({ className }: SidebarProps) => {
@@ -41,8 +41,6 @@ export const Sidebar = ({ className }: SidebarProps) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const pathname = usePathname();
-
-  console.log(orders);
 
   const onHandlerClick = () => {
     router.push("/");
@@ -57,13 +55,8 @@ export const Sidebar = ({ className }: SidebarProps) => {
     return (
       <ul className={cx("firstLevelMenu")}>
         {firstLevelMenu.map((menu, i) => {
-          let currentPathname = PAGE_LINK + menu.alias;
-          let activatedMenu = { activatedMenu: pathname === currentPathname };
-
-          if (i === firstLevelMenu.length - 1) {
-            currentPathname = "/";
-            activatedMenu = { activatedMenu: false };
-          }
+          const currentPathname = menu.alias.startsWith("/") ? menu.alias : PAGE_LINK + menu.alias;
+          const activatedMenu = { activatedMenu: pathname === currentPathname };
 
           return (
             <li key={menu.alias}>

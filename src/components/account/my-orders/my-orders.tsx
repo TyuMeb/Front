@@ -110,7 +110,7 @@ export const MyOrders = (props: MyOrdersProps) => {
     <section className={styles.wrapperOrders} {...props}>
       {!orders.length ? (
         <NoCard name="У вас пока нет заказов. Но вы всегда можете исправить это, создав его.">
-          <Link href="/">Сделать заказ</Link>
+          <Link href="/order">Сделать заказ</Link>
         </NoCard>
       ) : (
         <></>
