@@ -1,8 +1,6 @@
 "use client";
 
-import Image from "next/image";
 import styles from "./advantages.module.scss";
-import behefitsImage from "@public/home/behefits-image.jpg";
 import { CardAdvantages } from "@src/shared/ui/card-advantages";
 
 export const Advantages = () => {
@@ -36,7 +34,7 @@ export const Advantages = () => {
             glyphIcon="person"
           />
         </div>
-        <Image src={behefitsImage} alt="behefits-image" className={styles.image} />
+        <img src={"/home/behefits-image.jpg"} alt="behefits-image" className={styles.image} />
       </div>
     </section>
   );
