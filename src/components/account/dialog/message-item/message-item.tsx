@@ -19,12 +19,16 @@ export const MessageItem: FC<TMessageProps> = ({ text, sent, isMyMessage, unread
   });
 
   useEffect(() => {
-    let t: number;
-    if (inView) {
-      //TODO: дёргаем ручку прочитанного сообщения
-      t = window.setTimeout(() => setIsUnread(false), 2000);
+    if (isUnread && inView) {
+      const timer: ReturnType<typeof setTimeout> = setTimeout(() => {
+        //TODO: дёргаем ручку прочитанного сообщения
+        setIsUnread(false);
+      }, 2000);
+      return () => {
+        clearTimeout(timer);
+      };
     }
-    return () => window.clearTimeout(t);
+    return () => {};
   }, [inView]);
 
   return isMyMessage ? (

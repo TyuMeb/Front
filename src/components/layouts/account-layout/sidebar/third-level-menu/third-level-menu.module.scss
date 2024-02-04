@@ -1,0 +1,44 @@
+.selectedMenu {
+  margin-top: 12px;
+}
+
+.activatedMenu {
+  border-left: 4px solid $mustard;
+}
+
+.thirdLevelMenu {
+  margin-top: 12px;
+}
+
+.thirdLevelItem {
+  border-radius: 0px 8px 8px 0px;
+  border-left: 4px solid transparent;
+  box-sizing: border-box;
+}
+
+.thirdLevelLink {
+  position: relative;
+  display: block;
+  padding: 8px 0 8px 68px;
+  border-radius: 0px 8px 8px 0px;
+  border-left: 4px solid transparent;
+
+  &_bullet {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: $menu-item-bullet-color;
+    top: calc(50% - 4px);
+    left: calc(100% + 8px);
+  }
+}
+
+.activatedSubmenu {
+  background-color: #fffaee;
+  border-left: 4px solid $mustard;
+}
+
+.icon {
+  margin-right: 8px;
+}

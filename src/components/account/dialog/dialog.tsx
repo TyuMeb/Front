@@ -130,7 +130,7 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
             text={m.text}
             messageId={m.id}
             sent={
-              dayjs().format("DD.MM.YYYY") === dayjs(m.sent_at).format("DD.MM.YYYY")
+              dayjs().isSame(dayjs(m.sent_at), "day")
                 ? dayjs(m.sent_at).format("HH:mm")
                 : dayjs(m.sent_at).format("DD.MM.YYYY")
             }

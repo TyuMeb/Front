@@ -1,0 +1,102 @@
+.menu {
+  background-color: $white;
+}
+
+.navigation {
+  border-right: 2px solid #eae5e1;
+  padding-right: 16px;
+  position: fixed;
+  max-width: 256px;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: auto;
+  max-height: 100%;
+}
+
+.firstLevelMenu {
+  display: grid;
+  row-gap: 24px;
+  margin-bottom: 80px;
+}
+
+.firstLevelLink {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  box-sizing: border-box;
+  border-left: 4px solid transparent;
+}
+
+.activatedMenu {
+  border-left: 4px solid $mustard;
+}
+
+.expandedMenu {
+  display: grid;
+  row-gap: 12px;
+  margin-top: 16px;
+}
+.icon {
+  margin-right: 5px;
+}
+
+.secondLevelMenu {
+  display: grid;
+  row-gap: 12px;
+  margin-top: 16px;
+}
+
+.secondLevelLink {
+  position: relative;
+  padding-left: 28px;
+  display: inline-block;
+  padding-left: 64px;
+
+  &::before {
+    position: absolute;
+    top: 4px;
+    left: 46px;
+    content: "";
+    border-left: 8px solid #9ca2bd;
+    border-bottom: 5.5px solid transparent;
+    border-top: 5.5px solid transparent;
+  }
+}
+
+.openedSubmenu {
+  &::before {
+    top: 6px;
+    border-left: 5.5px solid transparent;
+    border-right: 5.5px solid transparent;
+    border-top: 8px solid #9ca2bd;
+  }
+}
+
+.selectedMenu {
+  margin-top: 12px;
+}
+.thirdLevelMenu {
+  margin-top: 12px;
+}
+
+.thirdLevelItem {
+  border-radius: 0px 8px 8px 0px;
+  border-left: 4px solid transparent;
+  box-sizing: border-box;
+}
+
+.thirdLevelLink {
+  display: block;
+  padding: 8px 0 8px 68px;
+  border-radius: 0px 8px 8px 0px;
+  border-left: 4px solid transparent;
+}
+
+.activatedSubmenu {
+  background-color: #fffaee;
+  border-left: 4px solid $mustard;
+}
+
+.icon {
+  margin-right: 8px;
+}
