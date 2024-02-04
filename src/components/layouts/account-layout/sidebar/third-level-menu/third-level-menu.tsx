@@ -1,3 +1,5 @@
+"use client";
+
 import React, { FC, useState } from "react";
 import classNames from "classnames/bind";
 import { TMenuProps } from "../sidebar";
@@ -30,7 +32,7 @@ export const ThirdLevelMenu: FC<TMenuProps> = ({ menuItems, route }) => {
                 router.push(itemPathname);
               }}
             >
-              <p className="text-small">Исполнитель {i + 1}</p>
+              <p className="text-small">{item.contractor}</p>
               {activeItem === i && <div className={cx("thirdLevelLink_bullet")} />}
             </button>
           </li>

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { FC, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./first-level-menu.module.scss";
@@ -31,7 +33,7 @@ export const FirstLevelMenu: FC<TMenuProps> = ({ menuItems, route }) => {
             >
               {item.icon}
               <p className={cx("text-small-semibold")}>
-                {item.name} {item.collapsible ? `(${item.collapsible?.length})` : ""}
+                {item.name} {!item.collapsible?.length ? "" : `(${item.collapsible?.length})`}
               </p>
             </button>
             {item.collapsible && openItems[i] && <SecondLevelMenu menuItems={item.collapsible} route={itemPathname} />}
