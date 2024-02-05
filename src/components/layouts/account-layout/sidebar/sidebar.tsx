@@ -12,7 +12,10 @@ import { setUser } from "@src/redux/slices/users-slice";
 import { removeCookie } from "typescript-cookie";
 import { useClientActiveOrdersQuery } from "@src/redux/api/order-api-slice";
 import { FirstLevelMenu } from "./first-level-menu/first-level-menu";
-import { ACCOUNT_MENU_CONFIG } from "@src/shared/data/account-menu-config";
+import { useUser } from "@src/redux/slices/users-slice";
+import { CUSTOMER_ACCOUNT_MENU_CONFIG } from "@src/shared/data/customer-account-menu-config";
+import { CONTRACTOR_ACCOUNT_MENU_CONFIG } from "@src/shared/data/contractor-account-menu-config";
+import { UserAccount } from "@src/redux/api/generated";
 
 const cx = classNames.bind(styles);
 
@@ -60,14 +63,23 @@ export const Sidebar = ({ className }: SidebarProps) => {
   const { data: orders = [], error, isLoading } = useClientActiveOrdersQuery();
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const [menuItems, setMenuItems] = useState<TMenuItem[]>(ACCOUNT_MENU_CONFIG);
+  const ua: UserAccount | null = useUser();
+  const [menuItems, setMenuItems] = useState<TMenuItem[] | null>(null);
 
   useEffect(() => {
-    if (!isLoading && !error && orders)
-      setMenuItems((state) =>
-        state.map((el, i) => (i === 0 ? { ...el, collapsible: parseOrdersToOrderItems(orders) } : el))
-      );
-  }, [isLoading]);
+    if (!isLoading && !error && orders && ua)
+      ua.role === "client"
+        ? setMenuItems(
+            CUSTOMER_ACCOUNT_MENU_CONFIG.map((el, i) =>
+              i === 0 ? { ...el, collapsible: parseOrdersToOrderItems(orders) } : el
+            )
+          )
+        : setMenuItems(
+            CONTRACTOR_ACCOUNT_MENU_CONFIG.map((el, i) =>
+              i === 0 ? { ...el, collapsible: parseOrdersToOrderItems(orders) } : el
+            )
+          );
+  }, [isLoading, ua]);
 
   const onHandlerClick = () => {
     router.push("/");
@@ -79,7 +91,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
   return (
     <aside className={cx("menu", className)}>
       <nav className={cx("navigation")}>
-        <FirstLevelMenu menuItems={menuItems} route={PAGE_LINK} />
+        {menuItems && <FirstLevelMenu menuItems={menuItems} route={PAGE_LINK} />}
         <Link href="/">
           <Button icon={<Icon glyph="exit" />} variant="exit" onClick={onHandlerClick}>
             <p className="text-small-semibold">Выйти</p>

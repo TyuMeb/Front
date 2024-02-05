@@ -63,7 +63,7 @@ export const SignIn = () => {
           .then((user) => {
             dispatch(setUser(user));
             dispatch(closeModal());
-            router.push("/account/chats");
+            user.role === "contractor" ? router.push("/account/my-offer") : router.push("/account/customer-orders");
           });
       })
       .catch((error) => {

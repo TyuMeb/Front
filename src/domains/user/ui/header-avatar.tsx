@@ -9,7 +9,7 @@ type Props = Omit<
 
 export const HeaderAvatar = (props: Props) => {
   return (
-    <Link {...props} className={cn("w-8 h-8", props.className)} href="/account/my-orders">
+    <Link {...props} className={cn("w-8 h-8", props.className)} href="/account/customer-orders">
       <img src={"/account/photo.png"} alt="Фото"></img>
     </Link>
   );

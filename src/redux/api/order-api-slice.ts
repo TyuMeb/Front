@@ -36,6 +36,12 @@ const orderApi = apiSlice.injectEndpoints({
         url: `/order/${id}/`,
       }),
     }),
+    // TODO: сделать ручку для получения офферов
+    // orderGetOffers: build.query<OrderDetail, number>({
+    //   query: (id) => ({
+    //     url: `/order/${id}/offers`,
+    //   }),
+    // }),
     finishOrder: build.mutation<unknown, number>({
       query: (id) => ({
         url: `/order/${id}/finish/`,
