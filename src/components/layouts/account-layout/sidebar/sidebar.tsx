@@ -67,6 +67,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
   const [menuItems, setMenuItems] = useState<TMenuItem[] | null>(null);
 
   useEffect(() => {
+    console.log(ua);
     if (!isLoading && !error && orders && ua)
       ua.role === "client"
         ? setMenuItems(

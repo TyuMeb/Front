@@ -15,12 +15,10 @@ import { WrapperInfo } from "./wrapper-info";
 import { Chat } from "./chat/chat";
 import { getCookie } from "typescript-cookie";
 import { MessageItem } from "./message-item/message-item";
-// import { useUser } from "@src/redux/slices/users-slice";
-// import { UserAccount } from "@src/redux/api/generated";
+import { useUser } from "@src/redux/slices/users-slice";
+import { UserAccount } from "@src/redux/api/generated";
 import { useParams } from "next/navigation";
 import dayjs from "dayjs";
-
-const email = "user0@mail.ru";
 
 type TMessage = {
   id: number;
@@ -48,43 +46,50 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
   const [filesPreview, setFilesPreview] = useState<FilesPreview[] | []>([]);
   const ws = useRef<WebSocket | null>(null);
   const [messagesList, setMessagesList] = useState<TMessage[]>([]);
+  const [email, setEmail] = useState<string>("");
   const params = useParams();
-  // const ua: UserAccount | null = useUser();
+  const ua: UserAccount | null = useUser();
 
   useEffect(() => {
-    if (!ws.current)
-      ws.current = new WebSocket(`wss://api.whywe.ru/ws/chat/${params.order}/`, getCookie("access_token"));
+    if (ua) {
+      setEmail(ua.email);
 
-    const getMessages = () => {
-      ws.current?.send(JSON.stringify({ command: "fetch_messages", message: "fetch" }));
-    };
+      if (!ws.current)
+        ua.role === "client"
+          ? (ws.current = new WebSocket(`wss://api.whywe.ru/ws/chat/${params.order}/`, getCookie("access_token")))
+          : (ws.current = new WebSocket(`wss://api.whywe.ru/ws/chat/${params.order}/`, getCookie("access_token")));
 
-    const showData = (e: MessageEvent) => {
-      const { messages } = JSON.parse(e.data);
-      if (messages) {
-        setMessagesList(
-          messages.sort((a: TMessage, b: TMessage) => {
-            if (dayjs(a.sent_at) > dayjs(b.sent_at)) return 1;
-            else return -1;
-          })
-        );
-        console.log(messages);
-      } else {
-        const { message, sender } = JSON.parse(e.data);
-        setMessagesList((messages) => [
-          ...messages,
-          { id: 9999, sender: sender, text: message, sent_at: new Date().toString() },
-        ]);
-      }
-    };
-    ws.current?.addEventListener("open", getMessages);
-    ws.current?.addEventListener("message", showData);
+      const getMessages = () => {
+        ws.current?.send(JSON.stringify({ command: "fetch_messages", message: "fetch" }));
+      };
 
-    return () => {
-      ws.current?.removeEventListener("open", getMessages);
-      ws.current?.removeEventListener("message", showData);
-    };
-  }, []);
+      const showData = (e: MessageEvent) => {
+        const { messages } = JSON.parse(e.data);
+        if (messages) {
+          setMessagesList(
+            messages.sort((a: TMessage, b: TMessage) => {
+              if (dayjs(a.sent_at) > dayjs(b.sent_at)) return 1;
+              else return -1;
+            })
+          );
+          console.log(messages);
+        } else {
+          const { message, sender } = JSON.parse(e.data);
+          setMessagesList((messages) => [
+            ...messages,
+            { id: 9999, sender: sender, text: message, sent_at: new Date().toString() },
+          ]);
+        }
+      };
+      ws.current?.addEventListener("open", getMessages);
+      ws.current?.addEventListener("message", showData);
+
+      return () => {
+        ws.current?.removeEventListener("open", getMessages);
+        ws.current?.removeEventListener("message", showData);
+      };
+    }
+  }, [ua]);
 
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
