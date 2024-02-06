@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
-
 :root {
   --text-main-color: #1c1c1c;
   --accent-color: #fccf55;
@@ -175,7 +173,7 @@ h4 {
 h1,
 h2,
 h3 {
-  font-family: "Raleway", sans-serif;
+  font-family: var(--font-raleway), Arial, sans-serif;
   font-weight: 500;
 }
 
