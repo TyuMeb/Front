@@ -21,7 +21,7 @@ import { useParams } from "next/navigation";
 import dayjs from "dayjs";
 
 type TMessage = {
-  id: number;
+  id?: number;
   hashcode: string;
   sent_at: string;
   sender: string;
@@ -79,7 +79,7 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
           console.log(e.data);
           setMessagesList((messages) => [
             ...messages,
-            { id: 9999, hashcode: hashcode, sender: sender, text: text, sent_at: sent_at, is_read },
+            { hashcode: hashcode, sender: sender, text: text, sent_at: sent_at, is_read },
           ]);
         }
       };
@@ -131,9 +131,9 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
       <WrapperInfo orderInfo={orderInfo} getObserver={measuredDialog.getObserver} />
 
       <Chat heightForm={measuredForm.elementHeight} heightDialog={measuredDialog.elementHeight}>
-        {messagesList.map((message, index) => (
+        {messagesList.map((message) => (
           <MessageItem
-            key={index}
+            key={message.hashcode}
             text={message.text}
             hashcode={message.hashcode}
             sent={
