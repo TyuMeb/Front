@@ -22,10 +22,11 @@ import dayjs from "dayjs";
 
 type TMessage = {
   id: number;
+  hashcode: string;
   sent_at: string;
   sender: string;
   text: string;
-  unread?: boolean;
+  is_read: boolean;
 };
 
 export type OrderInfo = {
@@ -48,14 +49,14 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
   const [messagesList, setMessagesList] = useState<TMessage[]>([]);
   const [email, setEmail] = useState<string>("");
   const params = useParams();
-  const ua: UserAccount | null = useUser();
+  const user: UserAccount | null = useUser();
 
   useEffect(() => {
-    if (ua) {
-      setEmail(ua.email);
+    if (user) {
+      setEmail(user.email);
 
       if (!ws.current)
-        ua.role === "client"
+        user.role === "client"
           ? (ws.current = new WebSocket(`wss://api.whywe.ru/ws/chat/${params.order}/`, getCookie("access_token")))
           : (ws.current = new WebSocket(`wss://api.whywe.ru/ws/chat/${params.order}/`, getCookie("access_token")));
 
@@ -74,10 +75,11 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
           );
           console.log(messages);
         } else {
-          const { message, sender } = JSON.parse(e.data);
+          const { sender, hashcode, text, sent_at, is_read } = JSON.parse(e.data);
+          console.log(e.data);
           setMessagesList((messages) => [
             ...messages,
-            { id: 9999, sender: sender, text: message, sent_at: new Date().toString() },
+            { id: 9999, hashcode: hashcode, sender: sender, text: text, sent_at: sent_at, is_read },
           ]);
         }
       };
@@ -89,7 +91,7 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
         ws.current?.removeEventListener("message", showData);
       };
     }
-  }, [ua]);
+  }, [user]);
 
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
@@ -129,19 +131,23 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
       <WrapperInfo orderInfo={orderInfo} getObserver={measuredDialog.getObserver} />
 
       <Chat heightForm={measuredForm.elementHeight} heightDialog={measuredDialog.elementHeight}>
-        {messagesList.map((m, i) => (
+        {messagesList.map((message, index) => (
           <MessageItem
-            key={i}
-            text={m.text}
-            messageId={m.id}
+            key={index}
+            text={message.text}
+            hashcode={message.hashcode}
             sent={
-              dayjs().isSame(dayjs(m.sent_at), "day")
-                ? dayjs(m.sent_at).format("HH:mm")
-                : dayjs(m.sent_at).format("DD.MM.YYYY")
+              dayjs().isSame(dayjs(message.sent_at), "day")
+                ? dayjs(message.sent_at).format("HH:mm")
+                : dayjs(message.sent_at).format("DD.MM.YYYY")
             }
-            unread={!!(i % 2)}
-            isMyMessage={email === m.sender}
+            isRead={message.is_read}
+            isMyMessage={email === message.sender}
             avaColor="red"
+            markMessagesAsRead={(hash: string[]): boolean => {
+              ws.current?.send(JSON.stringify({ command: "read_messages", hashcodes: [hash] }));
+              return true;
+            }}
           />
         ))}
       </Chat>

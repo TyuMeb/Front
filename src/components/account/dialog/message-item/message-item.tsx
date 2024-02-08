@@ -4,25 +4,36 @@ import { Icon } from "@src/components/icon";
 import { useInView } from "react-intersection-observer";
 
 type TMessageProps = {
-  messageId: number;
+  hashcode: string;
   text: string;
   sent: string;
   isMyMessage: boolean;
-  unread: boolean;
+  isRead: boolean;
   avaColor: string;
+  markMessagesAsRead: (hash: string[]) => boolean;
 } & HTMLAttributes<HTMLDivElement>;
 
-export const MessageItem: FC<TMessageProps> = ({ text, sent, isMyMessage, unread, avaColor, children }) => {
-  const [isUnread, setIsUnread] = useState(unread);
+export const MessageItem: FC<TMessageProps> = ({
+  text,
+  sent,
+  isMyMessage,
+  isRead,
+  avaColor,
+  children,
+  hashcode,
+  markMessagesAsRead,
+}) => {
+  const [isReadedMessage, setIsReadedMessage] = useState(isRead);
   const { ref, inView } = useInView({
     threshold: 1,
   });
 
   useEffect(() => {
-    if (isUnread && inView) {
+    if (!isReadedMessage && inView) {
       const timer: ReturnType<typeof setTimeout> = setTimeout(() => {
+        markMessagesAsRead([hashcode]);
         //TODO: дёргаем ручку прочитанного сообщения
-        setIsUnread(false);
+        setIsReadedMessage(true);
       }, 2000);
       return () => {
         clearTimeout(timer);
@@ -54,7 +65,7 @@ export const MessageItem: FC<TMessageProps> = ({ text, sent, isMyMessage, unread
         </div>
       </div>
       <time className={styles.timeText}>{sent}</time>
-      {isUnread && <Icon glyph="checked" />}
+      {!isReadedMessage && <Icon glyph="checked" />}
     </div>
   );
 };

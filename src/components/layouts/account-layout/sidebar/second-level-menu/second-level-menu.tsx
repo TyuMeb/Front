@@ -27,7 +27,8 @@ export const SecondLevelMenu: FC<TMenuProps> = ({ menuItems, route }) => {
             >
               <div className={cx("secondLevelLink__arrow", openItems[i] ? "secondLevelLink__arrow_opened" : "")} />
               <p className={cx("text-small-semibold")}>
-                {item.name} {!item.collapsible?.length ? "" : `(${item.collapsible?.length})`}
+                {item.name}
+                {/* {!item.collapsible?.length ? "" : `(${item.collapsible?.length})`} */}
               </p>
             </button>
             {item.collapsible && openItems[i] && <ThirdLevelMenu menuItems={item.collapsible} route={route} />}
