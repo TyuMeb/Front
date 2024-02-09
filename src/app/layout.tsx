@@ -29,7 +29,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ru">
-      <body className={cn(openSans.className, raleway.variable)}>
+      <body className={cn(openSans.variable, raleway.variable)}>
         <Providers>
           <AppLayout>{children}</AppLayout>
         </Providers>
