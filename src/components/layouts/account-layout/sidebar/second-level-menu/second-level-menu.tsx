@@ -3,12 +3,12 @@
 import React, { FC, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./second-level-menu.module.scss";
-import { TMenuProps } from "../sidebar";
+import { MenuProps } from "../sidebar";
 import { ThirdLevelMenu } from "../third-level-menu/third-level-menu";
 
 const cx = classNames.bind(styles);
 
-export const SecondLevelMenu: FC<TMenuProps> = ({ menuItems, route }) => {
+export const SecondLevelMenu: FC<MenuProps> = ({ menuItems, route }) => {
   const [activeItem, setActiveItem] = useState(0);
   const [openItems, setOpenItems] = useState(new Array(menuItems.length).fill(false));
 
@@ -30,6 +30,9 @@ export const SecondLevelMenu: FC<TMenuProps> = ({ menuItems, route }) => {
                 {item.name}
                 {/* {!item.collapsible?.length ? "" : `(${item.collapsible?.length})`} */}
               </p>
+              {!!item.collapsible?.some((chat) => chat.unread === true) && (
+                <div className={cx("secondLevelLink_bullet")} />
+              )}
             </button>
             {item.collapsible && openItems[i] && <ThirdLevelMenu menuItems={item.collapsible} route={route} />}
           </li>

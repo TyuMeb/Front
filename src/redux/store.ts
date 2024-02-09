@@ -11,6 +11,7 @@ import { setupListeners } from "@reduxjs/toolkit/query/react";
 import { apiSlice } from "@src/redux/api/api-slice";
 import { userReducer } from "./slices/users-slice";
 import { createOrderSlice } from "./slices/create-order-slice";
+import { chatReducer } from "./slices/chat-slice";
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ export const store = configureStore({
     account: accountReducer,
     user: userReducer,
     createOrder: createOrderSlice.reducer,
+    chats: chatReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),

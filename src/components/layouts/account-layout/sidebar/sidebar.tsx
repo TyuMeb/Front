@@ -11,11 +11,13 @@ import { useAppDispatch } from "@src/redux/hooks";
 import { setUser } from "@src/redux/slices/users-slice";
 import { removeCookie } from "typescript-cookie";
 import { useClientActiveOrdersQuery } from "@src/redux/api/order-api-slice";
+import { useGetChatsQuery } from "@src/redux/api/chat-api-slice";
 import { FirstLevelMenu } from "./first-level-menu/first-level-menu";
 import { useUser } from "@src/redux/slices/users-slice";
-import { CUSTOMER_ACCOUNT_MENU_CONFIG } from "@src/shared/data/customer-account-menu-config";
-import { CONTRACTOR_ACCOUNT_MENU_CONFIG } from "@src/shared/data/contractor-account-menu-config";
+import { CUSTOMER_MENU_ITEMS } from "@src/shared/data/customer-menu-items";
+import { CONTRACTOR_MENU_ITEMS } from "@src/shared/data/contractor-menu-items";
 import { UserAccount } from "@src/redux/api/generated";
+import { Chat } from "@src/redux/api/generated";
 
 const cx = classNames.bind(styles);
 
@@ -30,17 +32,18 @@ export type TMenuItem = {
   contractor?: number | string;
   icon?: JSX.Element;
   collapsible?: TMenuItem[];
+  unread?: boolean;
 };
 
-export type TMenuProps = {
+export type MenuProps = {
   menuItems: TMenuItem[];
   route: string;
 };
 
 // eslint-disable-next-line
-const parseOrdersToOrderItems = (arr: any): TMenuItem[] => {
+const parseOrdersToOrderItems = (ordersArr: any, chatsArr: Chat[], unreadMessagesPresent: boolean): TMenuItem[] => {
   // eslint-disable-next-line
-  return arr.reduce((acc: TMenuItem[], order: any) => {
+  return ordersArr.reduce((acc: TMenuItem[], order: any) => {
     return [
       ...acc,
       {
@@ -52,35 +55,72 @@ const parseOrdersToOrderItems = (arr: any): TMenuItem[] => {
           ? undefined
           : // eslint-disable-next-line
             order.offers.reduce((accum: TMenuItem[], offer: any) => {
-              return [...accum, { id: offer.id, alias: `/${offer.chat_id}`, contractor: offer.contactor_name }];
+              const unreadMessages: number | undefined = chatsArr.find((chat) => chat.id === offer.chat_id)
+                ?.unread_messages;
+              return [
+                ...accum,
+                {
+                  id: offer.id,
+                  alias: `/${offer.chat_id}`,
+                  contractor: offer.contactor_name,
+                  unread: !!unreadMessages,
+                },
+              ];
             }, []),
+        unread: unreadMessagesPresent,
       },
     ];
   }, []);
 };
 
 export const Sidebar = ({ className }: SidebarProps) => {
-  const { data: orders = [], error, isLoading } = useClientActiveOrdersQuery();
+  const {
+    data: orders = [],
+    error: ordersDataLoadingError,
+    isLoading: isOrdersDataLoading,
+  } = useClientActiveOrdersQuery();
+  const { data: chats = [], error: chatsLoadingError, isLoading: isChatsDataLoading } = useGetChatsQuery();
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const ua: UserAccount | null = useUser();
+  const user: UserAccount | null = useUser();
   const [menuItems, setMenuItems] = useState<TMenuItem[] | null>(null);
 
   useEffect(() => {
-    console.log(ua);
-    if (!isLoading && !error && orders && ua)
-      ua.role === "client"
+    if (
+      !isOrdersDataLoading &&
+      !ordersDataLoadingError &&
+      !chatsLoadingError &&
+      !isChatsDataLoading &&
+      orders &&
+      user
+    ) {
+      const unreadMessagesPresent = chats.some((chat) => chat.unread_messages);
+
+      user.role === "client"
         ? setMenuItems(
-            CUSTOMER_ACCOUNT_MENU_CONFIG.map((el, i) =>
-              i === 0 ? { ...el, collapsible: parseOrdersToOrderItems(orders) } : el
+            CUSTOMER_MENU_ITEMS.map((el, i) =>
+              i === 0
+                ? {
+                    ...el,
+                    collapsible: parseOrdersToOrderItems(orders, chats, unreadMessagesPresent),
+                    unread: unreadMessagesPresent,
+                  }
+                : el
             )
           )
         : setMenuItems(
-            CONTRACTOR_ACCOUNT_MENU_CONFIG.map((el, i) =>
-              i === 0 ? { ...el, collapsible: parseOrdersToOrderItems(orders) } : el
+            CONTRACTOR_MENU_ITEMS.map((el, i) =>
+              i === 0
+                ? {
+                    ...el,
+                    collapsible: parseOrdersToOrderItems(orders, chats, unreadMessagesPresent),
+                    unread: unreadMessagesPresent,
+                  }
+                : el
             )
           );
-  }, [isLoading, ua]);
+    }
+  }, [isOrdersDataLoading, isChatsDataLoading, user]);
 
   const onHandlerClick = () => {
     router.push("/");

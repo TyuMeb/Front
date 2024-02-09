@@ -5,7 +5,6 @@ import styles from "./dialog.module.scss";
 import { Button } from "@src/shared/ui/button";
 import { WrapperForm, InputPreviewFiles, PreviewFiles, FilesPreview } from "@src/components/account/wrapper-form";
 import { Textarea } from "@src/shared/ui/inputs/textarea";
-
 import Paperclip from "@public/icons/paperclip.svg";
 import { Icon } from "@src/components/icon";
 import { useForm, Controller } from "react-hook-form";
@@ -18,16 +17,8 @@ import { MessageItem } from "./message-item/message-item";
 import { useUser } from "@src/redux/slices/users-slice";
 import { UserAccount } from "@src/redux/api/generated";
 import { useParams } from "next/navigation";
+import { Message } from "@src/redux/api/generated";
 import dayjs from "dayjs";
-
-type TMessage = {
-  id?: number;
-  hashcode: string;
-  sent_at: string;
-  sender: string;
-  text: string;
-  is_read: boolean;
-};
 
 export type OrderInfo = {
   customer?: string;
@@ -46,7 +37,7 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
   const measuredDialog = useMeasuredRef();
   const [filesPreview, setFilesPreview] = useState<FilesPreview[] | []>([]);
   const ws = useRef<WebSocket | null>(null);
-  const [messagesList, setMessagesList] = useState<TMessage[]>([]);
+  const [messagesList, seMessagesList] = useState<Message[]>([]);
   const [email, setEmail] = useState<string>("");
   const params = useParams();
   const user: UserAccount | null = useUser();
@@ -55,20 +46,20 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
     if (user) {
       setEmail(user.email);
 
-      if (!ws.current)
+      if (!ws.current && params.order !== "null")
         user.role === "client"
           ? (ws.current = new WebSocket(`wss://api.whywe.ru/ws/chat/${params.order}/`, getCookie("access_token")))
           : (ws.current = new WebSocket(`wss://api.whywe.ru/ws/chat/${params.order}/`, getCookie("access_token")));
 
-      const getMessages = () => {
+      const geMessages = () => {
         ws.current?.send(JSON.stringify({ command: "fetch_messages", message: "fetch" }));
       };
 
       const showData = (e: MessageEvent) => {
         const { messages } = JSON.parse(e.data);
         if (messages) {
-          setMessagesList(
-            messages.sort((a: TMessage, b: TMessage) => {
+          seMessagesList(
+            messages.sort((a: Message, b: Message) => {
               if (dayjs(a.sent_at) > dayjs(b.sent_at)) return 1;
               else return -1;
             })
@@ -77,17 +68,17 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
         } else {
           const { sender, hashcode, text, sent_at, is_read } = JSON.parse(e.data);
           console.log(e.data);
-          setMessagesList((messages) => [
+          seMessagesList((messages) => [
             ...messages,
             { hashcode: hashcode, sender: sender, text: text, sent_at: sent_at, is_read },
           ]);
         }
       };
-      ws.current?.addEventListener("open", getMessages);
+      ws.current?.addEventListener("open", geMessages);
       ws.current?.addEventListener("message", showData);
 
       return () => {
-        ws.current?.removeEventListener("open", getMessages);
+        ws.current?.removeEventListener("open", geMessages);
         ws.current?.removeEventListener("message", showData);
       };
     }
@@ -136,11 +127,7 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
             key={message.hashcode}
             text={message.text}
             hashcode={message.hashcode}
-            sent={
-              dayjs().isSame(dayjs(message.sent_at), "day")
-                ? dayjs(message.sent_at).format("HH:mm")
-                : dayjs(message.sent_at).format("DD.MM.YYYY")
-            }
+            sent={dayjs(message.sent_at).format(dayjs().isSame(dayjs(message.sent_at), "day") ? "HH:mm" : "DD.MM.YYYY")}
             isRead={message.is_read}
             isMyMessage={email === message.sender}
             avaColor="red"
@@ -162,7 +149,7 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
                 <Textarea
                   onChange={onChange}
                   onKeyUp={(e) => {
-                    if (e.key == "Enter" && e.ctrlKey) handleSubmit(onSubmitHandler)();
+                    if (e.key === "Enter" && e.ctrlKey) handleSubmit(onSubmitHandler)();
                   }}
                   defaultValue=""
                   value={value}

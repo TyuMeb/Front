@@ -1,7 +1,7 @@
 import { TMenuItem } from "@src/components/layouts/account-layout/sidebar";
 import { Icon } from "@src/components/icon";
 
-export const CUSTOMER_ACCOUNT_MENU_CONFIG: TMenuItem[] = [
+export const CUSTOMER_MENU_ITEMS: TMenuItem[] = [
   { id: 1, alias: "/my-orders", name: "Мои заказы", icon: <Icon style={{ marginRight: "8px" }} glyph="couch" /> },
   { id: 2, alias: "/chats", name: "Чаты", icon: <Icon style={{ marginRight: "8px" }} glyph="chats" /> },
   { id: 3, alias: "/archives", name: "Архивы", icon: <Icon style={{ marginRight: "8px" }} glyph="archives" /> },

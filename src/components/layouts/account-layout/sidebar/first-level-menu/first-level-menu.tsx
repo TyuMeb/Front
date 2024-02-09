@@ -3,13 +3,13 @@
 import React, { FC, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./first-level-menu.module.scss";
-import { TMenuProps } from "../sidebar";
+import { MenuProps } from "../sidebar";
 import { SecondLevelMenu } from "../second-level-menu/second-level-menu";
 import { useRouter } from "next/navigation";
 
 const cx = classNames.bind(styles);
 
-export const FirstLevelMenu: FC<TMenuProps> = ({ menuItems, route }) => {
+export const FirstLevelMenu: FC<MenuProps> = ({ menuItems, route }) => {
   const [activeItem, setActiveItem] = useState(0);
   const [openItems, setOpenItems] = useState(new Array(menuItems.length).fill(false));
   const router = useRouter();
@@ -35,6 +35,7 @@ export const FirstLevelMenu: FC<TMenuProps> = ({ menuItems, route }) => {
               <p className={cx("text-small-semibold")}>
                 {item.name} {!item.collapsible?.length ? "" : `(${item.collapsible?.length})`}
               </p>
+              {!!item.unread && <div className={cx("firstLevelLink_bullet")} />}
             </button>
             {item.collapsible && openItems[i] && <SecondLevelMenu menuItems={item.collapsible} route={itemPathname} />}
           </li>
