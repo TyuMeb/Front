@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { Home } from "@src/components/home";
+import { useEffect } from "react";
+import { Home } from "@src/domains/home/ui/home";
 import { useAppDispatch } from "@src/redux/hooks";
 import { openModal, setTypeModal } from "@src/redux/slices/modal-slice";
 
