@@ -9,11 +9,9 @@ import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@src/redux/hooks";
 import { setUser } from "@src/redux/slices/users-slice";
 import { removeCookie } from "typescript-cookie";
-import { AccountMenu } from "../../../../app/widgets/account/menu/menu";
 import { useUser } from "@src/redux/slices/users-slice";
-import { CUSTOMER_MENU_ITEMS, CONTRACTOR_MENU_ITEMS } from "@src/app/widgets/account/menu/constants";
-import { OrdersMenu } from "@src/app/widgets/account/orders-menu";
-import { OffersMenu } from "@src/app/widgets/account/offers-menu";
+import { AccountMenu } from "@src/widgets/account/menu/menu";
+import { CUSTOMER_MENU_ITEMS, CONTRACTOR_MENU_ITEMS } from "@src/widgets/account/menu/constants";
 
 const cx = classNames.bind(styles);
 
@@ -26,6 +24,7 @@ export type MenuItem = {
   icon?: JSX.Element;
   collapsible?: MenuItem[];
   unread?: boolean;
+  children?: React.ReactNode;
 };
 
 export type MenuProps = {
@@ -38,7 +37,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
   const router = useRouter();
   const user = useUser();
 
-  const menuItems = user?.role === "client" ? CUSTOMER_MENU_ITEMS : CONTRACTOR_MENU_ITEMS;
+  const menuItems = user?.role !== "client" ? CUSTOMER_MENU_ITEMS : CONTRACTOR_MENU_ITEMS;
 
   const onHandlerClick = () => {
     router.push("/");
@@ -50,10 +49,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
   return (
     <aside className={cx("menu", className)}>
       <nav className={cx("navigation")}>
-        {user?.role === "client" && <OrdersMenu />}
-        {user?.role === "contractor" && <OffersMenu />}
-
-        {menuItems && <AccountMenu menuItems={menuItems} />}
+        {user && <AccountMenu menuItems={menuItems} />}
 
         <Button icon={<Icon glyph="exit" />} variant="exit" onClick={onHandlerClick}>
           Выйти

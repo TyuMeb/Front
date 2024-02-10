@@ -47,8 +47,8 @@
 
 .inputAuth:focus ~ .textLabel {
   @include text;
-  @include textTiny;
-
+  font-size: 14px;
+  line-height: 21px;
   top: -23%;
   z-index: 1;
   background-color: white;
@@ -58,8 +58,8 @@
 
 .inputAuth:not(:placeholder-shown) ~ .textLabel {
   @include text;
-  @include textTiny;
-
+  font-size: 14px;
+  line-height: 21px;
   top: -23%;
   padding: 0 4px;
   z-index: 1;

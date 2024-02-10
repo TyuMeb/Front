@@ -3,16 +3,6 @@
   background-repeat: no-repeat;
 }
 
-@mixin beforeOrAfter {
-  content: "";
-  position: absolute;
-}
-
-@mixin reset-button {
-  border: none;
-  cursor: pointer;
-}
-
 @mixin headline {
   font-family: "Raleway", Arial, sans-serif;
   font-style: normal;
@@ -34,11 +24,6 @@
 @mixin textSmall {
   font-size: 16px;
   line-height: 24px;
-}
-
-@mixin textTiny {
-  font-size: 14px;
-  line-height: 21px;
 }
 
 @mixin font-source-sans($size: false, $colour: false, $weight: false, $lh: false, $ff: var(--font-open-sans)) {

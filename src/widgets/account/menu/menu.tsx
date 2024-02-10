@@ -20,6 +20,7 @@ export const AccountMenu: FC<MenuProps> = ({ menuItems, children }) => {
   return (
     <ul className={cx("firstLevelMenu")}>
       {menuItems.map((item) => {
+        if (!item.href) return item.children;
         return (
           <li
             key={item.href || item.name}

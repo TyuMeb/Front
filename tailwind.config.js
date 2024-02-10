@@ -19,6 +19,7 @@ module.exports = {
         asphalt: "#B5B3B2",
         pink: "#FF6894",
         light: "#9CA2BD",
+        scramble: "#FFFAEE",
       },
     },
   },
