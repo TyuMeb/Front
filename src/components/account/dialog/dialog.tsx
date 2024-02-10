@@ -5,7 +5,6 @@ import styles from "./dialog.module.scss";
 import { Button } from "@src/shared/ui/button";
 import { WrapperForm, InputPreviewFiles, PreviewFiles, FilesPreview } from "@src/components/account/wrapper-form";
 import { Textarea } from "@src/shared/ui/inputs/textarea";
-
 import Paperclip from "@public/icons/paperclip.svg";
 import { Icon } from "@src/components/icon";
 import { useForm, Controller } from "react-hook-form";
@@ -15,29 +14,11 @@ import { WrapperInfo } from "./wrapper-info";
 import { Chat } from "./chat/chat";
 import { getCookie } from "typescript-cookie";
 import { MessageItem } from "./message-item/message-item";
-
-type TMessage = {
-  id: number;
-  sent_at: string;
-  sender: string;
-  text: string;
-  unread?: boolean;
-};
-
-const email = "user0@mail.ru";
-
-const dateConverter = (d: string): string => {
-  const messageDate = new Date(d);
-  const currDate = new Date();
-  if (messageDate.getDate() !== currDate.getDate())
-    return `
-      ${messageDate.getDate().toLocaleString(undefined, { minimumIntegerDigits: 2 })}.
-      ${(messageDate.getMonth() + 1).toLocaleString(undefined, { minimumIntegerDigits: 2 })}.
-      ${messageDate.getFullYear()}`;
-  return `
-    ${messageDate.getHours().toLocaleString(undefined, { minimumIntegerDigits: 2 })}:
-    ${messageDate.getMinutes().toLocaleString(undefined, { minimumIntegerDigits: 2 })}`;
-};
+import { useUser } from "@src/redux/slices/users-slice";
+import { UserAccount } from "@src/redux/api/generated";
+import { useParams } from "next/navigation";
+import { Message } from "@src/redux/api/generated";
+import dayjs from "dayjs";
 
 export type OrderInfo = {
   customer?: string;
@@ -55,44 +36,53 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
   const measuredForm = useMeasuredRef();
   const measuredDialog = useMeasuredRef();
   const [filesPreview, setFilesPreview] = useState<FilesPreview[] | []>([]);
-  // const dispatch = useAppDispatch();
-  // const { selectedPerformer } = useAppSelector((store) => store.account);
   const ws = useRef<WebSocket | null>(null);
-  const [messagesList, setMessagesList] = useState<TMessage[]>([]);
+  const [messagesList, seMessagesList] = useState<Message[]>([]);
+  const [email, setEmail] = useState<string>("");
+  const params = useParams();
+  const user: UserAccount | null = useUser();
 
   useEffect(() => {
-    if (!ws.current) ws.current = new WebSocket("wss://api.whywe.ru/ws/chat/2/", getCookie("access_token"));
+    if (user) {
+      setEmail(user.email);
 
-    const getMessages = () => {
-      ws.current?.send(JSON.stringify({ command: "fetch_messages", message: "fetch" }));
-    };
+      if (!ws.current && params.order !== "null")
+        user.role === "client"
+          ? (ws.current = new WebSocket(`wss://api.whywe.ru/ws/chat/${params.order}/`, getCookie("access_token")))
+          : (ws.current = new WebSocket(`wss://api.whywe.ru/ws/chat/${params.order}/`, getCookie("access_token")));
 
-    const showData = (e: MessageEvent) => {
-      const { messages } = JSON.parse(e.data);
-      if (messages) {
-        setMessagesList(
-          messages.sort((a: TMessage, b: TMessage) => {
-            if (new Date(a.sent_at) > new Date(b.sent_at)) return 1;
-            else return -1;
-          })
-        );
-        console.log(messages);
-      } else {
-        const { message, sender } = JSON.parse(e.data);
-        setMessagesList((messages) => [
-          ...messages,
-          { id: 9999, sender: sender, text: message, sent_at: new Date().toString() },
-        ]);
-      }
-    };
-    ws.current?.addEventListener("open", getMessages);
-    ws.current?.addEventListener("message", showData);
+      const geMessages = () => {
+        ws.current?.send(JSON.stringify({ command: "fetch_messages", message: "fetch" }));
+      };
 
-    return () => {
-      ws.current?.removeEventListener("open", getMessages);
-      ws.current?.removeEventListener("message", showData);
-    };
-  }, []);
+      const showData = (e: MessageEvent) => {
+        const { messages } = JSON.parse(e.data);
+        if (messages) {
+          seMessagesList(
+            messages.sort((a: Message, b: Message) => {
+              if (dayjs(a.sent_at) > dayjs(b.sent_at)) return 1;
+              else return -1;
+            })
+          );
+          console.log(messages);
+        } else {
+          const { sender, hashcode, text, sent_at, is_read } = JSON.parse(e.data);
+          console.log(e.data);
+          seMessagesList((messages) => [
+            ...messages,
+            { hashcode: hashcode, sender: sender, text: text, sent_at: sent_at, is_read },
+          ]);
+        }
+      };
+      ws.current?.addEventListener("open", geMessages);
+      ws.current?.addEventListener("message", showData);
+
+      return () => {
+        ws.current?.removeEventListener("open", geMessages);
+        ws.current?.removeEventListener("message", showData);
+      };
+    }
+  }, [user]);
 
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
@@ -109,10 +99,11 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
 
     const formFiles = new FormData();
     files.forEach((file) => formFiles.append(`file-${file.id}`, file.file));
-    console.log({ files, text: data.chat, formData: formFiles, filesPreview });
-    ws.current?.send(
-      JSON.stringify({ command: "new_message", message: { files, text: data.chat, formData: formFiles, filesPreview } })
-    );
+    // console.log({ files, text: data.chat, formData: formFiles, filesPreview });
+    // ws.current?.send(
+    //   JSON.stringify({ command: "new_message", message: { files, text: data.chat, formData: formFiles, filesPreview } })
+    // );
+    ws.current?.send(JSON.stringify({ command: "new_message", message: data.chat }));
     resetField("chat");
   };
 
@@ -130,27 +121,23 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
     <article className={styles.dialog} {...props}>
       <WrapperInfo orderInfo={orderInfo} getObserver={measuredDialog.getObserver} />
 
-      <div
-        style={{
-          marginBottom: `${measuredForm.elementHeight + 28}px`,
-          marginTop: `${measuredDialog.elementHeight}px`,
-        }}
-        className={styles.wrapper}
-      >
-        {messagesList.map((m, i) => (
+      <Chat heightForm={measuredForm.elementHeight} heightDialog={measuredDialog.elementHeight}>
+        {messagesList.map((message) => (
           <MessageItem
-            key={i}
-            text={m.text}
-            messageId={m.id}
-            sent={dateConverter(m.sent_at)}
-            unread={!!(i % 2)}
-            isMyMessage={email === m.sender}
+            key={message.hashcode}
+            text={message.text}
+            hashcode={message.hashcode}
+            sent={dayjs(message.sent_at).format(dayjs().isSame(dayjs(message.sent_at), "day") ? "HH:mm" : "DD.MM.YYYY")}
+            isRead={message.is_read}
+            isMyMessage={email === message.sender}
             avaColor="red"
+            markMessagesAsRead={(hash: string[]): boolean => {
+              ws.current?.send(JSON.stringify({ command: "read_messages", hashcodes: [hash] }));
+              return true;
+            }}
           />
         ))}
-      </div>
-
-      <Chat heightForm={measuredForm.elementHeight} heightDialog={measuredDialog.elementHeight} />
+      </Chat>
 
       <div className={styles.wrapperForm} ref={measuredForm.getObserver}>
         <form onSubmit={handleSubmit(onSubmitHandler)}>
@@ -159,7 +146,15 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
               control={control}
               name="chat"
               render={({ field: { onChange, value, ref } }) => (
-                <Textarea onChange={onChange} defaultValue="" value={value} ref={ref} />
+                <Textarea
+                  onChange={onChange}
+                  onKeyUp={(e) => {
+                    if (e.key === "Enter" && e.ctrlKey) handleSubmit(onSubmitHandler)();
+                  }}
+                  defaultValue=""
+                  value={value}
+                  ref={ref}
+                />
               )}
             />
 

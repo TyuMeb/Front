@@ -1,6 +1,6 @@
 "use client";
 
-import React, { HTMLAttributes } from "react";
+import { HTMLAttributes } from "react";
 import classNames from "classnames/bind";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

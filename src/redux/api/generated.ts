@@ -232,62 +232,31 @@ export interface QuestionnaireShortType {
 }
 
 export interface Message {
-  /** ID */
+  /** ID (может отсутствовать) */
   id?: number;
+  /** Уникальный хеш сообщения */
+  hashcode: string;
+  /** Дата отправки */
+  sent_at: string;
   /** Отправитель */
   sender: string;
-  /**
-   * Текст сообщения
-   * @minLength 1
-   */
+  /** Текст сообщения */
   text: string;
-  /**
-   * Время отправки
-   * @format date-time
-   */
-  sent_at?: string;
-}
-
-export interface MessageOLD {
-  /** ID */
-  id?: number;
-  /** Отправитель */
-  from_user: number;
-  /**
-   * Текст сообщения
-   * @minLength 1
-   */
-  text_content: string;
-  /**
-   * Время отправки
-   * @format date-time
-   */
-  timestamp?: string;
+  /** Флаг прочитанности получателем */
+  is_read: boolean;
 }
 
 export interface Chat {
-  /** ID */
+  /** ID (может отсутствовавть при создании чата) */
   id?: number;
-  client?: string;
-  contractor?: string;
-  messages?: Message[];
-}
-
-export interface ChatOLD {
-  /** ID */
-  id?: number;
-  /**
-   * Client
-   * @minLength 1
-   */
+  /** Заказчик */
   client: string;
-  /**
-   * Contractor
-   * @minLength 1
-   */
+  /** Исполнитель */
   contractor: string;
-  /** Messages */
-  messages?: string;
+  /** Последнее сообщение чата (может отсутствовавть при создании чата) */
+  messages?: Message[];
+  /** Количество непрочитанных сообщений в чате (может отсутствовавть при создании чата) */
+  unread_messages: number;
 }
 
 export interface CooperationOffer {

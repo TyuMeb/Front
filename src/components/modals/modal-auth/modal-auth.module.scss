@@ -85,7 +85,6 @@
 }
 
 .buttonLink {
-  @include reset-button;
   height: 72px;
   width: 100%;
   background-color: $almond;
@@ -214,8 +213,6 @@
 }
 
 .linkText {
-  @include reset-button;
-
   background-color: inherit;
   cursor: pointer;
   margin: 4px 0 46px;
