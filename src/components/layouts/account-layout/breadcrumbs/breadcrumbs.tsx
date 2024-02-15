@@ -1,6 +1,6 @@
 "use client";
 
-import { HTMLAttributes, useCallback } from "react";
+import React, { HTMLAttributes, useCallback } from "react";
 import classNames from "classnames/bind";
 
 import styles from "./breadcrumbs.module.scss";
@@ -34,8 +34,7 @@ type BreadcrumbsProps = {
   countNestedRoute: number;
 } & HTMLAttributes<HTMLUListElement>;
 
-export const Breadcrumbs = ({ countNestedRoute, className, ...props }: BreadcrumbsProps) => {
-  const breadcrumbs: any = [];
+export const Breadcrumbs = ({ breadcrumbs, countNestedRoute, className, ...props }: BreadcrumbsProps) => {
   const pathname = usePathname();
   const pathNestedRoutes = getPathNestedRoutes(pathname);
 

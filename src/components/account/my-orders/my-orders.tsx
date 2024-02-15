@@ -4,7 +4,7 @@ import React, { HTMLAttributes } from "react";
 
 import styles from "./my-orders.module.scss";
 import { NoCard } from "@src/components/account/card/no-card";
-import { AddFiles } from "@src/components/account/orders/add-files";
+import { AddFiles } from "@src/components/account/my-orders/add-files";
 import { Icon } from "src/components/icon";
 import { getFiles } from "@src/helpers";
 import { FilesList } from "@src/components/account/wrapper-form";

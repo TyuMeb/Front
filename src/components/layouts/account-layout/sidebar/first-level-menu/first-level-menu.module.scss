@@ -1,0 +1,28 @@
+.firstLevelMenu {
+  display: grid;
+  row-gap: 24px;
+  margin-bottom: 80px;
+}
+
+.firstLevelLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  box-sizing: border-box;
+  border-left: 4px solid transparent;
+
+  &_bullet {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: $menu-item-bullet-color;
+    top: calc(50% - 4px);
+    left: calc(100% + 8px);
+  }
+}
+
+.activatedMenu {
+  border-left: 4px solid $mustard;
+}
