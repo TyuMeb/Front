@@ -39,7 +39,7 @@ export function OrderForm({ onBack, questionnaireTypeId }: Props) {
   const [getOrder, { isLoading: isLoadingOrder, isSuccess }] = useLazyOrderQuery();
 
   const { data: { chapters = [] } = {}, isLoading: isLoadingChapters } = useQuestionnaireQuery(
-    order?.questionnaire_type_id as number,
+    (order?.questionnaire_type_id || questionnaireTypeId) as number,
     {
       skip: !(order?.questionnaire_type_id || questionnaireTypeId),
     }

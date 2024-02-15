@@ -1,0 +1,12 @@
+.secondLevelLink {
+  &__arrow {
+    border-left: 8px solid #9ca2bd;
+    border-bottom: 5.5px solid transparent;
+    border-top: 5.5px solid transparent;
+    transition: transform 0.3s;
+
+    &_opened {
+      transform: rotate(90deg);
+    }
+  }
+}

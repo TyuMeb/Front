@@ -77,7 +77,8 @@
 }
 
 .message {
-  @include textTiny;
+  font-size: 14px;
+  line-height: 21px;
   @include text;
 
   display: inline-block;
