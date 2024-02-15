@@ -25,7 +25,6 @@
 
 .image {
   height: auto;
-  flex-shrink: 0;
 
   @media (max-width: 1024px) {
     display: none;

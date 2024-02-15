@@ -24,7 +24,7 @@ export const Chats = (props: ChatsProps) => {
     <section className={styles.wrapperPerformers} {...props}>
       {!performers.length ? (
         <NoCard name="У вас пока нет заказов. Но вы всегда можете исправить это, создав его.">
-          <Link href="/order">Сделать заказ</Link>
+          <Link href="/">Сделать заказ</Link>
         </NoCard>
       ) : (
         <></>
