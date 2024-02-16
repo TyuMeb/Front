@@ -7,5 +7,5 @@ export const CUSTOMER_MENU_ITEMS: TMenuItem[] = [
   { id: 3, alias: "/archives", name: "Архивы", icon: <Icon style={{ marginRight: "8px" }} glyph="archives" /> },
   { id: 4, alias: "/settings", name: "Настройки", icon: <Icon style={{ marginRight: "8px" }} glyph="settings" /> },
   { id: 5, alias: "/help", name: "Помощь", icon: <Icon style={{ marginRight: "8px" }} glyph="help" /> },
-  { id: 6, alias: "/help1", name: "Сделать заказ", icon: <Icon style={{ marginRight: "8px" }} glyph="add" /> },
+  { id: 6, alias: "/new-order", name: "Сделать заказ", icon: <Icon style={{ marginRight: "8px" }} glyph="add" /> },
 ];

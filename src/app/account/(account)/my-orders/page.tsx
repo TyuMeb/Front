@@ -1,7 +1,7 @@
 "use client";
 
-import { MyOffer } from "@src/components/account/my-offer";
+import { CustomerOrders } from "@src/components/account/customer-orders";
 
 export default function ArchivesPage() {
-  return <MyOffer />;
+  return <CustomerOrders />;
 }

@@ -9,7 +9,6 @@ import { ThirdLevelMenu } from "../third-level-menu/third-level-menu";
 const cx = classNames.bind(styles);
 
 export const SecondLevelMenu: FC<MenuProps> = ({ menuItems, route }) => {
-  const [activeItem, setActiveItem] = useState(0);
   const [openItems, setOpenItems] = useState(new Array(menuItems.length).fill(false));
 
   return (
@@ -19,19 +18,16 @@ export const SecondLevelMenu: FC<MenuProps> = ({ menuItems, route }) => {
           <li key={item.id}>
             <button
               type="button"
-              className={cx("secondLevelLink", activeItem === i ? "" : "")}
+              className={cx("secondLevelLink")}
+              title={item.name}
               onClick={() => {
-                setActiveItem(i);
                 setOpenItems((state) => state.map((el, n) => (n === i ? (el = !el) : el)));
               }}
             >
               <div className={cx("secondLevelLink__arrow", openItems[i] ? "secondLevelLink__arrow_opened" : "")} />
-              <p className={cx("text-small-semibold")}>
-                {item.name}
-                {/* {!item.collapsible?.length ? "" : `(${item.collapsible?.length})`} */}
-              </p>
+              <p className={cx("text-small-semibold", "secondLevelLink__name")}>{item.name}</p>
               {!!item.collapsible?.some((chat) => chat.unread === true) && (
-                <div className={cx("secondLevelLink_bullet")} />
+                <div className={cx("secondLevelLink__bullet")} />
               )}
             </button>
             {item.collapsible && openItems[i] && <ThirdLevelMenu menuItems={item.collapsible} route={route} />}

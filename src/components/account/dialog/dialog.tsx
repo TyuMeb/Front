@@ -46,6 +46,8 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
     if (user) {
       setEmail(user.email);
 
+      console.log(params.order);
+
       if (!ws.current && params.order !== "null")
         user.role === "client"
           ? (ws.current = new WebSocket(`wss://api.whywe.ru/ws/chat/${params.order}/`, getCookie("access_token")))

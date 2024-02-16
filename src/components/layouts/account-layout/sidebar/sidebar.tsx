@@ -79,21 +79,16 @@ export const Sidebar = ({ className }: SidebarProps) => {
     error: ordersDataLoadingError,
     isLoading: isOrdersDataLoading,
   } = useClientActiveOrdersQuery();
+
   const { data: chats = [], error: chatsLoadingError, isLoading: isChatsDataLoading } = useGetChatsQuery();
+
   const dispatch = useAppDispatch();
   const router = useRouter();
   const user: UserAccount | null = useUser();
   const [menuItems, setMenuItems] = useState<TMenuItem[] | null>(null);
 
   useEffect(() => {
-    if (
-      !isOrdersDataLoading &&
-      !ordersDataLoadingError &&
-      !chatsLoadingError &&
-      !isChatsDataLoading &&
-      orders &&
-      user
-    ) {
+    if (orders && chats && user) {
       const unreadMessagesPresent = chats.some((chat) => chat.unread_messages);
 
       user.role === "client"
