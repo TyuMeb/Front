@@ -2,8 +2,11 @@
   display: grid;
   row-gap: 12px;
   margin-top: 16px;
-  max-width: 100%;
-  list-style: none;
+
+  &__item {
+    list-style: none;
+    padding-left: 0;
+  }
 }
 
 .secondLevelLink {

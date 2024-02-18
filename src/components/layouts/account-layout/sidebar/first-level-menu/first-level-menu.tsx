@@ -21,9 +21,9 @@ export const FirstLevelMenu: FC<MenuProps> = ({ menuItems, route }) => {
         const itemPathname = route + item.alias;
 
         return (
-          <li key={item.id}>
-            <button
-              type="button"
+          <li key={item.id} className={cx("firstLevelMenu__item")}>
+            <span
+              role="button"
               className={cx("firstLevelLink", itemPathname.startsWith(currentPath) ? "activatedMenu" : "")}
               onClick={() => {
                 setOpenItems((state) => state.map((el, n) => (n === i ? (el = !el) : el)));
@@ -31,11 +31,12 @@ export const FirstLevelMenu: FC<MenuProps> = ({ menuItems, route }) => {
               }}
             >
               {item.icon}
-              <p className={cx("text-small-semibold")}>
-                {item.name} {!item.collapsible?.length ? "" : `(${item.collapsible?.length})`}
-              </p>
-              {!!item.unread && <div className={cx("firstLevelLink_bullet")} />}
-            </button>
+              <span className={cx("text-small-semibold")}>
+                {item.name}
+                {!item.collapsible?.length ? "" : ` (${item.collapsible?.length})`}
+                {!!item.unread && <span className={cx("firstLevelLink_bullet")} />}
+              </span>
+            </span>
             {item.collapsible && openItems[i] && <SecondLevelMenu menuItems={item.collapsible} route={itemPathname} />}
           </li>
         );

@@ -48,7 +48,7 @@ const parseOrdersToOrderItems = (ordersArr: any, chatsArr: Chat[], unreadMessage
       ...acc,
       {
         id: order.id,
-        alias: "",
+        alias: `/${order.id}`,
         name: order.name,
         contractor: Number(order.contractor),
         collapsible: !order.offers

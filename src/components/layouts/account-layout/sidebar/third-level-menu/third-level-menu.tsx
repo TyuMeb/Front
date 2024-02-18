@@ -22,18 +22,16 @@ export const ThirdLevelMenu: FC<MenuProps> = ({ menuItems, route }) => {
         return (
           <li
             key={item.id}
-            className={cx("thirdLevelItem", itemPathname.startsWith(currentPath) ? "activatedMenu" : "")}
+            className={cx("thirdLevelLink", currentPath === itemPathname ? "activatedSubmenu" : "")}
+            role="button"
+            onClick={() => {
+              router.push(itemPathname);
+            }}
           >
-            <button
-              type="button"
-              className={cx("thirdLevelLink")}
-              onClick={() => {
-                router.push(itemPathname);
-              }}
-            >
-              <p className="text-small">{item.contractor}</p>
-              {item.unread && <div className={cx("thirdLevelLink_bullet")} />}
-            </button>
+            <p className={cx("text-small", "thirdLevelLink__name")}>
+              {item.contractor}
+              {item.unread && <span className={cx("thirdLevelLink_bullet")} />}
+            </p>
           </li>
         );
       })}

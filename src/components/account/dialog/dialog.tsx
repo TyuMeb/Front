@@ -37,7 +37,7 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
   const measuredDialog = useMeasuredRef();
   const [filesPreview, setFilesPreview] = useState<FilesPreview[] | []>([]);
   const ws = useRef<WebSocket | null>(null);
-  const [messagesList, seMessagesList] = useState<Message[]>([]);
+  const [messagesList, setMessagesList] = useState<Message[]>([]);
   const [email, setEmail] = useState<string>("");
   const params = useParams();
   const user: UserAccount | null = useUser();
@@ -45,46 +45,74 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
   useEffect(() => {
     if (user) {
       setEmail(user.email);
-
-      console.log(params.order);
-
-      if (!ws.current && params.order !== "null")
-        user.role === "client"
-          ? (ws.current = new WebSocket(`wss://api.whywe.ru/ws/chat/${params.order}/`, getCookie("access_token")))
-          : (ws.current = new WebSocket(`wss://api.whywe.ru/ws/chat/${params.order}/`, getCookie("access_token")));
-
-      const geMessages = () => {
-        ws.current?.send(JSON.stringify({ command: "fetch_messages", message: "fetch" }));
-      };
-
-      const showData = (e: MessageEvent) => {
-        const { messages } = JSON.parse(e.data);
-        if (messages) {
-          seMessagesList(
-            messages.sort((a: Message, b: Message) => {
-              if (dayjs(a.sent_at) > dayjs(b.sent_at)) return 1;
-              else return -1;
-            })
-          );
-          console.log(messages);
-        } else {
-          const { sender, hashcode, text, sent_at, is_read } = JSON.parse(e.data);
-          console.log(e.data);
-          seMessagesList((messages) => [
-            ...messages,
-            { hashcode: hashcode, sender: sender, text: text, sent_at: sent_at, is_read },
-          ]);
-        }
-      };
-      ws.current?.addEventListener("open", geMessages);
-      ws.current?.addEventListener("message", showData);
-
-      return () => {
-        ws.current?.removeEventListener("open", geMessages);
-        ws.current?.removeEventListener("message", showData);
-      };
+      console.log(user.email);
     }
   }, [user]);
+
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+
+    const wsDisconnect = () => {
+      ws.current?.removeEventListener("open", getMessages);
+      ws.current?.removeEventListener("message", showData);
+      ws.current?.removeEventListener("error", errorHandler);
+      ws.current?.removeEventListener("close", wsReconnect);
+      ws.current?.close();
+    };
+
+    const wsConnect = () => {
+      console.log("Connecting ...");
+      if (ws.current) wsDisconnect();
+      ws.current = new WebSocket(`wss://api.whywe.ru/ws/chat/${params.chatId}/`, getCookie("access_token"));
+      ws.current?.addEventListener("open", getMessages);
+      ws.current?.addEventListener("message", showData);
+      ws.current?.addEventListener("error", errorHandler);
+      ws.current?.addEventListener("close", wsReconnect);
+    };
+
+    const getMessages = () => {
+      console.log("Connection established");
+      if (ws.current?.readyState === 1)
+        ws.current?.send(JSON.stringify({ command: "fetch_messages", message: "fetch" }));
+    };
+
+    const wsReconnect = () => {
+      timer = setTimeout(() => {
+        console.log("Reconnect attempt");
+        wsConnect();
+      }, 5000);
+    };
+
+    const errorHandler = () => {
+      console.log("Websocket error");
+      wsReconnect();
+    };
+
+    const showData = (e: MessageEvent) => {
+      const messages = JSON.parse(e.data);
+      if (Array.isArray(messages)) {
+        setMessagesList(
+          messages.sort((a: Message, b: Message) => {
+            if (dayjs(a.sent_at) > dayjs(b.sent_at)) return 1;
+            else return -1;
+          })
+        );
+        console.log(messages);
+      } else if (messages.status) {
+        console.log(messages);
+      } else {
+        const { sender, hashcode, text, sent_at, is_read } = messages;
+        console.log(e.data);
+        setMessagesList((messages) => [...messages, { hashcode, sender, text, sent_at, is_read }]);
+      }
+    };
+
+    if (!ws.current) wsConnect();
+
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
@@ -134,7 +162,7 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
             isMyMessage={email === message.sender}
             avaColor="red"
             markMessagesAsRead={(hash: string[]): boolean => {
-              ws.current?.send(JSON.stringify({ command: "read_messages", hashcodes: [hash] }));
+              ws.current?.send(JSON.stringify({ command: "read_messages", hashcodes: [hash.toString()] }));
               return true;
             }}
           />
