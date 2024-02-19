@@ -36,11 +36,16 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
   const measuredForm = useMeasuredRef();
   const measuredDialog = useMeasuredRef();
   const [filesPreview, setFilesPreview] = useState<FilesPreview[] | []>([]);
-  const ws = useRef<WebSocket | null>(null);
+  const [websocket, setWebsocket] = useState<WebSocket | null>(null);
   const [messagesList, setMessagesList] = useState<Message[]>([]);
+  const [unreadMessagesQty, SetUnreadMessagesQty] = useState<number>(0);
   const [email, setEmail] = useState<string>("");
   const params = useParams();
   const user: UserAccount | null = useUser();
+
+  useEffect(() => {
+    console.log(unreadMessagesQty);
+  }, [unreadMessagesQty]);
 
   useEffect(() => {
     if (user) {
@@ -50,40 +55,36 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
   }, [user]);
 
   useEffect(() => {
+    let unreadQty: number = 0;
+    if (messagesList.length && email) {
+      unreadQty = messagesList.reduce(
+        (acc, message) => (!message.is_read && message.sender != email ? (acc += 1) : acc),
+        0
+      );
+    }
+    SetUnreadMessagesQty(unreadQty);
+  }, [messagesList]);
+
+  useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
 
-    const wsDisconnect = () => {
-      ws.current?.removeEventListener("open", getMessages);
-      ws.current?.removeEventListener("message", showData);
-      ws.current?.removeEventListener("error", errorHandler);
-      ws.current?.removeEventListener("close", wsReconnect);
-      ws.current?.close();
-    };
-
-    const wsConnect = () => {
-      console.log("Connecting ...");
-      if (ws.current) wsDisconnect();
-      ws.current = new WebSocket(`wss://api.whywe.ru/ws/chat/${params.chatId}/`, getCookie("access_token"));
-      ws.current?.addEventListener("open", getMessages);
-      ws.current?.addEventListener("message", showData);
-      ws.current?.addEventListener("error", errorHandler);
-      ws.current?.addEventListener("close", wsReconnect);
+    const wsInit = (): void => {
+      setWebsocket(new WebSocket(`wss://api.whywe.ru/ws/chat/${params.chatId}/`, getCookie("access_token")));
     };
 
     const getMessages = () => {
       console.log("Connection established");
-      if (ws.current?.readyState === 1)
-        ws.current?.send(JSON.stringify({ command: "fetch_messages", message: "fetch" }));
+      if (websocket?.readyState === 1) websocket.send(JSON.stringify({ command: "fetch_messages", message: "fetch" }));
     };
 
     const wsReconnect = () => {
       timer = setTimeout(() => {
         console.log("Reconnect attempt");
-        wsConnect();
+        wsInit();
       }, 5000);
     };
 
-    const errorHandler = () => {
+    const wsErrorHandler = () => {
       console.log("Websocket error");
       wsReconnect();
     };
@@ -107,11 +108,27 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
       }
     };
 
-    if (!ws.current) wsConnect();
+    if (websocket) {
+      websocket.addEventListener("open", getMessages);
+      websocket.addEventListener("message", showData);
+      websocket.addEventListener("error", wsErrorHandler);
+      websocket.addEventListener("close", wsReconnect);
+    }
 
     return () => {
+      if (websocket) {
+        websocket.removeEventListener("open", getMessages);
+        websocket.removeEventListener("message", showData);
+        websocket.removeEventListener("error", wsErrorHandler);
+        websocket.removeEventListener("close", wsReconnect);
+        websocket.close();
+      }
       if (timer) clearTimeout(timer);
     };
+  }, [websocket]);
+
+  useEffect(() => {
+    setWebsocket(new WebSocket(`wss://api.whywe.ru/ws/chat/${params.chatId}/`, getCookie("access_token")));
   }, []);
 
   useEffect(() => {
@@ -133,7 +150,7 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
     // ws.current?.send(
     //   JSON.stringify({ command: "new_message", message: { files, text: data.chat, formData: formFiles, filesPreview } })
     // );
-    ws.current?.send(JSON.stringify({ command: "new_message", message: data.chat }));
+    websocket?.send(JSON.stringify({ command: "new_message", message: data.chat }));
     resetField("chat");
   };
 
@@ -152,7 +169,7 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
       <WrapperInfo orderInfo={orderInfo} getObserver={measuredDialog.getObserver} />
 
       <Chat heightForm={measuredForm.elementHeight} heightDialog={measuredDialog.elementHeight}>
-        {messagesList.map((message) => (
+        {messagesList.map((message, i, arr) => (
           <MessageItem
             key={message.hashcode}
             text={message.text}
@@ -162,7 +179,13 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
             isMyMessage={email === message.sender}
             avaColor="red"
             markMessagesAsRead={(hash: string[]): boolean => {
-              ws.current?.send(JSON.stringify({ command: "read_messages", hashcodes: [hash.toString()] }));
+              websocket?.send(JSON.stringify({ command: "read_messages", hashcodes: [hash.toString()] }));
+              const tempArr = arr;
+              if (!tempArr[i].is_read) {
+                tempArr[i].is_read = true;
+                setMessagesList(tempArr);
+              }
+              // SetUnreadMessagesQty(qty => qty-=1);
               return true;
             }}
           />
