@@ -35,6 +35,7 @@ type BreadcrumbsProps = {
 } & HTMLAttributes<HTMLUListElement>;
 
 export const Breadcrumbs = ({ countNestedRoute, className, ...props }: BreadcrumbsProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const breadcrumbs: any = [];
   const pathname = usePathname();
   const pathNestedRoutes = getPathNestedRoutes(pathname);
@@ -65,7 +66,8 @@ export const Breadcrumbs = ({ countNestedRoute, className, ...props }: Breadcrum
 
       const step = countNestedRoute - 1;
 
-      breadcrumbs.forEach((firstMenuitem) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      breadcrumbs.forEach((firstMenuitem: { alias: any; name: string; secondBreadcrumbs: any[] }) => {
         const currentPathname = firstMenuitem.alias;
         const currentNestedRoutes = getPathNestedRoutes(currentPathname);
 
@@ -83,7 +85,7 @@ export const Breadcrumbs = ({ countNestedRoute, className, ...props }: Breadcrum
               return;
             }
 
-            secondMenuitem.thirdBreadcrumbs?.forEach((thirdMenuitem) => {
+            secondMenuitem.thirdBreadcrumbs?.forEach((thirdMenuitem: NestedBreadcrumbsItems) => {
               if (i === step + 2) {
                 generateNestedBreadcrumbs(thirdMenuitem, id);
                 return;

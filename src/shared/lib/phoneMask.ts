@@ -42,15 +42,17 @@ const changePhoneNumber = (e: ChangeEvent<HTMLInputElement>, previousValue: stri
   }
 };
 
-const phoneNumberMask = (e: ChangeEvent<HTMLInputElement>) => {
-  const input = e.target;
+export const phoneConversion = (value?: string) => {
+  if (!value) {
+    return;
+  }
 
-  const inputNumbersValue = getInputNumbersValue(input.value);
   let formattedInputValue = "";
+  const inputNumbersValue = getInputNumbersValue(value);
 
   // Маска для при вводе +
-  if (input.value[0] === "+") {
-    input.value = "+7";
+  if (value[0] === "+") {
+    value = "+7";
   }
 
   // Подстановка символов
@@ -75,12 +77,22 @@ const phoneNumberMask = (e: ChangeEvent<HTMLInputElement>) => {
       formattedInputValue += ` ${inputNumbersValue.substring(9, 11)}`;
     }
 
-    input.value = formattedInputValue;
-  } else if (input.value[0] === "+") {
-    input.value = "+7";
+    value = formattedInputValue;
+  } else if (value[0] === "+") {
+    value = "+7";
   } else {
-    input.value = "";
+    value = "";
   }
+
+  return value;
+};
+
+const phoneNumberMask = (e: ChangeEvent<HTMLInputElement>) => {
+  const input = e.target;
+
+  const value = phoneConversion(input.value);
+
+  input.value = value || "";
 
   return e;
 };
