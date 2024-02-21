@@ -17,7 +17,7 @@ export const AccountLayout = ({ countNestedRoute = 1, children, className, ...pr
   return (
     <div className={cx("wrapper", className)} {...props}>
       <Header className={cx("header")}>
-        <Breadcrumbs countNestedRoute={countNestedRoute} />
+        <Breadcrumbs countNestedRoute={countNestedRoute} breadcrumbs={[]} />
       </Header>
 
       <div className={cx("content")}>

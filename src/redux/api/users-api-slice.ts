@@ -22,8 +22,8 @@ const usersApi = apiSlice.injectEndpoints({
         body,
       }),
     }),
-    patchUsersMe: build.mutation<UserAccount, void>({
-      query: (body) => ({
+    patchUsersMe: build.mutation<UserAccount, UserAccount>({
+      query: (body: UserAccount) => ({
         url: "auth/users/me/",
         method: "PATCH",
         body,
@@ -92,6 +92,15 @@ const usersApi = apiSlice.injectEndpoints({
         body,
       }),
     }),
+    postUsersSetPassword: build.mutation({
+      query: (body: { new_password: string; re_new_password: string; current_password: string }) => {
+        return {
+          url: "/auth/users/set_password/",
+          method: "POST",
+          body,
+        };
+      },
+    }),
   }),
 });
 
@@ -108,4 +117,5 @@ export const {
   usePostUsersResetEmailConfirmMutation,
   usePostUsersResetPasswordMutation,
   usePostUsersResetPasswordConfirmMutation,
+  usePostUsersSetPasswordMutation,
 } = usersApi;

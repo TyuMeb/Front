@@ -17,16 +17,21 @@ export type CheckboxInputProps = {
 } & React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 export const CheckboxInput = forwardRef<HTMLInputElement, CheckboxInputProps>(
-  ({ textLabel, error, errorMessage, checked, disabled, ...props }, ref) => {
+  ({ textLabel, error, errorMessage, checked, disabled, type, ...props }, ref) => {
     return (
       <>
         <label htmlFor={props.id} className={cx(styles.container, props.className)}>
-          <input {...props} checked={checked} type="checkbox" className={cx("checkboxFieldHide")} ref={ref} />
+          <input
+            {...props}
+            disabled={disabled}
+            checked={checked}
+            type={type}
+            className={cx("checkboxFieldHide")}
+            ref={ref}
+          />
 
           <span className={cx("checkboxField", { checked, disabled, error: error && !disabled && !checked })}>
-            {!disabled && (
-              <Icon className={cx("checkboxFieldIcon", { checkboxFieldIconHide: checked === false })} glyph="checked" />
-            )}
+            <Icon className={cx("checkboxFieldIcon", { checkboxFieldIconHide: checked === false })} glyph="checked" />
           </span>
 
           <span
