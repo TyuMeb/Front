@@ -7,19 +7,23 @@ import { InputProps, Input } from "../input";
 
 const cx = classNames.bind(styles);
 
-export const PasswordInput = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) => {
+export const PasswordInput = forwardRef<HTMLInputElement, InputProps>(({ disabled, ...props }: InputProps, ref) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   return (
     <div className={cx("container")}>
-      <Input ref={ref} {...props} type={showPassword ? "text" : "password"} />
+      <Input ref={ref} disabled={disabled} {...props} type={showPassword ? "text" : "password"} />
 
       <button
-        className={cx("buttonShowPassword")}
+        className={cx("buttonShowPassword", { backgroundGray: disabled })}
         type="button"
-        onClick={!props.disabled ? () => setShowPassword(!showPassword) : undefined}
+        onClick={!disabled ? () => setShowPassword(!showPassword) : undefined}
       >
-        {showPassword ? <Icon className={cx("icon")} glyph="open_eye" /> : <Icon className={cx("icon")} glyph="eye" />}
+        {showPassword && !disabled ? (
+          <Icon className={cx("icon")} glyph="open_eye" />
+        ) : (
+          <Icon className={cx("icon")} glyph="eye" />
+        )}
       </button>
     </div>
   );

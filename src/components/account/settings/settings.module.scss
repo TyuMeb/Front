@@ -51,6 +51,7 @@
   @include font-source-sans(16px, $graphite-black, 400, 150%);
 }
 
-.firstCol {
-  grid-column: 1;
+.wrapperField {
+  max-width: "296px";
+  width: 100%;
 }

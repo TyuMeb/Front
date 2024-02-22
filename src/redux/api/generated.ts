@@ -9,6 +9,8 @@
  * ---------------------------------------------------------------
  */
 
+import { ReactNode } from "react";
+
 export interface TokenObtainPair {
   /**
    * Email
@@ -247,6 +249,8 @@ export interface Message {
 }
 
 export interface Chat {
+  name: ReactNode;
+  orderId: number;
   /** ID (может отсутствовавть при создании чата) */
   id?: number;
   /** Заказчик */
@@ -307,6 +311,7 @@ export interface ContractorAgreement {
 }
 
 export interface OrderOffer {
+  name: ReactNode;
   /** Id */
   id?: number;
   user_account?: UserAccount;

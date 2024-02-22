@@ -1,450 +1,270 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, Fragment, useId } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import React, { useState, useEffect, useMemo } from "react";
+import { ErrorOption, useForm } from "react-hook-form";
 import styles from "@src/components/account/settings/settings.module.scss";
 import { Button } from "@src/shared/ui/button";
-import { Input } from "@src/shared/ui/inputs";
+import { Input, PhoneInput } from "@src/shared/ui/inputs";
 import { CheckboxInput } from "@src/shared/ui/inputs";
 import { PasswordInput } from "@src/shared/ui/inputs";
-import { PhoneInputNew } from "@src/shared/ui/inputs/phoneNew/phoneNew";
+import { usePatchUsersMeMutation, usePostUsersSetPasswordMutation } from "@src/redux/api/users-api-slice";
+import { UserAccount } from "@src/redux/api/generated";
+import { setUser, useUser } from "@src/redux/slices/users-slice";
+import { useAppDispatch } from "@src/redux/hooks";
+import { phoneConversion } from "@src/shared/lib/phoneMask";
+import {
+  PATTERN_EMAIL,
+  PATTERN_FULLNAME,
+  PATTERN_PASSWORD,
+  SETTINGS_EMAIL,
+  SETTINGS_NAME,
+  SETTINGS_NEW_PASSWORD,
+  SETTINGS_NEW_PASSWORD_REPEAT,
+  SETTINGS_PHONE,
+  SETTINGS_PREVIOUS_PASSWORD,
+  SETTINGS_SURNAME,
+  VALIDATIONS_EMAIL,
+  VALIDATIONS_FULLNAME,
+  VALIDATIONS_PASSWORD,
+} from "@src/shared/constants/fields";
 
-export interface TSettings {
+type SettingsForm = {
   name: string;
-  surname: string;
+  surname?: string;
+  person_telephone?: string;
   email: string;
-  phone: string;
   currentPass: string;
   newPass: string;
   newPassRepeat: string;
-  empty: string;
-}
+  notifications: "email" | "off";
+};
 
 export const Settings = () => {
-  //стейт чекбокса подписки, должен приходить из API и устанавливаться в useState
-  const [noticeEmail, setNoticeEmail] = useState(true);
-  //Режим изменения данных (общий)
   const [isModifyMode, setIsModifyMode] = useState(false);
-  //Режим изменения данных пользователя
-  const [isPassModifyMode, setIsPassModifyMode] = useState(false);
-  //Режим изменения пароля
-  const [isDataModifyMode, setIsDataModifyMode] = useState(false);
-  //Данные пользователя (тестовый хардкод)
-  const [userData, setUserData] = useState<TSettings>({
-    name: "John",
-    surname: "Doe",
-    email: "JohnDoe@yahoo.com",
-    phone: "+7 (123) 456 78 90",
-    currentPass: "",
-    newPass: "",
-    newPassRepeat: "",
-    empty: "",
-  });
-  //Заглушка для выключения autoComplete
-  const id = useId();
+
+  const [noticeEmail, setNoticeEmail] = useState<["email"] | null>(null);
+
+  const [updateUsers, { isLoading: isLoadingUsers }] = usePatchUsersMeMutation();
+  const [updatePassword, { isLoading: isLoadingSetPassword }] = usePostUsersSetPasswordMutation();
+
+  const user: UserAccount | null = useUser();
+  const dispatch = useAppDispatch();
+
+  // Interface Segregation Principle. Интерфейс должен реализовываться под определенную задачу.
+  const getSettingsForm = (user: UserAccount) => {
+    const { name, surname, person_telephone, email } = user;
+
+    const phoneValue = phoneConversion(person_telephone || "");
+
+    return {
+      name: name || "",
+      surname: surname || "",
+      person_telephone: phoneValue || "",
+      email: email || "",
+      currentPass: "",
+      newPass: "",
+      newPassRepeat: "",
+      notifications: noticeEmail === null ? "off" : "email",
+    } as SettingsForm;
+  };
 
   const {
     register,
     handleSubmit,
     reset,
-    resetField,
+    setError,
     getValues,
-    getFieldState,
     trigger,
-    formState: { errors, isDirty, dirtyFields },
-  } = useForm<TSettings>({
+    watch,
+    formState: { errors, isDirty, dirtyFields, isValid },
+  } = useForm<SettingsForm>({
     defaultValues: useMemo(() => {
-      return userData;
-    }, [userData]),
+      if (user) {
+        setNoticeEmail(Boolean(user?.notifications?.length) ? ["email"] : null);
+        return getSettingsForm(user);
+      }
+    }, [user]),
     mode: "onChange",
+    values: {
+      name: "",
+      surname: "",
+      person_telephone: "",
+      email: "",
+      currentPass: "",
+      newPass: "",
+      newPassRepeat: "",
+      notifications: "email",
+    },
   });
 
-  //Включение режимов изменения данных при изменении соответствующих полей
   useEffect(() => {
-    if (dirtyFields.name || dirtyFields.surname || dirtyFields.phone) {
-      setIsDataModifyMode(true);
-      console.log("data Modify");
-    } else {
-      setIsDataModifyMode(false);
-      console.log("NO data Modify");
+    if (user) {
+      reset(getSettingsForm(user));
     }
-    if (dirtyFields.currentPass) {
-      setIsPassModifyMode(true);
-      console.log("pass Modify");
-    } else {
-      setIsPassModifyMode(false);
-      console.log("NO pass Modify");
-    }
-  }, [dirtyFields.name, dirtyFields.surname, dirtyFields.phone, dirtyFields.currentPass]);
+  }, [user]);
 
-  //Сброс полей формы при обновлении данных пользователя
+  // Зависимость паролей друг от друга, для дальнейшей валидации полей пароля.
+  const currentPass = watch("currentPass");
+  const newPass = watch("newPass");
+  const newPassRepeat = watch("newPassRepeat");
   useEffect(() => {
-    reset(userData);
-  }, [userData]);
+    if (isModifyMode) {
+      trigger("newPass");
+      trigger("currentPass");
+      trigger("newPassRepeat");
+    }
+  }, [currentPass, newPass, newPassRepeat, trigger]);
 
-  //Тут должно быть обращение к API для изменения состояния подписки на значение notice
-  const handleChangeNotice = (notice: boolean) => {
-    setNoticeEmail(notice);
-    console.log(`Информирование ${notice ? "включено" : "выключено"}`);
-  };
-
-  //включение режима изменения данных
   const handleModifyModeOn = () => {
     setIsModifyMode(true);
   };
 
-  //выключение режима изменения данных
   const handleModifyModeOff = () => {
     setIsModifyMode(false);
-    setIsDataModifyMode(false);
-    setIsPassModifyMode(false);
   };
 
-  //сброс данных в инпутах, связанных со сменой данных пользователя
-  const handleResetDataInputs = () => {
-    resetField("name");
-    resetField("surname");
-    resetField("phone");
-    resetField("email");
-  };
-
-  //вызов API изменения данных пользователя
-  const handlePatchUserData = () => {
-    //заглушка с выводом новых данных
-    console.log({
-      name: getValues().name,
-      surname: getValues().surname,
-      email: getValues().email,
-      person_telephone: getValues().phone,
-      role: "client",
-    });
-    //заглушка с обновлением данных пользователя
-    setUserData({
-      ...userData,
-      name: getValues().name,
-      surname: getValues().surname,
-      email: getValues().email,
-      phone: getValues().phone,
-    });
-  };
-
-  //сброс данных в инпутах, связанных со сменой пароля
-  const handleResetPassInputs = () => {
-    resetField("currentPass");
-    resetField("newPass");
-    resetField("newPassRepeat");
-  };
-
-  //вызов API изменения пароля
-  const handleChangePassword = () => {
-    //заглушка с выводом новых данных
-    console.log({
-      current_password: getValues().currentPass,
-      new_password: getValues().newPass,
-      re_new_password: getValues().newPassRepeat,
-    });
-  };
-
-  const handleSaveModiifications = () => {
-    if (isDataModifyMode) {
-      handlePatchUserData();
-      //тут должна быть обработка ошибок при обращении к API
-      handleResetDataInputs();
-      setIsDataModifyMode(false);
-    }
-    if (isPassModifyMode) {
-      handleChangePassword();
-      //тут должна быть обработка ошибок при обращении к API
-      handleResetPassInputs();
-      setIsPassModifyMode(false);
-    }
+  const handleModifications = () => {
     handleModifyModeOff();
     reset();
+    setNoticeEmail(getValues().notifications === "email" ? ["email"] : null);
   };
 
-  //обработка выхода из режима изменения данных по кнопке Отмена
-  const handleCancelModiifications = () => {
-    handleModifyModeOff();
-    reset();
+  const handleChangeNotice = (notice: ["email"] | null) => {
+    setNoticeEmail(notice);
   };
 
-  //обработка сабмита формы
-  const submit: SubmitHandler<TSettings> = () => {
-    handleSaveModiifications();
-  };
+  const changePassword = (dataPass: { new_password: string; re_new_password: string; current_password: string }) => {
+    updatePassword(dataPass)
+      .unwrap()
+      .then(() => {
+        handleModifications();
+      })
+      .catch((error) => {
+        if (error.status === 400 && error.data.hasOwnProperty("current_password")) {
+          const messageError = (
+            <p style={{ margin: 0 }}>
+              Неверный пароль.&nbsp;
+              <a href="/password-recovery">
+                <u>Забыли пароль?</u>
+              </a>
+            </p>
+          );
 
-  return (
-    <form onSubmit={handleSubmit(submit)}>
-      <div className={styles.inputsRegistration}>
-        <Input
-          className={styles.firstCol}
-          type="text"
-          label="Имя"
-          placeholder="Введите свое имя"
-          disabled={isModifyMode ? false : true}
-          id="firstName"
-          autoComplete="new-password"
-          error={errors.name ? true : false}
-          errorMessage={errors?.name ? errors.name.message : ""}
-          {...register("name", {
-            required: "Поле должно быть заполнено",
-            minLength: {
-              message: "Длина имени не менее 2 символов",
-              value: 2,
-            },
-            maxLength: {
-              message: "Длина имени не более 40 символов",
-              value: 40,
-            },
-            pattern: {
-              message: "Может включать только заглавные и строчные буквы и символ -",
-              value: RegExp("^[a-zA-Zа-яА-ЯеЁ\\-_]{2,}$"),
-            },
-          })}
-        />
-
-        <Input
-          type="text"
-          label="Фамилия"
-          placeholder="Введите свою фамилию"
-          disabled={isModifyMode ? false : true}
-          id="lastName"
-          autoComplete="new-password"
-          error={errors.surname ? true : false}
-          errorMessage={errors?.surname ? errors.surname.message : ""}
-          {...register("surname", {
-            required: "Поле должно быть заполнено",
-            minLength: {
-              message: "Длина фамилии не менее 2 символов",
-              value: 2,
-            },
-            maxLength: {
-              message: "Длина фамилии не более 40 символов",
-              value: 40,
-            },
-            pattern: {
-              message: "Может включать только заглавные и строчные буквы и символ -",
-              value: RegExp("^[a-zA-Zа-яА-ЯеЁ\\-_]{2,}$"),
-            },
-          })}
-        />
-
-        <p></p>
-
-        <PhoneInputNew
-          type="text"
-          label="Телефон"
-          placeholder="Введите номер телефона"
-          disabled={isModifyMode ? false : true}
-          id="phone"
-          value={getValues().phone}
-          autoComplete="new-password"
-          error={errors.phone ? true : false}
-          errorMessage={errors?.phone ? errors.phone.message : ""}
-          {...register("phone", {
-            required: "Поле должно быть заполнено",
-            minLength: {
-              message: "Номер должен начинаться с + и включать не менее 11 цифр",
-              value: 18,
-            },
-            maxLength: {
-              message: "Номер должен начинаться с + и включать не более 11 цифр",
-              value: 19,
-            },
-            pattern: {
-              message: "Может включать только префикс + и цифры",
-              value: RegExp("^\\+7\\s{1}\\(\\d{3}\\)\\s{1}\\d{3}\\s{1}\\d{2}\\s{1}\\d{2,3}$"),
-            },
-          })}
-        />
-
-        <Input
-          type="email"
-          label="E-mail"
-          placeholder="Введите свою почту"
-          disabled
-          id="email"
-          autoComplete="Off"
-          error={errors.email ? true : false}
-          errorMessage={errors?.email ? errors.email.message : ""}
-          {...register("email", {
-            required: "Поле должно быть заполнено",
-            minLength: {
-              message: "Длина адреса электронной почты не менее 8 символов",
-              value: 8,
-            },
-            maxLength: {
-              message: "Длина адреса электронной почты не более 40 символов",
-              value: 40,
-            },
-            pattern: {
-              message: "Указан некорректный адрес электронной почты",
-              value: RegExp(
-                "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
-              ),
-            },
-          })}
-        />
-
-        <p></p>
-
-        <PasswordInput
-          className={styles.firstCol}
-          type="password"
-          label="Старый пароль"
-          placeholder="Введите свой пароль"
-          id="password"
-          autoComplete={id}
-          error={errors.currentPass ? true : false}
-          errorMessage={errors?.currentPass ? errors.currentPass.message : ""}
-          disabled={isModifyMode ? false : true}
-          {...register("currentPass", {
-            minLength: {
-              message: "Длина пароля не менее 8 символов",
-              value: 8,
-            },
-            maxLength: {
-              message: "Длина пароля не более 64 символов",
-              value: 64,
-            },
-            pattern: {
-              message:
-                "Указан некорректный пароль. Используйте: A-Z, a-z, 0-9, ~!?@#$%^&*_-+()[]{}></|\"'. Длина пароля: 8-64 символов.",
-              value: RegExp("^[a-zA-Z0-9~!?@#\\$\\%^\\&\\*\\_\\-\\+\\(\\)\\[\\]\\{\\}><\\/\\|\"\\']*$"),
-            },
-            validate: (value) => {
-              if (value === "") {
-                resetField("newPass");
-                resetField("newPassRepeat");
-              } else if (isPassModifyMode && value === getValues().currentPass) {
-                trigger("newPass");
-              }
-              return undefined;
-            },
-          })}
-        />
-
-        <PasswordInput
-          type="password"
-          label="Новый пароль"
-          placeholder="Введите новый пароль"
-          id="newPassword"
-          autoComplete={id}
-          error={errors.newPass ? true : false}
-          errorMessage={errors?.newPass ? errors.newPass.message : ""}
-          disabled={isModifyMode && isPassModifyMode ? false : true}
-          {...register("newPass", {
-            required: isPassModifyMode ? "Поле должно быть заполнено" : false,
-            minLength: {
-              message: "Длина пароля не менее 8 символов",
-              value: 8,
-            },
-            maxLength: {
-              message: "Длина пароля не более 64 символов",
-              value: 64,
-            },
-            pattern: {
-              message:
-                "Указан некорректный пароль. Используйте: A-Z, a-z, 0-9, ~!?@#$%^&*_-+()[]{}></|\"'. Длина пароля: 8-64 символов.",
-              value: RegExp("^[a-zA-Z0-9~!?@#\\$\\%^\\&\\*\\_\\-\\+\\(\\)\\[\\]\\{\\}><\\/\\|\"\\']*$"),
-            },
-            validate: (value) => {
-              if (isPassModifyMode && value === getValues().currentPass) {
-                trigger("newPassRepeat");
-                return "Новый пароль должен отличаться";
-              }
-            },
-          })}
-        />
-
-        <PasswordInput
-          type="password"
-          label="Повторите пароль"
-          placeholder="Повторите новый пароль"
-          id="newPasswordRepeat"
-          autoComplete={id}
-          error={errors.newPassRepeat ? true : false}
-          errorMessage={errors?.newPassRepeat ? errors.newPassRepeat.message : ""}
-          disabled={isModifyMode && isPassModifyMode && !errors.newPass && getValues().newPass ? false : true}
-          {...register("newPassRepeat", {
-            required: isPassModifyMode ? "Поле должно быть заполнено" : false,
-            pattern: {
-              message:
-                "Указан некорректный пароль. Используйте: A-Z, a-z, 0-9, ~!?@#$%^&*_-+()[]{}></|\"'. Длина пароля: 8-64 символов.",
-              value: RegExp("^[a-zA-Z0-9~!?@#\\$\\%^\\&\\*\\_\\-\\+\\(\\)\\[\\]\\{\\}><\\/\\|\"\\']*$"),
-            },
-            validate: (value) => {
-              if (isPassModifyMode && value !== getValues().newPass) {
-                return "Пароли не совпадают";
-              }
-            },
-          })}
-        />
-        {
-          <input
-            type="password"
-            style={{ display: "none" }}
-            autoComplete="new-password"
-            {...register("empty", {})}
-            disabled
-          />
+          setError("currentPass", {
+            message: messageError,
+          } as { message: JSX.Element } & ErrorOption);
         }
-      </div>
+      });
+  };
 
+  const onSubmit = (data: SettingsForm) => {
+    const { notifications, person_telephone, newPass, currentPass, newPassRepeat, ...rest } = data;
+    const dataUser = { notifications: noticeEmail, ...rest } as UserAccount;
+
+    if (newPass && currentPass && newPassRepeat) {
+      changePassword({ current_password: currentPass, new_password: newPass, re_new_password: newPassRepeat });
+    }
+
+    if (
+      dirtyFields.notifications ||
+      dirtyFields.person_telephone ||
+      dirtyFields.email ||
+      dirtyFields.name ||
+      dirtyFields.surname
+    ) {
+      updateUsers({ person_telephone: person_telephone?.replaceAll(" ", ""), ...dataUser })
+        .unwrap()
+        .then(() => {
+          handleModifications();
+        })
+        .catch((error) => {
+          if (error.status === 400 && error.data.hasOwnProperty("person_telephone")) {
+            setError("person_telephone", { message: "Такой номер телефона уже существует." });
+          }
+        });
+
+      dispatch(setUser({ person_telephone, ...dataUser }));
+    }
+  };
+
+  const buttonsFormComponent = ({
+    editedForm,
+    isLoading,
+    formParameter,
+  }: {
+    editedForm: boolean;
+    isLoading: { isLoadingUsers: boolean; isLoadingSetPassword: boolean };
+    formParameter: {
+      changesForm: boolean;
+      isValidFields: boolean;
+    };
+  }) => {
+    const { isLoadingUsers, isLoadingSetPassword } = isLoading;
+
+    return (
       <div className={styles.buttonsSection}>
-        {!isModifyMode && (
+        {editedForm || isLoadingUsers || isLoadingSetPassword ? (
+          <>
+            <Button
+              isLoading={isLoadingUsers || isLoadingSetPassword}
+              disabled={!formParameter.changesForm || !formParameter.isValidFields}
+            >
+              Сохранить
+            </Button>
+
+            <Button type="button" onClick={handleModifications}>
+              Отменить
+            </Button>
+          </>
+        ) : (
           <Button type="button" onClick={handleModifyModeOn}>
             Редактировать
           </Button>
         )}
-
-        {isModifyMode && (
-          <>
-            <Button
-              disabled={
-                //Если нет изменений в инпутах формы или
-                !isDirty ||
-                //включен режим смены пароля и какой-то из инпутов невалиден
-                (isPassModifyMode &&
-                  (getFieldState("currentPass").invalid ||
-                    getFieldState("newPass").invalid ||
-                    getFieldState("newPassRepeat").invalid)) ||
-                //включен режим редактирования данных и какой-то из инпутов невалиден
-                (isDataModifyMode &&
-                  (getFieldState("name").invalid ||
-                    getFieldState("surname").invalid ||
-                    getFieldState("phone").invalid ||
-                    getFieldState("email").invalid))
-              }
-            >
-              Сохранить
-            </Button>
-            <Button type="button" onClick={handleCancelModiifications}>
-              Отменить
-            </Button>
-          </>
-        )}
       </div>
+    );
+  };
 
-      <div className={styles.wrapperCheckbox}>
-        <h2 className="subtitle2">Получать уведомления</h2>
+  const checkboxFormComponent = ({
+    editedForm,
+    noticeEmail,
+    onClick,
+  }: {
+    editedForm: boolean;
+    noticeEmail: ["email"] | null;
+    onClick: (notice: ["email"] | null) => void;
+  }) => {
+    const onClickEmailHandler = () => onClick(["email"]);
+    const onClickOffHandler = () => onClick(null);
 
-        <ul className={styles.list}>
-          <CheckboxInput
-            className={styles.checkbox}
-            textLabel="на e-mail"
-            checked={noticeEmail}
-            onChange={() => handleChangeNotice(true)}
-          />
-          <CheckboxInput
-            className={styles.checkbox}
-            textLabel="не получать"
-            checked={!noticeEmail}
-            onChange={() => handleChangeNotice(false)}
-          />
-        </ul>
-      </div>
+    return (
+      <ul className={styles.list}>
+        <CheckboxInput
+          type="radio"
+          className={styles.checkbox}
+          textLabel="на e-mail"
+          disabled={!editedForm}
+          value="email"
+          {...register("notifications")}
+          checked={noticeEmail !== null}
+          onClick={onClickEmailHandler}
+        />
+        <CheckboxInput
+          type="radio"
+          className={styles.checkbox}
+          disabled={!editedForm}
+          textLabel="не получать"
+          value="off"
+          {...register("notifications")}
+          checked={noticeEmail === null}
+          onClick={onClickOffHandler}
+        />
+      </ul>
+    );
+  };
 
+  const deletingProfileComponent = () => {
+    return (
       <div className={styles.row}>
         <h2 className="subtitle2">Удаление профиля</h2>
         <p className="text-medium">
@@ -453,6 +273,181 @@ export const Settings = () => {
           вкладке «помощь»
         </p>
       </div>
-    </form>
+    );
+  };
+
+  return (
+    user && (
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className={styles.inputsRegistration}>
+          <div className="wrapperField">
+            <Input
+              className={styles.firstCol}
+              label={SETTINGS_NAME.label}
+              placeholder={SETTINGS_NAME.placeholder}
+              disabled={isModifyMode === false}
+              id="firstName"
+              error={Boolean(errors.name?.message)}
+              errorMessage={errors.name?.message}
+              {...register("name", {
+                required: VALIDATIONS_FULLNAME.required,
+                minLength: { ...VALIDATIONS_FULLNAME.minLength },
+                maxLength: { ...VALIDATIONS_FULLNAME.maxLength },
+                pattern: { ...PATTERN_FULLNAME },
+              })}
+            />
+          </div>
+
+          <div className="wrapperField">
+            <Input
+              label={SETTINGS_SURNAME.label}
+              placeholder={SETTINGS_SURNAME.placeholder}
+              disabled={isModifyMode === false}
+              id="lastName"
+              error={Boolean(errors.surname?.message)}
+              errorMessage={errors.surname?.message}
+              {...register("surname", {
+                required: VALIDATIONS_FULLNAME.required,
+                minLength: { ...VALIDATIONS_FULLNAME.minLength },
+                maxLength: { ...VALIDATIONS_FULLNAME.maxLength },
+                pattern: { ...PATTERN_FULLNAME },
+              })}
+            />
+          </div>
+
+          <br />
+
+          <div className="wrapperField">
+            <PhoneInput
+              type={SETTINGS_PHONE.type}
+              label={SETTINGS_PHONE.label}
+              placeholder={SETTINGS_PHONE.placeholder}
+              disabled={isModifyMode === false}
+              id="person_telephone"
+              error={Boolean(errors.person_telephone?.message)}
+              errorMessage={errors.person_telephone?.message}
+              {...register("person_telephone", {
+                required: "Данное поле обязательно",
+              })}
+            />
+          </div>
+
+          <div className="wrapperField">
+            <Input
+              type={SETTINGS_EMAIL.type}
+              label={SETTINGS_EMAIL.label}
+              placeholder={SETTINGS_EMAIL.placeholder}
+              disabled
+              id="email"
+              error={Boolean(errors.email?.message)}
+              errorMessage={errors.email?.message}
+              {...register("email", {
+                required: VALIDATIONS_EMAIL.required,
+                minLength: { ...VALIDATIONS_EMAIL.minLength },
+                maxLength: { ...VALIDATIONS_EMAIL.maxLength },
+                pattern: { ...PATTERN_EMAIL },
+              })}
+            />
+          </div>
+
+          <br />
+
+          <div className="wrapperField">
+            <PasswordInput
+              className={styles.firstCol}
+              type={SETTINGS_PREVIOUS_PASSWORD.type}
+              label={SETTINGS_PREVIOUS_PASSWORD.label}
+              placeholder={SETTINGS_PREVIOUS_PASSWORD.placeholder}
+              disabled={isModifyMode === false}
+              id="password"
+              error={Boolean(errors.currentPass?.message)}
+              errorMessage={errors.currentPass?.message}
+              {...register("currentPass", {
+                required: {
+                  value: Boolean(currentPass) || Boolean(newPass) || Boolean(newPassRepeat),
+                  message: VALIDATIONS_PASSWORD.required,
+                },
+                minLength: { ...VALIDATIONS_PASSWORD.minLength },
+                maxLength: { ...VALIDATIONS_PASSWORD.maxLength },
+                pattern: { ...PATTERN_PASSWORD },
+              })}
+            />
+          </div>
+
+          <div className="wrapperField">
+            <PasswordInput
+              type={SETTINGS_NEW_PASSWORD.type}
+              label={SETTINGS_NEW_PASSWORD.label}
+              placeholder={SETTINGS_NEW_PASSWORD.placeholder}
+              disabled={isModifyMode === false}
+              id="newPassword"
+              error={Boolean(errors.newPass?.message)}
+              errorMessage={errors.newPass?.message}
+              {...register("newPass", {
+                required: {
+                  value: Boolean(currentPass) || Boolean(newPass) || Boolean(newPassRepeat),
+                  message: VALIDATIONS_PASSWORD.required,
+                },
+                minLength: { ...VALIDATIONS_PASSWORD.minLength },
+                maxLength: { ...VALIDATIONS_PASSWORD.maxLength },
+                pattern: { ...PATTERN_PASSWORD },
+                validate: {
+                  differentPassword: (value = "") => {
+                    if (value.length && value === currentPass) {
+                      return "Новый пароль должен отличаться";
+                    }
+                  },
+                },
+              })}
+            />
+          </div>
+
+          <div className="wrapperField">
+            <PasswordInput
+              type={SETTINGS_NEW_PASSWORD_REPEAT.type}
+              label={SETTINGS_NEW_PASSWORD_REPEAT.label}
+              placeholder={SETTINGS_NEW_PASSWORD_REPEAT.placeholder}
+              id="newPasswordRepeat"
+              error={Boolean(errors.newPassRepeat?.message)}
+              errorMessage={errors.newPassRepeat?.message}
+              disabled={isModifyMode === false}
+              {...register("newPassRepeat", {
+                required: {
+                  value: Boolean(currentPass) || Boolean(newPass) || Boolean(newPassRepeat),
+                  message: VALIDATIONS_PASSWORD.required,
+                },
+                minLength: { ...VALIDATIONS_PASSWORD.minLength },
+                maxLength: { ...VALIDATIONS_PASSWORD.maxLength },
+                pattern: { ...PATTERN_PASSWORD },
+                validate: {
+                  passwordMatches: (value = "") => {
+                    if (value.length && value !== newPass) {
+                      return "Пароли не совпадают";
+                    }
+                  },
+                },
+              })}
+            />
+          </div>
+        </div>
+
+        {buttonsFormComponent({
+          editedForm: isModifyMode,
+          isLoading: { isLoadingUsers, isLoadingSetPassword },
+          formParameter: { changesForm: isDirty, isValidFields: isValid },
+        })}
+
+        <div className={styles.wrapperCheckbox}>
+          <h2 className="subtitle2">Получать уведомления</h2>
+          {checkboxFormComponent({
+            editedForm: isModifyMode,
+            noticeEmail,
+            onClick: handleChangeNotice,
+          })}
+        </div>
+
+        {deletingProfileComponent()}
+      </form>
+    )
   );
 };
