@@ -11,7 +11,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, InputProps>(({ disable
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   return (
-    <div className={cx("container")}>
+    <div className={cx("container", props.className)}>
       <Input ref={ref} disabled={disabled} {...props} type={showPassword ? "text" : "password"} />
 
       <button

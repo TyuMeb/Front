@@ -268,9 +268,7 @@ export const Settings = () => {
       <div className={styles.row}>
         <h2 className="subtitle2">Удаление профиля</h2>
         <p className="text-medium">
-          Если вы хотите удалить профиль, пожалуйста, <br />
-          свяжитесь с нашей технической поддержкой на <br />
-          вкладке «помощь»
+          Если вы хотите удалить профиль, пожалуйста, свяжитесь с нашей технической поддержкой на вкладке «помощь»
         </p>
       </div>
     );
@@ -278,157 +276,142 @@ export const Settings = () => {
 
   return (
     user && (
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <div className={styles.inputsRegistration}>
-          <div className="wrapperField">
-            <Input
-              className={styles.firstCol}
-              label={SETTINGS_NAME.label}
-              placeholder={SETTINGS_NAME.placeholder}
-              disabled={isModifyMode === false}
-              id="firstName"
-              error={Boolean(errors.name?.message)}
-              errorMessage={errors.name?.message}
-              {...register("name", {
-                required: VALIDATIONS_FULLNAME.required,
-                minLength: { ...VALIDATIONS_FULLNAME.minLength },
-                maxLength: { ...VALIDATIONS_FULLNAME.maxLength },
-                pattern: { ...PATTERN_FULLNAME },
-              })}
-            />
-          </div>
+          <Input
+            label={SETTINGS_NAME.label}
+            placeholder={SETTINGS_NAME.placeholder}
+            disabled={isModifyMode === false}
+            id="firstName"
+            error={Boolean(errors.name?.message)}
+            errorMessage={errors.name?.message}
+            {...register("name", {
+              required: VALIDATIONS_FULLNAME.required,
+              minLength: { ...VALIDATIONS_FULLNAME.minLength },
+              maxLength: { ...VALIDATIONS_FULLNAME.maxLength },
+              pattern: { ...PATTERN_FULLNAME },
+            })}
+          />
 
-          <div className="wrapperField">
-            <Input
-              label={SETTINGS_SURNAME.label}
-              placeholder={SETTINGS_SURNAME.placeholder}
-              disabled={isModifyMode === false}
-              id="lastName"
-              error={Boolean(errors.surname?.message)}
-              errorMessage={errors.surname?.message}
-              {...register("surname", {
-                required: VALIDATIONS_FULLNAME.required,
-                minLength: { ...VALIDATIONS_FULLNAME.minLength },
-                maxLength: { ...VALIDATIONS_FULLNAME.maxLength },
-                pattern: { ...PATTERN_FULLNAME },
-              })}
-            />
-          </div>
+          <Input
+            label={SETTINGS_SURNAME.label}
+            placeholder={SETTINGS_SURNAME.placeholder}
+            disabled={isModifyMode === false}
+            id="lastName"
+            error={Boolean(errors.surname?.message)}
+            errorMessage={errors.surname?.message}
+            {...register("surname", {
+              required: VALIDATIONS_FULLNAME.required,
+              minLength: { ...VALIDATIONS_FULLNAME.minLength },
+              maxLength: { ...VALIDATIONS_FULLNAME.maxLength },
+              pattern: { ...PATTERN_FULLNAME },
+            })}
+          />
 
-          <br />
+          <PhoneInput
+            className={styles.gridColumn}
+            type={SETTINGS_PHONE.type}
+            label={SETTINGS_PHONE.label}
+            placeholder={SETTINGS_PHONE.placeholder}
+            disabled={isModifyMode === false}
+            id="person_telephone"
+            error={Boolean(errors.person_telephone?.message)}
+            errorMessage={errors.person_telephone?.message}
+            {...register("person_telephone", {
+              required: "Данное поле обязательно",
+            })}
+          />
 
-          <div className="wrapperField">
-            <PhoneInput
-              type={SETTINGS_PHONE.type}
-              label={SETTINGS_PHONE.label}
-              placeholder={SETTINGS_PHONE.placeholder}
-              disabled={isModifyMode === false}
-              id="person_telephone"
-              error={Boolean(errors.person_telephone?.message)}
-              errorMessage={errors.person_telephone?.message}
-              {...register("person_telephone", {
-                required: "Данное поле обязательно",
-              })}
-            />
-          </div>
+          <Input
+            type={SETTINGS_EMAIL.type}
+            label={SETTINGS_EMAIL.label}
+            placeholder={SETTINGS_EMAIL.placeholder}
+            disabled
+            id="email"
+            error={Boolean(errors.email?.message)}
+            errorMessage={errors.email?.message}
+            {...register("email", {
+              required: VALIDATIONS_EMAIL.required,
+              minLength: { ...VALIDATIONS_EMAIL.minLength },
+              maxLength: { ...VALIDATIONS_EMAIL.maxLength },
+              pattern: { ...PATTERN_EMAIL },
+            })}
+          />
 
-          <div className="wrapperField">
-            <Input
-              type={SETTINGS_EMAIL.type}
-              label={SETTINGS_EMAIL.label}
-              placeholder={SETTINGS_EMAIL.placeholder}
-              disabled
-              id="email"
-              error={Boolean(errors.email?.message)}
-              errorMessage={errors.email?.message}
-              {...register("email", {
-                required: VALIDATIONS_EMAIL.required,
-                minLength: { ...VALIDATIONS_EMAIL.minLength },
-                maxLength: { ...VALIDATIONS_EMAIL.maxLength },
-                pattern: { ...PATTERN_EMAIL },
-              })}
-            />
-          </div>
+          <PasswordInput
+            className={styles.gridColumn}
+            type={SETTINGS_PREVIOUS_PASSWORD.type}
+            label={SETTINGS_PREVIOUS_PASSWORD.label}
+            placeholder={SETTINGS_PREVIOUS_PASSWORD.placeholder}
+            disabled={isModifyMode === false}
+            id="password"
+            autoComplete="off"
+            error={Boolean(errors.currentPass?.message)}
+            errorMessage={errors.currentPass?.message}
+            {...register("currentPass", {
+              required: {
+                value: Boolean(currentPass) || Boolean(newPass) || Boolean(newPassRepeat),
+                message: VALIDATIONS_PASSWORD.required,
+              },
+              minLength: { ...VALIDATIONS_PASSWORD.minLength },
+              maxLength: { ...VALIDATIONS_PASSWORD.maxLength },
+              pattern: { ...PATTERN_PASSWORD },
+            })}
+          />
 
-          <br />
-
-          <div className="wrapperField">
-            <PasswordInput
-              className={styles.firstCol}
-              type={SETTINGS_PREVIOUS_PASSWORD.type}
-              label={SETTINGS_PREVIOUS_PASSWORD.label}
-              placeholder={SETTINGS_PREVIOUS_PASSWORD.placeholder}
-              disabled={isModifyMode === false}
-              id="password"
-              error={Boolean(errors.currentPass?.message)}
-              errorMessage={errors.currentPass?.message}
-              {...register("currentPass", {
-                required: {
-                  value: Boolean(currentPass) || Boolean(newPass) || Boolean(newPassRepeat),
-                  message: VALIDATIONS_PASSWORD.required,
+          <PasswordInput
+            type={SETTINGS_NEW_PASSWORD.type}
+            label={SETTINGS_NEW_PASSWORD.label}
+            placeholder={SETTINGS_NEW_PASSWORD.placeholder}
+            disabled={isModifyMode === false}
+            id="newPassword"
+            autoComplete="off"
+            error={Boolean(errors.newPass?.message)}
+            errorMessage={errors.newPass?.message}
+            {...register("newPass", {
+              required: {
+                value: Boolean(currentPass) || Boolean(newPass) || Boolean(newPassRepeat),
+                message: VALIDATIONS_PASSWORD.required,
+              },
+              minLength: { ...VALIDATIONS_PASSWORD.minLength },
+              maxLength: { ...VALIDATIONS_PASSWORD.maxLength },
+              pattern: { ...PATTERN_PASSWORD },
+              validate: {
+                differentPassword: (value = "") => {
+                  if (value.length && value === currentPass) {
+                    return "Новый пароль должен отличаться";
+                  }
                 },
-                minLength: { ...VALIDATIONS_PASSWORD.minLength },
-                maxLength: { ...VALIDATIONS_PASSWORD.maxLength },
-                pattern: { ...PATTERN_PASSWORD },
-              })}
-            />
-          </div>
+              },
+            })}
+          />
 
-          <div className="wrapperField">
-            <PasswordInput
-              type={SETTINGS_NEW_PASSWORD.type}
-              label={SETTINGS_NEW_PASSWORD.label}
-              placeholder={SETTINGS_NEW_PASSWORD.placeholder}
-              disabled={isModifyMode === false}
-              id="newPassword"
-              error={Boolean(errors.newPass?.message)}
-              errorMessage={errors.newPass?.message}
-              {...register("newPass", {
-                required: {
-                  value: Boolean(currentPass) || Boolean(newPass) || Boolean(newPassRepeat),
-                  message: VALIDATIONS_PASSWORD.required,
+          <PasswordInput
+            type={SETTINGS_NEW_PASSWORD_REPEAT.type}
+            label={SETTINGS_NEW_PASSWORD_REPEAT.label}
+            placeholder={SETTINGS_NEW_PASSWORD_REPEAT.placeholder}
+            disabled={isModifyMode === false}
+            id="newPasswordRepeat"
+            autoComplete="off"
+            error={Boolean(errors.newPassRepeat?.message)}
+            errorMessage={errors.newPassRepeat?.message}
+            {...register("newPassRepeat", {
+              required: {
+                value: Boolean(currentPass) || Boolean(newPass) || Boolean(newPassRepeat),
+                message: VALIDATIONS_PASSWORD.required,
+              },
+              minLength: { ...VALIDATIONS_PASSWORD.minLength },
+              maxLength: { ...VALIDATIONS_PASSWORD.maxLength },
+              pattern: { ...PATTERN_PASSWORD },
+              validate: {
+                passwordMatches: (value = "") => {
+                  if (value.length && value !== newPass) {
+                    return "Пароли не совпадают";
+                  }
                 },
-                minLength: { ...VALIDATIONS_PASSWORD.minLength },
-                maxLength: { ...VALIDATIONS_PASSWORD.maxLength },
-                pattern: { ...PATTERN_PASSWORD },
-                validate: {
-                  differentPassword: (value = "") => {
-                    if (value.length && value === currentPass) {
-                      return "Новый пароль должен отличаться";
-                    }
-                  },
-                },
-              })}
-            />
-          </div>
-
-          <div className="wrapperField">
-            <PasswordInput
-              type={SETTINGS_NEW_PASSWORD_REPEAT.type}
-              label={SETTINGS_NEW_PASSWORD_REPEAT.label}
-              placeholder={SETTINGS_NEW_PASSWORD_REPEAT.placeholder}
-              id="newPasswordRepeat"
-              error={Boolean(errors.newPassRepeat?.message)}
-              errorMessage={errors.newPassRepeat?.message}
-              disabled={isModifyMode === false}
-              {...register("newPassRepeat", {
-                required: {
-                  value: Boolean(currentPass) || Boolean(newPass) || Boolean(newPassRepeat),
-                  message: VALIDATIONS_PASSWORD.required,
-                },
-                minLength: { ...VALIDATIONS_PASSWORD.minLength },
-                maxLength: { ...VALIDATIONS_PASSWORD.maxLength },
-                pattern: { ...PATTERN_PASSWORD },
-                validate: {
-                  passwordMatches: (value = "") => {
-                    if (value.length && value !== newPass) {
-                      return "Пароли не совпадают";
-                    }
-                  },
-                },
-              })}
-            />
-          </div>
+              },
+            })}
+          />
         </div>
 
         {buttonsFormComponent({
