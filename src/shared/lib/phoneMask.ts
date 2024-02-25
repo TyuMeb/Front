@@ -36,7 +36,6 @@ const changePhoneNumber = (e: ChangeEvent<HTMLInputElement>, previousValue: stri
 
     // Только числа и + в начале
     if (/^[+][\d]+$/.test(e.target.value.split(" ").join(""))) {
-      console.log("yes");
       return e;
     }
   }

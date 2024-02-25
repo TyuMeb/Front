@@ -317,8 +317,13 @@ export const Settings = () => {
             id="person_telephone"
             error={Boolean(errors.person_telephone?.message)}
             errorMessage={errors.person_telephone?.message}
+            value={watch("person_telephone")}
             {...register("person_telephone", {
               required: "Данное поле обязательно",
+              minLength: {
+                message: "Минимальная длина номера 12 цифр",
+                value: 16,
+              },
             })}
           />
 
