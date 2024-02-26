@@ -44,8 +44,9 @@ export const Settings = () => {
 
   const [noticeEmail, setNoticeEmail] = useState<["email"] | null>(null);
 
-  const [updateUsers, { isLoading: isLoadingUsers }] = usePatchUsersMeMutation();
-  const [updatePassword, { isLoading: isLoadingSetPassword }] = usePostUsersSetPasswordMutation();
+  const [updateUsers, { isLoading: isLoadingUsers, isSuccess: isSuccessUsers }] = usePatchUsersMeMutation();
+  const [updatePassword, { isLoading: isLoadingSetPassword, isSuccess: isSuccessPassword }] =
+    usePostUsersSetPasswordMutation();
 
   const user: UserAccount | null = useUser();
   const dispatch = useAppDispatch();
@@ -283,6 +284,7 @@ export const Settings = () => {
             placeholder={SETTINGS_NAME.placeholder}
             disabled={isModifyMode === false}
             id="firstName"
+            autoComplete="on"
             error={Boolean(errors.name?.message)}
             errorMessage={errors.name?.message}
             {...register("name", {
@@ -350,7 +352,6 @@ export const Settings = () => {
             placeholder={SETTINGS_PREVIOUS_PASSWORD.placeholder}
             disabled={isModifyMode === false}
             id="password"
-            autoComplete="off"
             error={Boolean(errors.currentPass?.message)}
             errorMessage={errors.currentPass?.message}
             {...register("currentPass", {
@@ -370,7 +371,6 @@ export const Settings = () => {
             placeholder={SETTINGS_NEW_PASSWORD.placeholder}
             disabled={isModifyMode === false}
             id="newPassword"
-            autoComplete="off"
             error={Boolean(errors.newPass?.message)}
             errorMessage={errors.newPass?.message}
             {...register("newPass", {
@@ -397,7 +397,6 @@ export const Settings = () => {
             placeholder={SETTINGS_NEW_PASSWORD_REPEAT.placeholder}
             disabled={isModifyMode === false}
             id="newPasswordRepeat"
-            autoComplete="off"
             error={Boolean(errors.newPassRepeat?.message)}
             errorMessage={errors.newPassRepeat?.message}
             {...register("newPassRepeat", {
@@ -418,6 +417,10 @@ export const Settings = () => {
             })}
           />
         </div>
+
+        {isSuccessUsers && <p className={styles.textSuccess}>Редактирования прошло успешно.</p>}
+
+        {!isSuccessPassword && <p className={styles.textSuccess}>Пароль успешно изменен.</p>}
 
         {buttonsFormComponent({
           editedForm: isModifyMode,
