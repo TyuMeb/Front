@@ -24,6 +24,7 @@ export const ThirdLevelMenu: FC<MenuProps> = ({ menuItems, route }) => {
             key={item.id}
             className={cx("thirdLevelLink", currentPath === itemPathname ? "activatedSubmenu" : "")}
             role="button"
+            title={item.name}
             onClick={() => {
               router.push(itemPathname);
             }}

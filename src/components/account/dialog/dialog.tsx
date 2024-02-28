@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, HTMLAttributes, useRef } from "react";
+import React, { useState, useEffect, HTMLAttributes } from "react";
 import styles from "./dialog.module.scss";
 import { Button } from "@src/shared/ui/button";
 import { WrapperForm, InputPreviewFiles, PreviewFiles, FilesPreview } from "@src/components/account/wrapper-form";
@@ -40,6 +40,7 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
   const [messagesList, setMessagesList] = useState<Message[]>([]);
   const [unreadMessagesQty, SetUnreadMessagesQty] = useState<number>(0);
   const [email, setEmail] = useState<string>("");
+  const [role, setRole] = useState<"client" | "contractor" | null>(null);
   const params = useParams();
   const user: UserAccount | null = useUser();
 
@@ -50,7 +51,9 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
   useEffect(() => {
     if (user) {
       setEmail(user.email);
-      console.log(user.email);
+      if (user?.role === "client") setRole("client");
+      else if (user?.role === "contractor") setRole("contractor");
+      else setRole(null);
     }
   }, [user]);
 
@@ -66,14 +69,18 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
   }, [messagesList]);
 
   useEffect(() => {
+    if (!websocket) return;
+
     let timer: ReturnType<typeof setTimeout>;
 
     const wsInit = (): void => {
-      setWebsocket(new WebSocket(`wss://api.whywe.ru/ws/chat/${params.chatId}/`, getCookie("access_token")));
+      if (role === "client" || role === "contractor")
+        setWebsocket(new WebSocket(`wss://api.whywe.ru/ws/chat/${params.chatId}/`, getCookie("access_token")));
     };
 
     const getMessages = () => {
       console.log("Connection established");
+      console.log(websocket);
       if (websocket?.readyState === 1) websocket.send(JSON.stringify({ command: "fetch_messages", message: "fetch" }));
     };
 
@@ -91,6 +98,9 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
 
     const showData = (e: MessageEvent) => {
       const messages = JSON.parse(e.data);
+
+      // TODO: ДОБАВИТЬ ОТОБРАЖЕНИЕ ПРЕВЬЮ ФАЙЛОВ
+
       if (Array.isArray(messages)) {
         setMessagesList(
           messages.sort((a: Message, b: Message) => {
@@ -128,14 +138,16 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
   }, [websocket]);
 
   useEffect(() => {
-    setWebsocket(new WebSocket(`wss://api.whywe.ru/ws/chat/${params.chatId}/`, getCookie("access_token")));
-  }, []);
+    console.log(role);
+    if (role === "client" || role === "contractor")
+      setWebsocket(new WebSocket(`wss://api.whywe.ru/ws/chat/${params.chatId}/`, getCookie("access_token")));
+  }, [role]);
 
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
   }, [measuredForm.elementHeight, messagesList]);
 
-  const { handleSubmit, resetField, control } = useForm({
+  const { handleSubmit, resetField, control, watch } = useForm({
     defaultValues: {
       chat: "",
     },
@@ -146,11 +158,10 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
 
     const formFiles = new FormData();
     files.forEach((file) => formFiles.append(`file-${file.id}`, file.file));
-    // console.log({ files, text: data.chat, formData: formFiles, filesPreview });
-    // ws.current?.send(
-    //   JSON.stringify({ command: "new_message", message: { files, text: data.chat, formData: formFiles, filesPreview } })
-    // );
-    websocket?.send(JSON.stringify({ command: "new_message", message: data.chat }));
+
+    // TODO: СДЕЛАТЬ ОТПРАВКУ ФАЙЛОВ
+
+    if (data.chat) websocket?.send(JSON.stringify({ command: "new_message", message: data.chat }));
     resetField("chat");
   };
 
@@ -185,7 +196,6 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
                 tempArr[i].is_read = true;
                 setMessagesList(tempArr);
               }
-              // SetUnreadMessagesQty(qty => qty-=1);
               return true;
             }}
           />
@@ -219,7 +229,7 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
               <Paperclip />
             </InputPreviewFiles>
 
-            <Button className={styles.buttonSubmit} type="submit">
+            <Button className={styles.buttonSubmit} type="submit" disabled={!watch("chat")}>
               <Icon glyph="paper_airplane" />
             </Button>
           </WrapperForm>

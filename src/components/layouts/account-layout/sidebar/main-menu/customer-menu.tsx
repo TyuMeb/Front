@@ -2,15 +2,15 @@
 
 import React, { FC, useState } from "react";
 import classNames from "classnames/bind";
-import styles from "./first-level-menu.module.scss";
-import { MenuProps } from "../sidebar";
+import styles from "./main-menu.module.scss";
+import { TMenuProps } from "../sidebar";
 import { SecondLevelMenu } from "../second-level-menu/second-level-menu";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 
 const cx = classNames.bind(styles);
 
-export const FirstLevelMenu: FC<MenuProps> = ({ menuItems, route }) => {
+export const CustomerMenu: FC<TMenuProps> = ({ menuItems, route }) => {
   const [openItems, setOpenItems] = useState(new Array(menuItems.length).fill(false));
   const router = useRouter();
   const currentPath = usePathname();
@@ -24,7 +24,7 @@ export const FirstLevelMenu: FC<MenuProps> = ({ menuItems, route }) => {
           <li key={item.id} className={cx("firstLevelMenu__item")}>
             <span
               role="button"
-              className={cx("firstLevelLink", itemPathname.startsWith(currentPath) ? "activatedMenu" : "")}
+              className={cx("firstLevelLink", currentPath.startsWith(itemPathname) ? "activatedMenu" : "")}
               onClick={() => {
                 setOpenItems((state) => state.map((el, n) => (n === i ? (el = !el) : el)));
                 router.push(itemPathname);

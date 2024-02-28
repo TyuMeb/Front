@@ -306,27 +306,48 @@ export interface ContractorAgreement {
   created_date?: string;
 }
 
-export interface OrderOffer {
+export interface OfferModel {
   /** Id */
-  id?: number;
-  user_account?: UserAccount;
-  /** Order id */
-  order_id?: string;
-  /**
-   * Цена офера
-   * @maxLength 300
-   */
-  offer_price?: string;
+  offer_id: number;
+  /** Цена офера */
+  offer_price: string;
   /**
    * Время выполнения офера
    * @maxLength 300
    */
-  offer_execution_time?: string;
+  offer_execution_time: string;
   /**
    * Описание офера
+   * @maxLength 1500
+   */
+  offer_description: string;
+  /** Статус */
+  status: "processed" | "viewed" | "selected" | "rejected";
+  /** Order id */
+  order_id: number;
+  /**
+   * Дата формирования заказа
    * @maxLength 300
    */
-  offer_description?: string;
+  order_time?: string;
+  /**
+   * Название заказа
+   * @maxLength 300
+   */
+  order_name?: string;
+  /**
+   * Описание заказа
+   * @maxLength 1500
+   */
+  order_description?: string;
+  /** Прикреплённые изображения */
+  order_images?: string[];
+  /** Цвет аватарки заказчика */
+  user_color: string;
+  /** ??? */
+  worksheet?: string | null;
+  /** ID чата */
+  chat_id: number;
 }
 
 export interface AllOrdersClient {

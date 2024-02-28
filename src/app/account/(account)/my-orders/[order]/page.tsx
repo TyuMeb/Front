@@ -1,14 +1,8 @@
 "use client";
 
-import { Dialog, OrderInfo } from "@src/components/account/dialog";
-import { myOffers } from "@src/shared/data/performer-account";
 import { useParams } from "next/navigation";
 
-// type OrderItemPageProps = {
-//   params: {
-//     order: string;
-//   };
-// };
+// TODO: ДОБАВИТЬ ВЁРСТКУ СТРАНИЦЫ ПРЕДЛОЖЕНИЯ
 
 export default function OfferItem() {
   const params = useParams();
