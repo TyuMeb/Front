@@ -19,6 +19,7 @@ export const parseOffersToOfferItems = (offersArr: OfferModel[], chatsArr: Chat[
 
 // eslint-disable-next-line
 export const parseOrdersToOrderItems = (
+  // eslint-disable-next-line
   ordersArr: any,
   chatsArr: Chat[],
   unreadMessagesPresent: boolean

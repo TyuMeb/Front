@@ -49,26 +49,15 @@ export const Sidebar = ({ className }: SidebarProps) => {
   const [menuItems, setMenuItems] = useState<TMenuItem[] | null>(null);
   const [role, setRole] = useState<"client" | "contractor" | null>(null);
 
-  const {
-    data: chats = [],
-    error: chatsLoadingError,
-    isLoading: isChatsDataLoading,
-    isSuccess: isChatsDataLoadingSuccess,
-  } = useGetChatsQuery();
+  const { data: chats = [], isSuccess: isChatsDataLoadingSuccess } = useGetChatsQuery();
 
-  const {
-    data: orders = [],
-    error: ordersDataLoadingError,
-    isLoading: isOrdersDataLoading,
-    isSuccess: isOrdersDataLoadingSuccess,
-  } = useClientActiveOrdersQuery(undefined, { skip: role === "client" ? false : true });
+  const { data: orders = [], isSuccess: isOrdersDataLoadingSuccess } = useClientActiveOrdersQuery(undefined, {
+    skip: role === "client" ? false : true,
+  });
 
-  const {
-    data: offers = [],
-    error: offersDataLoadingError,
-    isLoading: isOffersDataLoading,
-    isSuccess: isOfferssDataLoadingSuccess,
-  } = useExecutorOffersQuery(undefined, { skip: role === "contractor" ? false : true });
+  const { data: offers = [], isSuccess: isOfferssDataLoadingSuccess } = useExecutorOffersQuery(undefined, {
+    skip: role === "contractor" ? false : true,
+  });
 
   useEffect(() => {
     if (user) {

@@ -1,15 +1,15 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import classNames from "classnames/bind";
-import { MenuProps } from "../sidebar";
+import { TMenuProps } from "../sidebar";
 import styles from "./third-level-menu.module.scss";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 
 const cx = classNames.bind(styles);
 
-export const ThirdLevelMenu: FC<MenuProps> = ({ menuItems, route }) => {
+export const ThirdLevelMenu: FC<TMenuProps> = ({ menuItems, route }) => {
   // const [activeItem, setActiveItem] = useState(menuItems.length);
   const router = useRouter();
   const currentPath = usePathname();

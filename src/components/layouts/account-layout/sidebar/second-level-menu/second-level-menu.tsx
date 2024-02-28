@@ -3,13 +3,13 @@
 import React, { FC, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./second-level-menu.module.scss";
-import { MenuProps } from "../sidebar";
+import { TMenuProps } from "../sidebar";
 import { ThirdLevelMenu } from "../third-level-menu/third-level-menu";
 import { useRouter } from "next/navigation";
 
 const cx = classNames.bind(styles);
 
-export const SecondLevelMenu: FC<MenuProps> = ({ menuItems, route }) => {
+export const SecondLevelMenu: FC<TMenuProps> = ({ menuItems, route }) => {
   const [openItems, setOpenItems] = useState(new Array(menuItems.length).fill(false));
   const router = useRouter();
   // const currentPath = usePathname();
