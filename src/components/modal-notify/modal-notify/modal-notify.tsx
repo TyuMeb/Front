@@ -49,13 +49,13 @@ const getText = (typeModal: TypeModal) => {
 export const ModalNotify = ({ name, type = "defaultNotify", text, delay }: ModalNotifyProps) => {
   const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   setTimeout(() => dispatch(closeModal(name)), delay || 6000);
+  useEffect(() => {
+    setTimeout(() => dispatch(closeModal(name)), delay || 6000);
 
-  //   return () => {
-  //     clearTimeout(setTimeout(() => dispatch(closeModal(name)), delay || 6000));
-  //   };
-  // }, []);
+    return () => {
+      clearTimeout(setTimeout(() => dispatch(closeModal(name)), delay || 6000));
+    };
+  }, []);
 
   const handlerOnClick = () => {
     dispatch(closeModal(name));
