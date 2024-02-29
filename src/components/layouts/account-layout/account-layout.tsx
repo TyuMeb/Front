@@ -6,6 +6,7 @@ import { Modals } from "@src/components/modals";
 import { Breadcrumbs, FirstBreadcrumbsItems } from "@src/components/layouts/account-layout/breadcrumbs";
 
 import styles from "./account-layout.module.scss";
+import { Notify } from "@src/components/modal-notify/notify";
 
 const cx = classNames.bind(styles);
 
@@ -33,6 +34,7 @@ export const AccountLayout = ({
         <Sidebar className={cx("sidebar")} />
         <main className={cx("main")}>{children}</main>
         <Modals />
+        <Notify />
       </div>
     </div>
   );

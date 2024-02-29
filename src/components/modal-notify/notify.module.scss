@@ -1,0 +1,12 @@
+.container {
+  position: fixed;
+  bottom: 14px;
+  z-index: 1;
+  right: 50%;
+  transform: translateX(50%);
+  display: grid;
+  row-gap: 12px;
+  justify-items: start;
+  width: 100%;
+  justify-content: center;
+}

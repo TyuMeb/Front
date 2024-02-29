@@ -43,8 +43,6 @@ export const Modals = () => {
         return <Confirm />;
       case "getContact":
         return <ModalGetContact />;
-      default:
-        return <></>;
     }
   };
 

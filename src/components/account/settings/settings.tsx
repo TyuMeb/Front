@@ -12,6 +12,7 @@ import { UserAccount } from "@src/redux/api/generated";
 import { setUser, useUser } from "@src/redux/slices/users-slice";
 import { useAppDispatch } from "@src/redux/hooks";
 import { phoneConversion } from "@src/shared/lib/phoneMask";
+import { createNotifyModal } from "@src/redux/slices/notify-modal-slice";
 import {
   PATTERN_EMAIL,
   PATTERN_FULLNAME,
@@ -44,9 +45,8 @@ export const Settings = () => {
 
   const [noticeEmail, setNoticeEmail] = useState<["email"] | null>(null);
 
-  const [updateUsers, { isLoading: isLoadingUsers, isSuccess: isSuccessUsers }] = usePatchUsersMeMutation();
-  const [updatePassword, { isLoading: isLoadingSetPassword, isSuccess: isSuccessPassword }] =
-    usePostUsersSetPasswordMutation();
+  const [updateUsers, { isLoading: isLoadingUsers }] = usePatchUsersMeMutation();
+  const [updatePassword, { isLoading: isLoadingSetPassword }] = usePostUsersSetPasswordMutation();
 
   const user: UserAccount | null = useUser();
   const dispatch = useAppDispatch();
@@ -134,13 +134,37 @@ export const Settings = () => {
     setNoticeEmail(notice);
   };
 
+  const handleDefaultErrors = (data: { [x: string]: string[] }) => {
+    const keys = Object.keys(data || {}) as Array<keyof SettingsForm>;
+
+    keys.forEach((key) => {
+      setError(key, { message: data[key]?.join(", ") });
+    });
+  };
+
   const changePassword = (dataPass: { new_password: string; re_new_password: string; current_password: string }) => {
     updatePassword(dataPass)
       .unwrap()
       .then(() => {
         handleModifications();
+        dispatch(
+          createNotifyModal({
+            name: "successPassword",
+            typeNotify: "successNotify",
+            textNotify: "Пароль успешно изменен!",
+          })
+        );
       })
       .catch((error) => {
+        if (error.status >= 500) {
+          dispatch(
+            createNotifyModal({
+              name: "errorPassword",
+              typeNotify: "errorNotify",
+            })
+          );
+        }
+
         if (error.status === 400 && error.data.hasOwnProperty("current_password")) {
           const messageError = (
             <p style={{ margin: 0 }}>
@@ -154,6 +178,8 @@ export const Settings = () => {
           setError("currentPass", {
             message: messageError,
           } as { message: JSX.Element } & ErrorOption);
+        } else {
+          handleDefaultErrors(error.data);
         }
       });
   };
@@ -161,10 +187,6 @@ export const Settings = () => {
   const onSubmit = (data: SettingsForm) => {
     const { notifications, person_telephone, newPass, currentPass, newPassRepeat, ...rest } = data;
     const dataUser = { notifications: noticeEmail, ...rest } as UserAccount;
-
-    if (newPass && currentPass && newPassRepeat) {
-      changePassword({ current_password: currentPass, new_password: newPass, re_new_password: newPassRepeat });
-    }
 
     if (
       dirtyFields.notifications ||
@@ -176,15 +198,40 @@ export const Settings = () => {
       updateUsers({ person_telephone: person_telephone?.replaceAll(" ", ""), ...dataUser })
         .unwrap()
         .then(() => {
-          handleModifications();
+          dispatch(
+            createNotifyModal({
+              name: "successUser",
+              typeNotify: "successNotify",
+              textNotify: "Данные успешно изменены!",
+            })
+          );
+
+          if (!newPass && !currentPass && !newPassRepeat) {
+            handleModifications();
+          }
         })
         .catch((error) => {
+          if (error.status >= 500) {
+            dispatch(
+              createNotifyModal({
+                name: "errorPassword",
+                typeNotify: "errorNotify",
+              })
+            );
+          }
+
           if (error.status === 400 && error.data.hasOwnProperty("person_telephone")) {
             setError("person_telephone", { message: "Такой номер телефона уже существует." });
+          } else {
+            handleDefaultErrors(error.data);
           }
         });
 
       dispatch(setUser({ person_telephone, ...dataUser }));
+    }
+
+    if (newPass && currentPass && newPassRepeat) {
+      changePassword({ current_password: currentPass, new_password: newPass, re_new_password: newPassRepeat });
     }
   };
 
@@ -417,10 +464,6 @@ export const Settings = () => {
             })}
           />
         </div>
-
-        {isSuccessUsers && <p className={styles.textSuccess}>Редактирования прошло успешно.</p>}
-
-        {!isSuccessPassword && <p className={styles.textSuccess}>Пароль успешно изменен.</p>}
 
         {buttonsFormComponent({
           editedForm: isModifyMode,

@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  background-color: #fffaee;
+  border-radius: 25px 0px 0px 25px;
+  padding: 20px 36px;
+  column-gap: 24px;
+  align-items: center;
+}
+
+.success {
+  padding: 20px 24px;
+  background-color: #f7fbf9;
+  border-radius: 20px 24px;
+  border: 1px solid #7cc19e;
+}
+
+.error {
+  padding: 20px 24px;
+  background-color: #fef7f9;
+  border-radius: 20px 24px;
+  border: 1px solid #ff6894;
+}
