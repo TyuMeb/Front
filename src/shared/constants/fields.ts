@@ -1,16 +1,14 @@
 export const PATTERN_EMAIL = {
   message: "Указан некорректный адрес электронной почты",
-  value: RegExp(
-    "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
-  ),
+  value: RegExp("^[a-zA-Z0-9\\-.@_]*$"),
 };
 export const PATTERN_FULLNAME = {
-  message: "Может включать только заглавные и строчные буквы и символ -",
-  value: RegExp("^[a-zA-Zа-яА-ЯеЁ\\-_]{2,}$"),
+  message: "Может включать только русские и английские буквы, пробел, тире",
+  value: RegExp("^[a-zA-Zа-яА-ЯеЁ\\-_ ]*$"),
 };
 export const PATTERN_PASSWORD = {
-  message: "Указан некорректный пароль. Используйте английские буквы и цифры, символы ~!?@#$%^&*_-+()[]{}></|\"'.",
-  value: RegExp("^[a-zA-Z]+[0-9~!?@#\\$\\%^\\&\\*\\-\\+\\(\\)\\[\\]\\{\\}><\\/\\|\"\\']*"),
+  message: "Указан недопустимый символ",
+  value: RegExp("^[а-яёА-ЯЁa-zA-Z0-9~!?@#$%^&*_\\-+()\\[\\]{}></\\|\"\\'.,:]*$"),
 };
 
 export const SETTINGS_NAME = {
@@ -59,7 +57,7 @@ export const VALIDATIONS_FULLNAME = {
     value: 2,
   },
   maxLength: {
-    message: "Длина имени не более 40 символов",
+    message: "Длина имени не более 20 символов",
     value: 40,
   },
   required: "Поле должно быть заполнено",
@@ -68,11 +66,11 @@ export const VALIDATIONS_FULLNAME = {
 export const VALIDATIONS_EMAIL = {
   minLength: {
     message: "Длина адреса электронной почты не менее 8 символов",
-    value: 8,
+    value: 6,
   },
   maxLength: {
     message: "Длина адреса электронной почты не более 40 символов",
-    value: 40,
+    value: 50,
   },
   required: "Поле должно быть заполнено",
 };
@@ -87,4 +85,21 @@ export const VALIDATIONS_PASSWORD = {
     value: 64,
   },
   required: "Данное поле обязательно",
+  validate: {
+    onlyLatinLetter: (value = "") => {
+      if (value.length && /[а-яёА-ЯЁ]/.test(value)) {
+        return "Только английские буквы алфавита";
+      }
+    },
+    beginsWithLetter: (value = "") => {
+      if (value.length && !/^[a-zA-Z]+/.test(value)) {
+        return "Пароль должен начинаться с буквы";
+      }
+    },
+    hasOneDigit: (value = "") => {
+      if (value.length && !/\d+/.test(value)) {
+        return "Пароль должен содержать минимум 1 цифру";
+      }
+    },
+  },
 };

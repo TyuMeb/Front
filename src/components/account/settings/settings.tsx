@@ -185,8 +185,13 @@ export const Settings = () => {
   };
 
   const onSubmit = (data: SettingsForm) => {
-    const { notifications, person_telephone, newPass, currentPass, newPassRepeat, ...rest } = data;
-    const dataUser = { notifications: noticeEmail, ...rest } as UserAccount;
+    const { notifications, person_telephone, newPass, currentPass, newPassRepeat, name, surname, ...rest } = data;
+    const dataUser = {
+      name: name.trim(),
+      surname: surname?.trim(),
+      notifications: noticeEmail,
+      ...rest,
+    } as UserAccount;
 
     if (
       dirtyFields.notifications ||
@@ -347,6 +352,7 @@ export const Settings = () => {
             placeholder={SETTINGS_SURNAME.placeholder}
             disabled={isModifyMode === false}
             id="lastName"
+            autoComplete="on"
             error={Boolean(errors.surname?.message)}
             errorMessage={errors.surname?.message}
             {...register("surname", {
@@ -364,6 +370,7 @@ export const Settings = () => {
             placeholder={SETTINGS_PHONE.placeholder}
             disabled={isModifyMode === false}
             id="person_telephone"
+            autoComplete="off"
             error={Boolean(errors.person_telephone?.message)}
             errorMessage={errors.person_telephone?.message}
             value={watch("person_telephone")}
@@ -382,6 +389,7 @@ export const Settings = () => {
             placeholder={SETTINGS_EMAIL.placeholder}
             disabled
             id="email"
+            autoComplete="on"
             error={Boolean(errors.email?.message)}
             errorMessage={errors.email?.message}
             {...register("email", {
@@ -399,9 +407,11 @@ export const Settings = () => {
             placeholder={SETTINGS_PREVIOUS_PASSWORD.placeholder}
             disabled={isModifyMode === false}
             id="password"
+            autoComplete="off"
             error={Boolean(errors.currentPass?.message)}
             errorMessage={errors.currentPass?.message}
             {...register("currentPass", {
+              validate: { ...VALIDATIONS_PASSWORD.validate },
               required: {
                 value: Boolean(currentPass) || Boolean(newPass) || Boolean(newPassRepeat),
                 message: VALIDATIONS_PASSWORD.required,
@@ -418,6 +428,7 @@ export const Settings = () => {
             placeholder={SETTINGS_NEW_PASSWORD.placeholder}
             disabled={isModifyMode === false}
             id="newPassword"
+            autoComplete="off"
             error={Boolean(errors.newPass?.message)}
             errorMessage={errors.newPass?.message}
             {...register("newPass", {
@@ -434,6 +445,7 @@ export const Settings = () => {
                     return "Новый пароль должен отличаться";
                   }
                 },
+                ...VALIDATIONS_PASSWORD.validate,
               },
             })}
           />
@@ -444,6 +456,7 @@ export const Settings = () => {
             placeholder={SETTINGS_NEW_PASSWORD_REPEAT.placeholder}
             disabled={isModifyMode === false}
             id="newPasswordRepeat"
+            autoComplete="off"
             error={Boolean(errors.newPassRepeat?.message)}
             errorMessage={errors.newPassRepeat?.message}
             {...register("newPassRepeat", {
@@ -460,6 +473,7 @@ export const Settings = () => {
                     return "Пароли не совпадают";
                   }
                 },
+                ...VALIDATIONS_PASSWORD.validate,
               },
             })}
           />
