@@ -1,5 +1,7 @@
 .thirdLevelMenu {
-  margin-top: 12px;
+  // margin-top: 12px;
+  list-style: none;
+  padding-left: 0;
 }
 
 .thirdLevelItem {
@@ -9,11 +11,18 @@
 }
 
 .thirdLevelLink {
+  width: 100%;
   position: relative;
-  display: block;
+  display: inline-block;
   padding: 8px 0 8px 68px;
   border-radius: 0px 8px 8px 0px;
   border-left: 4px solid transparent;
+
+  &__name {
+    max-width: 18ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   &_bullet {
     position: absolute;

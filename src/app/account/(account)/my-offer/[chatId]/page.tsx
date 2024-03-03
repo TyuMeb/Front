@@ -5,12 +5,12 @@ import { myOffers } from "@src/shared/data/performer-account";
 
 type OrderItemPageProps = {
   params: {
-    order: string;
+    chatId: string;
   };
 };
 
 export default function OrderItemPage({ params }: OrderItemPageProps) {
-  const alias = params.order;
+  const alias = params.chatId;
   const idDialog = alias.split("-")[1];
 
   let myOffer = {} as OrderInfo;
