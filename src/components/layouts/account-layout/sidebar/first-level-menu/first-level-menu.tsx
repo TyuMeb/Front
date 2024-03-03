@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 const cx = classNames.bind(styles);
 
-export const FirstLevelMenu: FC<MenuProps> = ({ menuItems, route }) => {
+export const FirstLevelMenu: FC<MenuProps> = ({ menuItems }) => {
   const [activeItem, setActiveItem] = useState(0);
   const [openItems, setOpenItems] = useState(new Array(menuItems.length).fill(false));
   const router = useRouter();
@@ -17,7 +17,7 @@ export const FirstLevelMenu: FC<MenuProps> = ({ menuItems, route }) => {
   return (
     <ul className={cx("firstLevelMenu")}>
       {menuItems.map((item, i) => {
-        const itemPathname = route + item.alias;
+        const itemPathname = item.alias;
 
         return (
           <li key={item.id}>

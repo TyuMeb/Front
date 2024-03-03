@@ -30,7 +30,7 @@ const firstLevelMenu: firstLevelMenuItemProps[] = [
   { alias: "chats", name: "Чаты", icon: <Icon className={cx("icon")} glyph="chats" /> },
   { alias: "archives", name: "Архивы", icon: <Icon className={cx("icon")} glyph="archives" /> },
   { alias: "settings", name: "Настройки", icon: <Icon className={cx("icon")} glyph="settings" /> },
-  { alias: "help", name: "Помощь", icon: <Icon className={cx("icon")} glyph="help" /> },
+  { alias: "order", name: "Помощь", icon: <Icon className={cx("icon")} glyph="add" /> },
 ];
 
 export const Sidebar = ({ className }: SidebarProps) => {

@@ -21,8 +21,6 @@ import { Chat } from "@src/redux/api/generated";
 
 const cx = classNames.bind(styles);
 
-const PAGE_LINK = "/account";
-
 type SidebarProps = {} & HTMLAttributes<HTMLDivElement>;
 
 export type TMenuItem = {
@@ -37,7 +35,7 @@ export type TMenuItem = {
 
 export type MenuProps = {
   menuItems: TMenuItem[];
-  route: string;
+  route?: string;
 };
 
 // eslint-disable-next-line
@@ -132,7 +130,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
   return (
     <aside className={cx("menu", className)}>
       <nav className={cx("navigation")}>
-        {menuItems && <FirstLevelMenu menuItems={menuItems} route={PAGE_LINK} />}
+        {menuItems && <FirstLevelMenu menuItems={menuItems} />}
         <Link href="/">
           <Button icon={<Icon glyph="exit" />} variant="exit" onClick={onHandlerClick}>
             <p className="text-small-semibold">Выйти</p>
