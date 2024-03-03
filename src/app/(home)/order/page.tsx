@@ -1,5 +1,5 @@
 "use client";
 
-import { OrderPage } from "@src/domains/create-order/page";
+import { CreateOrder } from "@src/components/account/create-order";
 
-export default OrderPage;
+export default CreateOrder;
