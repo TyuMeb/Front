@@ -1,11 +1,7 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { Performers } from "@src/components/account/performers";
 
-// TODO: ДОБАВИТЬ ВЁРСТКУ СТРАНИЦЫ ПРЕДЛОЖЕНИЯ
-
-export default function OfferItem() {
-  const params = useParams();
-
-  return <div>ПРЕДЛОЖЕНИЯ ДЛЯ ЗАКАЗА {params.order}</div>;
+export default function PerformersPage() {
+  return <Performers />;
 }

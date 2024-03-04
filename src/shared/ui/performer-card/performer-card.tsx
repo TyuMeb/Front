@@ -2,7 +2,7 @@
 
 import React, { FC, useState } from "react";
 import styles from "./performer-card.module.scss";
-import "src/components/account/wrapper-card/wrapper-card.module.scss";
+import "./performer-card.module.scss";
 import { Button } from "src/shared/ui/button";
 import { cn } from "@src/shared/lib/cn";
 
