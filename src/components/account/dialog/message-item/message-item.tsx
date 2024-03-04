@@ -23,17 +23,21 @@ export const MessageItem: FC<TMessageProps> = ({
   hashcode,
   markMessagesAsRead,
 }) => {
-  const [isReadedMessage, setIsReadedMessage] = useState(isRead);
+  const [isReadedMessage, setIsReadedMessage] = useState<boolean>(isRead); //isRead === "False" ? false : true);
   const { ref, inView } = useInView({
     threshold: 1,
   });
 
+  // console.log(`текст - ${text}, моё сообщение - ${isMyMessage}, прочитано - ${isReadedMessage}`);
+  // console.log(isMyMessage);
+
   useEffect(() => {
-    if (!isReadedMessage && inView) {
+    if (!isMyMessage && !isReadedMessage && inView) {
       const timer: ReturnType<typeof setTimeout> = setTimeout(() => {
         markMessagesAsRead([hashcode]);
         //TODO: дёргаем ручку прочитанного сообщения
         setIsReadedMessage(true);
+        console.log("Читаю");
       }, 2000);
       return () => {
         clearTimeout(timer);

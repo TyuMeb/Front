@@ -2,6 +2,12 @@
   display: grid;
   row-gap: 24px;
   margin-bottom: 80px;
+  max-width: 220px;
+
+  &__item {
+    list-style: none;
+    padding-left: 0;
+  }
 }
 
 .firstLevelLink {
@@ -10,7 +16,6 @@
   align-items: center;
   padding-left: 20px;
   box-sizing: border-box;
-  border-left: 4px solid transparent;
 
   &_bullet {
     position: absolute;
