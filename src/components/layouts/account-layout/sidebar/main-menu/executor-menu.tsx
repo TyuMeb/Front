@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
 
 const cx = classNames.bind(styles);
 
-export const ExecutorMenu: FC<TMenuProps> = ({ menuItems, route }) => {
+export const ExecutorMenu: FC<TMenuProps> = ({ menuItems }) => {
   const [openItems, setOpenItems] = useState(new Array(menuItems.length).fill(false));
   const router = useRouter();
   const currentPath = usePathname();
@@ -18,7 +18,7 @@ export const ExecutorMenu: FC<TMenuProps> = ({ menuItems, route }) => {
   return (
     <ul className={cx("firstLevelMenu")}>
       {menuItems.map((item, i) => {
-        const itemPathname = route + item.alias;
+        const itemPathname = item.alias;
 
         return (
           <li key={item.id} className={cx("firstLevelMenu__item")}>

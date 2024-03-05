@@ -23,8 +23,6 @@ import { parseOrdersToOrderItems, parseOffersToOfferItems } from "@src/helpers/p
 
 const cx = classNames.bind(styles);
 
-const PAGE_LINK = "/account";
-
 type SidebarProps = {} & HTMLAttributes<HTMLDivElement>;
 
 export type TMenuItem = {
@@ -39,7 +37,7 @@ export type TMenuItem = {
 
 export type TMenuProps = {
   menuItems: TMenuItem[];
-  route: string;
+  route?: string;
 };
 
 export const Sidebar = ({ className }: SidebarProps) => {
@@ -114,9 +112,9 @@ export const Sidebar = ({ className }: SidebarProps) => {
       <nav className={cx("navigation")}>
         {user && menuItems ? (
           user?.role === "client" ? (
-            <CustomerMenu menuItems={menuItems} route={PAGE_LINK} />
+            <CustomerMenu menuItems={menuItems} />
           ) : (
-            <ExecutorMenu menuItems={menuItems} route={PAGE_LINK} />
+            <ExecutorMenu menuItems={menuItems} />
           )
         ) : (
           <></>
