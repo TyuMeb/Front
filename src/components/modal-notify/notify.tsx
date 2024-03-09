@@ -11,9 +11,9 @@ export const Notify = () => {
   return createdModal.length ? (
     <div className={styles.container}>
       {createdModal.map((modal, i) => {
-        const { name, typeNotify, textNotify, delayMessage } = modal;
+        const { name, type, text, delay } = modal;
 
-        return <ModalNotify key={i} name={name} type={typeNotify} text={textNotify} delay={delayMessage} />;
+        return <ModalNotify key={i} name={name} type={type} text={text} delay={delay} />;
       })}
     </div>
   ) : (

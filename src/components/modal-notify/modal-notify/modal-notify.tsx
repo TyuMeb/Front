@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 
 type ModalNotifyProps = {
   name: string;
-  type?: "defaultNotify" | "successNotify" | "errorNotify";
+  type?: "default" | "success" | "error";
   text?: string;
   delay?: number;
 };
@@ -46,7 +46,7 @@ const getText = (typeModal: TypeModal) => {
   }
 };
 
-export const ModalNotify = ({ name, type = "defaultNotify", text, delay }: ModalNotifyProps) => {
+export const ModalNotify = ({ name, type = "default", text, delay }: ModalNotifyProps) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export const ModalNotify = ({ name, type = "defaultNotify", text, delay }: Modal
   };
 
   return (
-    <div className={cx("container", { success: type === "successNotify" }, { error: type === "errorNotify" })}>
+    <div className={cx("container", { success: type === "success" }, { error: type === "error" })}>
       <p className="text-medium">{text ? text : getText(type as TypeModal)?.message}</p>
 
       <Button onClick={handlerOnClick}>{getText(type as TypeModal)?.textButton}</Button>

@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-export type TypeNotify = "defaultNotify" | "successNotify" | "errorNotify";
+export type TypeNotify = "default" | "success" | "error";
 
 type Notify = {
   name: string;
-  typeNotify?: TypeNotify;
-  textNotify?: string;
-  delayMessage?: number;
+  type?: TypeNotify;
+  text?: string;
+  delay?: number;
 };
 
 type NotifyState = {
