@@ -17,10 +17,10 @@ export type CheckboxInputProps = {
 } & React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 export const CheckboxInput = forwardRef<HTMLInputElement, CheckboxInputProps>(
-  ({ textLabel, error, errorMessage, checked, disabled, type, ...props }, ref) => {
+  ({ textLabel, error, errorMessage, checked, disabled, type = "checkbox", ...props }, ref) => {
     return (
-      <>
-        <label htmlFor={props.id} className={cx(styles.container, props.className)}>
+      <div className={props.className}>
+        <label htmlFor={props.id} className={cx(styles.container)}>
           <input
             {...props}
             disabled={disabled}
@@ -46,7 +46,7 @@ export const CheckboxInput = forwardRef<HTMLInputElement, CheckboxInputProps>(
         {errorMessage && error && !disabled && !checked && (
           <span className={cx("message", "errorTextMargins")}>{errorMessage}</span>
         )}
-      </>
+      </div>
     );
   }
 );

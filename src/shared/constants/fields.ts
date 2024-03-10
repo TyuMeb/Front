@@ -33,21 +33,27 @@ export const SETTINGS_EMAIL = {
   type: "email",
 };
 
+export const SETTINGS_PASSWORD = {
+  label: "Пароль",
+  placeholder: "Введите пароль",
+  type: "password",
+};
+
 export const SETTINGS_PREVIOUS_PASSWORD = {
   label: "Старый пароль",
-  placeholder: "Введите свой пароль",
+  placeholder: "Введите пароль",
   type: "password",
 };
 
 export const SETTINGS_NEW_PASSWORD = {
   label: "Новый пароль",
-  placeholder: "Введите новый пароль",
+  placeholder: "Введите пароль",
   type: "password",
 };
 
 export const SETTINGS_NEW_PASSWORD_REPEAT = {
-  label: "Повторите пароль",
-  placeholder: "Повторите новый пароль",
+  label: "Повторите новый пароль",
+  placeholder: "Введите пароль",
   type: "password",
 };
 
@@ -102,4 +108,12 @@ export const VALIDATIONS_PASSWORD = {
       }
     },
   },
+};
+
+export const VALIDATIONS_PHONE = {
+  minLength: {
+    message: "Минимальная длина номера 12 цифр",
+    value: 16,
+  },
+  required: "Данное поле обязательно",
 };
