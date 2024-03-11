@@ -168,7 +168,6 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
           placeholder={SETTINGS_NAME.placeholder}
           disabled={isActiveForm === false}
           id="name"
-          autoComplete="on"
           error={Boolean(errors.name?.message)}
           errorMessage={errors.name?.message}
           {...register("name", {
@@ -184,7 +183,6 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
           placeholder={SETTINGS_SURNAME.placeholder}
           disabled={isActiveForm === false}
           id="surname"
-          autoComplete="on"
           error={Boolean(errors.surname?.message)}
           errorMessage={errors.surname?.message}
           {...register("surname", {
@@ -201,8 +199,6 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
           label={SETTINGS_PHONE.label}
           placeholder={SETTINGS_PHONE.placeholder}
           disabled={isActiveForm === false}
-          id="person_telephone"
-          autoComplete="off"
           error={Boolean(errors.person_telephone?.message)}
           errorMessage={errors.person_telephone?.message}
           value={watch("person_telephone")}
@@ -217,7 +213,6 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
           placeholder={SETTINGS_EMAIL.placeholder}
           disabled
           id="email"
-          autoComplete="on"
           error={Boolean(errors.email?.message)}
           errorMessage={errors.email?.message}
           {...register("email", {
@@ -235,9 +230,9 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
           placeholder={SETTINGS_PREVIOUS_PASSWORD.placeholder}
           disabled={isActiveForm === false}
           id="currentPass"
-          autoComplete="off"
           error={Boolean(errors.currentPass?.message)}
           errorMessage={errors.currentPass?.message}
+          autoComplete="new-password"
           {...register("currentPass", {
             validate: { ...VALIDATIONS_PASSWORD.validate },
             required: {
@@ -256,7 +251,6 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
           placeholder={SETTINGS_NEW_PASSWORD.placeholder}
           disabled={isActiveForm === false}
           id="newPassword"
-          autoComplete="off"
           error={Boolean(errors.newPass?.message)}
           errorMessage={errors.newPass?.message}
           {...register("newPass", {
@@ -284,7 +278,6 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
           placeholder={SETTINGS_NEW_PASSWORD_REPEAT.placeholder}
           disabled={isActiveForm === false}
           id="newPasswordRepeat"
-          autoComplete="off"
           error={Boolean(errors.newPassRepeat?.message)}
           errorMessage={errors.newPassRepeat?.message}
           {...register("newPassRepeat", {

@@ -45,7 +45,7 @@ const cardList = (offer: MyOffers) => {
 
 const renderButton = (offerType: OfferType, offerId: number) => {
   const linksEll = (
-    <Link href={`/performer-account/my-offer/order-${offerId}`}>
+    <Link href={`/account/my-offer/${offerId}`}>
       <Button className="text-small">Перейти к чату</Button>
     </Link>
   );
