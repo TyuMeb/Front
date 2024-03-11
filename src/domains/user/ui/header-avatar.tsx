@@ -16,7 +16,7 @@ export const HeaderAvatar = (props: Props) => {
     <Link
       {...props}
       className={cn("w-8 h-8", props.className)}
-      href={ua?.role === "client" ? "/account/my-orders" : "/account/my-offer"}
+      href={ua?.role === "client" ? "/account/my-orders" : "/account/customer-orders"}
     >
       <img src={"/account/photo.png"} alt="Фото"></img>
     </Link>

@@ -11,17 +11,17 @@ import { useAppDispatch } from "@src/redux/hooks";
 import { setUser } from "@src/redux/slices/users-slice";
 import { removeCookie } from "typescript-cookie";
 import { useClientActiveOrdersQuery } from "@src/redux/api/order-api-slice";
+import { useExecutorOffersQuery } from "@src/redux/api/offer-api-slice";
 import { useGetChatsQuery } from "@src/redux/api/chat-api-slice";
-import { FirstLevelMenu } from "./first-level-menu/first-level-menu";
+import { CustomerMenu } from "./main-menu/customer-menu";
+import { ExecutorMenu } from "./main-menu/executor-menu";
 import { useUser } from "@src/redux/slices/users-slice";
 import { CUSTOMER_MENU_ITEMS } from "@src/shared/data/customer-menu-items";
-import { CONTRACTOR_MENU_ITEMS } from "@src/shared/data/contractor-menu-items";
+import { EXECUTOR_MENU_ITEMS } from "@src/shared/data/executor-menu-items";
 import { UserAccount } from "@src/redux/api/generated";
-import { Chat } from "@src/redux/api/generated";
+import { parseOrdersToOrderItems, parseOffersToOfferItems } from "@src/helpers/parseToMenuItems";
 
 const cx = classNames.bind(styles);
-
-const PAGE_LINK = "/account";
 
 type SidebarProps = {} & HTMLAttributes<HTMLDivElement>;
 
@@ -35,92 +35,70 @@ export type TMenuItem = {
   unread?: boolean;
 };
 
-export type MenuProps = {
+export type TMenuProps = {
   menuItems: TMenuItem[];
-  route: string;
-};
-
-// eslint-disable-next-line
-const parseOrdersToOrderItems = (ordersArr: any, chatsArr: Chat[], unreadMessagesPresent: boolean): TMenuItem[] => {
-  // eslint-disable-next-line
-  return ordersArr.reduce((acc: TMenuItem[], order: any) => {
-    return [
-      ...acc,
-      {
-        id: order.id,
-        alias: "",
-        name: order.name,
-        contractor: Number(order.contractor),
-        collapsible: !order.offers
-          ? undefined
-          : // eslint-disable-next-line
-            order.offers.reduce((accum: TMenuItem[], offer: any) => {
-              const unreadMessages: number | undefined = chatsArr.find((chat) => chat.id === offer.chat_id)
-                ?.unread_messages;
-              return [
-                ...accum,
-                {
-                  id: offer.id,
-                  alias: `/${offer.chat_id}`,
-                  contractor: offer.contactor_name,
-                  unread: !!unreadMessages,
-                },
-              ];
-            }, []),
-        unread: unreadMessagesPresent,
-      },
-    ];
-  }, []);
+  route?: string;
 };
 
 export const Sidebar = ({ className }: SidebarProps) => {
-  const {
-    data: orders = [],
-    error: ordersDataLoadingError,
-    isLoading: isOrdersDataLoading,
-  } = useClientActiveOrdersQuery();
-  const { data: chats = [], error: chatsLoadingError, isLoading: isChatsDataLoading } = useGetChatsQuery();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const user: UserAccount | null = useUser();
   const [menuItems, setMenuItems] = useState<TMenuItem[] | null>(null);
+  const [role, setRole] = useState<"client" | "contractor" | null>(null);
+
+  const { data: chats = [], isSuccess: isChatsDataLoadingSuccess } = useGetChatsQuery();
+
+  const { data: orders = [], isSuccess: isOrdersDataLoadingSuccess } = useClientActiveOrdersQuery(undefined, {
+    skip: role === "client" ? false : true,
+  });
+
+  const { data: offers = [], isSuccess: isOfferssDataLoadingSuccess } = useExecutorOffersQuery(undefined, {
+    skip: role === "contractor" ? false : true,
+  });
+
+  useEffect(() => {
+    if (user) {
+      if (user?.role === "client") setRole("client");
+      else if (user?.role === "contractor") setRole("contractor");
+      else setRole(null);
+    }
+  }, [user]);
 
   useEffect(() => {
     if (
-      !isOrdersDataLoading &&
-      !ordersDataLoadingError &&
-      !chatsLoadingError &&
-      !isChatsDataLoading &&
-      orders &&
-      user
+      (isOrdersDataLoadingSuccess || isOfferssDataLoadingSuccess) &&
+      isChatsDataLoadingSuccess &&
+      role &&
+      !menuItems
     ) {
       const unreadMessagesPresent = chats.some((chat) => chat.unread_messages);
 
-      user.role === "client"
+      role === "client"
         ? setMenuItems(
-            CUSTOMER_MENU_ITEMS.map((el, i) =>
+            CUSTOMER_MENU_ITEMS.map((item, i) =>
               i === 0
                 ? {
-                    ...el,
+                    ...item,
                     collapsible: parseOrdersToOrderItems(orders, chats, unreadMessagesPresent),
                     unread: unreadMessagesPresent,
                   }
-                : el
+                : item
             )
           )
         : setMenuItems(
-            CONTRACTOR_MENU_ITEMS.map((el, i) =>
-              i === 0
+            EXECUTOR_MENU_ITEMS.map((item, i) =>
+              i === 1
                 ? {
-                    ...el,
-                    collapsible: parseOrdersToOrderItems(orders, chats, unreadMessagesPresent),
+                    ...item,
+                    collapsible: parseOffersToOfferItems(offers, chats),
                     unread: unreadMessagesPresent,
                   }
-                : el
+                : item
             )
           );
     }
-  }, [isOrdersDataLoading, isChatsDataLoading, user]);
+  }, [isOfferssDataLoadingSuccess, isOrdersDataLoadingSuccess, isChatsDataLoadingSuccess, role]);
 
   const onHandlerClick = () => {
     router.push("/");
@@ -132,7 +110,15 @@ export const Sidebar = ({ className }: SidebarProps) => {
   return (
     <aside className={cx("menu", className)}>
       <nav className={cx("navigation")}>
-        {menuItems && <FirstLevelMenu menuItems={menuItems} route={PAGE_LINK} />}
+        {user && menuItems ? (
+          user?.role === "client" ? (
+            <CustomerMenu menuItems={menuItems} />
+          ) : (
+            <ExecutorMenu menuItems={menuItems} />
+          )
+        ) : (
+          <></>
+        )}
         <Link href="/">
           <Button icon={<Icon glyph="exit" />} variant="exit" onClick={onHandlerClick}>
             <p className="text-small-semibold">Выйти</p>

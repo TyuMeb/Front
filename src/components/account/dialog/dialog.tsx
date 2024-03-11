@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, HTMLAttributes, useRef } from "react";
+import React, { useState, useEffect, HTMLAttributes } from "react";
 import styles from "./dialog.module.scss";
 import { Button } from "@src/shared/ui/button";
 import { WrapperForm, InputPreviewFiles, PreviewFiles, FilesPreview } from "@src/components/account/wrapper-form";
@@ -36,59 +36,118 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
   const measuredForm = useMeasuredRef();
   const measuredDialog = useMeasuredRef();
   const [filesPreview, setFilesPreview] = useState<FilesPreview[] | []>([]);
-  const ws = useRef<WebSocket | null>(null);
-  const [messagesList, seMessagesList] = useState<Message[]>([]);
+  const [websocket, setWebsocket] = useState<WebSocket | null>(null);
+  const [messagesList, setMessagesList] = useState<Message[]>([]);
+  const [unreadMessagesQty, SetUnreadMessagesQty] = useState<number>(0);
   const [email, setEmail] = useState<string>("");
+  const [role, setRole] = useState<"client" | "contractor" | null>(null);
   const params = useParams();
   const user: UserAccount | null = useUser();
 
   useEffect(() => {
+    console.log(unreadMessagesQty);
+  }, [unreadMessagesQty]);
+
+  useEffect(() => {
     if (user) {
       setEmail(user.email);
-
-      if (!ws.current && params.order !== "null")
-        user.role === "client"
-          ? (ws.current = new WebSocket(`wss://api.whywe.ru/ws/chat/${params.order}/`, getCookie("access_token")))
-          : (ws.current = new WebSocket(`wss://api.whywe.ru/ws/chat/${params.order}/`, getCookie("access_token")));
-
-      const geMessages = () => {
-        ws.current?.send(JSON.stringify({ command: "fetch_messages", message: "fetch" }));
-      };
-
-      const showData = (e: MessageEvent) => {
-        const { messages } = JSON.parse(e.data);
-        if (messages) {
-          seMessagesList(
-            messages.sort((a: Message, b: Message) => {
-              if (dayjs(a.sent_at) > dayjs(b.sent_at)) return 1;
-              else return -1;
-            })
-          );
-          console.log(messages);
-        } else {
-          const { sender, hashcode, text, sent_at, is_read } = JSON.parse(e.data);
-          console.log(e.data);
-          seMessagesList((messages) => [
-            ...messages,
-            { hashcode: hashcode, sender: sender, text: text, sent_at: sent_at, is_read },
-          ]);
-        }
-      };
-      ws.current?.addEventListener("open", geMessages);
-      ws.current?.addEventListener("message", showData);
-
-      return () => {
-        ws.current?.removeEventListener("open", geMessages);
-        ws.current?.removeEventListener("message", showData);
-      };
+      if (user?.role === "client") setRole("client");
+      else if (user?.role === "contractor") setRole("contractor");
+      else setRole(null);
     }
   }, [user]);
+
+  useEffect(() => {
+    let unreadQty: number = 0;
+    if (messagesList.length && email) {
+      unreadQty = messagesList.reduce(
+        (acc, message) => (!message.is_read && message.sender != email ? (acc += 1) : acc),
+        0
+      );
+    }
+    SetUnreadMessagesQty(unreadQty);
+  }, [messagesList]);
+
+  useEffect(() => {
+    if (!websocket) return;
+
+    let timer: ReturnType<typeof setTimeout>;
+
+    const wsInit = (): void => {
+      if (role === "client" || role === "contractor")
+        setWebsocket(new WebSocket(`wss://api.whywe.ru/ws/chat/${params.chatId}/`, getCookie("access_token")));
+    };
+
+    const getMessages = () => {
+      console.log("Connection established");
+      console.log(websocket);
+      if (websocket?.readyState === 1) websocket.send(JSON.stringify({ command: "fetch_messages", message: "fetch" }));
+    };
+
+    const wsReconnect = () => {
+      timer = setTimeout(() => {
+        console.log("Reconnect attempt");
+        wsInit();
+      }, 5000);
+    };
+
+    const wsErrorHandler = () => {
+      console.log("Websocket error");
+      wsReconnect();
+    };
+
+    const showData = (e: MessageEvent) => {
+      const messages = JSON.parse(e.data);
+
+      // TODO: ДОБАВИТЬ ОТОБРАЖЕНИЕ ПРЕВЬЮ ФАЙЛОВ
+
+      if (Array.isArray(messages)) {
+        setMessagesList(
+          messages.sort((a: Message, b: Message) => {
+            if (dayjs(a.sent_at) > dayjs(b.sent_at)) return 1;
+            else return -1;
+          })
+        );
+        console.log(messages);
+      } else if (messages.status) {
+        console.log(messages);
+      } else {
+        const { sender, hashcode, text, sent_at, is_read } = messages;
+        console.log(e.data);
+        setMessagesList((messages) => [...messages, { hashcode, sender, text, sent_at, is_read }]);
+      }
+    };
+
+    if (websocket) {
+      websocket.addEventListener("open", getMessages);
+      websocket.addEventListener("message", showData);
+      websocket.addEventListener("error", wsErrorHandler);
+      websocket.addEventListener("close", wsReconnect);
+    }
+
+    return () => {
+      if (websocket) {
+        websocket.removeEventListener("open", getMessages);
+        websocket.removeEventListener("message", showData);
+        websocket.removeEventListener("error", wsErrorHandler);
+        websocket.removeEventListener("close", wsReconnect);
+        websocket.close();
+      }
+      if (timer) clearTimeout(timer);
+    };
+  }, [websocket]);
+
+  useEffect(() => {
+    console.log(role);
+    if (role === "client" || role === "contractor")
+      setWebsocket(new WebSocket(`wss://api.whywe.ru/ws/chat/${params.chatId}/`, getCookie("access_token")));
+  }, [role]);
 
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
   }, [measuredForm.elementHeight, messagesList]);
 
-  const { handleSubmit, resetField, control } = useForm({
+  const { handleSubmit, resetField, control, watch } = useForm({
     defaultValues: {
       chat: "",
     },
@@ -99,11 +158,10 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
 
     const formFiles = new FormData();
     files.forEach((file) => formFiles.append(`file-${file.id}`, file.file));
-    // console.log({ files, text: data.chat, formData: formFiles, filesPreview });
-    // ws.current?.send(
-    //   JSON.stringify({ command: "new_message", message: { files, text: data.chat, formData: formFiles, filesPreview } })
-    // );
-    ws.current?.send(JSON.stringify({ command: "new_message", message: data.chat }));
+
+    // TODO: СДЕЛАТЬ ОТПРАВКУ ФАЙЛОВ
+
+    if (data.chat) websocket?.send(JSON.stringify({ command: "new_message", message: data.chat }));
     resetField("chat");
   };
 
@@ -122,7 +180,7 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
       <WrapperInfo orderInfo={orderInfo} getObserver={measuredDialog.getObserver} />
 
       <Chat heightForm={measuredForm.elementHeight} heightDialog={measuredDialog.elementHeight}>
-        {messagesList.map((message) => (
+        {messagesList.map((message, i, arr) => (
           <MessageItem
             key={message.hashcode}
             text={message.text}
@@ -132,7 +190,12 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
             isMyMessage={email === message.sender}
             avaColor="red"
             markMessagesAsRead={(hash: string[]): boolean => {
-              ws.current?.send(JSON.stringify({ command: "read_messages", hashcodes: [hash] }));
+              websocket?.send(JSON.stringify({ command: "read_messages", hashcodes: [hash.toString()] }));
+              const tempArr = arr;
+              if (!tempArr[i].is_read) {
+                tempArr[i].is_read = true;
+                setMessagesList(tempArr);
+              }
               return true;
             }}
           />
@@ -166,7 +229,7 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
               <Paperclip />
             </InputPreviewFiles>
 
-            <Button className={styles.buttonSubmit} type="submit">
+            <Button className={styles.buttonSubmit} type="submit" disabled={!watch("chat")}>
               <Icon glyph="paper_airplane" />
             </Button>
           </WrapperForm>
