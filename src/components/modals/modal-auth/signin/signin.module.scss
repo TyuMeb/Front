@@ -1,0 +1,43 @@
+.container {
+  padding: 86px 76px;
+}
+
+.background {
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 34px;
+  left: 76px;
+}
+
+.title {
+  position: relative;
+  margin-bottom: 36px;
+  max-width: 458px;
+}
+
+.form {
+  position: relative;
+}
+
+.containerForm {
+  display: grid;
+  row-gap: 20px;
+  margin-bottom: 8px;
+  max-width: 296px;
+}
+
+.link {
+  text-decoration: underline #b5b3b2;
+  border: none;
+  cursor: pointer;
+  background-color: inherit;
+  cursor: pointer;
+  margin: 0 0 46px;
+  color: $black;
+  display: flex;
+  padding-left: 16px;
+}

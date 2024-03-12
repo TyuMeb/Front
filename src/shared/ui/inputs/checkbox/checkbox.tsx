@@ -34,17 +34,11 @@ export const CheckboxInput = forwardRef<HTMLInputElement, CheckboxInputProps>(
             <Icon className={cx("checkboxFieldIcon", { checkboxFieldIconHide: checked === false })} glyph="checked" />
           </span>
 
-          <span
-            className={cx("label", {
-              warning: error && !disabled && !checked,
-            })}
-          >
-            {textLabel}
-          </span>
+          <span className={cx("text-medium")}>{textLabel}</span>
         </label>
 
         {errorMessage && error && !disabled && !checked && (
-          <span className={cx("message", "errorTextMargins")}>{errorMessage}</span>
+          <span className={cx("text-small", "errorMessage")}>{errorMessage}</span>
         )}
       </div>
     );

@@ -2,12 +2,6 @@
   max-width: 100%;
 }
 
-.text {
-  @include textSmall;
-
-  cursor: text;
-}
-
 .label {
   margin: 0 0 8px;
   display: flex;
@@ -15,9 +9,8 @@
   align-items: center;
 }
 
-.warning {
+.labelError {
   color: $pink-pig;
-  margin: 0 0 8px;
 }
 
 .warningIcon {
@@ -45,7 +38,7 @@
   -webkit-box-shadow: 0 0 0 30px white inset;
 }
 
-.error {
+.errorBorder {
   border: 1px solid $pink-pig;
 }
 
@@ -54,8 +47,7 @@
   background-color: #f8fafc;
 }
 
-.message {
-  @include font-source-sans(14px, $black, 400, 21px);
+.errorMessage {
   width: 100%;
   word-break: break-word;
   display: inline-block;

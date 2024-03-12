@@ -1,0 +1,9 @@
+.text {
+  color: #ff6894;
+  margin-bottom: 28px;
+
+  &::before {
+    content: "\2022";
+    margin-right: 10px;
+  }
+}

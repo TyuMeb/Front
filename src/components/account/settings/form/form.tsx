@@ -194,7 +194,6 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
         />
 
         <PhoneInput
-          className={styles.gridColumn}
           type={SETTINGS_PHONE.type}
           label={SETTINGS_PHONE.label}
           placeholder={SETTINGS_PHONE.placeholder}
