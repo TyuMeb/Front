@@ -35,7 +35,7 @@
   grid-template-columns: [startline] repeat(2, minmax(296px, max-content)) [endline];
   column-gap: 44px;
   row-gap: 28px;
-  margin-bottom: 12px;
+  margin-bottom: 36px;
 
   @media screen and (max-width: 1024px) {
     grid-template-columns: 1fr;

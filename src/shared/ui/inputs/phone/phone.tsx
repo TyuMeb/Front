@@ -7,7 +7,7 @@ export const PhoneInput = forwardRef<HTMLInputElement, InputProps>((props: Input
     props.onChange?.(phoneMask(e, String(props.value)));
   };
 
-  return <Input ref={ref} {...props} onChange={(e) => handlePhoneChange(e)} />;
+  return <Input ref={ref} {...props} onChange={handlePhoneChange} />;
 });
 
 PhoneInput.displayName = "PhoneInput";

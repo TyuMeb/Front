@@ -62,7 +62,7 @@ export const CustomerOrders = (props: MyOfferProps) => {
               {order.images?.length ? <Slider images={order.images} alt={order.name} /> : <></>}
             </div>
 
-            <Link href={`/performer-account/customer-orders/addOffer-${order.id}`}>
+            <Link href={`/account/customer-orders`}>
               <Button className="text-small">Перейти к заявке</Button>
             </Link>
           </Card>
