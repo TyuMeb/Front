@@ -118,3 +118,11 @@ export const VALIDATIONS_PHONE = {
     value: 16,
   },
 };
+
+export const VALIDATIONS_TEXTAREA = {
+  required: "Сообщение не может быть пустым",
+  maxLength: {
+    message: "Текст привышает максимальную допустимую длинну в 300 символов",
+    value: 300,
+  },
+};

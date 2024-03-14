@@ -1,23 +1,39 @@
-.wrapperForm {
-  display: grid;
-  row-gap: 20px;
-}
-
-.disabled path {
-  stroke: #bcbcbc;
-}
-
-.wrapper {
+.container {
   padding: 24px 40px;
   border-radius: 18px;
   box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.09);
   width: 100%;
 }
 
-.wrapperText {
+.containerText {
   border-bottom: 2.5px solid #fccf55;
   margin-bottom: 24px;
   padding-bottom: 8px;
+}
+
+.containerForm {
+  box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.09);
+  background-color: $white;
+  border-radius: 18px;
+  padding-right: 24px;
+  column-gap: 24px;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+}
+
+.textarea {
+  margin-right: 24px;
+}
+
+.icon {
+  margin-right: 16px;
+}
+
+.disabled path {
+  stroke: #bcbcbc;
 }
 
 .header {
@@ -31,4 +47,12 @@
 
 .textarea {
   max-height: 82px;
+}
+
+.errorMessage {
+  width: 100%;
+  word-break: break-word;
+  display: inline-block;
+  margin: 16px 24px;
+  color: $error-accent-color;
 }
