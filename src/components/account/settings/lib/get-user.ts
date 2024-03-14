@@ -1,5 +1,5 @@
 import { UserAccount } from "@src/redux/api/generated";
-import { SettingsForm } from "../form";
+import { SettingsForm } from "../settings";
 import { phoneConversion } from "@src/shared/lib/phoneMask";
 
 export const getUser = (user: UserAccount) => {
@@ -12,9 +12,9 @@ export const getUser = (user: UserAccount) => {
     surname: surname || "",
     person_telephone: phoneValue || "",
     email: email || "",
-    currentPass: "",
-    newPass: "",
-    newPassRepeat: "",
+    current_password: "",
+    new_password: "",
+    re_new_password: "",
     notifications: Boolean(notifications) ? "email" : "off",
   } as SettingsForm;
 };

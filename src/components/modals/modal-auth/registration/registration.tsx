@@ -7,7 +7,9 @@ import { CheckboxInput } from "@src/shared/ui/inputs/checkbox";
 import { Button } from "@src/shared/ui/button";
 import { useRegisterUserMutation } from "@src/redux/api/auth-api-slice";
 import { useForm } from "react-hook-form";
-import { UserCreate } from "@src/redux/api/generated";
+import { cn } from "@src/shared/lib/cn";
+import { SuccessMessage } from "@src/components/message/success-message";
+import { handleDefaultErrors } from "@src/shared/lib/handle-default-errors";
 import {
   PATTERN_EMAIL,
   PATTERN_FULLNAME,
@@ -22,14 +24,21 @@ import {
   VALIDATIONS_PASSWORD,
   VALIDATIONS_PHONE,
 } from "@src/shared/constants/fields";
-import { cn } from "@src/shared/lib/cn";
-import { SuccessMessage } from "@src/components/message/success-message";
 
-type FormProps = UserCreate & { confirm_password: string; agreement: boolean; person_telephone?: string };
+type RegistrationForm = {
+  name: string;
+  surname?: string;
+  email: string;
+  person_telephone?: string;
+  password: string;
+  confirm_password: string;
+  agreement: boolean;
+};
 
 export const Registration = () => {
   const [checked, setChecked] = useState(false);
-  const [registerUser, { isSuccess, isLoading }] = useRegisterUserMutation();
+  const [registerUser, { isSuccess: isSuccessRegisterUser, isLoading: isLoadingRegisterUser }] =
+    useRegisterUserMutation();
 
   const {
     register,
@@ -39,7 +48,7 @@ export const Registration = () => {
     reset,
     trigger,
     formState: { errors },
-  } = useForm<FormProps>({
+  } = useForm<RegistrationForm>({
     mode: "onChange",
   });
 
@@ -53,21 +62,24 @@ export const Registration = () => {
     }
   }, [password, confirmPassword, trigger]);
 
-  const onSubmit = (data: FormProps) => {
-    const { confirm_password, person_telephone, ...rest } = data;
+  const onSubmit = (data: RegistrationForm) => {
+    const { confirm_password, person_telephone, name, surname, ...rest } = data;
 
-    registerUser({ ...rest, person_telephone: person_telephone?.replaceAll(" ", "") })
+    const dataUser = {
+      name: name.trim(),
+      surname: surname?.trim(),
+      person_telephone: person_telephone?.replaceAll(" ", ""),
+      ...rest,
+    };
+
+    registerUser(dataUser)
       .unwrap()
       .then(() => {
         reset();
       })
       .catch((error) => {
         console.log("🚀 ~ file: registration.tsx:48 ~ onSubmit ~ error:", error);
-        const keys = Object.keys(error?.data || {}) as unknown as Array<keyof FormProps>;
-
-        keys.forEach((key) => {
-          setError(key, { message: error.data[key]?.join(", ") });
-        });
+        handleDefaultErrors<RegistrationForm>(error.data, setError);
       });
   };
 
@@ -82,15 +94,15 @@ export const Registration = () => {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className={styles.containerForm}>
+          <div className={styles.containerFields}>
             <Input
               label={SETTINGS_NAME.label}
               placeholder={SETTINGS_NAME.placeholder}
               id="name"
-              autoComplete="on"
               error={Boolean(errors.name?.message)}
               errorMessage={errors.name?.message}
               {...register("name", {
+                validate: { ...VALIDATIONS_FULLNAME.validate },
                 required: VALIDATIONS_FULLNAME.required,
                 minLength: { ...VALIDATIONS_FULLNAME.minLength },
                 maxLength: { ...VALIDATIONS_FULLNAME.maxLength },
@@ -102,10 +114,10 @@ export const Registration = () => {
               label={SETTINGS_SURNAME.label}
               placeholder={SETTINGS_SURNAME.placeholder}
               id="surname"
-              autoComplete="on"
               error={Boolean(errors.surname?.message)}
               errorMessage={errors.surname?.message}
               {...register("surname", {
+                validate: { ...VALIDATIONS_FULLNAME.validate },
                 required: VALIDATIONS_FULLNAME.required,
                 minLength: { ...VALIDATIONS_FULLNAME.minLength },
                 maxLength: { ...VALIDATIONS_FULLNAME.maxLength },
@@ -118,7 +130,6 @@ export const Registration = () => {
               label={SETTINGS_EMAIL.label}
               placeholder={SETTINGS_EMAIL.placeholder}
               id="email"
-              autoComplete="on"
               error={Boolean(errors.email?.message)}
               errorMessage={errors.email?.message}
               {...register("email", {
@@ -134,11 +145,11 @@ export const Registration = () => {
               label={SETTINGS_PHONE.label}
               placeholder={SETTINGS_PHONE.placeholder}
               id="person_telephone"
-              autoComplete="off"
               error={Boolean(errors.person_telephone?.message)}
               errorMessage={errors.person_telephone?.message}
               value={watch("person_telephone")}
               {...register("person_telephone", {
+                required: "Поле должно быть заполнено",
                 ...VALIDATIONS_PHONE,
               })}
             />
@@ -148,7 +159,6 @@ export const Registration = () => {
               label={SETTINGS_PASSWORD.label}
               placeholder={SETTINGS_PASSWORD.placeholder}
               id="password"
-              autoComplete="off"
               error={Boolean(errors.password?.message)}
               errorMessage={errors.password?.message}
               {...register("password", {
@@ -167,8 +177,7 @@ export const Registration = () => {
               type={SETTINGS_PASSWORD.type}
               label="Повторите пароль"
               placeholder={SETTINGS_PASSWORD.placeholder}
-              id="confirm_password"
-              autoComplete="off"
+              id="confirmPassword"
               error={Boolean(errors.confirm_password?.message)}
               errorMessage={errors.confirm_password?.message}
               {...register("confirm_password", {
@@ -207,9 +216,11 @@ export const Registration = () => {
             })}
           />
 
-          {isSuccess && <SuccessMessage>На вашу почту отправлено письмо для подтверждения аккаунта</SuccessMessage>}
+          {isSuccessRegisterUser && (
+            <SuccessMessage>На вашу почту отправлено письмо для подтверждения аккаунта</SuccessMessage>
+          )}
 
-          <Button isLoading={isLoading} className={styles.positionCenter} type="submit">
+          <Button isLoading={isLoadingRegisterUser} className={styles.positionCenter} type="submit">
             Зарегистрироваться
           </Button>
         </form>

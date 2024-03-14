@@ -10,10 +10,13 @@ import { Icon } from "@src/components/icon";
 import { Input } from "@src/shared/ui/inputs";
 import { Button } from "@src/shared/ui/button";
 import { useForm } from "react-hook-form";
-import { SendEmailReset } from "@src/redux/api/generated";
 import { cn } from "@src/shared/lib/cn";
 import { SuccessMessage } from "@src/components/message/success-message";
 import { PATTERN_EMAIL, SETTINGS_EMAIL, VALIDATIONS_EMAIL } from "@src/shared/constants/fields";
+
+type ResetPasswordForm = {
+  email: string;
+};
 
 export const ResetPassword = () => {
   const dispatch = useAppDispatch();
@@ -23,21 +26,16 @@ export const ResetPassword = () => {
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm({
-    values: {
-      email: "",
-    },
+  } = useForm<ResetPasswordForm>({
     mode: "onChange",
   });
 
   const [resetPassword, { isLoading, isSuccess }] = usePostUsersResetPasswordMutation();
 
-  const onSubmit = (data: SendEmailReset) => {
+  const onSubmit = (data: ResetPasswordForm) => {
     resetPassword(data)
       .unwrap()
-      .then((data) => {
-        console.log(data);
-      })
+      .then()
       .catch((error) => {
         setError("email", { message: error?.data?.join("") });
       });
@@ -65,7 +63,6 @@ export const ResetPassword = () => {
                 label={SETTINGS_EMAIL.label}
                 placeholder={SETTINGS_EMAIL.placeholder}
                 id="email"
-                autoComplete="on"
                 error={Boolean(errors.email?.message)}
                 errorMessage={errors.email?.message}
                 {...register("email", {

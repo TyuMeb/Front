@@ -3,8 +3,7 @@
   border: 0;
   border-radius: $border-radius-s;
   color: inherit;
-  background-color: $accent-color;
-  font-size: inherit;
+  background-color: $accent-color !important;
   line-height: inherit;
   cursor: pointer;
   box-sizing: border-box;
@@ -13,92 +12,91 @@
   gap: 8px;
 
   &:focus {
-    background-color: $bg-accent-color;
+    background-color: $bg-accent-color !important;
     outline: 2px solid $accent-color;
   }
 
   &:hover {
     border: 0;
-    background-color: $btn-hover-color;
+    background-color: $btn-hover-color !important;
     outline: none;
   }
 
   &:active {
-    background-color: $btn-active-color;
+    background-color: $btn-active-color !important;
     outline: none;
   }
 
   &:disabled {
     cursor: auto;
-    background-color: $disabled-color;
+    background-color: $disabled-color !important;
     & svg > path {
       fill: $disabled-color;
     }
   }
 
   &_cancel {
-    background-color: $bg-main-color;
+    background-color: $bg-main-color !important;
     border-radius: $border-radius-s;
     outline: 1px solid $accent-color;
 
     &:focus {
-      background-color: $bg-accent-color;
+      background-color: $bg-accent-color !important;
       outline: 1px solid $accent-color;
     }
 
     &:hover {
-      background-color: rgba(253, 182, 116, 0.18);
+      background-color: rgba(253, 182, 116, 0.18) !important;
       outline: 2px solid $btn-hover-color;
     }
 
     &:active {
-      background-color: rgba(245, 161, 63, 0.4);
+      background-color: rgba(245, 161, 63, 0.4) !important;
       outline: 2px solid $btn-active-color;
     }
 
     &:disabled {
       outline: 1px solid $bg-disabled-color;
       color: $disabled-color;
-      background-color: $bg-main-color;
+      background-color: $bg-main-color !important;
     }
   }
 
   &_exit {
     padding: 12px 20px;
     border-radius: 0px 10px 10px 0px;
-    background-color: $light-latte-color;
+    background-color: $light-latte-color !important;
     min-width: 224px;
 
     &:focus {
-      background-color: $accent-color;
+      background-color: $accent-color !important;
     }
 
     &:hover {
-      background-color: $latte-color;
+      background-color: $latte-color !important;
     }
 
     &:active {
-      background-color: $accent-color;
+      background-color: $accent-color !important;
     }
 
     &:disabled {
       color: $disabled-color;
-      background-color: $light-latte-color;
+      background-color: $light-latte-color !important;
     }
   }
 
   &_slider {
     padding: 0;
     border-radius: 0;
-    background-color: transparent;
-    background: transparent;
+    background-color: transparent !important;
 
     &:hover {
-      background-color: transparent;
+      background-color: transparent !important;
     }
 
     &:focus {
-      background-color: transparent;
+      background-color: transparent !important;
       outline: none;
     }
 
@@ -106,7 +104,7 @@
       & svg > path {
         fill: $text-main-color;
       }
-      background-color: transparent;
+      background-color: transparent !important;
       cursor: default;
     }
   }

@@ -1,9 +1,5 @@
 .container {
   margin: 50px 92px 64px 76px;
-
-  @media screen and (max-width: 1024px) {
-    margin: 48px 24px;
-  }
 }
 
 .containerTitle {
@@ -14,16 +10,12 @@
   margin-bottom: 12px;
 }
 
-.containerForm {
+.containerFields {
   display: grid;
-  grid-template-columns: [startline] repeat(2, minmax(296px, max-content)) [endline];
+  grid-template-columns: repeat(auto-fill, minmax(296px, 1fr));
   column-gap: 44px;
   row-gap: 28px;
   margin-bottom: 36px;
-
-  @media screen and (max-width: 1024px) {
-    grid-template-columns: 1fr;
-  }
 }
 
 .checkbox {

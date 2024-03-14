@@ -14,11 +14,23 @@ import { useCreateTokenMutation } from "@src/redux/api/jwt-api-slice";
 import { setCookie, removeCookie } from "typescript-cookie";
 import { useLazyGetUserQuery, useVerifyUserQuery } from "@src/redux/api/auth-api-slice";
 import { setUser } from "@src/redux/slices/users-slice";
-import { TokenObtainPair } from "@src/redux/api/generated";
 import { useRouter, useParams } from "next/navigation";
 import { cn } from "@src/shared/lib/cn";
 import { SuccessMessage } from "@src/components/message/success-message";
 import { ErrorMessage } from "@src/components/message/error-message";
+import {
+  PATTERN_EMAIL,
+  PATTERN_PASSWORD,
+  SETTINGS_EMAIL,
+  SETTINGS_PASSWORD,
+  VALIDATIONS_EMAIL,
+  VALIDATIONS_PASSWORD,
+} from "@src/shared/constants/fields";
+
+type SignInForm = {
+  email: string;
+  password: string;
+};
 
 export const SignIn = () => {
   const router = useRouter();
@@ -38,12 +50,8 @@ export const SignIn = () => {
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm({
-    mode: "onBlur",
-    values: {
-      email: "",
-      password: "",
-    },
+  } = useForm<SignInForm>({
+    mode: "onChange",
   });
 
   const [createToken, { isLoading: isLoadingToken }] = useCreateTokenMutation();
@@ -51,7 +59,7 @@ export const SignIn = () => {
 
   const dispatch = useAppDispatch();
 
-  const onSubmit = (data: TokenObtainPair) => {
+  const onSubmit = (data: SignInForm) => {
     createToken(data)
       .unwrap()
       .then(({ access, refresh }) => {
@@ -84,43 +92,36 @@ export const SignIn = () => {
 
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.containerForm}>
-            <div>
-              <Input
-                label="E-mail"
-                placeholder="Введите свою почту"
-                error={Boolean(errors.email?.message)}
-                errorMessage={errors.email?.message}
-                id="email"
-                type="email"
-                {...register("email", {
-                  required: {
-                    value: true,
-                    message: "Данное поле обязательно",
-                  },
-                  validate: (value) => {
-                    if (!value.includes("@")) {
-                      return "Некорректная почта";
-                    }
-                  },
-                })}
-              />
-            </div>
+            <Input
+              type={SETTINGS_EMAIL.type}
+              label={SETTINGS_EMAIL.label}
+              placeholder={SETTINGS_EMAIL.placeholder}
+              id="email"
+              error={Boolean(errors.email?.message)}
+              errorMessage={errors.email?.message}
+              {...register("email", {
+                required: VALIDATIONS_EMAIL.required,
+                minLength: { ...VALIDATIONS_EMAIL.minLength },
+                maxLength: { ...VALIDATIONS_EMAIL.maxLength },
+                pattern: { ...PATTERN_EMAIL },
+              })}
+            />
 
-            <div>
-              <PasswordInput
-                label="Пароль"
-                placeholder="Введите пароль"
-                error={Boolean(errors.password?.message)}
-                errorMessage={errors.password?.message}
-                id="password"
-                {...register("password", {
-                  required: {
-                    value: true,
-                    message: "Данное поле обязательно",
-                  },
-                })}
-              />
-            </div>
+            <PasswordInput
+              type={SETTINGS_PASSWORD.type}
+              label={SETTINGS_PASSWORD.label}
+              placeholder={SETTINGS_PASSWORD.placeholder}
+              id="password"
+              error={Boolean(errors.password?.message)}
+              errorMessage={errors.password?.message}
+              {...register("password", {
+                required: VALIDATIONS_PASSWORD.required,
+                minLength: { ...VALIDATIONS_PASSWORD.minLength },
+                maxLength: { ...VALIDATIONS_PASSWORD.maxLength },
+                pattern: { ...PATTERN_PASSWORD },
+                validate: VALIDATIONS_PASSWORD.validate,
+              })}
+            />
           </div>
 
           <button className={styles.link} type="button" onClick={setModalResetPassword}>

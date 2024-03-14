@@ -2,7 +2,7 @@
 
 import React, { Dispatch, HTMLAttributes, SetStateAction, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import styles from "@src/components/account/settings/settings.module.scss";
+import styles from "./form.module.scss";
 import { Button } from "@src/shared/ui/button";
 import { Input, PhoneInput } from "@src/shared/ui/inputs";
 import { CheckboxInput } from "@src/shared/ui/inputs";
@@ -10,6 +10,7 @@ import { PasswordInput } from "@src/shared/ui/inputs";
 import { UserAccount } from "@src/redux/api/generated";
 import { useUser } from "@src/redux/slices/users-slice";
 import { getUser } from "../lib/get-user";
+import { SettingsForm } from "../settings";
 import {
   PATTERN_EMAIL,
   PATTERN_FULLNAME,
@@ -26,17 +27,6 @@ import {
   VALIDATIONS_PASSWORD,
   VALIDATIONS_PHONE,
 } from "@src/shared/constants/fields";
-
-export type SettingsForm = {
-  name: string;
-  surname?: string;
-  person_telephone?: string;
-  email: string;
-  currentPass: string;
-  newPass: string;
-  newPassRepeat: string;
-  notifications: "email" | "off";
-};
 
 type Props = {
   noticeEmail: ["email"] | null;
@@ -59,16 +49,16 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
   } = useFormContext<SettingsForm>();
 
   // Зависимость паролей друг от друга, для синхронной валидации.
-  const currentPass = watch("currentPass");
-  const newPass = watch("newPass");
-  const newPassRepeat = watch("newPassRepeat");
+  const currentPassword = watch("current_password");
+  const newPassword = watch("new_password");
+  const newPassRepeat = watch("re_new_password");
   useEffect(() => {
     if (isActiveForm) {
-      trigger("newPass");
-      trigger("currentPass");
-      trigger("newPassRepeat");
+      trigger("new_password");
+      trigger("current_password");
+      trigger("re_new_password");
     }
-  }, [currentPass, newPass, newPassRepeat, trigger]);
+  }, [currentPassword, newPassword, newPassRepeat, trigger]);
 
   const enableForm = () => {
     setIsActiveForm(true);
@@ -102,7 +92,7 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
     isValidFields: boolean;
   }) => {
     return (
-      <div className={styles.buttonsSection}>
+      <div className={styles.buttonsContainer}>
         {editedForm || isLoading ? (
           <>
             <Button isLoading={isLoading} disabled={!isDirty || !isValidFields}>
@@ -135,34 +125,49 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
     const onClickOffHandler = () => onClick(null);
 
     return (
-      <ul className={styles.list}>
-        <CheckboxInput
-          type="radio"
-          className={styles.checkbox}
-          textLabel="на e-mail"
-          disabled={!editedForm}
-          value="email"
-          {...register("notifications")}
-          checked={noticeEmail !== null}
-          onClick={onClickEmailHandler}
-        />
-        <CheckboxInput
-          type="radio"
-          className={styles.checkbox}
-          disabled={!editedForm}
-          textLabel="не получать"
-          value="off"
-          {...register("notifications")}
-          checked={noticeEmail === null}
-          onClick={onClickOffHandler}
-        />
+      <ul className={styles.listCheckbox}>
+        <li>
+          <CheckboxInput
+            type="radio"
+            className={styles.checkbox}
+            textLabel="на e-mail"
+            disabled={!editedForm}
+            value="email"
+            {...register("notifications")}
+            checked={noticeEmail !== null}
+            onClick={onClickEmailHandler}
+          />
+        </li>
+        <li>
+          <CheckboxInput
+            type="radio"
+            className={styles.checkbox}
+            disabled={!editedForm}
+            textLabel="не получать"
+            value="off"
+            {...register("notifications")}
+            checked={noticeEmail === null}
+            onClick={onClickOffHandler}
+          />
+        </li>
       </ul>
     );
   };
 
+  const deletingProfileComponent = () => {
+    return (
+      <div className={styles.containerText}>
+        <h2 className="subtitle2">Удаление профиля</h2>
+        <p className="text-medium">
+          Если вы хотите удалить профиль, пожалуйста, свяжитесь с нашей технической поддержкой на вкладке «помощь»
+        </p>
+      </div>
+    );
+  };
+
   return (
-    <>
-      <div className={styles.inputsRegistration} {...props}>
+    <div className={styles.inputsRegistration} {...props}>
+      <div className={styles.containerFields}>
         <Input
           label={SETTINGS_NAME.label}
           placeholder={SETTINGS_NAME.placeholder}
@@ -171,7 +176,7 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
           error={Boolean(errors.name?.message)}
           errorMessage={errors.name?.message}
           {...register("name", {
-            required: VALIDATIONS_FULLNAME.required,
+            validate: { ...VALIDATIONS_FULLNAME.validate },
             minLength: { ...VALIDATIONS_FULLNAME.minLength },
             maxLength: { ...VALIDATIONS_FULLNAME.maxLength },
             pattern: { ...PATTERN_FULLNAME },
@@ -186,7 +191,7 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
           error={Boolean(errors.surname?.message)}
           errorMessage={errors.surname?.message}
           {...register("surname", {
-            required: VALIDATIONS_FULLNAME.required,
+            validate: { ...VALIDATIONS_FULLNAME.validate },
             minLength: { ...VALIDATIONS_FULLNAME.minLength },
             maxLength: { ...VALIDATIONS_FULLNAME.maxLength },
             pattern: { ...PATTERN_FULLNAME },
@@ -194,6 +199,7 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
         />
 
         <PhoneInput
+          className={styles.gridColumn}
           type={SETTINGS_PHONE.type}
           label={SETTINGS_PHONE.label}
           placeholder={SETTINGS_PHONE.placeholder}
@@ -215,7 +221,6 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
           error={Boolean(errors.email?.message)}
           errorMessage={errors.email?.message}
           {...register("email", {
-            required: VALIDATIONS_EMAIL.required,
             minLength: { ...VALIDATIONS_EMAIL.minLength },
             maxLength: { ...VALIDATIONS_EMAIL.maxLength },
             pattern: { ...PATTERN_EMAIL },
@@ -228,14 +233,14 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
           label={SETTINGS_PREVIOUS_PASSWORD.label}
           placeholder={SETTINGS_PREVIOUS_PASSWORD.placeholder}
           disabled={isActiveForm === false}
-          id="currentPass"
-          error={Boolean(errors.currentPass?.message)}
-          errorMessage={errors.currentPass?.message}
+          id="currentPassword"
+          error={Boolean(errors.current_password?.message)}
+          errorMessage={errors.current_password?.message}
           autoComplete="new-password"
-          {...register("currentPass", {
+          {...register("current_password", {
             validate: { ...VALIDATIONS_PASSWORD.validate },
             required: {
-              value: Boolean(newPass) || Boolean(newPassRepeat),
+              value: Boolean(newPassword) || Boolean(newPassRepeat),
               message: VALIDATIONS_PASSWORD.required,
             },
             minLength: { ...VALIDATIONS_PASSWORD.minLength },
@@ -250,11 +255,11 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
           placeholder={SETTINGS_NEW_PASSWORD.placeholder}
           disabled={isActiveForm === false}
           id="newPassword"
-          error={Boolean(errors.newPass?.message)}
-          errorMessage={errors.newPass?.message}
-          {...register("newPass", {
+          error={Boolean(errors.new_password?.message)}
+          errorMessage={errors.new_password?.message}
+          {...register("new_password", {
             required: {
-              value: Boolean(currentPass) || Boolean(newPassRepeat),
+              value: Boolean(currentPassword) || Boolean(newPassRepeat),
               message: VALIDATIONS_PASSWORD.required,
             },
             minLength: { ...VALIDATIONS_PASSWORD.minLength },
@@ -262,7 +267,7 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
             pattern: { ...PATTERN_PASSWORD },
             validate: {
               differentPassword: (value = "") => {
-                if (value.length && value === currentPass) {
+                if (value.length && value === currentPassword) {
                   return "Новый пароль должен отличаться";
                 }
               },
@@ -277,11 +282,11 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
           placeholder={SETTINGS_NEW_PASSWORD_REPEAT.placeholder}
           disabled={isActiveForm === false}
           id="newPasswordRepeat"
-          error={Boolean(errors.newPassRepeat?.message)}
-          errorMessage={errors.newPassRepeat?.message}
-          {...register("newPassRepeat", {
+          error={Boolean(errors.re_new_password?.message)}
+          errorMessage={errors.re_new_password?.message}
+          {...register("re_new_password", {
             required: {
-              value: Boolean(currentPass) || Boolean(newPass),
+              value: Boolean(currentPassword) || Boolean(newPassword),
               message: VALIDATIONS_PASSWORD.required,
             },
             minLength: { ...VALIDATIONS_PASSWORD.minLength },
@@ -289,7 +294,7 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
             pattern: { ...PATTERN_PASSWORD },
             validate: {
               passwordMatches: (value = "") => {
-                if (value.length && value !== newPass) {
+                if (value.length && value !== newPassword) {
                   return "Пароли не совпадают";
                 }
               },
@@ -306,7 +311,7 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
         isValidFields: isValid,
       })}
 
-      <div className={styles.wrapperCheckbox}>
+      <div className={styles.containerCheckbox}>
         <h2 className="subtitle2">Получать уведомления</h2>
         {checkboxFormComponent({
           editedForm: isActiveForm,
@@ -314,6 +319,8 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
           onClick: handleChangeNotice,
         })}
       </div>
-    </>
+
+      {deletingProfileComponent()}
+    </div>
   );
 };

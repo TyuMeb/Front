@@ -1,0 +1,45 @@
+.inputsRegistration {
+}
+
+.containerFields {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(284px, 1fr));
+  gap: 28px;
+  margin-bottom: 44px;
+}
+
+.gridColumn {
+  @media screen and (min-width: 1279px) {
+    grid-column: 2/1;
+  }
+}
+
+.buttonsContainer {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 64px;
+}
+
+.containerCheckbox {
+  gap: 44px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 64px;
+}
+
+.listCheckbox {
+  display: flex;
+  column-gap: 28px;
+}
+
+.checkbox {
+  column-gap: 8px;
+}
+
+.containerText {
+  display: grid;
+  column-gap: 80px;
+  max-width: 624px;
+  grid-template-columns: 1fr 389px;
+  margin-bottom: 64px;
+}

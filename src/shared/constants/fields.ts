@@ -1,6 +1,6 @@
 export const PATTERN_EMAIL = {
   message: "Указан некорректный адрес электронной почты",
-  value: RegExp("^[a-zA-Z0-9\\-.@_]*$"),
+  value: RegExp("^[a-zA-Z0-9\\-._]+@[a-zA-Z0-9\\-._]+\\.[a-zA-Z0-9\\-._]+$"),
 };
 export const PATTERN_FULLNAME = {
   message: "Может включать только русские и английские буквы, пробел, тире",
@@ -30,7 +30,7 @@ export const SETTINGS_PHONE = {
 export const SETTINGS_EMAIL = {
   label: "E-mail",
   placeholder: "Введите свою почту",
-  type: "email",
+  type: "text",
 };
 
 export const SETTINGS_PASSWORD = {
@@ -67,6 +67,13 @@ export const VALIDATIONS_FULLNAME = {
     value: 40,
   },
   required: "Поле должно быть заполнено",
+  validate: {
+    beginsWithLetter: (value = "") => {
+      if (value.length && !/^[a-zA-ZА-ЯЁф-яё]+/.test(value)) {
+        return "Первый символ должен быть буквой";
+      }
+    },
+  },
 };
 
 export const VALIDATIONS_EMAIL = {
@@ -90,16 +97,11 @@ export const VALIDATIONS_PASSWORD = {
     message: "Длина пароля не более 64 символов",
     value: 64,
   },
-  required: "Данное поле обязательно",
+  required: "Поле должно быть заполнено",
   validate: {
     onlyLatinLetter: (value = "") => {
       if (value.length && /[а-яёА-ЯЁ]/.test(value)) {
         return "Только английские буквы алфавита";
-      }
-    },
-    beginsWithLetter: (value = "") => {
-      if (value.length && !/^[a-zA-Z]+/.test(value)) {
-        return "Пароль должен начинаться с буквы";
       }
     },
     hasOneDigit: (value = "") => {
@@ -115,5 +117,4 @@ export const VALIDATIONS_PHONE = {
     message: "Минимальная длина номера 12 цифр",
     value: 16,
   },
-  required: "Данное поле обязательно",
 };

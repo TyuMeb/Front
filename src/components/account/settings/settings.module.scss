@@ -2,52 +2,12 @@
   width: 100%;
 }
 
-.inputsRegistration {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min-content, 284px));
-  gap: 28px;
-  margin-bottom: 44px;
-
-  @media screen and (max-width: 1279px) {
-    grid-template-columns: repeat(auto-fill, minmax(min-content, 340px));
-  }
-}
-
-.buttonsSection {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 64px;
-}
-
 .marginButton {
-  margin-bottom: 64px;
-}
-
-.wrapperCheckbox {
-  gap: 44px;
-  display: flex;
-  align-items: center;
   margin-bottom: 64px;
 }
 
 .title {
   @include font-source-sans(16px, $graphite-black, 600, 160%);
-}
-
-.list {
-  display: flex;
-  column-gap: 28px;
-}
-
-.checkbox {
-  column-gap: 8px;
-}
-
-.row {
-  display: grid;
-  column-gap: 80px;
-  max-width: 624px;
-  grid-template-columns: 1fr 389px;
 }
 
 .text {
@@ -57,12 +17,6 @@
 .wrapperField {
   max-width: "296px";
   width: 100%;
-}
-
-.gridColumn {
-  @media screen and (min-width: 1279px) {
-    grid-column: 2/1;
-  }
 }
 
 .textSuccess {

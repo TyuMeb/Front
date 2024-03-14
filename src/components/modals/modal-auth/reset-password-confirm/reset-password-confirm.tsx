@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "@src/redux/hooks";
 import { setTypeModal } from "@src/redux/slices/modal-slice";
 import { usePostUsersResetPasswordConfirmMutation } from "@src/redux/api/users-api-slice";
@@ -13,11 +13,10 @@ import { Icon } from "@src/components/icon";
 import { cn } from "@src/shared/lib/cn";
 import { ErrorMessage } from "@src/components/message/error-message";
 import { SuccessMessage } from "@src/components/message/success-message";
+import { PATTERN_PASSWORD, SETTINGS_PASSWORD, VALIDATIONS_PASSWORD } from "@src/shared/constants/fields";
+import { handleDefaultErrors } from "@src/shared/lib/handle-default-errors";
 
-type FormProps = {
-  new_password: string;
-  confirm_password: string;
-};
+type FormProps = { confirm_password: string; new_password: string };
 
 export const ResetPasswordConfirm = () => {
   const dispatch = useAppDispatch();
@@ -27,32 +26,43 @@ export const ResetPasswordConfirm = () => {
 
   const {
     register,
-    handleSubmit,
+    trigger,
     watch,
+    handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<FormProps>({
-    values: {
-      new_password: "",
-      confirm_password: "",
-    },
+    mode: "onChange",
   });
-
-  const [error, setError] = useState("");
 
   const [resetPasswordConfirm, { isLoading, isSuccess }] = usePostUsersResetPasswordConfirmMutation();
 
-  const onSubmit = (data: FormProps) => {
-    setError("");
+  const [messageError, setMessageError] = useState<string | null>(null);
 
-    resetPasswordConfirm({ ...data, uid: params.uid as string, token: params.token as string })
+  // Зависимость паролей друг от друга, для синхронной валидации.
+  const password = watch("new_password");
+  const confirmPassword = watch("confirm_password");
+  useEffect(() => {
+    if (password || confirmPassword) {
+      trigger("new_password");
+      trigger("confirm_password");
+    }
+  }, [password, confirmPassword, trigger]);
+
+  const onSubmit = ({ new_password }: FormProps) => {
+    resetPasswordConfirm({ new_password: new_password, uid: params.uid as string, token: params.token as string })
       .unwrap()
       .then(() => {
         router.push("/");
         dispatch(setTypeModal("signIn"));
       })
       .catch((error) => {
-        const { uid, new_password } = error?.data || {};
-        setError((uid || new_password)?.join(""));
+        console.log("🚀 ~ file: reset-password-confirm.tsx:58 ~ onSubmit ~ error:", error);
+        handleDefaultErrors<FormProps>(error.data, setError);
+
+        if (error.data.hasOwnProperty("token")) {
+          setMessageError("Недействительная ссылка для подтверждения пароля");
+        }
       });
   };
 
@@ -72,41 +82,52 @@ export const ResetPasswordConfirm = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.containerInputs}>
               <PasswordInput
-                {...register("new_password", {
-                  required: { value: true, message: "Данное поле обязательно" },
-                  minLength: {
-                    value: 8,
-                    message: "Минимальная длинна 8 символов",
-                  },
-                })}
-                label="Пароль"
-                placeholder="Введите свой пароль"
+                type={SETTINGS_PASSWORD.type}
+                label={SETTINGS_PASSWORD.label}
+                placeholder={SETTINGS_PASSWORD.placeholder}
+                id="newPassword"
                 error={Boolean(errors.new_password?.message)}
                 errorMessage={errors.new_password?.message}
-                id="new_password"
-              />
-              <PasswordInput
-                {...register("confirm_password", {
-                  required: { value: true, message: "Данное поле обязательно" },
-                  minLength: {
-                    value: 8,
-                    message: "Минимальная длинна 8 символов",
+                {...register("new_password", {
+                  required: {
+                    value: true || Boolean(confirmPassword),
+                    message: VALIDATIONS_PASSWORD.required,
                   },
-                  validate: (value) => {
-                    if (watch("new_password") !== value) {
-                      return "Пароли не совпадают";
-                    }
-                  },
+                  minLength: { ...VALIDATIONS_PASSWORD.minLength },
+                  maxLength: { ...VALIDATIONS_PASSWORD.maxLength },
+                  pattern: { ...PATTERN_PASSWORD },
+                  validate: VALIDATIONS_PASSWORD.validate,
                 })}
-                label="Повторите пароль"
-                placeholder="Повторите свой пароль"
+              />
+
+              <PasswordInput
+                type={SETTINGS_PASSWORD.type}
+                label="Повторите новый пароль"
+                placeholder={SETTINGS_PASSWORD.placeholder}
+                id="confirmPassword"
                 error={Boolean(errors.confirm_password?.message)}
                 errorMessage={errors.confirm_password?.message}
-                id="confirm_password"
+                {...register("confirm_password", {
+                  required: {
+                    value: true || Boolean(password),
+                    message: VALIDATIONS_PASSWORD.required,
+                  },
+                  minLength: { ...VALIDATIONS_PASSWORD.minLength },
+                  maxLength: { ...VALIDATIONS_PASSWORD.maxLength },
+                  pattern: { ...PATTERN_PASSWORD },
+                  validate: {
+                    passwordMatches: (value = "") => {
+                      if (value.length && value !== password) {
+                        return "Пароли не совпадают";
+                      }
+                    },
+                    ...VALIDATIONS_PASSWORD.validate,
+                  },
+                })}
               />
             </div>
 
-            {error && <ErrorMessage>{error}</ErrorMessage>}
+            {messageError && <ErrorMessage>{messageError}</ErrorMessage>}
             {isSuccess && <SuccessMessage>Ваш пароль успешно изменен</SuccessMessage>}
 
             <div className={styles.containerButtons}>
