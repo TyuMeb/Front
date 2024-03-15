@@ -6,7 +6,7 @@ type Notify = {
   name: string;
   type?: TypeNotify;
   text?: string;
-  delay?: number;
+  delay?: number | false;
 };
 
 type NotifyState = {
