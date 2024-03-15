@@ -13,7 +13,7 @@ const initialState: UserState = {
   users: null,
   user: null,
   usersId: null,
-  authorizing: true,
+  authorizing: false,
 };
 
 export const userSlice = createSlice({

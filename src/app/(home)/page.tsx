@@ -9,11 +9,8 @@ import { Examples } from "@src/components/home/examples/examples";
 import { Advantages } from "@src/components/home/advantages/advantages";
 import { CreateOrder } from "@src/components/home/create-order/create-order";
 import { useInView } from "react-intersection-observer";
-import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
+import { useAppDispatch } from "@src/redux/hooks";
 import { setContentBlock } from "@src/redux/slices/header-slice";
-import { createNotifyModal } from "@src/redux/slices/notify-modal-slice";
-
-const HASH_KEY = "41632ca7458226825e7812f7500c33ced538de4a";
 
 export default function HomePage() {
   const [, setCurrent] = useState<string | null>(null);
@@ -29,26 +26,6 @@ export default function HomePage() {
   //чтобы класс active срабатывал только после скролла
   const [scroll, setScroll] = useState(0);
   const onScroll = useCallback(() => setScroll(Math.round(window.scrollY)), []);
-
-  const authorizing = useAppSelector((store) => store.user.authorizing);
-
-  useEffect(() => {
-    if (authorizing) {
-      return;
-    }
-
-    if (sessionStorage.getItem("KEY")) {
-      return;
-    }
-
-    sessionStorage.setItem("KEY", HASH_KEY);
-    dispatch(
-      createNotifyModal({
-        name: "cookies",
-        delay: false,
-      })
-    );
-  }, [authorizing]);
 
   useEffect(() => {
     onScroll();
