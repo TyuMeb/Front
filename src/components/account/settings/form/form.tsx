@@ -134,7 +134,7 @@ export const Form = ({ noticeEmail, setNoticeEmail, isActiveForm, setIsActiveFor
             disabled={!editedForm}
             value="email"
             {...register("notifications")}
-            checked={noticeEmail !== null}
+            checked={noticeEmail ? noticeEmail?.includes("email") : false}
             onClick={onClickEmailHandler}
           />
         </li>

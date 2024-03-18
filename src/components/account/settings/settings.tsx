@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { ErrorOption, FormProvider, useForm } from "react-hook-form";
 import styles from "@src/components/account/settings/settings.module.scss";
 import { usePostUsersSetPasswordMutation, usePatchUsersMeMutation } from "@src/redux/api/users-api-slice";
@@ -31,19 +31,12 @@ export const Settings = () => {
   const [noticeEmail, setNoticeEmail] = useState<["email"] | null>(null);
 
   const [updateUsers, { isLoading: isLoadingUsers }] = usePatchUsersMeMutation();
-  const [updatePassword, { isLoading: isLoadingPassword, isError: isErrorPassword }] =
-    usePostUsersSetPasswordMutation();
+  const [updatePassword, { isLoading: isLoadingPassword }] = usePostUsersSetPasswordMutation();
 
   const user: UserAccount | null = useUser();
   const dispatch = useAppDispatch();
 
   const formMethods = useForm<SettingsForm>({
-    defaultValues: useMemo(() => {
-      if (user) {
-        setNoticeEmail(Boolean(user?.notifications?.length) ? ["email"] : null);
-        return getUser(user);
-      }
-    }, [user]),
     mode: "onChange",
   });
 
@@ -55,9 +48,8 @@ export const Settings = () => {
     formState: { dirtyFields },
   } = formMethods;
 
-  // TODO заменить defaultValues: useMemo на асинхронную функцию, удалить useEffect. Когда подключат кэш. Протестировать с кэшем.
   useEffect(() => {
-    if (user && isErrorPassword) {
+    if (user) {
       reset(
         {
           ...getUser(user),
@@ -65,10 +57,14 @@ export const Settings = () => {
           new_password: getValues().new_password,
           re_new_password: getValues().re_new_password,
         },
-        { keepErrors: true }
+        { keepDirty: true }
       );
-    } else if (user) {
-      reset(getUser(user));
+
+      let notificationsValue = null as ["email"] | null;
+      if (user.notifications?.includes("email")) {
+        notificationsValue = ["email"];
+      }
+      setNoticeEmail(notificationsValue);
     }
   }, [user]);
 
@@ -165,8 +161,8 @@ export const Settings = () => {
     ) {
       userPromise = updateUsers(dataUser)
         .unwrap()
-        .then(() => {
-          return { success: true, error: false };
+        .then((data) => {
+          return { success: data, error: false };
         })
         .catch((error) => {
           return { success: false, error: error };
@@ -187,14 +183,14 @@ export const Settings = () => {
     Promise.allSettled([userPromise, passwordPromise]).then((data) => {
       const [user, password] = data as unknown as {
         status: string;
-        value: { error: ErrorData | false; success: string };
+        value: { error: ErrorData | false; success: boolean | UserAccount };
       }[];
 
       if (user?.value) {
         const { success, error } = user?.value;
 
-        if (success) {
-          dispatch(setUser({ ...dataUser }));
+        if (success && typeof success === "object") {
+          dispatch(setUser({ ...success }));
           dispatch(
             createNotifyModal({
               name: "successUser",

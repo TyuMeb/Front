@@ -7,6 +7,11 @@ export const getUser = (user: UserAccount) => {
 
   const phoneValue = phoneConversion(person_telephone || "");
 
+  let notificationsValue = "off";
+  if (notifications?.includes("email")) {
+    notificationsValue = "email";
+  }
+
   return {
     name: name || "",
     surname: surname || "",
@@ -15,6 +20,6 @@ export const getUser = (user: UserAccount) => {
     current_password: "",
     new_password: "",
     re_new_password: "",
-    notifications: Boolean(notifications) ? "email" : "off",
+    notifications: notificationsValue,
   } as SettingsForm;
 };
