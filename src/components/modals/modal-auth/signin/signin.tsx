@@ -26,6 +26,8 @@ import {
   VALIDATIONS_EMAIL,
   VALIDATIONS_PASSWORD,
 } from "@src/shared/constants/fields";
+import { EXECUTOR_PAGES } from "@src/shared/constants/executor-menu-items";
+import { CUSTOMER_PAGES } from "@src/shared/constants/customer-menu-items";
 
 type SignInForm = {
   email: string;
@@ -71,7 +73,14 @@ export const SignIn = () => {
           .then((user) => {
             dispatch(setUser(user));
             dispatch(closeModal());
-            user.role === "client" ? router.push("/account/my-offer") : router.push("/account/my-orders");
+
+            if (user.role === "client") {
+              router.push(CUSTOMER_PAGES.myOrders.alias);
+            }
+
+            if (user.role === "contractor") {
+              router.push(EXECUTOR_PAGES.customerOrders.alias);
+            }
           });
       })
       .catch((error) => {
