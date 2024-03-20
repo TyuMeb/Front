@@ -4,6 +4,9 @@ import { FilesList, FilesPreview } from "@src/components/account/wrapper-form";
 import { FileInput } from "@src/shared/ui/inputs";
 import { checkMaxSizeFiles } from "@src/helpers";
 import { randomKey } from "@src/helpers";
+import { useUploadFileMutation } from "@src/redux/api/files-api-slice";
+import { addFiles } from "@src/redux/slices/files-slice";
+import { useAppDispatch } from "@src/redux/hooks";
 
 export type FileInputProps = {
   maxSizeImage?: number;
@@ -24,6 +27,10 @@ export const InputPreviewFiles = (props: FileInputProps) => {
     name,
     ...restProps
   } = props;
+
+  const [uploadFile] = useUploadFileMutation();
+
+  const dispatch = useAppDispatch();
 
   const saveFiles = (data: FilesPreview) => {
     if (data.error) {
@@ -63,8 +70,12 @@ export const InputPreviewFiles = (props: FileInputProps) => {
         return;
       }
 
+      const formFiles = new FormData();
+
       const fileList = [] as FilesList[];
       files.forEach((file) => {
+        formFiles.append("upload_file", file);
+
         const fileData = {
           id: randomKey(),
           error: false,
@@ -92,7 +103,6 @@ export const InputPreviewFiles = (props: FileInputProps) => {
 
           reader.onload = (event) => {
             fileData.url = event.target?.result?.toString() || "";
-
             saveFiles(fileData);
           };
 
@@ -103,6 +113,12 @@ export const InputPreviewFiles = (props: FileInputProps) => {
           };
         }
       });
+
+      uploadFile(formFiles)
+        .unwrap()
+        .then((files) => {
+          dispatch(addFiles(files));
+        });
 
       target.value = "";
     }

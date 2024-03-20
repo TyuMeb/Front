@@ -6,13 +6,14 @@ import { InputPreviewFiles, PreviewFiles, FilesPreview } from "@src/components/a
 import { Textarea } from "@src/shared/ui/inputs/textarea";
 import classNames from "classnames/bind";
 import { useForm } from "react-hook-form";
-import { getFiles } from "@src/helpers/getFiles";
 import { useCreateSupportRequestMutation } from "@src/redux/api/support-api-slice";
 
 import styles from "./help.module.scss";
 import { createNotifyModal } from "@src/redux/slices/notify-modal-slice";
 import { useAppDispatch } from "@src/redux/hooks";
 import { VALIDATIONS_TEXTAREA } from "@src/shared/constants/fields";
+import { useFiles } from "@src/redux/slices/files-slice";
+import { Files } from "@src/redux/api/files-api-slice";
 
 const cx = classNames.bind(styles);
 
@@ -36,10 +37,14 @@ export const Help = () => {
 
   const [createSupportRequest, { isLoading }] = useCreateSupportRequestMutation();
 
+  const files = useFiles();
+
   const dispatch = useAppDispatch();
 
   const onSubmitHandler = (data: HelpForm) => {
-    createSupportRequest(data)
+    const idFiles = files.files.map((file: Files) => file.id) as Files[] | [];
+
+    createSupportRequest({ ...data, files: idFiles })
       .unwrap()
       .then(() => {
         dispatch(
@@ -74,13 +79,6 @@ export const Help = () => {
           );
         });
       });
-
-    const files = getFiles(filesPreview);
-
-    const formFiles = new FormData();
-    files.forEach((file) => formFiles.append(`file-${file.id}`, file.file));
-
-    console.log({ files, text: data.user_question, formData: formFiles, filesPreview });
   };
 
   const settingsInput = {

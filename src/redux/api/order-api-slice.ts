@@ -55,7 +55,7 @@ const orderApi = apiSlice.injectEndpoints({
         method: "POST",
       }),
     }),
-    uploadFile: build.mutation<File, { id: number; upload_file: globalThis.File; question_id: number }>({
+    uploadFileOld: build.mutation<File, { id: number; upload_file: globalThis.File; question_id: number }>({
       query: (body) => {
         return {
           url: `/order/${body.id}/files/`,
@@ -68,7 +68,7 @@ const orderApi = apiSlice.injectEndpoints({
         };
       },
     }),
-    deleteFile: build.mutation<unknown, { file_id: number }>({
+    deleteFileOld: build.mutation<unknown, { file_id: number }>({
       query: (body) => {
         return {
           url: `/order/file_order/`,
@@ -86,8 +86,8 @@ export const {
   useOrderQuery,
   useLazyOrderQuery,
   useOrderCreateAnswersMutation,
-  useUploadFileMutation,
-  useDeleteFileMutation,
+  useDeleteFileOldMutation,
+  useUploadFileOldMutation,
   useFinishOrderMutation,
   useClientActiveOrdersQuery,
 } = orderApi;
