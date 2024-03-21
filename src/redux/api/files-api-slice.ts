@@ -1,19 +1,9 @@
+import { FileType, DeleteFile } from "@src/shared/types/files.types";
 import { apiSlice } from "./api-slice";
-
-export type Files = {
-  id?: string;
-  original_name: string;
-  file_size: number;
-  preview_url?: string;
-};
-
-export interface DeleteFile {
-  file_id: string;
-}
 
 const filesApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
-    uploadFile: build.mutation<Files[], FormData>({
+    uploadFile: build.mutation<FileType[], FormData>({
       query: (body) => ({
         url: "/file/upload/",
         method: "POST",

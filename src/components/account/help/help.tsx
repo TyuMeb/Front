@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { Button } from "@src/shared/ui/button";
 import { Icon } from "@src/components/icon";
-import { InputPreviewFiles, PreviewFiles, FilesPreview } from "@src/components/account/wrapper-form";
+import { InputPreviewFiles, PreviewFiles } from "@src/components/account/wrapper-form";
 import { Textarea } from "@src/shared/ui/inputs/textarea";
 import classNames from "classnames/bind";
 import { useForm } from "react-hook-form";
@@ -12,8 +12,8 @@ import styles from "./help.module.scss";
 import { createNotifyModal } from "@src/redux/slices/notify-modal-slice";
 import { useAppDispatch } from "@src/redux/hooks";
 import { VALIDATIONS_TEXTAREA } from "@src/shared/constants/fields";
-import { useFiles } from "@src/redux/slices/files-slice";
-import { Files } from "@src/redux/api/files-api-slice";
+import { resetFiles, useFiles } from "@src/redux/slices/files-slice";
+import { FilePreview, FileType } from "@src/shared/types/files.types";
 
 const cx = classNames.bind(styles);
 
@@ -22,7 +22,7 @@ type HelpForm = {
 };
 
 export const Help = () => {
-  const [filesPreview, setFilesPreview] = useState<FilesPreview[] | []>([]);
+  const [filesPreview, setFilesPreview] = useState<FilePreview[] | []>([]);
 
   const {
     handleSubmit,
@@ -42,7 +42,7 @@ export const Help = () => {
   const dispatch = useAppDispatch();
 
   const onSubmitHandler = (data: HelpForm) => {
-    const idFiles = files.files.map((file: Files) => file.id) as Files[] | [];
+    const idFiles = files.map((file: FileType) => file.id) as FileType[] | [];
 
     createSupportRequest({ ...data, files: idFiles })
       .unwrap()
@@ -55,6 +55,9 @@ export const Help = () => {
           })
         );
         reset();
+        setFilesPreview([]);
+        console.log(filesPreview);
+        dispatch(resetFiles());
       })
       .catch((error) => {
         console.log("🚀 ~ file: help.tsx:46 ~ onSubmit ~ error:", error);

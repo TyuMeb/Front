@@ -3,21 +3,21 @@ import Image from "next/image";
 
 import styles from "./preview-files.module.scss";
 import { Icon } from "@src/components/icon";
-import { FilesPreview } from "@src/components/account/wrapper-form";
+import { FilePreview } from "@src/shared/types/files.types";
 
 type convertProps = "MB";
 
 type PreviewFilesT = {
-  files: FilesPreview[];
+  files: FilePreview[];
   convertType?: convertProps;
-  setFilesPreview: Dispatch<SetStateAction<FilesPreview[] | []>>;
+  setFilesPreview: Dispatch<SetStateAction<FilePreview[] | []>>;
 };
 
 export const PreviewFiles = ({ files, convertType = "MB", setFilesPreview }: PreviewFilesT) => {
   const removeHandlerFile = (event: MouseEvent<HTMLSpanElement>, id: string) => {
     const target = event.target as HTMLDivElement;
     if (target) {
-      setFilesPreview((prevValue: FilesPreview[]) => {
+      setFilesPreview((prevValue: FilePreview[]) => {
         const newArr = prevValue.filter((value) => value.id !== id);
         return newArr;
       });
