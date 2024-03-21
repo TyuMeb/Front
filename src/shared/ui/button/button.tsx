@@ -1,6 +1,8 @@
 import { type DetailedHTMLProps } from "react";
+import classNames from "classnames/bind";
 import styles from "./button.module.scss";
-import { cn } from "@src/shared/lib/cn";
+
+const cx = classNames.bind(styles);
 
 type ButtonProps = {
   icon?: React.ReactNode;
@@ -13,7 +15,13 @@ const Button = ({ children, icon, variant, isLoading, ...props }: ButtonProps) =
     <button
       {...props}
       disabled={isLoading || props.disabled}
-      className={cn(styles.btn, styles[`btn_${variant}`], props.className)}
+      className={cx(
+        "btn",
+        styles[`btn_${variant}`],
+        { "text-small": variant === "exit" },
+        { "text-medium": variant !== "exit" },
+        props.className
+      )}
     >
       {isLoading && <span className={styles.spinner}></span>}
       {icon}

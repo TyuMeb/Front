@@ -1,5 +1,5 @@
 import { Icon } from "@src/components/icon";
-import { QuestionType, useDeleteFileMutation, useUploadFileMutation } from "@src/redux/api/order-api-slice";
+import { QuestionType, useDeleteFileOldMutation, useUploadFileOldMutation } from "@src/redux/api/order-api-slice";
 import { useAppDispatch, useAppSelector } from "@src/redux/hooks";
 import { createOrderSlice } from "@src/redux/slices/create-order-slice";
 import { cn } from "@src/shared/lib/cn";
@@ -30,8 +30,8 @@ export const FieldControl = ({ positionOrder, question, readOnly, ...props }: Pr
     formState: { errors },
   } = useFormContext();
 
-  const [uploadFile] = useUploadFileMutation();
-  const [deleteFile] = useDeleteFileMutation();
+  const [uploadFile] = useUploadFileOldMutation();
+  const [deleteFile] = useDeleteFileOldMutation();
 
   const handleUploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];

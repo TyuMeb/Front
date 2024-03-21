@@ -1,26 +1,24 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { ErrorOption, FormProvider, useForm } from "react-hook-form";
 import styles from "@src/components/account/settings/settings.module.scss";
-import { usePatchUsersMeMutation, usePostUsersSetPasswordMutation } from "@src/redux/api/users-api-slice";
-import { UserAccount } from "@src/redux/api/generated";
+import { usePostUsersSetPasswordMutation, usePatchUsersMeMutation } from "@src/redux/api/users-api-slice";
+import { SetPasswordRetype, UserAccount } from "@src/redux/api/generated";
 import { setUser, useUser } from "@src/redux/slices/users-slice";
 import { useAppDispatch } from "@src/redux/hooks";
 import { createNotifyModal } from "@src/redux/slices/notify-modal-slice";
 import { Form } from "@src/components/account/settings/form";
 import { getUser } from "./lib/get-user";
+import { handleDefaultErrors } from "@src/shared/lib/handle-default-errors";
 
 export type SettingsForm = {
   name: string;
   surname?: string;
   person_telephone?: string;
   email: string;
-  currentPass: string;
-  newPass: string;
-  newPassRepeat: string;
   notifications: "email" | "off";
-};
+} & SetPasswordRetype;
 
 type ErrorData = {
   status: number;
@@ -33,19 +31,12 @@ export const Settings = () => {
   const [noticeEmail, setNoticeEmail] = useState<["email"] | null>(null);
 
   const [updateUsers, { isLoading: isLoadingUsers }] = usePatchUsersMeMutation();
-  const [updatePassword, { isLoading: isLoadingPassword, isError: isErrorPassword }] =
-    usePostUsersSetPasswordMutation();
+  const [updatePassword, { isLoading: isLoadingPassword }] = usePostUsersSetPasswordMutation();
 
   const user: UserAccount | null = useUser();
   const dispatch = useAppDispatch();
 
   const formMethods = useForm<SettingsForm>({
-    defaultValues: useMemo(() => {
-      if (user) {
-        setNoticeEmail(Boolean(user?.notifications?.length) ? ["email"] : null);
-        return getUser(user);
-      }
-    }, [user]),
     mode: "onChange",
   });
 
@@ -57,30 +48,25 @@ export const Settings = () => {
     formState: { dirtyFields },
   } = formMethods;
 
-  // TODO заменить defaultValues: useMemo на асинхронную функцию, удалить useEffect. Когда подключат кэш. Протестировать с кэшем.
   useEffect(() => {
-    if (user && isErrorPassword) {
+    if (user) {
       reset(
         {
           ...getUser(user),
-          currentPass: getValues().currentPass,
-          newPass: getValues().newPass,
-          newPassRepeat: getValues().newPassRepeat,
+          current_password: getValues().current_password,
+          new_password: getValues().new_password,
+          re_new_password: getValues().re_new_password,
         },
-        { keepErrors: true }
+        { keepDirty: true }
       );
-    } else if (user) {
-      reset(getUser(user));
+
+      let notificationsValue = null as ["email"] | null;
+      if (user.notifications?.includes("email")) {
+        notificationsValue = ["email"];
+      }
+      setNoticeEmail(notificationsValue);
     }
   }, [user]);
-
-  const handleDefaultErrors = (data: { [x: string]: string[] }) => {
-    const keys = Object.keys(data || {}) as Array<keyof SettingsForm>;
-
-    keys.forEach((key) => {
-      setError(key, { message: data[key]?.join(", ") });
-    });
-  };
 
   const handlerUserError = (error: ErrorData) => {
     if (error.status >= 500) {
@@ -102,11 +88,7 @@ export const Settings = () => {
       );
     }
 
-    if (error.status === 400 && error.data.hasOwnProperty("person_telephone")) {
-      setError("person_telephone", { message: "Такой номер телефона уже существует." });
-    } else {
-      handleDefaultErrors(error.data);
-    }
+    handleDefaultErrors<SettingsForm>(error.data, setError);
   };
 
   const handlerPasswordError = (error: ErrorData) => {
@@ -131,7 +113,7 @@ export const Settings = () => {
 
     if (error.status === 400 && error.data.hasOwnProperty("current_password")) {
       const messageError = (
-        <p style={{ margin: 0 }}>
+        <p className="text-small">
           Неверный пароль.&nbsp;
           <a href="/password-recovery">
             <u>Забыли пароль?</u>
@@ -139,51 +121,55 @@ export const Settings = () => {
         </p>
       );
 
-      setError("currentPass", {
+      setError("current_password", {
         message: messageError,
       } as { message: JSX.Element } & ErrorOption);
-    } else {
-      handleDefaultErrors(error.data);
+
+      return;
     }
+
+    handleDefaultErrors<SettingsForm>(error.data, setError);
   };
 
   const onSubmit = (data: SettingsForm) => {
-    const { notifications, person_telephone, newPass, currentPass, newPassRepeat, name, surname, ...rest } = data;
+    const { notifications, person_telephone, new_password, current_password, re_new_password, name, surname, ...rest } =
+      data;
 
     const dataUser = {
       name: name.trim(),
       surname: surname?.trim(),
       notifications: noticeEmail,
+      person_telephone: person_telephone?.replaceAll(" ", ""),
       ...rest,
     };
 
     const dataPassword = {
-      current_password: currentPass,
-      new_password: newPass,
-      re_new_password: newPassRepeat,
+      current_password,
+      new_password,
+      re_new_password,
     };
 
     let userPromise = null;
     let passwordPromise = null;
 
     if (
-      dirtyFields.notifications ||
-      dirtyFields.person_telephone ||
-      dirtyFields.email ||
-      dirtyFields.name ||
-      dirtyFields.surname
+      (dirtyFields.notifications && getValues().notifications.length) ||
+      (dirtyFields.person_telephone && getValues().person_telephone?.length) ||
+      (dirtyFields.email && getValues().email.length) ||
+      (dirtyFields.name && getValues().name.length) ||
+      (dirtyFields.surname && getValues().surname?.length)
     ) {
-      userPromise = updateUsers({ person_telephone: person_telephone?.replaceAll(" ", ""), ...dataUser })
+      userPromise = updateUsers(dataUser)
         .unwrap()
-        .then(() => {
-          return { success: true, error: false };
+        .then((data) => {
+          return { success: data, error: false };
         })
         .catch((error) => {
           return { success: false, error: error };
         });
     }
 
-    if (newPass && currentPass && newPassRepeat) {
+    if (new_password && current_password && re_new_password) {
       passwordPromise = updatePassword(dataPassword)
         .unwrap()
         .then(() => {
@@ -197,14 +183,14 @@ export const Settings = () => {
     Promise.allSettled([userPromise, passwordPromise]).then((data) => {
       const [user, password] = data as unknown as {
         status: string;
-        value: { error: ErrorData | false; success: string };
+        value: { error: ErrorData | false; success: boolean | UserAccount };
       }[];
 
       if (user?.value) {
         const { success, error } = user?.value;
 
-        if (success) {
-          dispatch(setUser({ person_telephone, ...dataUser }));
+        if (success && typeof success === "object") {
+          dispatch(setUser({ ...success }));
           dispatch(
             createNotifyModal({
               name: "successUser",
@@ -245,17 +231,6 @@ export const Settings = () => {
     });
   };
 
-  const deletingProfileComponent = () => {
-    return (
-      <div className={styles.row}>
-        <h2 className="subtitle2">Удаление профиля</h2>
-        <p className="text-medium">
-          Если вы хотите удалить профиль, пожалуйста, свяжитесь с нашей технической поддержкой на вкладке «помощь»
-        </p>
-      </div>
-    );
-  };
-
   return (
     user && (
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
@@ -268,8 +243,6 @@ export const Settings = () => {
             isLoading={isLoadingUsers || isLoadingPassword}
           />
         </FormProvider>
-
-        {deletingProfileComponent()}
       </form>
     )
   );

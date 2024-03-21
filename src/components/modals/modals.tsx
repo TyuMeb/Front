@@ -4,11 +4,11 @@ import React, { useEffect } from "react";
 import { useAppSelector } from "@src/redux/hooks";
 
 import { Modal } from "@src/components/modals/modal";
-import { SignIn } from "@src/components/modals/signin";
-import { Registration } from "@src/components/modals/registration";
-import { ResetPasswordConfirm } from "@src/components/modals/reset-password-confirm";
+import { SignIn } from "@src/components/modals/modal-auth/signin";
+import { Registration } from "@src/components/modals/modal-auth/registration";
+import { ResetPasswordConfirm } from "@src/components/modals/modal-auth/reset-password-confirm";
 import { ChooseThisProducer } from "@src/components/modals/choose-this-producer";
-import { ResetPassword } from "@src/components/modals/reset-password";
+import { ResetPassword } from "@src/components/modals/modal-auth/reset-password";
 import { Confirm } from "@src/components/modals/confirm";
 import { ModalGetContact } from "./modal-get-contact/modal-get-contact";
 

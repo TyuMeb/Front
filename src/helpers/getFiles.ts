@@ -1,6 +1,6 @@
-import { FilesList } from "@src/components/account/wrapper-form";
+import { FilesPreviewList } from "@src/shared/types/files.types";
 
-export const getFiles = (filesList: FilesList[]) => {
+export const getFiles = (filesList: FilesPreviewList[]) => {
   const files = [] as { id: string; file: File }[];
 
   filesList.forEach((file) => {

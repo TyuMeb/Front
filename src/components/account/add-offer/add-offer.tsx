@@ -7,15 +7,16 @@ import { Button } from "@src/shared/ui/button";
 import { Card } from "@src/components/account/card";
 import { ListItem } from "@src/components/account/card/list-item";
 
-import styles from "./addOffer.module.scss";
+import styles from "./add-offer.module.scss";
 import { customerOrders, CustomerOrdersItems } from "@src/shared/data/performer-account";
 import { Slider } from "@src/components/account/slider";
 import { useForm } from "react-hook-form";
 import { Input } from "@src/shared/ui/inputs";
-import { InputPreviewFiles, PreviewFiles, FilesPreview, WrapperForm } from "@src/components/account/wrapper-form";
+import { InputPreviewFiles, PreviewFiles, WrapperForm } from "@src/components/account/wrapper-form";
 import { Textarea } from "@src/shared/ui/inputs/textarea";
 import Paperclip from "@public/icons/paperclip.svg";
 import { Icon } from "@src/components/icon";
+import { FilePreview } from "@src/shared/types/files.types";
 
 const cx = classNames.bind(styles);
 
@@ -37,7 +38,7 @@ const cardList = (offer: CustomerOrdersItems) => {
 };
 
 export const AddOffer = ({ alias, ...props }: MyOfferProps) => {
-  const [filesPreview, setFilesPreview] = useState<FilesPreview[] | []>([]);
+  const [filesPreview, setFilesPreview] = useState<FilePreview[] | []>([]);
 
   const { register, handleSubmit } = useForm({
     values: {

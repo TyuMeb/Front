@@ -1,15 +1,18 @@
 import React, { ChangeEvent, Dispatch, InputHTMLAttributes, SetStateAction } from "react";
 
-import { FilesList, FilesPreview } from "@src/components/account/wrapper-form";
 import { FileInput } from "@src/shared/ui/inputs";
 import { checkMaxSizeFiles } from "@src/helpers";
 import { randomKey } from "@src/helpers";
+import { useUploadFileMutation } from "@src/redux/api/files-api-slice";
+import { addFiles } from "@src/redux/slices/files-slice";
+import { useAppDispatch } from "@src/redux/hooks";
+import { FilePreview, FilesPreviewList } from "@src/shared/types/files.types";
 
 export type FileInputProps = {
   maxSizeImage?: number;
   maxSizeFile?: number;
   maxCountFiles?: number;
-  setFilesPreview: Dispatch<SetStateAction<FilesPreview[] | []>>;
+  setFilesPreview: Dispatch<SetStateAction<FilePreview[] | []>>;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export const InputPreviewFiles = (props: FileInputProps) => {
@@ -25,7 +28,11 @@ export const InputPreviewFiles = (props: FileInputProps) => {
     ...restProps
   } = props;
 
-  const saveFiles = (data: FilesPreview) => {
+  const [uploadFile] = useUploadFileMutation();
+
+  const dispatch = useAppDispatch();
+
+  const saveFiles = (data: FilePreview) => {
     if (data.error) {
       setFilesPreview((prevValue) => {
         const newArray = [...prevValue];
@@ -63,8 +70,12 @@ export const InputPreviewFiles = (props: FileInputProps) => {
         return;
       }
 
-      const fileList = [] as FilesList[];
+      const formFiles = new FormData();
+
+      const fileList = [] as FilesPreviewList[];
       files.forEach((file) => {
+        formFiles.append("upload_file", file);
+
         const fileData = {
           id: randomKey(),
           error: false,
@@ -74,7 +85,7 @@ export const InputPreviewFiles = (props: FileInputProps) => {
           url: "",
           typeName: file.name.split(".").slice(-1)[0].toUpperCase(),
           file: file,
-        } as FilesPreview;
+        } as FilePreview;
 
         fileData.error = !checkMaxSizeFiles({ file, maxSizeImage, maxSizeFile });
 
@@ -92,7 +103,6 @@ export const InputPreviewFiles = (props: FileInputProps) => {
 
           reader.onload = (event) => {
             fileData.url = event.target?.result?.toString() || "";
-
             saveFiles(fileData);
           };
 
@@ -103,6 +113,13 @@ export const InputPreviewFiles = (props: FileInputProps) => {
           };
         }
       });
+
+      // TODO обработать ошибку
+      uploadFile(formFiles)
+        .unwrap()
+        .then((files) => {
+          dispatch(addFiles(files));
+        });
 
       target.value = "";
     }

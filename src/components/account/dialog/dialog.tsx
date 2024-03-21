@@ -3,7 +3,7 @@
 import React, { useState, useEffect, HTMLAttributes } from "react";
 import styles from "./dialog.module.scss";
 import { Button } from "@src/shared/ui/button";
-import { WrapperForm, InputPreviewFiles, PreviewFiles, FilesPreview } from "@src/components/account/wrapper-form";
+import { WrapperForm, InputPreviewFiles, PreviewFiles } from "@src/components/account/wrapper-form";
 import { Textarea } from "@src/shared/ui/inputs/textarea";
 import Paperclip from "@public/icons/paperclip.svg";
 import { Icon } from "@src/components/icon";
@@ -19,6 +19,7 @@ import { UserAccount } from "@src/redux/api/generated";
 import { useParams } from "next/navigation";
 import { Message } from "@src/redux/api/generated";
 import dayjs from "dayjs";
+import { FilePreview } from "@src/shared/types/files.types";
 
 export type OrderInfo = {
   customer?: string;
@@ -35,7 +36,7 @@ export type DialogProps = {
 export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
   const measuredForm = useMeasuredRef();
   const measuredDialog = useMeasuredRef();
-  const [filesPreview, setFilesPreview] = useState<FilesPreview[] | []>([]);
+  const [filesPreview, setFilesPreview] = useState<FilePreview[] | []>([]);
   const [websocket, setWebsocket] = useState<WebSocket | null>(null);
   const [messagesList, setMessagesList] = useState<Message[]>([]);
   const [unreadMessagesQty, SetUnreadMessagesQty] = useState<number>(0);

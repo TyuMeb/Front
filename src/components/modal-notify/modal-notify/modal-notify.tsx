@@ -12,7 +12,7 @@ type ModalNotifyProps = {
   name: string;
   type?: "default" | "success" | "error";
   text?: string;
-  delay?: number;
+  delay?: number | false;
 };
 
 const textButton = {
@@ -50,12 +50,16 @@ export const ModalNotify = ({ name, type = "default", text, delay }: ModalNotify
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (delay === false) {
+      return;
+    }
+
     setTimeout(() => dispatch(closeModal(name)), delay || 6000);
 
     return () => {
       clearTimeout(setTimeout(() => dispatch(closeModal(name)), delay || 6000));
     };
-  }, []);
+  }, [delay]);
 
   const handlerOnClick = () => {
     dispatch(closeModal(name));

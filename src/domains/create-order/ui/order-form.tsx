@@ -20,6 +20,7 @@ import { createOrderSlice } from "@src/redux/slices/create-order-slice";
 import { useUser } from "@src/redux/slices/users-slice";
 import { setTypeModal } from "@src/redux/slices/modal-slice";
 import { useRouter } from "next/navigation";
+import { CUSTOMER_PAGES } from "@src/shared/constants/customer-menu-items";
 
 type Props = {
   onBack: () => void;
@@ -128,7 +129,7 @@ export function OrderForm({ onBack, questionnaireTypeId }: Props) {
         .unwrap()
         .then(() => {
           removeCookieOrder();
-          router.push("/account/my-orders");
+          router.push(CUSTOMER_PAGES.myOrders.alias);
         });
 
       return;

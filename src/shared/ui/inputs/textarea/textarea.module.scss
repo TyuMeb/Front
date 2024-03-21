@@ -1,3 +1,7 @@
+.container {
+  width: 100%;
+}
+
 .textarea {
   display: block;
   width: 100%;
@@ -7,6 +11,7 @@
   resize: none;
   border-radius: 12px;
   max-height: 460px;
+  border: 1px solid #b5b3b2;
 
   &::placeholder {
     color: $asphalt;
@@ -30,6 +35,10 @@
   width: 0;
 }
 
-.text {
-  @include font-source-sans(16px, $graphite-black, 400, 21px);
+.errorMessage {
+  width: 100%;
+  word-break: break-word;
+  display: inline-block;
+  margin: 16px 24px;
+  color: $error-accent-color;
 }

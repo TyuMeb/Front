@@ -1,6 +1,6 @@
 "use client";
 
-import { AddOffer } from "@src/components/account/addOffer";
+import { AddOffer } from "@src/components/account/add-offer";
 
 type AddOfferPageProps = {
   params: {

@@ -1,0 +1,27 @@
+.container {
+  margin: 50px 92px 64px 76px;
+}
+
+.containerTitle {
+  margin-bottom: 28px;
+}
+
+.title {
+  margin-bottom: 12px;
+}
+
+.containerFields {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(296px, 1fr));
+  column-gap: 44px;
+  row-gap: 28px;
+  margin-bottom: 36px;
+}
+
+.checkbox {
+  margin-bottom: 52px;
+}
+
+.positionCenter {
+  margin: 0 auto;
+}

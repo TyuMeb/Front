@@ -41,7 +41,7 @@ export const Modal = ({ children, isOpen }: ModalProps) => {
             overlayNone: typeModal === "confirm",
           })}
         >
-          <Dialog.Content className={styles.modal}>
+          <Dialog.Content className={cx("modal", { getContact: typeModal === "getContact" })}>
             <button type="button" className={styles.closeModal} onMouseUp={() => dispatch(closeModal())} />
             {children}
           </Dialog.Content>

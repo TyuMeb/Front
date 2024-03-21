@@ -1,10 +1,14 @@
 import React, { forwardRef, useState, useCallback } from "react";
+import classNames from "classnames/bind";
 
 import styles from "./textarea.module.scss";
-import { cn } from "@src/shared/lib/cn";
+
+const cx = classNames.bind(styles);
 
 export type TextareaProps = {
   autoHeight?: boolean;
+  error?: boolean;
+  errorMessage?: string;
 } & React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
@@ -15,6 +19,8 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       defaultValue,
       autoHeight = false,
       rows: rowsFromProps = 3,
+      error,
+      errorMessage,
       className,
       ...props
     }: TextareaProps,
@@ -52,14 +58,18 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     );
 
     return (
-      <textarea
-        ref={ref}
-        className={cn("border-asphalt border-solid border", styles.textarea, styles.text, className)}
-        rows={rows}
-        value={value}
-        onChange={onChange}
-        {...props}
-      />
+      <div className={cx("container", className)}>
+        <textarea
+          ref={ref}
+          className={cx("textarea", "text-medium", className, { errorBorder: error })}
+          rows={rows}
+          value={value}
+          onChange={onChange}
+          {...props}
+        />
+
+        {errorMessage && error && <span className={cx("errorMessage", "text-small")}>{errorMessage}</span>}
+      </div>
     );
   }
 );

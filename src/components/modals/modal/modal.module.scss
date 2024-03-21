@@ -24,7 +24,7 @@
   justify-content: center;
 
   width: 100%;
-  max-width: 860px;
+  max-width: 864px;
   padding: 30px;
   border-radius: 4px;
   animation: show 150ms ease-in;
@@ -32,6 +32,10 @@
   @media screen and (max-width: 1024px) {
     padding: 16px;
   }
+}
+
+.getContact {
+  max-width: 1220px;
 }
 
 .closeModal {

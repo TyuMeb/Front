@@ -1,5 +1,5 @@
 import { apiSlice } from "./api-slice";
-import { UserCreate, SendEmailReset, PasswordResetConfirm, UserAccount } from "./generated";
+import { UserCreate, SendEmailReset, PasswordResetConfirm, UserAccount, SetPasswordRetype } from "./generated";
 
 const usersApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
@@ -93,7 +93,7 @@ const usersApi = apiSlice.injectEndpoints({
       }),
     }),
     postUsersSetPassword: build.mutation({
-      query: (body: { new_password: string; re_new_password: string; current_password: string }) => {
+      query: (body: SetPasswordRetype) => {
         return {
           url: "/auth/users/set_password/",
           method: "POST",
@@ -108,6 +108,7 @@ export const {
   useGetUsersQuery,
   useGetUsersMeQuery,
   usePatchUsersMeMutation,
+  usePutUsersMeMutation,
   useDeleteUsersMeMutation,
   useGetUsersIdQuery,
   usePutUsersIdMutation,

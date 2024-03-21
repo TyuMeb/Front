@@ -7,13 +7,13 @@ import { NoCard } from "@src/components/account/card/no-card";
 import { AddFiles } from "@src/components/account/my-orders/add-files";
 import { Icon } from "src/components/icon";
 import { getFiles } from "@src/helpers";
-import { FilesList } from "@src/components/account/wrapper-form";
 import { Slider } from "@src/components/account/slider";
 import { Button } from "@src/shared/ui/button";
 import { Card } from "@src/components/account/card";
 import { ListItem } from "../card/list-item/list-item";
 import { orders } from "./data";
 import Link from "next/link";
+import { FilesPreviewList } from "@src/shared/types/files.types";
 
 type MyOrdersProps = {} & HTMLAttributes<HTMLDivElement>;
 
@@ -26,7 +26,7 @@ export const MyOrders = (props: MyOrdersProps) => {
     accept: ".png, .jpg, .jpeg",
   };
 
-  const onChangeHandler = (data: FilesList[]) => {
+  const onChangeHandler = (data: FilesPreviewList[]) => {
     // TODO отправка на сервер изображения
     const files = getFiles(data);
 

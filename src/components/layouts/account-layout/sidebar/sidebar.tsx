@@ -16,8 +16,8 @@ import { useGetChatsQuery } from "@src/redux/api/chat-api-slice";
 import { CustomerMenu } from "./main-menu/customer-menu";
 import { ExecutorMenu } from "./main-menu/executor-menu";
 import { useUser } from "@src/redux/slices/users-slice";
-import { CUSTOMER_MENU_ITEMS } from "@src/shared/data/customer-menu-items";
-import { EXECUTOR_MENU_ITEMS } from "@src/shared/data/executor-menu-items";
+import { CUSTOMER_MENU_ITEMS } from "@src/shared/constants/customer-menu-items";
+import { EXECUTOR_MENU_ITEMS } from "@src/shared/constants/executor-menu-items";
 import { UserAccount } from "@src/redux/api/generated";
 import { parseOrdersToOrderItems, parseOffersToOfferItems } from "@src/helpers/parseToMenuItems";
 
