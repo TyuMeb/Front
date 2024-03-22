@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Button } from "@src/shared/ui/button";
 import { Icon } from "@src/components/icon";
-import { InputPreviewFiles, PreviewFiles } from "@src/components/account/wrapper-form";
+import { InputPreviewFiles } from "@src/components/account/wrapper-form";
 import { Textarea } from "@src/shared/ui/inputs/textarea";
 import classNames from "classnames/bind";
 import { useForm } from "react-hook-form";
@@ -12,8 +12,10 @@ import styles from "./help.module.scss";
 import { createNotifyModal } from "@src/redux/slices/notify-modal-slice";
 import { useAppDispatch } from "@src/redux/hooks";
 import { VALIDATIONS_TEXTAREA } from "@src/shared/constants/fields";
-import { resetFiles, useFiles } from "@src/redux/slices/files-slice";
+import { useFiles } from "@src/redux/slices/files-slice";
 import { FilePreview, FileType } from "@src/shared/types/files.types";
+import { FileInput } from "@src/shared/ui/inputs";
+import { usePreviewFiles } from "@src/hooks/use-preview-files";
 
 const cx = classNames.bind(styles);
 
@@ -23,6 +25,15 @@ type HelpForm = {
 
 export const Help = () => {
   const [filesPreview, setFilesPreview] = useState<FilePreview[] | []>([]);
+  const { filesErrorPreview, onChange, resetFiles } = usePreviewFiles({
+    maxSizeFile: 10,
+    accept: "svg, image",
+    multiple: true,
+  });
+
+  useEffect(() => {
+    console.log(filesErrorPreview);
+  }, [filesErrorPreview]);
 
   const {
     handleSubmit,
@@ -56,8 +67,7 @@ export const Help = () => {
         );
         reset();
         setFilesPreview([]);
-        console.log(filesPreview);
-        dispatch(resetFiles());
+        resetFiles();
       })
       .catch((error) => {
         console.log("🚀 ~ file: help.tsx:46 ~ onSubmit ~ error:", error);
@@ -127,6 +137,15 @@ export const Help = () => {
             />
           </InputPreviewFiles>
 
+          <FileInput multiple={true} onChange={onChange}>
+            <Icon
+              glyph="paperclip"
+              className={cx("icon", {
+                disabled: filesPreview.length >= settingsInput.settings.maxCountFiles,
+              })}
+            />
+          </FileInput>
+
           <Button className={styles.buttonSubmit} isLoading={isLoading} type="submit">
             <Icon glyph="paper_airplane" />
           </Button>
@@ -137,7 +156,7 @@ export const Help = () => {
         )}
       </form>
 
-      {filesPreview.length ? <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} /> : <></>}
+      {/* {filesPreview.length ? <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} /> : <></>} */}
     </div>
   );
 };

@@ -14,7 +14,7 @@ export type FilePreview = {
   error: boolean;
   type: "image" | "file";
   typeName: string;
-  url: string;
+  image: string;
   name: string;
   size: number;
   file: File;

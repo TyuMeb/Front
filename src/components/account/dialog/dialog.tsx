@@ -3,7 +3,7 @@
 import React, { useState, useEffect, HTMLAttributes } from "react";
 import styles from "./dialog.module.scss";
 import { Button } from "@src/shared/ui/button";
-import { WrapperForm, InputPreviewFiles, PreviewFiles } from "@src/components/account/wrapper-form";
+import { WrapperForm, InputPreviewFiles } from "@src/components/account/wrapper-form";
 import { Textarea } from "@src/shared/ui/inputs/textarea";
 import Paperclip from "@public/icons/paperclip.svg";
 import { Icon } from "@src/components/icon";
@@ -235,7 +235,7 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
             </Button>
           </WrapperForm>
         </form>
-        {filesPreview.length ? <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} /> : <></>}
+        {/* {filesPreview.length ? <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} /> : <></>} */}
       </div>
     </article>
   );

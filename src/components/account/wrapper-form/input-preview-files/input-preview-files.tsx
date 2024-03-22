@@ -1,7 +1,7 @@
 import React, { ChangeEvent, Dispatch, InputHTMLAttributes, SetStateAction } from "react";
 
 import { FileInput } from "@src/shared/ui/inputs";
-import { checkMaxSizeFiles } from "@src/helpers";
+import { exceedsMaximumSize } from "@src/helpers";
 import { randomKey } from "@src/helpers";
 import { useUploadFileMutation } from "@src/redux/api/files-api-slice";
 import { addFiles } from "@src/redux/slices/files-slice";
@@ -82,12 +82,12 @@ export const InputPreviewFiles = (props: FileInputProps) => {
           type: "image",
           name: file.name.split(".")[0].toUpperCase(),
           size: file.size,
-          url: "",
+          image: "",
           typeName: file.name.split(".").slice(-1)[0].toUpperCase(),
           file: file,
         } as FilePreview;
 
-        fileData.error = !checkMaxSizeFiles({ file, maxSizeImage, maxSizeFile });
+        fileData.error = exceedsMaximumSize({ file, maxSizeImage, maxSizeFile });
 
         fileList.push({ id: fileData.id, file, error: fileData.error });
 
@@ -102,7 +102,7 @@ export const InputPreviewFiles = (props: FileInputProps) => {
           reader.readAsDataURL(file);
 
           reader.onload = (event) => {
-            fileData.url = event.target?.result?.toString() || "";
+            fileData.image = event.target?.result?.toString() || "";
             saveFiles(fileData);
           };
 

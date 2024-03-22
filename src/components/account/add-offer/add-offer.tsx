@@ -12,7 +12,7 @@ import { customerOrders, CustomerOrdersItems } from "@src/shared/data/performer-
 import { Slider } from "@src/components/account/slider";
 import { useForm } from "react-hook-form";
 import { Input } from "@src/shared/ui/inputs";
-import { InputPreviewFiles, PreviewFiles, WrapperForm } from "@src/components/account/wrapper-form";
+import { InputPreviewFiles, WrapperForm } from "@src/components/account/wrapper-form";
 import { Textarea } from "@src/shared/ui/inputs/textarea";
 import Paperclip from "@public/icons/paperclip.svg";
 import { Icon } from "@src/components/icon";
@@ -134,7 +134,7 @@ export const AddOffer = ({ alias, ...props }: MyOfferProps) => {
             </Button>
           </WrapperForm>
 
-          {filesPreview.length ? <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} /> : <></>}
+          {/* {filesPreview.length ? <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} /> : <></>} */}
 
           <Button className={`text-small ${styles.button}`} onClick={() => {}}>
             Отправить предложение
