@@ -58,7 +58,7 @@ const orderApi = apiSlice.injectEndpoints({
     uploadFileOld: build.mutation<File, { id: number; upload_file: globalThis.File; question_id: number }>({
       query: (body) => {
         return {
-          url: `/order/${body.id}/files/`,
+          url: '/file/upload/',
           method: "POST",
           headers: {
             // "Content-Type": "multipart/form-data",
@@ -77,6 +77,19 @@ const orderApi = apiSlice.injectEndpoints({
         };
       },
     }),
+    addProjectDescription: build.mutation<unknown, { name: string, description: string , orderId: number }>({
+      query: ({ name, description, orderId }) => {
+        return {
+          url: `/order/${orderId}/`,
+          method: "PATCH",
+          body: {
+            name,
+            description
+          },
+        };
+      },
+    }),
+
   }),
 });
 
@@ -90,6 +103,7 @@ export const {
   useUploadFileOldMutation,
   useFinishOrderMutation,
   useClientActiveOrdersQuery,
+  useAddProjectDescriptionMutation
 } = orderApi;
 
 export { orderApi };

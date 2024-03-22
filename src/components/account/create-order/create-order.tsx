@@ -7,8 +7,9 @@ import { QuestionaryType } from "./questionnaire/questionnaire-type";
 import { Button } from "@src/shared/ui/button";
 import { useCreateOrderMutation } from "@src/redux/api/order-api-slice";
 import { getCookieOrder, storeCookieOrder } from "./lib/order-storage";
+import { ProjectDescription } from "./project-description/project-description";
 
-type Step = "category" | "questionnaire-type" | "order-form";
+type Step = "category" | "questionnaire-type" | "order-form" | "project-description";
 
 export const CreateOrder = () => {
   const [categoryId, setCategoryId] = useState<number | null>(null);
@@ -25,8 +26,24 @@ export const CreateOrder = () => {
       .unwrap()
       .then((data) => {
         storeCookieOrder(data.order_id);
-        setStep("order-form");
+        handleDescriptionStep()
       });
+  };
+
+  const handleOrderFormStep = () => {
+    setStep("order-form");
+  }
+
+  const handleQuestionnaireStep = () => {
+    setStep("questionnaire-type");
+  };
+
+  const handleDescriptionStep = () => {
+    setStep("project-description");
+  };
+
+  const handleCategoryStep = () => {
+    setStep("category");
   };
 
   return (
@@ -34,7 +51,7 @@ export const CreateOrder = () => {
       {step === "category" && (
         <Categories categoryId={categoryId} setCategoryId={setCategoryId}>
           {categoryId && (
-            <Button className="self-center mx-auto mt-12" onClick={() => setStep("questionnaire-type")} type="button">
+            <Button className="self-center mx-auto mt-12" onClick={handleQuestionnaireStep} type="button">
               Далее
             </Button>
           )}
@@ -45,7 +62,7 @@ export const CreateOrder = () => {
         <QuestionaryType
           onBack={() => {
             setQuestionnaireTypeId(null);
-            setStep("category");
+            handleCategoryStep()
           }}
           categoryId={categoryId}
           questionnaireTypeId={questionnaireTypeId}
@@ -64,7 +81,11 @@ export const CreateOrder = () => {
         </QuestionaryType>
       )}
 
-      {step === "order-form" && <Form onBack={() => setStep("category")} questionnaireTypeId={questionnaireTypeId} />}
+      {step === "project-description" && (
+        <ProjectDescription onBack={handleQuestionnaireStep} onNextStep={handleOrderFormStep} />
+      )}
+
+      {step === "order-form" && <Form onBack={handleCategoryStep} questionnaireTypeId={questionnaireTypeId} />}
     </div>
   );
 };
