@@ -1,10 +1,12 @@
 import { FilePreview } from "@src/shared/types/files.types";
 import { ChangeEvent, useEffect, useState } from "react";
-import { exceedsMaximumSize, randomKey } from "@src/helpers";
+import { exceedsMaximumSize } from "@src/helpers";
 import { useUploadFileMutation } from "@src/redux/api/files-api-slice";
 import { useAppDispatch } from "@src/redux/hooks";
 import { createNotifyModal } from "@src/redux/slices/notify-modal-slice";
 import { resetFiles as clearFiles } from "@src/redux/slices/files-slice";
+import { isTypeResolved } from "@src/shared/lib/is-type-resolved";
+import { saveToLocalStorage } from "@src/shared/lib/save-to-local-storage";
 
 export type FileInputProps = {
   accept?: string;
@@ -36,14 +38,7 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
       uploadFile(formFiles)
         .unwrap()
         .then((files) => {
-          const contactSupportForm = localStorage.getItem("contactSupportForm");
-          if (contactSupportForm && Object.hasOwnProperty("files")) {
-            const newFiles = JSON.parse(contactSupportForm).files;
-            newFiles.push(...files);
-            localStorage.setItem("contactSupportForm", JSON.stringify({ files: newFiles }));
-            return;
-          }
-          localStorage.setItem("contactSupportForm", JSON.stringify({ files }));
+          saveToLocalStorage(files, "contactSupportForm", "files");
         })
         .catch((error) => {
           dispatch(
@@ -63,6 +58,7 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
   };
 
   const saveFiles = (data: FilePreview) => {
+    console.log(data);
     if (multiple) {
       setFilesErrorPreview((prevValue) => {
         const newArray = [...prevValue];
@@ -75,31 +71,6 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
     setFilesErrorPreview([data]);
   };
 
-  const isTypeResolved = (file: File, typeName: string) => {
-    if (accept) {
-      const typesFile = file.type.toLowerCase().split("/");
-      const typesAccept = accept.toLocaleLowerCase().split(",");
-
-      const foundType = typesAccept.find((acceptType) => {
-        acceptType = acceptType.trim();
-        const wasFound = acceptType.includes(typeName.toLocaleLowerCase());
-        if (wasFound) return true;
-
-        return typesFile.find((typeFile) => {
-          return new RegExp(acceptType).test(typeFile.toLocaleLowerCase());
-        });
-      });
-
-      return foundType;
-    }
-
-    if (maxSizeImage || maxSizeFile) {
-      return !exceedsMaximumSize({ file, maxSizeImage, maxSizeFile });
-    }
-
-    return false;
-  };
-
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
 
@@ -109,24 +80,31 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
 
     Array.from(files).forEach((file) => {
       const fileData = {
-        id: randomKey(),
+        // id: randomKey(),
         error: false,
-        type: "image",
-        name: file.name.split(".")[0].toLowerCase(),
-        size: file.size,
-        typeName: file.name.split(".").slice(-1)[0].toUpperCase(),
+        // type: "image",
+        // name: file.name.split(".")[0].toLowerCase(),
+        // size: file.size,
+        // typeName: file.name.split(".").slice(-1)[0].toUpperCase(),
         file: file,
       } as FilePreview;
 
-      fileData.error = !isTypeResolved(file, fileData.typeName);
+      const typeName = file.name.split(".").slice(-1)[0].toUpperCase();
+      const typeResolved = accept ? !isTypeResolved(file, accept, typeName) : false;
+      if (typeResolved) {
+        return;
+      }
 
       const exceedsMaximum = maxCountFiles ? filesErrorPreview.length >= maxCountFiles : false;
       if (exceedsMaximum) {
         return;
       }
 
+      if (maxSizeImage || maxSizeFile) {
+        if (exceedsMaximumSize({ file, maxSizeImage, maxSizeFile })) return;
+      }
+
       if (!file.type.match("image")) {
-        fileData.type = "file";
         saveFiles(fileData);
       }
 
@@ -135,7 +113,7 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
         reader.readAsDataURL(file);
 
         reader.onload = (event) => {
-          fileData.image = event.target?.result?.toString() || "";
+          fileData.preview_url = event.target?.result?.toString() || "";
           saveFiles(fileData);
         };
 

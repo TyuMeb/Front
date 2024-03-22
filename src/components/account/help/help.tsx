@@ -26,8 +26,8 @@ type HelpForm = {
 export const Help = () => {
   const [filesPreview, setFilesPreview] = useState<FilePreview[] | []>([]);
   const { filesErrorPreview, onChange, resetFiles } = usePreviewFiles({
-    maxSizeFile: 10,
-    accept: "svg, image",
+    // maxSizeFile: 10,
+    // accept: "svg, image",
     multiple: true,
   });
 

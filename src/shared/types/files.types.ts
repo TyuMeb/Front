@@ -17,6 +17,7 @@ export type FilePreview = {
   image: string;
   name: string;
   size: number;
+  preview_url: string;
   file: File;
 };
 
