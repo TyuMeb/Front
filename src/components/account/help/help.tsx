@@ -16,6 +16,8 @@ import { useFiles } from "@src/redux/slices/files-slice";
 import { FilePreview, FileType } from "@src/shared/types/files.types";
 import { FileInput } from "@src/shared/ui/inputs";
 import { usePreviewFiles } from "@src/hooks/use-preview-files";
+import { PreviewFiles } from "../wrapper-form/preview-files/preview-files";
+import { getLocalStorage } from "@src/shared/lib/get-local-storage";
 
 const cx = classNames.bind(styles);
 
@@ -156,7 +158,7 @@ export const Help = () => {
         )}
       </form>
 
-      {/* {filesPreview.length ? <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} /> : <></>} */}
+      {getLocalStorage() ? <PreviewFiles setFilesPreview={setFilesPreview} /> : undefined}
     </div>
   );
 };

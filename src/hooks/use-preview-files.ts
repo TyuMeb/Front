@@ -86,6 +86,7 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
         // name: file.name.split(".")[0].toLowerCase(),
         // size: file.size,
         // typeName: file.name.split(".").slice(-1)[0].toUpperCase(),
+        preview_url: null,
         file: file,
       } as FilePreview;
 
