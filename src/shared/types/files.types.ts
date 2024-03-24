@@ -15,6 +15,7 @@ export type FilePreview = {
   error: boolean;
   previewUrl: string | null;
   file: File;
+  fileSize: number;
 };
 
 export type FilesPreviewList = {

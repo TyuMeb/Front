@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Button } from "@src/shared/ui/button";
 import { Icon } from "@src/components/icon";
@@ -25,9 +25,12 @@ type HelpForm = {
 };
 
 export const Help = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { filesPreview, onChange, resetFiles } = usePreviewFiles(SETTINGS_INPUT_FILE);
+  const { filesPreview, onChange, resetFiles, removeFileById } = usePreviewFiles(SETTINGS_INPUT_FILE);
   const localFiles = useFiles();
+
+  useEffect(() => {
+    console.log(filesPreview);
+  }, [filesPreview]);
 
   const {
     handleSubmit,
@@ -123,7 +126,13 @@ export const Help = () => {
         )}
       </form>
 
-      {localFiles.length ? <PreviewFiles localFiles={localFiles} /> : undefined}
+      {localFiles.length || filesPreview.length ? (
+        <PreviewFiles
+          filesPreviewError={filesPreview.filter((file) => file.error === true)}
+          localFiles={localFiles}
+          removeErrorFile={removeFileById}
+        />
+      ) : undefined}
     </div>
   );
 };

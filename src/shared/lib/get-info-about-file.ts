@@ -11,16 +11,16 @@ const convertTo = (size: number, convertType: convert) => {
 
 export const getInfoAboutFile = ({
   originalName,
-  size,
+  fileSize,
   convertType,
 }: {
   originalName: string;
-  size: number;
+  fileSize: number;
   convertType: convert;
 }) => {
   return {
     typeName: originalName.split(".").slice(-1)[0].toUpperCase(),
     name: originalName.split(".")[0].toLowerCase(),
-    fileSize: convertTo(size, convertType),
+    size: convertTo(fileSize, convertType),
   };
 };

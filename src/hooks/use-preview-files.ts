@@ -5,7 +5,7 @@ import { useUploadFileMutation } from "@src/redux/api/files-api-slice";
 import { useAppDispatch } from "@src/redux/hooks";
 import { createNotifyModal } from "@src/redux/slices/notify-modal-slice";
 import { isTypeResolved } from "@src/shared/lib/is-type-resolved";
-import { addFiles, resetFiles as resetLocalFiles } from "@src/redux/slices/local-files-slice";
+import { addFiles, resetFiles as resetLocalFiles, useFiles } from "@src/redux/slices/local-files-slice";
 
 export type FileInputProps = {
   accept?: string;
@@ -20,6 +20,8 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
   const [uploadFile] = useUploadFileMutation();
 
   const dispatch = useAppDispatch();
+
+  const localFiles = useFiles();
 
   useEffect(() => {
     if (filesPreview.length) {
@@ -38,6 +40,10 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
         .unwrap()
         .then((files) => {
           dispatch(addFiles(files));
+          setFilesPreview((prevFiles) => {
+            const newFile = prevFiles.filter((file) => file.error);
+            return newFile;
+          });
         })
         .catch((error) => {
           dispatch(
@@ -50,6 +56,13 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
         });
     }
   }, [filesPreview]);
+
+  const removeFileById = (id: string) => {
+    setFilesPreview((prevFiles) => {
+      const newFile = prevFiles.filter((file) => file.id !== id);
+      return newFile;
+    });
+  };
 
   const resetFiles = () => {
     setFilesPreview([]);
@@ -83,6 +96,7 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
         name: file.name.split(".")[0].toLowerCase(),
         previewUrl: null,
         file: file,
+        fileSize: file.size,
       } as FilePreview;
 
       const typeName = file.name.split(".").slice(-1)[0].toUpperCase();
@@ -91,13 +105,13 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
         return;
       }
 
-      const exceedsMaximum = maxCountFiles ? filesPreview.length >= maxCountFiles : false;
+      const exceedsMaximum = maxCountFiles ? localFiles.length >= maxCountFiles : false;
       if (exceedsMaximum) {
         return;
       }
 
       if (maxSizeImage || maxSizeFile) {
-        if (exceedsMaximumSize({ file, maxSizeImage, maxSizeFile })) return;
+        if (exceedsMaximumSize({ file, maxSizeImage, maxSizeFile })) fileData.error = true;
       }
 
       if (!file.type.match("image")) {
@@ -127,5 +141,6 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
     filesPreview,
     onChange,
     resetFiles,
+    removeFileById,
   };
 }

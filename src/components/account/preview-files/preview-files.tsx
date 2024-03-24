@@ -5,7 +5,7 @@ import Image from "next/image";
 import styles from "./preview-files.module.scss";
 import { Icon } from "@src/components/icon";
 import { cn } from "@src/shared/lib/cn";
-import { FileType } from "@src/shared/types/files.types";
+import { FilePreview, FileType } from "@src/shared/types/files.types";
 import { useAppDispatch } from "@src/redux/hooks";
 import { removeFile } from "@src/redux/slices/local-files-slice";
 import { useDeleteFileMutation } from "@src/redux/api/files-api-slice";
@@ -17,9 +17,11 @@ type convertProps = "MB";
 type PreviewFilesT = {
   convertType?: convertProps;
   localFiles: FileType[];
+  filesPreviewError: FilePreview[];
+  removeErrorFile: (id: string) => void;
 };
 
-export const PreviewFiles = ({ convertType = "MB", localFiles }: PreviewFilesT) => {
+export const PreviewFiles = ({ convertType = "MB", filesPreviewError, localFiles, removeErrorFile }: PreviewFilesT) => {
   const [deleteFile] = useDeleteFileMutation();
   const dispatch = useAppDispatch();
 
@@ -55,7 +57,7 @@ export const PreviewFiles = ({ convertType = "MB", localFiles }: PreviewFilesT) 
   const filePreviewErrorComponent = ({ id, name, fileSize, typeName }: { [name: string]: string }) => (
     <>
       <div className={styles.containerImage}>
-        <span className={styles.crossDelete} onClick={() => removeHandlerFile(id)} />
+        <span className={styles.crossDelete} onClick={() => removeErrorFile(id)} />
         <Icon width={24} height={32} glyph="file" />
         <Icon className={styles.position} width={10} height={16} glyph="exclamation" />
         <p className={styles.typeFile}>{typeName}</p>
@@ -70,8 +72,8 @@ export const PreviewFiles = ({ convertType = "MB", localFiles }: PreviewFilesT) 
   return (
     <ul className={cn(styles.containerImages, "scrollbar-x")}>
       {localFiles.map((file) => {
-        const { id, preview_url: previewUrl, original_name: originalName, file_size: size } = file;
-        const { typeName, name, fileSize } = getInfoAboutFile({ originalName, size, convertType });
+        const { id, preview_url: previewUrl, original_name: originalName, file_size: fileSize } = file;
+        const { typeName, name, size } = getInfoAboutFile({ originalName, fileSize, convertType });
 
         return previewUrl ? (
           <li key={id} className={styles.imageItem}>
@@ -80,6 +82,16 @@ export const PreviewFiles = ({ convertType = "MB", localFiles }: PreviewFilesT) 
         ) : (
           <li key={id} className={styles.imageItem}>
             {filePreviewComponent({ typeName, id })}
+          </li>
+        );
+      })}
+
+      {filesPreviewError.map((fileError) => {
+        const { id, previewUrl, name: originalName, fileSize } = fileError;
+        const { typeName, name, size } = getInfoAboutFile({ originalName, fileSize, convertType });
+        return (
+          <li key={id} className={styles.imageItem}>
+            {filePreviewErrorComponent({ id, name, fileSize: size, typeName })}
           </li>
         );
       })}
