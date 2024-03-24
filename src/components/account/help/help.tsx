@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { Button } from "@src/shared/ui/button";
 import { Icon } from "@src/components/icon";
-import { InputPreviewFiles } from "@src/components/account/wrapper-form";
 import { Textarea } from "@src/shared/ui/inputs/textarea";
 import classNames from "classnames/bind";
 import { useForm } from "react-hook-form";
@@ -12,12 +11,12 @@ import styles from "./help.module.scss";
 import { createNotifyModal } from "@src/redux/slices/notify-modal-slice";
 import { useAppDispatch } from "@src/redux/hooks";
 import { VALIDATIONS_TEXTAREA } from "@src/shared/constants/fields";
-import { useFiles } from "@src/redux/slices/files-slice";
-import { FilePreview, FileType } from "@src/shared/types/files.types";
+import { FileType } from "@src/shared/types/files.types";
 import { FileInput } from "@src/shared/ui/inputs";
 import { usePreviewFiles } from "@src/hooks/use-preview-files";
-import { PreviewFiles } from "../wrapper-form/preview-files/preview-files";
-import { getLocalStorage } from "@src/shared/lib/get-local-storage";
+import { PreviewFiles } from "@src/components/account/preview-files";
+import { useFiles } from "@src/redux/slices/local-files-slice";
+import { SETTINGS_INPUT_FILE } from "./constants";
 
 const cx = classNames.bind(styles);
 
@@ -26,16 +25,9 @@ type HelpForm = {
 };
 
 export const Help = () => {
-  const [filesPreview, setFilesPreview] = useState<FilePreview[] | []>([]);
-  const { filesErrorPreview, onChange, resetFiles } = usePreviewFiles({
-    // maxSizeFile: 10,
-    // accept: "svg, image",
-    multiple: true,
-  });
-
-  useEffect(() => {
-    console.log(filesErrorPreview);
-  }, [filesErrorPreview]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { filesPreview, onChange, resetFiles } = usePreviewFiles(SETTINGS_INPUT_FILE);
+  const localFiles = useFiles();
 
   const {
     handleSubmit,
@@ -50,12 +42,10 @@ export const Help = () => {
 
   const [createSupportRequest, { isLoading }] = useCreateSupportRequestMutation();
 
-  const files = useFiles();
-
   const dispatch = useAppDispatch();
 
   const onSubmitHandler = (data: HelpForm) => {
-    const idFiles = files.map((file: FileType) => file.id) as FileType[] | [];
+    const idFiles = localFiles.map((file: FileType) => file.id) as FileType[] | [];
 
     createSupportRequest({ ...data, files: idFiles })
       .unwrap()
@@ -68,7 +58,6 @@ export const Help = () => {
           })
         );
         reset();
-        setFilesPreview([]);
         resetFiles();
       })
       .catch((error) => {
@@ -96,17 +85,6 @@ export const Help = () => {
       });
   };
 
-  const settingsInput = {
-    settings: {
-      maxSizeFile: 1000000,
-      maxSizeImage: 100000,
-      maxCountFiles: 6,
-      multiple: true,
-      accept: ".png, .jpg, .jpeg",
-    },
-    disabled: (maxCountFiles: number) => filesPreview.length >= maxCountFiles,
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.containerText}>
@@ -126,24 +104,11 @@ export const Help = () => {
             })}
           />
 
-          <InputPreviewFiles
-            disabled={settingsInput.disabled(settingsInput.settings.maxCountFiles)}
-            {...settingsInput.settings}
-            setFilesPreview={setFilesPreview}
-          >
+          <FileInput multiple={SETTINGS_INPUT_FILE.multiple} onChange={onChange}>
             <Icon
               glyph="paperclip"
               className={cx("icon", {
-                disabled: filesPreview.length >= settingsInput.settings.maxCountFiles,
-              })}
-            />
-          </InputPreviewFiles>
-
-          <FileInput multiple={true} onChange={onChange}>
-            <Icon
-              glyph="paperclip"
-              className={cx("icon", {
-                disabled: filesPreview.length >= settingsInput.settings.maxCountFiles,
+                disabled: localFiles.length >= SETTINGS_INPUT_FILE.maxCountFiles,
               })}
             />
           </FileInput>
@@ -158,7 +123,7 @@ export const Help = () => {
         )}
       </form>
 
-      {getLocalStorage() ? <PreviewFiles setFilesPreview={setFilesPreview} /> : undefined}
+      {localFiles.length ? <PreviewFiles localFiles={localFiles} /> : undefined}
     </div>
   );
 };

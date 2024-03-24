@@ -12,7 +12,7 @@ import { apiSlice } from "@src/redux/api/api-slice";
 import { userReducer } from "./slices/users-slice";
 import { createOrderSlice } from "./slices/create-order-slice";
 import { chatReducer } from "./slices/chat-slice";
-import { filesReducer } from "./slices/files-slice";
+import { localFilesReducer } from "./slices/local-files-slice";
 
 export const store = configureStore({
   reducer: {
@@ -25,7 +25,7 @@ export const store = configureStore({
     user: userReducer,
     createOrder: createOrderSlice.reducer,
     chats: chatReducer,
-    files: filesReducer,
+    localFiles: localFilesReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),

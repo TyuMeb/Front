@@ -3,7 +3,7 @@ export interface DeleteFile {
 }
 
 export type FileType = {
-  id?: string;
+  id: string;
   original_name: string;
   file_size: number;
   preview_url?: string;
@@ -11,13 +11,9 @@ export type FileType = {
 
 export type FilePreview = {
   id: string;
-  error: boolean;
-  type: "image" | "file";
-  typeName: string;
-  image: string;
   name: string;
-  size: number;
-  preview_url: string | null;
+  error: boolean;
+  previewUrl: string | null;
   file: File;
 };
 

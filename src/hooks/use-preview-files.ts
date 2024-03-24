@@ -1,12 +1,11 @@
 import { FilePreview } from "@src/shared/types/files.types";
 import { ChangeEvent, useEffect, useState } from "react";
-import { exceedsMaximumSize } from "@src/helpers";
+import { exceedsMaximumSize, randomKey } from "@src/helpers";
 import { useUploadFileMutation } from "@src/redux/api/files-api-slice";
 import { useAppDispatch } from "@src/redux/hooks";
 import { createNotifyModal } from "@src/redux/slices/notify-modal-slice";
-import { resetFiles as clearFiles } from "@src/redux/slices/files-slice";
 import { isTypeResolved } from "@src/shared/lib/is-type-resolved";
-import { saveToLocalStorage } from "@src/shared/lib/save-to-local-storage";
+import { addFiles, resetFiles as resetLocalFiles } from "@src/redux/slices/local-files-slice";
 
 export type FileInputProps = {
   accept?: string;
@@ -17,18 +16,18 @@ export type FileInputProps = {
 };
 
 export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFiles, multiple }: FileInputProps) {
-  const [filesErrorPreview, setFilesErrorPreview] = useState<FilePreview[] | []>([]);
+  const [filesPreview, setFilesPreview] = useState<FilePreview[] | []>([]);
   const [uploadFile] = useUploadFileMutation();
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (filesErrorPreview.length) {
+    if (filesPreview.length) {
       const formFiles = new FormData();
 
-      filesErrorPreview.forEach((file) => {
-        if (file.error) return;
-        formFiles.append("upload_file", file.file);
+      filesPreview.forEach((fileData) => {
+        if (fileData.error) return;
+        formFiles.append("upload_file", fileData.file);
       });
 
       if (!formFiles.get("upload_file")) {
@@ -38,7 +37,7 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
       uploadFile(formFiles)
         .unwrap()
         .then((files) => {
-          saveToLocalStorage(files, "contactSupportForm", "files");
+          dispatch(addFiles(files));
         })
         .catch((error) => {
           dispatch(
@@ -50,17 +49,16 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
           );
         });
     }
-  }, [filesErrorPreview]);
+  }, [filesPreview]);
 
   const resetFiles = () => {
-    setFilesErrorPreview([]);
-    dispatch(clearFiles());
+    setFilesPreview([]);
+    dispatch(resetLocalFiles());
   };
 
   const saveFiles = (data: FilePreview) => {
-    console.log(data);
     if (multiple) {
-      setFilesErrorPreview((prevValue) => {
+      setFilesPreview((prevValue) => {
         const newArray = [...prevValue];
         newArray.push(data);
         return newArray.slice(0, maxCountFiles);
@@ -68,7 +66,7 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
       return;
     }
 
-    setFilesErrorPreview([data]);
+    setFilesPreview([data]);
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -80,13 +78,10 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
 
     Array.from(files).forEach((file) => {
       const fileData = {
-        // id: randomKey(),
+        id: randomKey(),
         error: false,
-        // type: "image",
-        // name: file.name.split(".")[0].toLowerCase(),
-        // size: file.size,
-        // typeName: file.name.split(".").slice(-1)[0].toUpperCase(),
-        preview_url: null,
+        name: file.name.split(".")[0].toLowerCase(),
+        previewUrl: null,
         file: file,
       } as FilePreview;
 
@@ -96,7 +91,7 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
         return;
       }
 
-      const exceedsMaximum = maxCountFiles ? filesErrorPreview.length >= maxCountFiles : false;
+      const exceedsMaximum = maxCountFiles ? filesPreview.length >= maxCountFiles : false;
       if (exceedsMaximum) {
         return;
       }
@@ -114,7 +109,7 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
         reader.readAsDataURL(file);
 
         reader.onload = (event) => {
-          fileData.preview_url = event.target?.result?.toString() || "";
+          fileData.previewUrl = event.target?.result?.toString() || "";
           saveFiles(fileData);
         };
 
@@ -129,7 +124,7 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
   };
 
   return {
-    filesErrorPreview,
+    filesPreview,
     onChange,
     resetFiles,
   };

@@ -1,14 +1,16 @@
-import { FileType } from "../types/files.types";
+import { FileType } from "@src/shared/types/files.types";
+import { getFromLocalStorage } from "./get-from-local-storage";
 
-export const saveToLocalStorage = (files: FileType[], name: string, key: string) => {
+export const addToLocalStorage = (files: FileType[], name: string, key: string) => {
   const contactSupportForm = localStorage.getItem(name);
 
   if (contactSupportForm) {
     const newFiles = JSON.parse(contactSupportForm).files;
     newFiles.push(...files);
     localStorage.setItem(name, JSON.stringify({ [key]: newFiles }));
-    return;
   } else {
     localStorage.setItem(name, JSON.stringify({ [key]: files }));
   }
+
+  return getFromLocalStorage(name, key);
 };
