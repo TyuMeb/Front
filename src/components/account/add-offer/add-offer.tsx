@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import React, { HTMLAttributes, useState } from "react";
@@ -12,7 +13,7 @@ import { customerOrders, CustomerOrdersItems } from "@src/shared/data/performer-
 import { Slider } from "@src/components/account/slider";
 import { useForm } from "react-hook-form";
 import { Input } from "@src/shared/ui/inputs";
-import { InputPreviewFiles, PreviewFiles, WrapperForm } from "@src/components/account/wrapper-form";
+import { WrapperForm } from "@src/components/account/wrapper-form";
 import { Textarea } from "@src/shared/ui/inputs/textarea";
 import Paperclip from "@public/icons/paperclip.svg";
 import { Icon } from "@src/components/icon";
@@ -117,7 +118,7 @@ export const AddOffer = ({ alias, ...props }: MyOfferProps) => {
               })}
             />
 
-            <InputPreviewFiles
+            {/* <InputPreviewFiles
               disabled={settingsInput.disabled(settingsInput.settings.maxCountFiles)}
               {...settingsInput.settings}
               setFilesPreview={setFilesPreview}
@@ -127,14 +128,14 @@ export const AddOffer = ({ alias, ...props }: MyOfferProps) => {
                   disabled: filesPreview.length >= settingsInput.settings.maxCountFiles,
                 })}
               />
-            </InputPreviewFiles>
+            </InputPreviewFiles> */}
 
             <Button className={styles.buttonSubmit} type="submit">
               <Icon glyph="paper_airplane" />
             </Button>
           </WrapperForm>
 
-          {filesPreview.length ? <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} /> : <></>}
+          {/* {filesPreview.length ? <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} /> : <></>} */}
 
           <Button className={`text-small ${styles.button}`} onClick={() => {}}>
             Отправить предложение

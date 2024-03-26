@@ -29,6 +29,16 @@ const nextConfig = {
     includePaths: [path.join(__dirname, "src/styles")],
     prependData: `@import "@src/styles/index.scss";`,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "api.whywe.ru",
+        port: "",
+        pathname: "/file/preview/**",
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;

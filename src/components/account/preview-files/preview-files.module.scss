@@ -1,0 +1,137 @@
+.containerImages {
+  display: flex;
+  column-gap: 32px;
+  padding-top: 14px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.imageItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 6px;
+}
+
+.containerPreviewImage {
+  position: relative;
+}
+
+.containerImage {
+  position: relative;
+  width: 50px;
+  height: 58px;
+}
+
+.buttonDelete {
+  z-index: 1;
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: white;
+  width: 18px;
+  height: 18px;
+}
+
+.crossDelete {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+
+  &::after {
+    position: absolute;
+    content: "";
+    width: 2px;
+    height: 11px;
+    background-color: #565c78;
+    transform: rotate(42deg);
+    left: 2px;
+    right: -2px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border-radius: 10px;
+  }
+
+  &::before {
+    position: absolute;
+    content: "";
+    width: 2px;
+    height: 11px;
+    background-color: #565c78;
+    transform: rotate(-42deg);
+    left: 2px;
+    right: -2px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border-radius: 10px;
+  }
+}
+
+.position {
+  position: absolute;
+  top: 8px;
+  left: 28px;
+}
+
+.typeFile {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 18px;
+  color: var(--text, #1c1c1c);
+  position: absolute;
+  top: 20px;
+  left: 11px;
+  background-color: white;
+  max-width: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.textDesc {
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  max-width: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.textColor {
+  color: #e52424;
+}
+
+.containerText {
+  width: 46px;
+  display: flex;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.containerFileInfo {
+  position: relative;
+  margin-top: 5px;
+  display: grid;
+  row-gap: 2px;
+}
+
+.fileName {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.fileSize {
+  text-align: center;
+  width: 46px;
+}
+
+.errorText {
+  color: #dd2025;
+}

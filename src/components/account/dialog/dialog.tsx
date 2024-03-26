@@ -1,15 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import React, { useState, useEffect, HTMLAttributes } from "react";
 import styles from "./dialog.module.scss";
 import { Button } from "@src/shared/ui/button";
-import { WrapperForm, InputPreviewFiles, PreviewFiles } from "@src/components/account/wrapper-form";
+import { WrapperForm } from "@src/components/account/wrapper-form";
 import { Textarea } from "@src/shared/ui/inputs/textarea";
 import Paperclip from "@public/icons/paperclip.svg";
 import { Icon } from "@src/components/icon";
 import { useForm, Controller } from "react-hook-form";
 import { useMeasuredRef } from "@src/hooks/use-measured-ref";
-import { getFiles } from "@src/helpers/getFiles";
+// import { getFiles } from "@src/helpers/getFiles";
 import { WrapperInfo } from "./wrapper-info";
 import { Chat } from "./chat/chat";
 import { getCookie } from "typescript-cookie";
@@ -155,10 +156,10 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
   });
 
   const onSubmitHandler = (data: { chat: string }) => {
-    const files = getFiles(filesPreview);
+    // const files = getFiles(filesPreview);
 
     const formFiles = new FormData();
-    files.forEach((file) => formFiles.append(`file-${file.id}`, file.file));
+    // files.forEach((file) => formFiles.append(`file-${file.id}`, file.file));
 
     // TODO: СДЕЛАТЬ ОТПРАВКУ ФАЙЛОВ
 
@@ -222,20 +223,20 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
               )}
             />
 
-            <InputPreviewFiles
+            {/* <InputPreviewFiles
               disabled={settingsInput.disabled(settingsInput.settings.maxCountFiles)}
               {...settingsInput.settings}
               setFilesPreview={setFilesPreview}
             >
               <Paperclip />
-            </InputPreviewFiles>
+            </InputPreviewFiles> */}
 
             <Button className={styles.buttonSubmit} type="submit" disabled={!watch("chat")}>
               <Icon glyph="paper_airplane" />
             </Button>
           </WrapperForm>
         </form>
-        {filesPreview.length ? <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} /> : <></>}
+        {/* {filesPreview.length ? <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} /> : <></>} */}
       </div>
     </article>
   );

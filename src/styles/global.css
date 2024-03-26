@@ -175,6 +175,13 @@ h4 {
   font-weight: 600;
 }
 
+.text-very-small {
+  font-family: var(--font-open-sans), Arial, sans-serif;
+  font-size: 9px;
+  line-height: 13.5px;
+  font-weight: 400;
+}
+
 h1,
 h2,
 h3 {
@@ -189,4 +196,19 @@ h3 {
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.scrollbar-x {
+  &::-webkit-scrollbar {
+    height: 9px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #d9d9d9;
+    border-radius: 20px;
+  }
 }

@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 
 import { Button } from "@src/shared/ui/button";
 import { Icon } from "@src/components/icon";
-import { InputPreviewFiles, PreviewFiles } from "@src/components/account/wrapper-form";
 import { Textarea } from "@src/shared/ui/inputs/textarea";
 import classNames from "classnames/bind";
 import { useForm } from "react-hook-form";
@@ -12,8 +11,13 @@ import styles from "./help.module.scss";
 import { createNotifyModal } from "@src/redux/slices/notify-modal-slice";
 import { useAppDispatch } from "@src/redux/hooks";
 import { VALIDATIONS_TEXTAREA } from "@src/shared/constants/fields";
-import { resetFiles, useFiles } from "@src/redux/slices/files-slice";
-import { FilePreview, FileType } from "@src/shared/types/files.types";
+import { FileType } from "@src/shared/types/files.types";
+import { FileInput } from "@src/shared/ui/inputs";
+import { usePreviewFiles } from "@src/hooks/use-preview-files";
+import { PreviewFiles } from "@src/components/account/preview-files";
+import { addFiles, useFiles, resetFiles as resetLocalFiles } from "@src/redux/slices/local-files-slice";
+import { SETTINGS_INPUT_FILE } from "./constants";
+import { useUploadFileMutation } from "@src/redux/api/files-api-slice";
 
 const cx = classNames.bind(styles);
 
@@ -22,7 +26,53 @@ type HelpForm = {
 };
 
 export const Help = () => {
-  const [filesPreview, setFilesPreview] = useState<FilePreview[] | []>([]);
+  const { filesPreview, onChange, removeFileById, setFilesPreview } = usePreviewFiles(SETTINGS_INPUT_FILE);
+  const localFiles = useFiles();
+
+  const [uploadFile] = useUploadFileMutation();
+
+  // useEffect(() => {
+  //   setFilesPreview(localFiles);
+  // }, [])
+
+  useEffect(() => {
+    setFilesPreview(localFiles);
+  }, [localFiles]);
+
+  useEffect(() => {
+    if (filesPreview.length) {
+      const formFiles = new FormData();
+
+      filesPreview.forEach((fileData) => {
+        if (fileData.error) return;
+        if (fileData?.file) formFiles.append("upload_file", fileData?.file);
+      });
+
+      if (!formFiles.get("upload_file")) {
+        return;
+      }
+
+      uploadFile(formFiles)
+        .unwrap()
+        .then((files) => {
+          dispatch(addFiles(files));
+        })
+        .catch((error) => {
+          dispatch(
+            createNotifyModal({
+              name: "errorUploadFiles",
+              type: "error",
+              text: error.data?.detail || "Ошибка загрузки файла на сервер",
+            })
+          );
+        });
+    }
+  }, [filesPreview]);
+
+  const resetFiles = () => {
+    setFilesPreview([]);
+    dispatch(resetLocalFiles());
+  };
 
   const {
     handleSubmit,
@@ -37,12 +87,10 @@ export const Help = () => {
 
   const [createSupportRequest, { isLoading }] = useCreateSupportRequestMutation();
 
-  const files = useFiles();
-
   const dispatch = useAppDispatch();
 
   const onSubmitHandler = (data: HelpForm) => {
-    const idFiles = files.map((file: FileType) => file.id) as FileType[] | [];
+    const idFiles = localFiles.map((file) => file.id) as FileType[] | [];
 
     createSupportRequest({ ...data, files: idFiles })
       .unwrap()
@@ -55,9 +103,7 @@ export const Help = () => {
           })
         );
         reset();
-        setFilesPreview([]);
-        console.log(filesPreview);
-        dispatch(resetFiles());
+        resetFiles();
       })
       .catch((error) => {
         console.log("🚀 ~ file: help.tsx:46 ~ onSubmit ~ error:", error);
@@ -84,17 +130,6 @@ export const Help = () => {
       });
   };
 
-  const settingsInput = {
-    settings: {
-      maxSizeFile: 1000000,
-      maxSizeImage: 100000,
-      maxCountFiles: 6,
-      multiple: true,
-      accept: ".png, .jpg, .jpeg",
-    },
-    disabled: (maxCountFiles: number) => filesPreview.length >= maxCountFiles,
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.containerText}>
@@ -114,18 +149,14 @@ export const Help = () => {
             })}
           />
 
-          <InputPreviewFiles
-            disabled={settingsInput.disabled(settingsInput.settings.maxCountFiles)}
-            {...settingsInput.settings}
-            setFilesPreview={setFilesPreview}
-          >
+          <FileInput multiple={SETTINGS_INPUT_FILE.multiple} onChange={onChange}>
             <Icon
               glyph="paperclip"
               className={cx("icon", {
-                disabled: filesPreview.length >= settingsInput.settings.maxCountFiles,
+                disabled: localFiles.length >= SETTINGS_INPUT_FILE.maxCountFiles,
               })}
             />
-          </InputPreviewFiles>
+          </FileInput>
 
           <Button className={styles.buttonSubmit} isLoading={isLoading} type="submit">
             <Icon glyph="paper_airplane" />
@@ -137,7 +168,9 @@ export const Help = () => {
         )}
       </form>
 
-      {filesPreview.length ? <PreviewFiles files={filesPreview} setFilesPreview={setFilesPreview} /> : <></>}
+      {localFiles.length || filesPreview.length ? (
+        <PreviewFiles filesPreview={filesPreview} removeErrorFile={removeFileById} />
+      ) : undefined}
     </div>
   );
 };

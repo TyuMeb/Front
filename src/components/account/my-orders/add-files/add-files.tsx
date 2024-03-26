@@ -1,7 +1,7 @@
 import React, { ChangeEvent, HTMLAttributes } from "react";
 
 import { FileInput } from "@src/shared/ui/inputs/file";
-import { checkMaxSizeFiles } from "@src/helpers";
+import { exceedsMaximumSize } from "@src/helpers";
 import { randomKey } from "@src/helpers";
 import { FilesPreviewList } from "@src/shared/types/files.types";
 
@@ -39,7 +39,7 @@ export const AddFiles = ({
         fileList.push({
           id: randomKey(),
           file,
-          error: !checkMaxSizeFiles({ file, maxSizeImage, maxSizeFile }),
+          error: !exceedsMaximumSize({ file, maxSizeImage, maxSizeFile }),
         });
       });
 
