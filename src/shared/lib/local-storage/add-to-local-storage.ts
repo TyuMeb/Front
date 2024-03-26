@@ -1,7 +1,7 @@
-import { FileType } from "@src/shared/types/files.types";
+import { FilePreview } from "@src/shared/types/files.types";
 import { getFromLocalStorage } from "./get-from-local-storage";
 
-export const addToLocalStorage = (files: FileType[], name: string, key: string) => {
+export const addToLocalStorage = (files: FilePreview[], name: string, key: string) => {
   const contactSupportForm = localStorage.getItem(name);
 
   if (contactSupportForm) {

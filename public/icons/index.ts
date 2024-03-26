@@ -19,6 +19,10 @@ import chair from './chair.svg';
 import paperclip from './paperclip.svg';
 import paper_airplane from './paper_airplane.svg';
 import file from './file.svg';
+import fileXLS from './file-xls.svg';
+import fileDOC from './file-doc.svg';
+import filePDF from './file-pdf.svg';
+import fileTXT from './file-txt.svg';
 import exclamation from './exclamation.svg';
 import arrowRight from './home/arrow-right.svg';
 import clock from './home/clock.svg';
@@ -52,6 +56,10 @@ export default {
 	paperclip,
 	paper_airplane,
 	file,
+	fileXLS,
+	fileDOC,
+	filePDF,
+	fileTXT,
 	exclamation,
 	arrowRight,
 	clock,

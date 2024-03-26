@@ -10,7 +10,7 @@ import Paperclip from "@public/icons/paperclip.svg";
 import { Icon } from "@src/components/icon";
 import { useForm, Controller } from "react-hook-form";
 import { useMeasuredRef } from "@src/hooks/use-measured-ref";
-import { getFiles } from "@src/helpers/getFiles";
+// import { getFiles } from "@src/helpers/getFiles";
 import { WrapperInfo } from "./wrapper-info";
 import { Chat } from "./chat/chat";
 import { getCookie } from "typescript-cookie";
@@ -156,10 +156,10 @@ export const Dialog = ({ orderInfo, ...props }: DialogProps) => {
   });
 
   const onSubmitHandler = (data: { chat: string }) => {
-    const files = getFiles(filesPreview);
+    // const files = getFiles(filesPreview);
 
     const formFiles = new FormData();
-    files.forEach((file) => formFiles.append(`file-${file.id}`, file.file));
+    // files.forEach((file) => formFiles.append(`file-${file.id}`, file.file));
 
     // TODO: СДЕЛАТЬ ОТПРАВКУ ФАЙЛОВ
 

@@ -1,6 +1,6 @@
 .containerImages {
   display: flex;
-  column-gap: 20px;
+  column-gap: 32px;
   padding-top: 14px;
   overflow-x: scroll;
   overflow-y: hidden;
@@ -13,43 +13,60 @@
   row-gap: 6px;
 }
 
+.containerPreviewImage {
+  position: relative;
+}
+
 .containerImage {
   position: relative;
-  width: 60px;
-  height: 36px;
-  display: flex;
-  justify-content: center;
+  width: 50px;
+  height: 58px;
+}
+
+.buttonDelete {
+  z-index: 1;
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: white;
+  width: 18px;
+  height: 18px;
 }
 
 .crossDelete {
-  position: absolute;
-  top: -7px;
-  right: 6px;
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
 
   &::after {
     position: absolute;
-    top: 2px;
-    left: 6px;
     content: "";
-    width: 1px;
-    height: 8px;
+    width: 2px;
+    height: 11px;
     background-color: #565c78;
-    transform: rotate(45deg);
+    transform: rotate(42deg);
+    left: 2px;
+    right: -2px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border-radius: 10px;
   }
 
   &::before {
     position: absolute;
-    top: 2px;
-    left: 6px;
     content: "";
-    width: 1px;
-    height: 8px;
+    width: 2px;
+    height: 11px;
     background-color: #565c78;
-    transform: rotate(-45deg);
+    transform: rotate(-42deg);
+    left: 2px;
+    right: -2px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border-radius: 10px;
   }
 }
 
@@ -88,6 +105,33 @@
   color: #e52424;
 }
 
+.containerText {
+  width: 46px;
+  display: flex;
+}
+
 .image {
   object-fit: cover;
+}
+
+.containerFileInfo {
+  position: relative;
+  margin-top: 5px;
+  display: grid;
+  row-gap: 2px;
+}
+
+.fileName {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.fileSize {
+  text-align: center;
+  width: 46px;
+}
+
+.errorText {
+  color: #dd2025;
 }

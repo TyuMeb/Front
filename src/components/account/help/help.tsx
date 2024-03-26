@@ -15,8 +15,9 @@ import { FileType } from "@src/shared/types/files.types";
 import { FileInput } from "@src/shared/ui/inputs";
 import { usePreviewFiles } from "@src/hooks/use-preview-files";
 import { PreviewFiles } from "@src/components/account/preview-files";
-import { useFiles } from "@src/redux/slices/local-files-slice";
+import { addFiles, useFiles, resetFiles as resetLocalFiles } from "@src/redux/slices/local-files-slice";
 import { SETTINGS_INPUT_FILE } from "./constants";
+import { useUploadFileMutation } from "@src/redux/api/files-api-slice";
 
 const cx = classNames.bind(styles);
 
@@ -25,12 +26,53 @@ type HelpForm = {
 };
 
 export const Help = () => {
-  const { filesPreview, onChange, resetFiles, removeFileById } = usePreviewFiles(SETTINGS_INPUT_FILE);
+  const { filesPreview, onChange, removeFileById, setFilesPreview } = usePreviewFiles(SETTINGS_INPUT_FILE);
   const localFiles = useFiles();
 
+  const [uploadFile] = useUploadFileMutation();
+
+  // useEffect(() => {
+  //   setFilesPreview(localFiles);
+  // }, [])
+
   useEffect(() => {
-    console.log(filesPreview);
+    setFilesPreview(localFiles);
+  }, [localFiles]);
+
+  useEffect(() => {
+    if (filesPreview.length) {
+      const formFiles = new FormData();
+
+      filesPreview.forEach((fileData) => {
+        if (fileData.error) return;
+        if (fileData?.file) formFiles.append("upload_file", fileData?.file);
+      });
+
+      if (!formFiles.get("upload_file")) {
+        return;
+      }
+
+      uploadFile(formFiles)
+        .unwrap()
+        .then((files) => {
+          dispatch(addFiles(files));
+        })
+        .catch((error) => {
+          dispatch(
+            createNotifyModal({
+              name: "errorUploadFiles",
+              type: "error",
+              text: error.data?.detail || "Ошибка загрузки файла на сервер",
+            })
+          );
+        });
+    }
   }, [filesPreview]);
+
+  const resetFiles = () => {
+    setFilesPreview([]);
+    dispatch(resetLocalFiles());
+  };
 
   const {
     handleSubmit,
@@ -48,7 +90,7 @@ export const Help = () => {
   const dispatch = useAppDispatch();
 
   const onSubmitHandler = (data: HelpForm) => {
-    const idFiles = localFiles.map((file: FileType) => file.id) as FileType[] | [];
+    const idFiles = localFiles.map((file) => file.id) as FileType[] | [];
 
     createSupportRequest({ ...data, files: idFiles })
       .unwrap()
@@ -127,11 +169,7 @@ export const Help = () => {
       </form>
 
       {localFiles.length || filesPreview.length ? (
-        <PreviewFiles
-          filesPreviewError={filesPreview.filter((file) => file.error === true)}
-          localFiles={localFiles}
-          removeErrorFile={removeFileById}
-        />
+        <PreviewFiles filesPreview={filesPreview} removeErrorFile={removeFileById} />
       ) : undefined}
     </div>
   );

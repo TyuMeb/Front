@@ -6,7 +6,7 @@ export type FileType = {
   id: string;
   original_name: string;
   file_size: number;
-  preview_url?: string;
+  preview_url: string;
 };
 
 export type FilePreview = {
@@ -14,7 +14,7 @@ export type FilePreview = {
   name: string;
   error: boolean;
   previewUrl: string | null;
-  file: File;
+  file?: File;
   fileSize: number;
 };
 

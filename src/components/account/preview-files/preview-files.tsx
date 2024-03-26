@@ -1,27 +1,25 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import Image from "next/image";
+import classNames from "classnames/bind";
 
 import styles from "./preview-files.module.scss";
-import { Icon } from "@src/components/icon";
 import { cn } from "@src/shared/lib/cn";
-import { FilePreview, FileType } from "@src/shared/types/files.types";
+import { FilePreview } from "@src/shared/types/files.types";
 import { useAppDispatch } from "@src/redux/hooks";
 import { removeFile } from "@src/redux/slices/local-files-slice";
 import { useDeleteFileMutation } from "@src/redux/api/files-api-slice";
 import { createNotifyModal } from "@src/redux/slices/notify-modal-slice";
 import { getInfoAboutFile } from "@src/shared/lib/get-info-about-file";
-
-type convertProps = "MB";
+import { FileIcon } from "./file-icon";
+const cx = classNames.bind(styles);
 
 type PreviewFilesT = {
-  convertType?: convertProps;
-  localFiles: FileType[];
-  filesPreviewError: FilePreview[];
+  filesPreview: FilePreview[];
   removeErrorFile: (id: string) => void;
 };
 
-export const PreviewFiles = ({ convertType = "MB", filesPreviewError, localFiles, removeErrorFile }: PreviewFilesT) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const PreviewFiles = ({ filesPreview, removeErrorFile }: PreviewFilesT) => {
   const [deleteFile] = useDeleteFileMutation();
   const dispatch = useAppDispatch();
 
@@ -39,59 +37,53 @@ export const PreviewFiles = ({ convertType = "MB", filesPreviewError, localFiles
       });
   };
 
-  const imagePreviewComponent = ({ id, previewUrl, name }: { [name: string]: string }) => (
-    <div className={styles.containerImage}>
-      <span className={styles.crossDelete} onClick={() => removeHandlerFile(id)} />
-      <Image className={styles.image} width={32} height={32} src={previewUrl || ""} alt={name} />
-    </div>
-  );
+  const imagePreviewComponent = ({
+    id,
+    previewUrl,
+    name,
+    typeName,
+    size,
+    error,
+  }: {
+    id: string;
+    previewUrl: string | null;
+    name: string;
+    typeName: string;
+    size: string;
+    error: boolean;
+  }) => (
+    <div className={styles.containerPreviewImage}>
+      <button className={styles.buttonDelete} onClick={() => removeHandlerFile(id)}>
+        <span className={styles.crossDelete} />
+      </button>
 
-  const filePreviewComponent = ({ id, typeName }: { [name: string]: string }) => (
-    <div className={styles.containerImage}>
-      <span className={styles.crossDelete} onClick={() => removeHandlerFile(id)} />
-      <Icon width={32} height={32} glyph="file" />
-      <p className={styles.typeFile}>{typeName}</p>
-    </div>
-  );
+      {previewUrl ? (
+        <div className={styles.containerImage}>
+          <Image className={styles.image} fill={true} src={previewUrl} alt={name} />
+        </div>
+      ) : (
+        <FileIcon type={typeName} />
+      )}
 
-  const filePreviewErrorComponent = ({ id, name, fileSize, typeName }: { [name: string]: string }) => (
-    <>
-      <div className={styles.containerImage}>
-        <span className={styles.crossDelete} onClick={() => removeErrorFile(id)} />
-        <Icon width={24} height={32} glyph="file" />
-        <Icon className={styles.position} width={10} height={16} glyph="exclamation" />
-        <p className={styles.typeFile}>{typeName}</p>
+      <div className={styles.containerFileInfo}>
+        <p className={cn("text-very-small", styles.containerText)}>
+          <span className={styles.fileName}>{name}.</span>
+          <span>{typeName}</span>
+        </p>
+        <p className={cx("text-very-small", "fileSize", { errorText: error })}>{size}</p>
       </div>
-      <div className={styles.descriptionImage}>
-        <p className={styles.textDesc}>{name}</p>
-        <p className={`${styles.textDesc} ${styles.textColor}`}>{fileSize}</p>
-      </div>
-    </>
+    </div>
   );
 
   return (
     <ul className={cn(styles.containerImages, "scrollbar-x")}>
-      {localFiles.map((file) => {
-        const { id, preview_url: previewUrl, original_name: originalName, file_size: fileSize } = file;
-        const { typeName, name, size } = getInfoAboutFile({ originalName, fileSize, convertType });
+      {filesPreview.map((file) => {
+        const { id, previewUrl, fileSize, error } = file;
+        const { typeName, name, size } = getInfoAboutFile({ name: file.name, fileSize });
 
-        return previewUrl ? (
-          <li key={id} className={styles.imageItem}>
-            {imagePreviewComponent({ name, id, previewUrl })}
-          </li>
-        ) : (
-          <li key={id} className={styles.imageItem}>
-            {filePreviewComponent({ typeName, id })}
-          </li>
-        );
-      })}
-
-      {filesPreviewError.map((fileError) => {
-        const { id, previewUrl, name: originalName, fileSize } = fileError;
-        const { typeName, name, size } = getInfoAboutFile({ originalName, fileSize, convertType });
         return (
           <li key={id} className={styles.imageItem}>
-            {filePreviewErrorComponent({ id, name, fileSize: size, typeName })}
+            {imagePreviewComponent({ name, id, previewUrl, size, typeName, error })}
           </li>
         );
       })}

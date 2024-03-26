@@ -1,26 +1,17 @@
-type convert = "MB";
+import { convertTo } from "@src/shared/lib/convert-to";
+import { converterValue } from "@src/shared/constants/converter-file-value";
 
-const converterValue = {
-  MB: { size: 1000000, symbol: "mb" },
+const convertValue = (size: number) => {
+  const convertToMB = convertTo({ size, convertType: "MB" });
+  if (convertToMB > 1) {
+    return `${convertTo({ size, convertType: "MB" }).toFixed(1)} ${converterValue["MB"].symbol}`;
+  }
+
+  return `${convertTo({ size, convertType: "KB" }).toFixed(1)} ${converterValue["KB"].symbol}`;
 };
 
-const convertTo = (size: number, convertType: convert) => {
-  const convertValue = (size / converterValue[convertType].size).toFixed(3);
-  return `${convertValue} ${converterValue[convertType].symbol}`;
-};
-
-export const getInfoAboutFile = ({
-  originalName,
-  fileSize,
-  convertType,
-}: {
-  originalName: string;
-  fileSize: number;
-  convertType: convert;
-}) => {
-  return {
-    typeName: originalName.split(".").slice(-1)[0].toUpperCase(),
-    name: originalName.split(".")[0].toLowerCase(),
-    size: convertTo(fileSize, convertType),
-  };
-};
+export const getInfoAboutFile = ({ name, fileSize }: { name: string; fileSize: number }) => ({
+  typeName: name.split(".").pop() || "",
+  name: name.split(".")[0].toLowerCase(),
+  size: convertValue(fileSize),
+});

@@ -1,11 +1,8 @@
 import { FilePreview } from "@src/shared/types/files.types";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { exceedsMaximumSize, randomKey } from "@src/helpers";
-import { useUploadFileMutation } from "@src/redux/api/files-api-slice";
-import { useAppDispatch } from "@src/redux/hooks";
-import { createNotifyModal } from "@src/redux/slices/notify-modal-slice";
 import { isTypeResolved } from "@src/shared/lib/is-type-resolved";
-import { addFiles, resetFiles as resetLocalFiles, useFiles } from "@src/redux/slices/local-files-slice";
+import { useFiles } from "@src/redux/slices/local-files-slice";
 
 export type FileInputProps = {
   accept?: string;
@@ -17,56 +14,15 @@ export type FileInputProps = {
 
 export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFiles, multiple }: FileInputProps) {
   const [filesPreview, setFilesPreview] = useState<FilePreview[] | []>([]);
-  const [uploadFile] = useUploadFileMutation();
 
-  const dispatch = useAppDispatch();
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const localFiles = useFiles();
-
-  useEffect(() => {
-    if (filesPreview.length) {
-      const formFiles = new FormData();
-
-      filesPreview.forEach((fileData) => {
-        if (fileData.error) return;
-        formFiles.append("upload_file", fileData.file);
-      });
-
-      if (!formFiles.get("upload_file")) {
-        return;
-      }
-
-      uploadFile(formFiles)
-        .unwrap()
-        .then((files) => {
-          dispatch(addFiles(files));
-          setFilesPreview((prevFiles) => {
-            const newFile = prevFiles.filter((file) => file.error);
-            return newFile;
-          });
-        })
-        .catch((error) => {
-          dispatch(
-            createNotifyModal({
-              name: "errorUploadFiles",
-              type: "error",
-              text: error.data?.detail || "Ошибка загрузки файла на сервер",
-            })
-          );
-        });
-    }
-  }, [filesPreview]);
 
   const removeFileById = (id: string) => {
     setFilesPreview((prevFiles) => {
       const newFile = prevFiles.filter((file) => file.id !== id);
       return newFile;
     });
-  };
-
-  const resetFiles = () => {
-    setFilesPreview([]);
-    dispatch(resetLocalFiles());
   };
 
   const saveFiles = (data: FilePreview) => {
@@ -93,7 +49,7 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
       const fileData = {
         id: randomKey(),
         error: false,
-        name: file.name.split(".")[0].toLowerCase(),
+        name: file.name,
         previewUrl: null,
         file: file,
         fileSize: file.size,
@@ -105,7 +61,7 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
         return;
       }
 
-      const exceedsMaximum = maxCountFiles ? localFiles.length >= maxCountFiles : false;
+      const exceedsMaximum = maxCountFiles ? filesPreview.length >= maxCountFiles : false;
       if (exceedsMaximum) {
         return;
       }
@@ -140,7 +96,7 @@ export function usePreviewFiles({ accept, maxSizeImage, maxSizeFile, maxCountFil
   return {
     filesPreview,
     onChange,
-    resetFiles,
     removeFileById,
+    setFilesPreview,
   };
 }
